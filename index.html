@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Freedom Crate Co. – Shop</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" />
+      <span class="brand-text"><strong>Freedom Crate Co.</strong><br /><small>Handcrafted Ammo & Range Boxes</small></span>
+    </a>
+    <nav class="nav">
+      <a class="active" href="index.html">Shop</a>
+      <a href="contact.html">Custom Orders</a>
+    </nav>
+  </header>
+
+  <main class="container wide">
+    <section class="hero">
+      <h1>Hand-Built Ammo Boxes</h1>
+      <p>Edit a Google Sheet to add products — no code deploys needed.</p>
+      <div class="actions">
+        <button class="btn active" data-filter="all">All</button>
+        <button class="btn ghost" data-filter="favorites">Favorites</button>
+      </div>
+    </section>
+
+    <section id="products" class="grid" aria-live="polite"></section>
+
+    <section class="notice">
+      <p>Tip: set <code>qty</code> to 0 in your sheet to mark an item as <strong>Sold Out</strong>.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span class="badge">US Veteran-inspired • Florida-built</span>
+      <p class="muted">Rugged, practical, and made to be used.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/catalog.js"></script>
+</body>
+</html>

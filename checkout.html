@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout • Freedom Crate Co.</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" />
+      <span class="brand-text"><strong>Freedom Crate Co.</strong><br /><small>Handcrafted Ammo & Range Boxes</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Shop</a>
+      <a href="contact.html">Custom Orders</a>
+    </nav>
+  </header>
+
+  <main class="container narrow">
+    <h1>Checkout</h1>
+    <table class="table">
+      <thead><tr><th>Item</th><th class="num">Qty</th><th class="num">Price</th><th class="num">Subtotal</th></tr></thead>
+      <tbody id="cartBody"></tbody>
+      <tfoot><tr><th colspan="3" class="num">Total</th><th class="num" id="cartTotal">$0.00</th></tr></tfoot>
+    </table>
+
+    <!-- Netlify captures this order in your dashboard -->
+    <form name="order" method="POST" data-netlify="true" class="form" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="order" />
+      <p class="hidden"><label>Leave this empty<input name="bot-field" /></label></p>
+      <input type="hidden" id="cartJson" name="cart_json" value="{}" />
+
+      <div class="grid2">
+        <label>Full Name<input name="name" required></label>
+        <label>Email<input name="email" type="email" required></label>
+      </div>
+      <label>Shipping Address<textarea name="address" rows="3" required></textarea></label>
+      <label>Notes<textarea name="notes" rows="3"></textarea></label>
+      <button class="btn" type="submit">Place Order</button>
+    </form>
+  </main>
+
+  <footer class="site-footer"><div class="container"><span class="badge">Florida-built</span></div></footer>
+
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/checkout.js"></script>
+</body>
+</html>
