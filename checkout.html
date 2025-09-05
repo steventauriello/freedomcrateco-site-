@@ -149,33 +149,64 @@
   function setCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); }
   function money(n){ return `$${n.toFixed(2)}`; }
 
-  function renderCart(){
-    const cart = getCart();
-    const tbody = document.getElementById('cart-rows');
-    const totalEl = document.getElementById('cart-total');
-    const emptyEl = document.getElementById('empty');
+  function renderCart() {
+  const cart = getCart();
+  const tbody = document.getElementById('cartBody');
+  const totalEl = document.getElementById('cartTotal');
+  const emptyEl = document.getElementById('cartEmpty');
 
-    if (!cart.length) {
-      tbody.innerHTML = '';
-      totalEl.textContent = '$0.00';
-      emptyEl.classList.remove('hidden');
-      return;
-    }
-    emptyEl.classList.add('hidden');
+  if (!cart.length) {
+    tbody.innerHTML = '';
+    totalEl.textContent = '$0.00';
+    emptyEl.classList.remove('hidden');
+    return;
+  }
+  emptyEl.classList.add('hidden');
 
-    let total = 0;
-    tbody.innerHTML = cart.map(item => {
-      const sub = item.price * item.qty;
-      total += sub;
-      return `<tr>
+  let total = 0;
+  tbody.innerHTML = cart.map(item => {
+    const sub = item.price * item.qty;
+    total += sub;
+    return `
+      <tr data-sku="${item.sku}">
         <td>${item.name}</td>
-        <td>${item.qty}</td>
-        <td>${money(item.price)}</td>
-        <td>${money(sub)}</td>
+        <td>
+          <input type="number" class="qty" min="1" value="${item.qty}">
+          <button type="button" class="remove">Remove</button>
+        </td>
+        <td class="num">${money(item.price)}</td>
+        <td class="num line-total">${money(sub)}</td>
       </tr>`;
-    }).join('');
-    totalEl.textContent = money(total);
+  }).join('');
 
+  totalEl.textContent = money(total);
+  const hidden = document.getElementById('cartJson');
+  if (hidden) hidden.value = JSON.stringify({ items: cart, total });
+}
+
+// listen for qty changes
+document.getElementById('cartBody')?.addEventListener('input', e => {
+  if (!e.target.classList.contains('qty')) return;
+  const row = e.target.closest('tr');
+  const sku = row.dataset.sku;
+  const cart = getCart();
+  const item = cart.find(i => i.sku === sku);
+  if (item) {
+    item.qty = Math.max(1, parseInt(e.target.value, 10) || 1);
+    setCart(cart);
+    renderCart();
+  }
+});
+
+// listen for remove clicks
+document.getElementById('cartBody')?.addEventListener('click', e => {
+  if (!e.target.classList.contains('remove')) return;
+  const row = e.target.closest('tr');
+  const sku = row.dataset.sku;
+  let cart = getCart().filter(i => i.sku !== sku);
+  setCart(cart);
+  renderCart();
+});
     // Mount PayPal button
     if (window.paypal) {
       paypal.Buttons({
