@@ -223,6 +223,18 @@ document.getElementById('cartBody')?.addEventListener('click', e => {
   setCart(cart);
   renderCart();
 });
+function setCart(c){
+  localStorage.setItem('cart', JSON.stringify(c));
+  window.dispatchEvent(new CustomEvent('cart:updated', {
+    detail: { 
+      cart: c,
+      count: (typeof cartCount === 'function'
+        ? cartCount(c)
+        : c.reduce((n,i)=> n + (i.qty || 1), 0))
+    }
+  }));
+}
+</script>
     // Mount PayPal button
     if (window.paypal) {
       paypal.Buttons({
