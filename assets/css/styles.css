@@ -57,3 +57,31 @@ a{color:var(--link);text-decoration:none}
 .table{width:100%;border-collapse:collapse}
 .table th,.table td{border-bottom:1px solid var(--border);padding:10px;text-align:left}
 .table .num{text-align:right}
+/* === Site Header / Logo === */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #0e0e12; /* match site background */
+  border-bottom: 1px solid var(--border, #242623);
+}
+
+.site-header .brand img {
+  height: 60px;  /* adjust logo size */
+  display: block;
+}
+
+.nav a {
+  margin-left: 20px;
+  color: var(--text, #e9edf5);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.nav a:hover {
+  color: var(--brand, #2ecc71); /* highlight color */
+}
