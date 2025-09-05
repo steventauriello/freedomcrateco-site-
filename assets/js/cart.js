@@ -40,3 +40,11 @@ window.addEventListener('cart:updated', (e) => updateCartBadge(e.detail.count));
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge(cartCount(readCart()));
 });
+// Also update if another tab changes localStorage
+window.addEventListener('storage', (e) => {
+  if (e.key === 'cart') updateCartBadge(cartCount(readCart()));
+});
+
+// Expose functions for your inline onclick handlers
+window.addToCart = addToCart;
+window.buyNow    = buyNow;
