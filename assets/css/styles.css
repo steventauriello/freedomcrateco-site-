@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+.site-title-strip .slogan {
+  font-family: 'Satisfy', cursive;
+  font-size: 1.3rem;   /* a little larger */
+  font-style: italic;
+  margin-top: 5px;     /* small spacing from the line above */
+  color: #ffffff;      /* keeps it white for contrast */
+}
 :root{
   --bg:#0f0f12; --panel:#16181d; --muted:#8b94a7; --text:#e9edf5;
   --brand:#2ecc71; --danger:#ff6b6b; --border:#242632; --link:#9bc2ff;
