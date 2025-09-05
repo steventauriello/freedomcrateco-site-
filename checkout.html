@@ -215,46 +215,67 @@ document.getElementById('cartBody')?.addEventListener('click', e => {
 });
 
 // listen for remove clicks
-document.getElementById('cartBody')?.addEventListener('click', e => {
+<!-- ================== checkout logic (closing section) ================== -->
+<script>
+// Listen for remove clicks
+document.getElementById('cartBody')?.addEventListener('click', (e) => {
   if (!e.target.classList.contains('remove')) return;
+
   const row = e.target.closest('tr');
-  const sku = row.dataset.sku;
-  let cart = getCart().filter(i => i.sku !== sku);
+  const sku = row?.dataset.sku;
+  if (!sku) return;
+
+  const cart = getCart().filter(i => i.sku !== sku);
   setCart(cart);
   renderCart();
 });
-function setCart(c){
+
+// ---- helper: total (fallback if you don't already have one) ----
+function getCartTotal() {
+  try {
+    const c = getCart();
+    const t = c.reduce((sum, i) =>
+      sum + (Number(i.price) || 0) * (Number(i.qty) || 1), 0);
+    return t.toFixed(2);
+  } catch { return '0.00'; }
+}
+
+// ---- single source of truth for saving the cart + notifying header ----
+function setCart(c) {
   localStorage.setItem('cart', JSON.stringify(c));
+  // notify any listeners (e.g., header badge via checkout.js)
   window.dispatchEvent(new CustomEvent('cart:updated', {
-    detail: { 
+    detail: {
       cart: c,
       count: (typeof cartCount === 'function'
         ? cartCount(c)
-        : c.reduce((n,i)=> n + (i.qty || 1), 0))
+        : c.reduce((n, i) => n + (i.qty || 1), 0))
     }
   }));
 }
-</script>
-    // Mount PayPal button
-    if (window.paypal) {
-      paypal.Buttons({
-        createOrder: (data, actions) => {
-          return actions.order.create({
-            purchase_units: [{ amount: { value: total.toFixed(2) } }]
-          });
-        },
-        onApprove: (data, actions) => {
-          return actions.order.capture().then(() => {
-            setCart([]);                   // clear the cart
-            window.location.href = 'thanks.html';
-          });
-        }
-         }).render('#paypal-button-container')
-  }
-  
-  renderCart();
+
+// ---- PayPal button mount (only if SDK is present) ----
+if (window.paypal) {
+  paypal.Buttons({
+    createOrder: (data, actions) => {
+      return actions.order.create({
+        purchase_units: [{ amount: { value: getCartTotal() } }]
+      });
+    },
+    onApprove: (data, actions) => {
+      return actions.order.capture().then(() => {
+        setCart([]);                 // clear cart on successful payment
+        window.location.href = 'thanks.html';
+      });
+    }
+  }).render('#paypal-button-container');
+}
+
+// Initial render
+renderCart();
 </script>
 
+<!-- Load shared scripts (order matters: cart.js before checkout.js) -->
 <script src="assets/js/util.js"></script>
 <script src="assets/js/cart.js"></script>
 <script src="assets/js/checkout.js"></script>
