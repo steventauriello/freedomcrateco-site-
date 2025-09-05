@@ -184,18 +184,31 @@
   if (hidden) hidden.value = JSON.stringify({ items: cart, total });
 }
 
-// listen for qty changes
+// Handle quantity changes
 document.getElementById('cartBody')?.addEventListener('input', e => {
-  if (!e.target.classList.contains('qty')) return;
-  const row = e.target.closest('tr');
-  const sku = row.dataset.sku;
-  const cart = getCart();
-  const item = cart.find(i => i.sku === sku);
-  if (item) {
-    item.qty = Math.max(1, parseInt(e.target.value, 10) || 1);
+  if (e.target.classList.contains('qty')) {
+    const tr = e.target.closest('tr');
+    const sku = tr?.dataset.sku;
+    const cart = getCart();
+    const item = cart.find(i => i.sku === sku);
+    if (item) {
+      item.qty = parseInt(e.target.value, 10) || 1;
+      setCart(cart);
+      renderCart();
+    }
+  }
+});
+
+// Handle remove button clicks
+document.getElementById('cartBody')?.addEventListener('click', e => {
+  if (e.target.classList.contains('remove')) {
+    const tr = e.target.closest('tr');
+    const sku = tr?.dataset.sku;
+    let cart = getCart().filter(i => i.sku !== sku);
     setCart(cart);
     renderCart();
   }
+});
 });
 
 // listen for remove clicks
