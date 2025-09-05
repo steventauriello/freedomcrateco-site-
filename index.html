@@ -1,6 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <a href="#" onclick="
+  localStorage.removeItem('cart');
+  window.dispatchEvent(new CustomEvent('cart:updated', { detail:{ cart:[], count:0 }}));
+  alert('Cart cleared');
+  return false;
+">Clear cart (temp)</a>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Freedom Crate Co. – Shop</title>
