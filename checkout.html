@@ -46,5 +46,65 @@
 
   <script src="assets/js/util.js"></script>
   <script src="assets/js/checkout.js"></script>
+<!-- PayPal SDK (replace YOUR_CLIENT_ID) -->
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
+
+<script>
+  const CART_KEY = 'fc_cart';
+
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
+    catch(e){ return []; }
+  }
+  function setCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); }
+  function money(n){ return `$${n.toFixed(2)}`; }
+
+  function renderCart(){
+    const cart = getCart();
+    const tbody = document.getElementById('cart-rows');
+    const totalEl = document.getElementById('cart-total');
+    const emptyEl = document.getElementById('empty');
+
+    if (!cart.length) {
+      tbody.innerHTML = '';
+      totalEl.textContent = '$0.00';
+      emptyEl.classList.remove('hidden');
+      return;
+    }
+    emptyEl.classList.add('hidden');
+
+    let total = 0;
+    tbody.innerHTML = cart.map(item => {
+      const sub = item.price * item.qty;
+      total += sub;
+      return `<tr>
+        <td>${item.name}</td>
+        <td>${item.qty}</td>
+        <td>${money(item.price)}</td>
+        <td>${money(sub)}</td>
+      </tr>`;
+    }).join('');
+    totalEl.textContent = money(total);
+
+    // Mount PayPal button
+    if (window.paypal) {
+      paypal.Buttons({
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [{ amount: { value: total.toFixed(2) } }]
+          });
+        },
+        onApprove: (data, actions) => {
+          return actions.order.capture().then(() => {
+            setCart([]);                   // clear the cart
+            window.location.href = 'thanks.html';
+          });
+        }
+      }).render('#paypal-button-container');
+    }
+  }
+
+  renderCart();
+</script>
 </body>
 </html>
