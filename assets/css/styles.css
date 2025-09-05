@@ -194,3 +194,57 @@ button.btn:hover {
   margin: 5px 0 0 0;
   font-weight: 400;
 }
+.product-detail {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.product-detail .product-hero {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 0 0 16px;
+}
+
+.product-detail h1 {
+  margin: 8px 0 6px;
+}
+
+.product-detail .muted {
+  color: var(--muted, #9aa3ad);
+  margin-bottom: 14px;
+}
+
+.product-detail label {
+  display: block;
+  font-weight: 600;
+  margin: 14px 0 6px;
+}
+
+.product-detail select {
+  width: 100%;
+  padding: 10px 12px;
+  background: #0e1013;
+  color: #fff;
+  border: 1px solid var(--border, #242623);
+  border-radius: 8px;
+}
+
+.product-detail .price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 16px 0 8px;
+}
+
+.product-detail .actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.product-detail .btn.ghost {
+  background: transparent;
+  border: 1px solid var(--brand, #2ecc71);
+}
