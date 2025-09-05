@@ -176,11 +176,13 @@ button.btn:hover {
   margin-top: 10px;
 }
 /* === Title Strip === */
-.site-title-strip {
-  text-align: center;
-  padding: 20px 0;
-  background: #000; /* black background strip */
-  color: #fff;
+.site-title-strip .slogan {
+  font-family: 'Brush Script MT', cursive, sans-serif;  /* cursive style */
+  font-style: italic;
+  font-size: 1.1rem;     /* slightly bigger */
+  color: #ccc;           /* light gray, you can switch to white if you want more pop */
+  margin-top: 5px;
+  letter-spacing: 1px;   /* adds a little spacing for elegance */
 }
 
 .site-title-strip h1 {
