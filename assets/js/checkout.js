@@ -21,3 +21,5 @@
 
   function escapeHtml(s){return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 })();
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/checkout.js"></script>
