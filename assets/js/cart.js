@@ -48,3 +48,4 @@ window.addEventListener('storage', (e) => {
 // Expose functions for your inline onclick handlers
 window.addToCart = addToCart;
 window.buyNow    = buyNow;
+localStorage.removeItem('cart'); location.reload();
