@@ -146,8 +146,12 @@
     try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
     catch(e){ return []; }
   }
-  function setCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); }
-  function money(n){ return `$${n.toFixed(2)}`; }
+  function setCart(c){
+  localStorage.setItem('cart', JSON.stringify(c));
+  window.dispatchEvent(new CustomEvent('cart:updated', {
+    detail: { cart: c, count: c.reduce((n,i)=>n+(i.qty||1),0) }
+  }));
+}
 
   function renderCart() {
   const cart = getCart();
