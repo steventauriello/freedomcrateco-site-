@@ -37,9 +37,16 @@
     <p>Same size across branches. Choose your stencil.</p>
   </div>
   <div class="price-row">
-    <div class="price">$139.00</div>
-    <a class="buy-row" href="product.html?sku=FC-STD-BOX">View</a>
-  </div>
+  <div class="price">$139.00</div>
+  
+  <!-- Add to Cart button -->
+  <button class="buy-row" onclick="addToCart()">Add to Cart</button>
+  
+  <!-- Buy Now button -->
+  <button class="buy-row" onclick="addToCart(); window.location.href='checkout.html';">
+    Buy Now
+  </button>
+</div>
 </article>
     <section class="notice">
       <p>Tip: set <code>qty</code> to 0 in your sheet to mark an item as <strong>Sold Out</strong>.</p>
