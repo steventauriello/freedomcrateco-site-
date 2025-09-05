@@ -175,3 +175,22 @@ button.btn:hover {
   font-size: 1.2rem;
   margin-top: 10px;
 }
+/* === Title Strip === */
+.site-title-strip {
+  text-align: center;
+  padding: 20px 0;
+  background: #000; /* black background strip */
+  color: #fff;
+}
+
+.site-title-strip h1 {
+  font-size: 3rem;
+  font-weight: 900;  /* extra bold */
+  margin: 0;
+}
+
+.site-title-strip p {
+  font-size: 1.25rem;
+  margin: 5px 0 0 0;
+  font-weight: 400;
+}
