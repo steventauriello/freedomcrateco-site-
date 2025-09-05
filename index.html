@@ -65,17 +65,5 @@
   <script src="assets/js/data.js"></script>
   <script src="assets/js/catalog.js"></script>
 
-<script>
-  (function () {
-    try {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-      const el = document.getElementById('cartCount');
-      if (el) el.textContent = count;
-    } catch (e) {
-      console.error('Cart count update failed', e);
-    }
-  })();
-</script>
 </body>
 </html>
