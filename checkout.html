@@ -1,4 +1,4 @@
-<!doctype html>
+1a<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -233,11 +233,16 @@ document.getElementById('cartBody')?.addEventListener('click', e => {
             window.location.href = 'thanks.html';
           });
         }
-      }).render('#paypal-button-container');
-    }
+         }).render('#paypal-button-container')
   }
-
+  
   renderCart();
 </script>
+
+<script src="assets/js/util.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/checkout.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+
 </body>
 </html>
