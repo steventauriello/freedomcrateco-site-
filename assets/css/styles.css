@@ -179,7 +179,7 @@ button.btn:hover {
 .site-title-strip .slogan {
   font-family: 'Brush Script MT', cursive, sans-serif;  /* cursive style */
   font-style: italic;
-  font-size: 2.1rem;     /* slightly bigger */
+  font-size: 1.5rem;     /* slightly bigger */
   color: #ccc;           /* light gray, you can switch to white if you want more pop */
   margin-top: 5px;
   letter-spacing: 1px;   /* adds a little spacing for elegance */
