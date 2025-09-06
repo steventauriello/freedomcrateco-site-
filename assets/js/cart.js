@@ -17,10 +17,22 @@ function saveCart(cart) {
 }
 
 function addToCart(sku, name, price, qty = 1) {
-  const cart = readCart();
-  const found = cart.find(i => i.sku === sku);
-  if (found) found.qty = (found.qty || 1) + qty;
-  else cart.push({ sku, name, price, qty });
+  // If name/price not supplied, pull from PRODUCTS (loaded by data.js)
+  if ((name == null || price == null) && window.PRODUCTS && window.PRODUCTS[sku]) {
+    const p = window.PRODUCTS[sku];
+    name = name ?? p.title;
+    price = price ?? Number(p.price || 0);
+  }
+
+  let cart = readCart();
+  let found = cart.find(i => i.sku === sku);
+
+  if (found) {
+    found.qty = (found.qty || 0) + qty;
+  } else {
+    cart.push({ sku, name, price, qty });
+  }
+
   saveCart(cart);
 }
 
@@ -28,6 +40,7 @@ function buyNow(sku, name, price, qty = 1) {
   addToCart(sku, name, price, qty);
   window.location.href = 'checkout.html';
 }
+
 
 // --- Cart badge updater ---
 function updateCartBadge(count) {
