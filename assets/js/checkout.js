@@ -2,14 +2,14 @@
 (function () {
   'use strict';
 
-  // helpers --------------------------------------------------------------
   const money = (n) => `$${Number(n || 0).toFixed(2)}`;
   const escapeHtml = (s) => String(s || '')
     .replace(/&/g, '&amp;').replace(/</g, '&lt;')
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-  // readCart(), setCart() from util.js
-  // cartCount(), updateCartBadge() from cart.js
+  // from util.js / cart.js
+  // readCart(), setCart()
+  // cartCount(), updateCartBadge()
 
   const getKey = (item) => item?.sku ?? item?.id ?? item?.key ?? null;
 
@@ -22,7 +22,6 @@
     hidden.value = JSON.stringify({ items: cart, total: Number(total.toFixed(2)) });
   }
 
-  // renderer -------------------------------------------------------------
   function renderCart() {
     const body   = document.getElementById('cartBody');
     const totalE = document.getElementById('cartTotal');
@@ -42,7 +41,7 @@
 
     cart.forEach(item => {
       const key   = getKey(item);
-      const qty   = Math.max(0, Number(item.qty || 0));   // allow 0 (means removed on update)
+      const qty   = Math.max(0, Number(item.qty || 0)); // allow 0
       const price = Number(item.price || 0);
       const sub   = qty * price;
       total += sub;
@@ -54,10 +53,12 @@
         <td>${escapeHtml(item.name || item.sku || item.id || 'Item')}</td>
 
         <td class="qty-cell">
-          <button class="qty-dec" type="button" aria-label="Decrease quantity">−</button>
+          <!-- PLUS ON TOP -->
+          <button class="qty-inc" type="button" aria-label="Increase quantity">+</button>
           <input class="qty" type="number" inputmode="numeric" pattern="[0-9]*"
                  min="0" value="${qty}" style="width:70px" />
-          <button class="qty-inc" type="button" aria-label="Increase quantity">+</button>
+          <!-- MINUS ON BOTTOM -->
+          <button class="qty-dec" type="button" aria-label="Decrease quantity">−</button>
         </td>
 
         <td>${money(price)}</td>
@@ -73,15 +74,13 @@
     syncHiddenCart();
   }
 
-  // events ---------------------------------------------------------------
   document.addEventListener('DOMContentLoaded', () => {
     const body = document.getElementById('cartBody');
     if (!body) return;
 
-    // A) Direct typing into qty input (change)
+    // Change qty by typing
     body.addEventListener('change', (e) => {
       if (!e.target.matches('.qty')) return;
-
       const row = e.target.closest('tr');
       const key = row?.dataset.key;
       const raw = Number(e.target.value || 0);
@@ -90,16 +89,14 @@
       const idx = cart.findIndex(i => getKey(i) === key);
       if (idx === -1) return;
 
-      if (!Number.isFinite(raw) || raw <= 0) {
-        cart.splice(idx, 1);                 // 0 or invalid => remove
-      } else {
-        cart[idx].qty = raw;
-      }
+      if (!Number.isFinite(raw) || raw <= 0) cart.splice(idx, 1);
+      else cart[idx].qty = raw;
+
       setCart(cart);
       renderCart();
     });
 
-    // B) + / − / Remove buttons (delegated)
+    // + / − / Remove (delegated)
     document.addEventListener('click', (e) => {
       const incBtn    = e.target.closest('#cartBody .qty-inc');
       const decBtn    = e.target.closest('#cartBody .qty-dec');
@@ -118,7 +115,8 @@
         cart[idx].qty = (Number(cart[idx].qty) || 0) + 1;
       } else if (decBtn) {
         const next = (Number(cart[idx].qty) || 0) - 1;
-        if (next <= 0) cart.splice(idx, 1); else cart[idx].qty = next;
+        if (next <= 0) cart.splice(idx, 1);
+        else cart[idx].qty = next;
       } else if (removeBtn) {
         cart.splice(idx, 1);
       }
@@ -127,13 +125,12 @@
       renderCart();
     });
 
-    // C) "Update Cart" button — sweep all rows
+    // Update Cart button
     document.getElementById('updateCartBtn')?.addEventListener('click', () => {
       const rows = document.querySelectorAll('#cartBody tr');
       if (!rows.length) return;
 
       let cart = readCart();
-      // Build a map for quick lookup
       const pos = new Map(cart.map((it, i) => [getKey(it), i]));
 
       rows.forEach(row => {
@@ -145,27 +142,19 @@
         const idx = pos.get(key);
         if (idx == null) return;
 
-        if (!Number.isFinite(raw) || raw <= 0) {
-          cart[idx] = null; // mark for removal
-        } else {
-          cart[idx].qty = raw;
-        }
+        if (!Number.isFinite(raw) || raw <= 0) cart[idx] = null;
+        else cart[idx].qty = raw;
       });
 
-      cart = cart.filter(Boolean);  // remove nulls
+      cart = cart.filter(Boolean);
       setCart(cart);
       renderCart();
-    });
-
-    // Optional: prevent Netlify form submit from interfering if you ever add controls inside it
-    document.querySelector('.checkout-form')?.addEventListener('submit', (e) => {
-      // no-op; your Place Order should still submit. Keep this if you add interactive cart controls inside the form.
     });
 
     renderCart();
   });
 
-  // cross-tab / other updates
+  // repaint if cart changes elsewhere
   window.addEventListener('cart:updated', renderCart);
   window.addEventListener('storage', (e) => { if (e.key === 'cart') renderCart(); });
 })();
