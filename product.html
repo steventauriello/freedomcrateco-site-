@@ -39,10 +39,12 @@
 
     <p class="price">$139.00</p>
 
-    <div class="actions">
-      <a class="btn" href="checkout.html?sku=FC-STD-BOX">Buy Now</a>
-      <a class="btn ghost" href="contact.html?box=Standard%20Ammo%20Box">Customize</a>
-    </div>
+  <div class="actions">
+  <button class="btn ghost" onclick="addToCart('FC-STD-BOX')">Add to Cart</button>
+  <button class="btn" onclick="buyNow('FC-STD-BOX')">Buy Now</button>
+  <a class="btn ghost" href="contact.html?box=Standard%20Ammo%20Box">Customize</a>
+</div>
+
   </section>
 </div>
   </main>
@@ -54,8 +56,8 @@
   </footer>
 
   <script src="assets/js/util.js"></script>
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/product.js"></script>
-</body>
-</html>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>      <!-- add this -->
+<script src="assets/js/product.js"></script>
+<script src="assets/js/checkout.js"></script>  <!-- optional: badge sync -->
