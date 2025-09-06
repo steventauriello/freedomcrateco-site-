@@ -7,279 +7,196 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <header class="site-header">
+
+<header class="site-header">
   <a class="brand" href="index.html">
     <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" height="60">
   </a>
   <nav class="nav">
     <a href="index.html">Shop</a>
     <a href="contact.html">Custom Orders</a>
+    <!-- Optional: show cart count if you have it in your header -->
+    <!-- <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a> -->
   </nav>
 </header>
 
+<main class="container narrow">
+  <h1>Checkout</h1>
 
-  <main class="container narrow">
-    <h1>Checkout</h1>
-    <table class="table">
-      <thead><tr><th>Item</th><th class="num">Qty</th><th class="num">Price</th><th class="num">Subtotal</th></tr></thead>
-      <tbody id="cartBody"></tbody>
-      <tfoot><tr><th colspan="3" class="num">Total</th><th class="num" id="cartTotal">$0.00</th></tr></tfoot>
-    </table>
+  <!-- === Checkout Cart Table === -->
+  <table class="table cart-table" style="width:100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th class="num">Qty</th>
+        <th class="num">Price</th>
+        <th class="num">Subtotal</th>
+        <th class="num"></th>
+      </tr>
+    </thead>
+    <tbody id="cartBody"></tbody>
+    <tfoot>
+      <tr>
+        <th colspan="3" class="num">Total</th>
+        <th class="num" id="cartTotal">$0.00</th>
+        <th></th>
+      </tr>
+    </tfoot>
+  </table>
+  <!-- PayPal button mount -->
+  <div id="paypal-button-container" style="margin:16px 0;"></div>
+  <!-- === /Checkout Cart Table === -->
 
-    <!-- Netlify captures this order in your dashboard -->
-    <form name="order" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="checkout-form">
-  <input type="hidden" name="form-name" value="order">
-  <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
-  <input type="hidden" id="cartJson" name="cartJson" />
+  <!-- Netlify captures this order in your dashboard -->
+  <form name="order" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="checkout-form">
+    <input type="hidden" name="form-name" value="order">
+    <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
+    <input type="hidden" id="cartJson" name="cartJson" />
 
-  <div class="form-grid">
-    <div class="field">
-      <label for="fullName">Full Name</label>
-      <input id="fullName" name="name" type="text" autocomplete="name" required>
+    <div class="form-grid">
+      <div class="field">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" name="name" type="text" autocomplete="name" required>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="address1">Street Address</label>
+        <input id="address1" name="address1" type="text" autocomplete="address-line1" required>
+      </div>
+
+      <div class="field">
+        <label for="address2">Apt, Suite, etc. (optional)</label>
+        <input id="address2" name="address2" type="text" autocomplete="address-line2">
+      </div>
+
+      <div class="field half">
+        <label for="city">City</label>
+        <input id="city" name="city" type="text" autocomplete="address-level2" required>
+      </div>
+
+      <div class="field quarter">
+        <label for="state">State</label>
+        <select id="state" name="state" required>
+          <option value="">-- Select State --</option>
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="DC">District of Columbia</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+          <option value="LA">Louisiana</option>
+          <option value="ME">Maine</option>
+          <option value="MD">Maryland</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MI">Michigan</option>
+          <option value="MN">Minnesota</option>
+          <option value="MS">Mississippi</option>
+          <option value="MO">Missouri</option>
+          <option value="MT">Montana</option>
+          <option value="NE">Nebraska</option>
+          <option value="NV">Nevada</option>
+          <option value="NH">New Hampshire</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NM">New Mexico</option>
+          <option value="NY">New York</option>
+          <option value="NC">North Carolina</option>
+          <option value="ND">North Dakota</option>
+          <option value="OH">Ohio</option>
+          <option value="OK">Oklahoma</option>
+          <option value="OR">Oregon</option>
+          <option value="PA">Pennsylvania</option>
+          <option value="RI">Rhode Island</option>
+          <option value="SC">South Carolina</option>
+          <option value="SD">South Dakota</option>
+          <option value="TN">Tennessee</option>
+          <option value="TX">Texas</option>
+          <option value="UT">Utah</option>
+          <option value="VT">Vermont</option>
+          <option value="VA">Virginia</option>
+          <option value="WA">Washington</option>
+          <option value="WV">West Virginia</option>
+          <option value="WI">Wisconsin</option>
+          <option value="WY">Wyoming</option>
+        </select>
+      </div>
+
+      <div class="field quarter">
+        <label for="zip">ZIP Code</label>
+        <input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" required>
+      </div>
+
+      <div class="field full">
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes" rows="4" placeholder="Anything we should know?"></textarea>
+      </div>
     </div>
 
-    <div class="field">
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" autocomplete="email" required>
-    </div>
+    <button class="btn" type="submit">Place Order</button>
+  </form>
+</main>
 
-    <div class="field">
-      <label for="address1">Street Address</label>
-      <input id="address1" name="address1" type="text" autocomplete="address-line1" required>
-    </div>
+<footer class="site-footer">
+  <div class="container"><span class="badge">Florida-built</span></div>
+</footer>
 
-    <div class="field">
-      <label for="address2">Apt, Suite, etc. (optional)</label>
-      <input id="address2" name="address2" type="text" autocomplete="address-line2">
-    </div>
+<!-- Load shared helpers (order matters) -->
+<script src="assets/js/util.js"></script>     <!-- readCart(), setCart() -->
+<script src="assets/js/cart.js"></script>     <!-- cartCount(), updateCartBadge() -->
+<!-- Page logic -->
+<script src="assets/js/checkout.js"></script> <!-- the drop-in we just added -->
 
-    <div class="field half">
-      <label for="city">City</label>
-      <input id="city" name="city" type="text" autocomplete="address-level2" required>
-    </div>
-
-    <div class="field quarter">
-     <label for="state">State</label>
-<select id="state" name="state" required>
-  <option value="">-- Select State --</option>
-  <option value="AL">Alabama</option>
-  <option value="AK">Alaska</option>
-  <option value="AZ">Arizona</option>
-  <option value="AR">Arkansas</option>
-  <option value="CA">California</option>
-  <option value="CO">Colorado</option>
-  <option value="CT">Connecticut</option>
-  <option value="DE">Delaware</option>
-  <option value="DC">District of Columbia</option>
-  <option value="FL">Florida</option>
-  <option value="GA">Georgia</option>
-  <option value="HI">Hawaii</option>
-  <option value="ID">Idaho</option>
-  <option value="IL">Illinois</option>
-  <option value="IN">Indiana</option>
-  <option value="IA">Iowa</option>
-  <option value="KS">Kansas</option>
-  <option value="KY">Kentucky</option>
-  <option value="LA">Louisiana</option>
-  <option value="ME">Maine</option>
-  <option value="MD">Maryland</option>
-  <option value="MA">Massachusetts</option>
-  <option value="MI">Michigan</option>
-  <option value="MN">Minnesota</option>
-  <option value="MS">Mississippi</option>
-  <option value="MO">Missouri</option>
-  <option value="MT">Montana</option>
-  <option value="NE">Nebraska</option>
-  <option value="NV">Nevada</option>
-  <option value="NH">New Hampshire</option>
-  <option value="NJ">New Jersey</option>
-  <option value="NM">New Mexico</option>
-  <option value="NY">New York</option>
-  <option value="NC">North Carolina</option>
-  <option value="ND">North Dakota</option>
-  <option value="OH">Ohio</option>
-  <option value="OK">Oklahoma</option>
-  <option value="OR">Oregon</option>
-  <option value="PA">Pennsylvania</option>
-  <option value="RI">Rhode Island</option>
-  <option value="SC">South Carolina</option>
-  <option value="SD">South Dakota</option>
-  <option value="TN">Tennessee</option>
-  <option value="TX">Texas</option>
-  <option value="UT">Utah</option>
-  <option value="VT">Vermont</option>
-  <option value="VA">Virginia</option>
-  <option value="WA">Washington</option>
-  <option value="WV">West Virginia</option>
-  <option value="WI">Wisconsin</option>
-  <option value="WY">Wyoming</option>
-</select>
-      <!-- If you prefer a dropdown, I can give you a 50-state <select>. -->
-    </div>
-
-    <div class="field quarter">
-      <label for="zip">ZIP Code</label>
-      <input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" required>
-    </div>
-
-    <div class="field full">
-      <label for="notes">Notes</label>
-      <textarea id="notes" name="notes" rows="4" placeholder="Anything we should know?"></textarea>
-    </div>
-  </div>
-
-  <button class="btn" type="submit">Place Order</button>
-</form>
-  </main>
-
-  <footer class="site-footer"><div class="container"><span class="badge">Florida-built</span></div></footer>
-
-  <script src="assets/js/util.js"></script>
-  <script src="assets/js/checkout.js"></script>
 <!-- PayPal SDK (replace YOUR_CLIENT_ID) -->
 <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
-
 <script>
-  const CART_KEY = 'cart';
-
-  function getCart() {
-    try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
-    catch(e){ return []; }
-  }
-  function setCart(c){
-  localStorage.setItem('cart', JSON.stringify(c));
-  window.dispatchEvent(new CustomEvent('cart:updated', {
-    detail: { cart: c, count: c.reduce((n,i)=>n+(i.qty||1),0) }
-  }));
-}
-
-  function renderCart() {
-  const cart = getCart();
-  const tbody = document.getElementById('cartBody');
-  const totalEl = document.getElementById('cartTotal');
-  const emptyEl = document.getElementById('cartEmpty');
-
-  if (!cart.length) {
-    tbody.innerHTML = '';
-    totalEl.textContent = '$0.00';
-    emptyEl.classList.remove('hidden');
-    return;
-  }
-  emptyEl.classList.add('hidden');
-
-  let total = 0;
-  tbody.innerHTML = cart.map(item => {
-    const sub = item.price * item.qty;
-    total += sub;
-    return `
-      <tr data-sku="${item.sku}">
-        <td>${item.name}</td>
-        <td>
-          <input type="number" class="qty" min="1" value="${item.qty}">
-          <button type="button" class="remove">Remove</button>
-        </td>
-        <td class="num">${money(item.price)}</td>
-        <td class="num line-total">${money(sub)}</td>
-      </tr>`;
-  }).join('');
-
-  totalEl.textContent = money(total);
-  const hidden = document.getElementById('cartJson');
-  if (hidden) hidden.value = JSON.stringify({ items: cart, total });
-}
-
-// Handle quantity changes
-document.getElementById('cartBody')?.addEventListener('input', e => {
-  if (e.target.classList.contains('qty')) {
-    const tr = e.target.closest('tr');
-    const sku = tr?.dataset.sku;
-    const cart = getCart();
-    const item = cart.find(i => i.sku === sku);
-    if (item) {
-      item.qty = parseInt(e.target.value, 10) || 1;
-      setCart(cart);
-      renderCart();
-    }
-  }
-});
-
-// Handle remove button clicks
-document.getElementById('cartBody')?.addEventListener('click', e => {
-  if (e.target.classList.contains('remove')) {
-    const tr = e.target.closest('tr');
-    const sku = tr?.dataset.sku;
-    let cart = getCart().filter(i => i.sku !== sku);
-    setCart(cart);
-    renderCart();
-  }
-});
-
-// listen for remove clicks
-<!-- ================== checkout logic (closing section) ================== -->
-<script>
-// Listen for remove clicks
-document.getElementById('cartBody')?.addEventListener('click', (e) => {
-  if (!e.target.classList.contains('remove')) return;
-
-  const row = e.target.closest('tr');
-  const sku = row?.dataset.sku;
-  if (!sku) return;
-
-  const cart = getCart().filter(i => i.sku !== sku);
-  setCart(cart);
-  renderCart();
-});
-
-// ---- helper: total (fallback if you don't already have one) ----
-function getCartTotal() {
-  try {
-    const c = getCart();
-    const t = c.reduce((sum, i) =>
+  // Keep Netlify hidden field in sync with the cart
+  function syncHiddenCart() {
+    const hidden = document.getElementById('cartJson');
+    if (!hidden) return;
+    const cart = readCart();
+    const total = cart.reduce((sum, i) =>
       sum + (Number(i.price) || 0) * (Number(i.qty) || 1), 0);
-    return t.toFixed(2);
-  } catch { return '0.00'; }
-}
+    hidden.value = JSON.stringify({ items: cart, total: Number(total.toFixed(2)) });
+  }
+  document.addEventListener('DOMContentLoaded', syncHiddenCart);
+  window.addEventListener('cart:updated', syncHiddenCart);
 
-// ---- single source of truth for saving the cart + notifying header ----
-function setCart(c) {
-  localStorage.setItem('cart', JSON.stringify(c));
-  // notify any listeners (e.g., header badge via checkout.js)
-  window.dispatchEvent(new CustomEvent('cart:updated', {
-    detail: {
-      cart: c,
-      count: (typeof cartCount === 'function'
-        ? cartCount(c)
-        : c.reduce((n, i) => n + (i.qty || 1), 0))
-    }
-  }));
-}
-
-// ---- PayPal button mount (only if SDK is present) ----
-if (window.paypal) {
-  paypal.Buttons({
-    createOrder: (data, actions) => {
-      return actions.order.create({
-        purchase_units: [{ amount: { value: getCartTotal() } }]
-      });
-    },
-    onApprove: (data, actions) => {
-      return actions.order.capture().then(() => {
-        setCart([]);                 // clear cart on successful payment
-        window.location.href = 'thanks.html';
-      });
-    }
-  }).render('#paypal-button-container');
-}
-
-// Initial render
-renderCart();
+  // Mount PayPal buttons if SDK is present
+  function getCartTotal() {
+    const cart = readCart();
+    const total = cart.reduce((sum, i) =>
+      sum + (Number(i.price) || 0) * (Number(i.qty) || 1), 0);
+    return total.toFixed(2);
+  }
+  if (window.paypal) {
+    paypal.Buttons({
+      createOrder: (data, actions) =>
+        actions.order.create({ purchase_units: [{ amount: { value: getCartTotal() } }] }),
+      onApprove: (data, actions) =>
+        actions.order.capture().then(() => {
+          setCart([]);                   // clear cart
+          syncHiddenCart();
+          window.location.href = 'thanks.html';
+        })
+    }).render('#paypal-button-container');
+  }
 </script>
-
-<!-- Load shared scripts (order matters: cart.js before checkout.js) -->
-<script src="assets/js/util.js"></script>
-<script src="assets/js/cart.js"></script>
-<script src="assets/js/checkout.js"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
 
 </body>
 </html>
