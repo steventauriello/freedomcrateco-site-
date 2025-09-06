@@ -42,12 +42,7 @@ function renderCart() {
 
     tr.innerHTML = `
       <td>${escapeHtml(item.name || item.sku)}</td>
-      <td>
-        <input class="qty" type="number" min="1" value="${qty}" style="width:70px" />
-      </td>
-      <td>${money(price)}</td>
-      <td class="subtotal">${money(sub)}</td>
-      <td><button class="remove">Remove</button></td>
+      
     `;
 
     body.appendChild(tr);
