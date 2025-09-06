@@ -273,3 +273,34 @@ button.btn:hover {
   background: transparent;
   border: 1px solid var(--brand, #2ecc71);
 }
+/* === Cart qty controls === */
+.qty-cell {
+  display: inline-flex;        /* keeps the cell sized to content */
+  flex-direction: column;      /* + (top), input (middle), − (bottom) */
+  align-items: center;
+  gap: 6px;
+}
+
+.qty-cell .qty {
+  width: 70px;                 /* matches your inline style */
+  text-align: center;
+  appearance: textfield;       /* cleaner number input */
+}
+
+.qty-cell .qty-inc,
+.qty-cell .qty-dec {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  background: #0e1013;
+  color: var(--text);
+  border-radius: 8px;
+  line-height: 1;
+}
+
+/* Optional: on wider screens, put them in a row if you prefer */
+@media (min-width: 720px) {
+  .qty-cell.row {
+    flex-direction: row;
+    gap: 8px;
+  }
+}
