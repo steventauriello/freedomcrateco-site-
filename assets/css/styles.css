@@ -185,6 +185,21 @@ button.btn:hover {
   margin-top: 10px;
 }
 /* === Title Strip === */
+/* Center the Freedom Crate Co. title block */
+.site-title-strip {
+  text-align: center;
+  margin: 20px auto;
+}
+
+.site-title-strip h1 {
+  font-size: 2.5rem;       /* bigger for main title */
+  margin-bottom: 0.5rem;
+}
+
+.site-title-strip p {
+  margin: 0.25rem 0;
+  font-size: 1.2rem;       /* slightly smaller than the title */
+}
 .site-title-strip .slogan {
   font-family: 'Great Vibes', cursive;
   font-size: 1.6rem;
