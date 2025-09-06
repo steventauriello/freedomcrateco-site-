@@ -1,0 +1,29 @@
+{
+  "FC-FOOTLOCKER-V2": {
+    "status": "active",
+    "title": "Footlocker Ammo Box V2",
+    "price": 189,
+    "qty": 3,
+    "image_url": "assets/img/footlocker-v2.png",
+    "tags": ["footlocker", "classic"],
+    "description": "Lightweight 15/32 sheathing ply, dual removable trays."
+  },
+  "FC-RB-300": {
+    "status": "active",
+    "title": "Range Box 300",
+    "price": 139,
+    "qty": 2,
+    "image_url": "assets/img/rb300.png",
+    "tags": ["range", "compact"],
+    "description": "Compact box sized for three 4x4x2 trays."
+  },
+  "FC-RB-1000-9": {
+    "status": "active",
+    "title": "Range Box 1000 (9mm)",
+    "price": 169,
+    "qty": 0,
+    "image_url": "assets/img/rb1000.png",
+    "tags": ["range", "9mm"],
+    "description": "Holds ~1000 rounds 9mm with sliding shelf; sold out example."
+  }
+}
