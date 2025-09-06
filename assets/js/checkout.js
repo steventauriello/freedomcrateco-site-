@@ -1,10 +1,8 @@
 // assets/js/checkout.js
-// Renders the checkout table and wires up qty +/- and Remove.
+// Minimal + robust: typed qty + "Update Cart" button + Remove button
 
 (function () {
   'use strict';
-
-  // --- helpers --------------------------------------------------------------
 
   function money(n) {
     n = Number(n || 0);
@@ -20,25 +18,19 @@
       .replace(/'/g, '&#39;');
   }
 
-  // readCart / setCart / cartCount are provided by util.js
-  // updateCartBadge is provided by cart.js
-
-  // --- renderer -------------------------------------------------------------
-
   function renderCart() {
     const body   = document.getElementById('cartBody');
     const totalE = document.getElementById('cartTotal');
-    const cart   = readCart();
-
     if (!body || !totalE) return;
 
+    const cart = readCart(); // from util.js
     body.innerHTML = '';
     let total = 0;
 
     if (!cart.length) {
-      body.innerHTML = `<tr><td colspan="5" class="muted">Your cart is empty.</td></tr>`;
+      body.innerHTML = `<tr><td colspan="4" class="muted">Your cart is empty.</td></tr>`;
       totalE.textContent = money(0);
-      updateCartBadge(cartCount(cart));
+      if (typeof updateCartBadge === 'function') updateCartBadge(0);
       return;
     }
 
@@ -50,90 +42,85 @@
 
       const tr = document.createElement('tr');
       tr.dataset.sku = item.sku;
-
       tr.innerHTML = `
         <td>${escapeHtml(item.name || item.sku)}</td>
-
-        <td class="qty-cell">
-          <button class="qty-dec" type="button" aria-label="Decrease quantity">−</button>
-          <input class="qty" type="number" inputmode="numeric" pattern="[0-9]*"
-                 min="1" value="${qty}" style="width:70px" />
-          <button class="qty-inc" type="button" aria-label="Increase quantity">+</button>
+        <td class="num">
+          <input class="qty" type="number" min="1" step="1"
+                 inputmode="numeric" pattern="[0-9]*"
+                 value="${qty}" style="width:80px;text-align:center" />
         </td>
-
-        <td>${money(price)}</td>
-        <td class="subtotal">${money(sub)}</td>
-
-        <td><button class="remove" type="button">Remove</button></td>
+        <td class="num">${money(price)}</td>
+        <td class="num subtotal">${money(sub)}</td>
+        <td class="num">
+          <button class="remove" type="button" aria-label="Remove item">Remove</button>
+        </td>
       `;
-
       body.appendChild(tr);
     });
 
     totalE.textContent = money(total);
-    updateCartBadge(cartCount(cart)); // keep header badge in sync
+    if (typeof cartCount === 'function' && typeof updateCartBadge === 'function') {
+      updateCartBadge(cartCount(cart));
+    }
   }
 
-  // --- events ---------------------------------------------------------------
-
-  document.addEventListener('DOMContentLoaded', () => {
+  // Apply current table inputs to the cart
+  function applyTableToCart() {
     const body = document.getElementById('cartBody');
     if (!body) return;
 
-    // 1) Typing directly into the qty input
-    body.addEventListener('change', (e) => {
-      const qtyInput = e.target.closest('#cartBody .qty');
-      if (!qtyInput) return;
+    const rows = Array.from(body.querySelectorAll('tr[data-sku]'));
+    const next = [];
+    rows.forEach(row => {
+      const sku = row.dataset.sku;
+      const input = row.querySelector('input.qty');
+      const qty = Math.max(1, parseInt(input?.value, 10) || 1);
 
-      const row = qtyInput.closest('tr');
-      const sku = row?.dataset.sku;
-      const qty = Math.max(1, Number(qtyInput.value || 1));
-
-      const cart = readCart();
-      const item = cart.find(i => i.sku === sku);
-      if (!item) return;
-
-      item.qty = qty;
-      setCart(cart);     // persists + dispatches `cart:updated`
-      renderCart();
+      // Find matching item in current cart to keep name/price
+      const current = readCart();
+      const item = current.find(i => i.sku === sku) || { sku };
+      next.push({
+        sku,
+        name: item.name || sku,
+        price: Number(item.price || 0),
+        qty
+      });
     });
 
-    // 2) Clicks for + / − / Remove (robust to clicks on inner spans, etc.)
+    setCart(next);   // from util.js (emits 'cart:updated')
+    renderCart();    // repaint
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const body = document.getElementById('cartBody');
+    const updateBtn = document.getElementById('updateCartBtn');
+
+    // Update Cart button
+    updateBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      applyTableToCart();
+    });
+
+    // Remove buttons (delegated)
     document.addEventListener('click', (e) => {
-      const incBtn    = e.target.closest('#cartBody .qty-inc');
-      const decBtn    = e.target.closest('#cartBody .qty-dec');
-      const removeBtn = e.target.closest('#cartBody .remove');
+      const btn = e.target.closest('#cartBody .remove');
+      if (!btn) return;
 
-      if (!incBtn && !decBtn && !removeBtn) return;
+      const row = btn.closest('tr[data-sku]');
+      const sku = row?.dataset.sku;
+      if (!sku) return;
 
-      const row = e.target.closest('#cartBody tr');
-      if (!row) return;
-      const sku = row.dataset.sku;
-
-      let cart = readCart();
-      let item = cart.find(i => i.sku === sku);
-
-      if (incBtn && item) {
-        item.qty = (Number(item.qty) || 1) + 1;
-      } else if (decBtn && item) {
-        item.qty = Math.max(1, (Number(item.qty) || 1) - 1);
-      } else if (removeBtn) {
-        cart = cart.filter(i => i.sku !== sku);
-      } else {
-        return;
-      }
-
-      setCart(cart);   // persists + emits 'cart:updated'
-      renderCart();    // repaint table + totals
+      const next = readCart().filter(i => i.sku !== sku);
+      setCart(next);
+      renderCart();
     });
 
     // Initial paint
     renderCart();
   });
 
-  // Repaint if another tab / code path updates the cart
+  // Keep view in sync if cart changes elsewhere
   window.addEventListener('cart:updated', renderCart);
-  window.addEventListener('storage', (e) => {
-    if (e.key === 'cart') renderCart();
-  });
+  window.addEventListener('storage', (e) => { if (e.key === 'cart') renderCart(); });
+
 })();
