@@ -1,27 +1,17 @@
 // assets/js/checkout.js
-// Checkout table + qty +/- + Remove + Update button
-
 (function () {
   'use strict';
 
-  // --- helpers --------------------------------------------------------------
+  // helpers --------------------------------------------------------------
+  const money = (n) => `$${Number(n || 0).toFixed(2)}`;
+  const escapeHtml = (s) => String(s || '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-  function money(n) {
-    n = Number(n || 0);
-    return `$${n.toFixed(2)}`;
-  }
+  // readCart(), setCart() from util.js
+  // cartCount(), updateCartBadge() from cart.js
 
-  function escapeHtml(s) {
-    return String(s || '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-  // readCart(), setCart() come from util.js
-  // cartCount(), updateCartBadge() come from cart.js
+  const getKey = (item) => item?.sku ?? item?.id ?? item?.key ?? null;
 
   function syncHiddenCart() {
     const hidden = document.getElementById('cartJson');
@@ -29,19 +19,14 @@
     const cart = readCart();
     const total = cart.reduce((sum, i) =>
       sum + (Number(i.price) || 0) * (Number(i.qty) || 1), 0);
-    hidden.value = JSON.stringify({
-      items: cart,
-      total: Number(total.toFixed(2))
-    });
+    hidden.value = JSON.stringify({ items: cart, total: Number(total.toFixed(2)) });
   }
 
-  // --- renderer -------------------------------------------------------------
-
+  // renderer -------------------------------------------------------------
   function renderCart() {
     const body   = document.getElementById('cartBody');
     const totalE = document.getElementById('cartTotal');
     const cart   = readCart();
-
     if (!body || !totalE) return;
 
     body.innerHTML = '';
@@ -56,21 +41,22 @@
     }
 
     cart.forEach(item => {
-      const qty   = Math.max(1, Number(item.qty || 1));
+      const key   = getKey(item);
+      const qty   = Math.max(0, Number(item.qty || 0));   // allow 0 (means removed on update)
       const price = Number(item.price || 0);
       const sub   = qty * price;
       total += sub;
 
       const tr = document.createElement('tr');
-      tr.dataset.sku = item.sku;
+      tr.dataset.key = key;
 
       tr.innerHTML = `
-        <td>${escapeHtml(item.name || item.sku)}</td>
+        <td>${escapeHtml(item.name || item.sku || item.id || 'Item')}</td>
 
         <td class="qty-cell">
           <button class="qty-dec" type="button" aria-label="Decrease quantity">−</button>
           <input class="qty" type="number" inputmode="numeric" pattern="[0-9]*"
-                 min="1" value="${qty}" style="width:70px" />
+                 min="0" value="${qty}" style="width:70px" />
           <button class="qty-inc" type="button" aria-label="Increase quantity">+</button>
         </td>
 
@@ -83,90 +69,103 @@
     });
 
     totalE.textContent = money(total);
-    updateCartBadge(cartCount(cart)); // header badge
-    syncHiddenCart();                 // Netlify hidden field
+    updateCartBadge(cartCount(cart));
+    syncHiddenCart();
   }
 
-  // --- events ---------------------------------------------------------------
-
+  // events ---------------------------------------------------------------
   document.addEventListener('DOMContentLoaded', () => {
     const body = document.getElementById('cartBody');
     if (!body) return;
 
-    // 1) Typing directly into qty input
+    // A) Direct typing into qty input (change)
     body.addEventListener('change', (e) => {
-      const qtyInput = e.target.closest('#cartBody .qty');
-      if (!qtyInput) return;
+      if (!e.target.matches('.qty')) return;
 
-      const row = qtyInput.closest('tr');
-      const sku = row?.dataset.sku;
-      const qty = Math.max(1, Number(qtyInput.value || 1));
+      const row = e.target.closest('tr');
+      const key = row?.dataset.key;
+      const raw = Number(e.target.value || 0);
 
-      const cart = readCart();
-      const item = cart.find(i => i.sku === sku);
-      if (!item) return;
+      let cart = readCart();
+      const idx = cart.findIndex(i => getKey(i) === key);
+      if (idx === -1) return;
 
-      item.qty = qty;
-      setCart(cart);   // persists + emits 'cart:updated'
+      if (!Number.isFinite(raw) || raw <= 0) {
+        cart.splice(idx, 1);                 // 0 or invalid => remove
+      } else {
+        cart[idx].qty = raw;
+      }
+      setCart(cart);
       renderCart();
     });
 
-    // 2) Clicks for + / − / Remove (robust with .closest)
+    // B) + / − / Remove buttons (delegated)
     document.addEventListener('click', (e) => {
       const incBtn    = e.target.closest('#cartBody .qty-inc');
       const decBtn    = e.target.closest('#cartBody .qty-dec');
       const removeBtn = e.target.closest('#cartBody .remove');
-
       if (!incBtn && !decBtn && !removeBtn) return;
 
       const row = e.target.closest('#cartBody tr');
       if (!row) return;
-      const sku = row.dataset.sku;
+      const key = row.dataset.key;
 
       let cart = readCart();
-      let item = cart.find(i => i.sku === sku);
+      const idx = cart.findIndex(i => getKey(i) === key);
+      if (idx === -1) return;
 
-      if (incBtn && item) {
-        item.qty = (Number(item.qty) || 1) + 1;
-      } else if (decBtn && item) {
-        item.qty = Math.max(1, (Number(item.qty) || 1) - 1);
+      if (incBtn) {
+        cart[idx].qty = (Number(cart[idx].qty) || 0) + 1;
+      } else if (decBtn) {
+        const next = (Number(cart[idx].qty) || 0) - 1;
+        if (next <= 0) cart.splice(idx, 1); else cart[idx].qty = next;
       } else if (removeBtn) {
-        cart = cart.filter(i => i.sku !== sku);
-      } else {
-        return;
+        cart.splice(idx, 1);
       }
 
       setCart(cart);
       renderCart();
     });
 
-    // 3) Update Cart button (reads every row's qty and saves)
+    // C) "Update Cart" button — sweep all rows
     document.getElementById('updateCartBtn')?.addEventListener('click', () => {
       const rows = document.querySelectorAll('#cartBody tr');
       if (!rows.length) return;
 
-      const cart = readCart();
+      let cart = readCart();
+      // Build a map for quick lookup
+      const pos = new Map(cart.map((it, i) => [getKey(it), i]));
+
       rows.forEach(row => {
-        const sku = row.dataset.sku;
+        const key = row.dataset.key;
         const input = row.querySelector('.qty');
-        if (!sku || !input) return;
-        const item = cart.find(i => i.sku === sku);
-        if (item) {
-          item.qty = Math.max(1, Number(input.value || 1));
+        if (!key || !input) return;
+
+        const raw = Number(input.value || 0);
+        const idx = pos.get(key);
+        if (idx == null) return;
+
+        if (!Number.isFinite(raw) || raw <= 0) {
+          cart[idx] = null; // mark for removal
+        } else {
+          cart[idx].qty = raw;
         }
       });
 
+      cart = cart.filter(Boolean);  // remove nulls
       setCart(cart);
       renderCart();
     });
 
-    // Initial paint
+    // Optional: prevent Netlify form submit from interfering if you ever add controls inside it
+    document.querySelector('.checkout-form')?.addEventListener('submit', (e) => {
+      // no-op; your Place Order should still submit. Keep this if you add interactive cart controls inside the form.
+    });
+
     renderCart();
   });
 
-  // Repaint if something else updates the cart (another tab, addToCart, etc.)
+  // cross-tab / other updates
   window.addEventListener('cart:updated', renderCart);
-  window.addEventListener('storage', (e) => {
-    if (e.key === 'cart') renderCart();
-  });
+  window.addEventListener('storage', (e) => { if (e.key === 'cart') renderCart(); });
 })();
