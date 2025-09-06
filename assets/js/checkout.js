@@ -1,129 +1,139 @@
 // assets/js/checkout.js
+// Renders the checkout table and wires up qty +/- and Remove.
 
-function money(n) {
-  n = Number(n || 0);
-  return `$${n.toFixed(2)}`;
-}
+(function () {
+  'use strict';
 
-function escapeHtml(s) {
-  return String(s || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
+  // --- helpers --------------------------------------------------------------
 
-function renderCart() {
-  const body   = document.getElementById('cartBody');
-  const totalE = document.getElementById('cartTotal');
-  const cart   = readCart(); // from util.js
-
-  if (!body || !totalE) return;
-
-  body.innerHTML = '';
-  let total = 0;
-
-  if (!cart.length) {
-    body.innerHTML = `<tr><td colspan="5" class="muted">Your cart is empty.</td></tr>`;
-    totalE.textContent = money(0);
-    updateCartBadge(cartCount(cart)); // from cart.js
-    return;
+  function money(n) {
+    n = Number(n || 0);
+    return `$${n.toFixed(2)}`;
   }
 
-  cart.forEach(item => {
-    const qty   = Number(item.qty || 1);
-    const price = Number(item.price || 0);
-    const sub   = qty * price;
-    total += sub;
+  function escapeHtml(s) {
+    return String(s || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
-    const tr = document.createElement('tr');
-    tr.dataset.sku = item.sku;
+  // readCart / setCart / cartCount are provided by util.js
+  // updateCartBadge is provided by cart.js
 
-    tr.innerHTML = `
-      <td>${escapeHtml(item.name || item.sku)}</td>
+  // --- renderer -------------------------------------------------------------
 
-      <td class="qty-cell">
-        <button class="qty-dec" type="button" aria-label="Decrease quantity">−</button>
-        <input class="qty" type="number" inputmode="numeric" pattern="[0-9]*" min="1" value="${qty}" style="width:70px" />
-        <button class="qty-inc" type="button" aria-label="Increase quantity">+</button>
-      </td>
+  function renderCart() {
+    const body   = document.getElementById('cartBody');
+    const totalE = document.getElementById('cartTotal');
+    const cart   = readCart();
 
-      <td>${money(price)}</td>
-      <td class="subtotal">${money(sub)}</td>
+    if (!body || !totalE) return;
 
-      <td><button class="remove" type="button">Remove</button></td>
-    `;
+    body.innerHTML = '';
+    let total = 0;
 
-    body.appendChild(tr);
-  });
+    if (!cart.length) {
+      body.innerHTML = `<tr><td colspan="5" class="muted">Your cart is empty.</td></tr>`;
+      totalE.textContent = money(0);
+      updateCartBadge(cartCount(cart));
+      return;
+    }
 
-  totalE.textContent = money(total);
-  updateCartBadge(cartCount(cart)); // keep the header badge in sync
-}
+    cart.forEach(item => {
+      const qty   = Math.max(1, Number(item.qty || 1));
+      const price = Number(item.price || 0);
+      const sub   = qty * price;
+      total += sub;
 
-document.addEventListener('DOMContentLoaded', () => {
-  const body = document.getElementById('cartBody');
-  if (!body) return;
+      const tr = document.createElement('tr');
+      tr.dataset.sku = item.sku;
 
-  // Typing directly in the qty input
-  body.addEventListener('change', (e) => {
-    if (!e.target.classList.contains('qty')) return;
+      tr.innerHTML = `
+        <td>${escapeHtml(item.name || item.sku)}</td>
 
-    const row = e.target.closest('tr');
-    const sku = row?.dataset.sku;
-    const qty = Math.max(1, Number(e.target.value || 1));
+        <td class="qty-cell">
+          <button class="qty-dec" type="button" aria-label="Decrease quantity">−</button>
+          <input class="qty" type="number" inputmode="numeric" pattern="[0-9]*"
+                 min="1" value="${qty}" style="width:70px" />
+          <button class="qty-inc" type="button" aria-label="Increase quantity">+</button>
+        </td>
 
-    let cart = readCart();
-    const item = cart.find(i => i.sku === sku);
-    if (item) {
+        <td>${money(price)}</td>
+        <td class="subtotal">${money(sub)}</td>
+
+        <td><button class="remove" type="button">Remove</button></td>
+      `;
+
+      body.appendChild(tr);
+    });
+
+    totalE.textContent = money(total);
+    updateCartBadge(cartCount(cart)); // keep header badge in sync
+  }
+
+  // --- events ---------------------------------------------------------------
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const body = document.getElementById('cartBody');
+    if (!body) return;
+
+    // 1) Typing directly into the qty input
+    body.addEventListener('change', (e) => {
+      const qtyInput = e.target.closest('#cartBody .qty');
+      if (!qtyInput) return;
+
+      const row = qtyInput.closest('tr');
+      const sku = row?.dataset.sku;
+      const qty = Math.max(1, Number(qtyInput.value || 1));
+
+      const cart = readCart();
+      const item = cart.find(i => i.sku === sku);
+      if (!item) return;
+
       item.qty = qty;
-      setCart(cart);       // from util.js (dispatches 'cart:updated')
+      setCart(cart);     // persists + dispatches `cart:updated`
       renderCart();
-    }
-  });
+    });
 
-  // Clicks for + / − / Remove
-  body.addEventListener('click', (e) => {
-    const row = e.target.closest('tr');
-    if (!row) return;
-    const sku = row.dataset.sku;
+    // 2) Clicks for + / − / Remove (robust to clicks on inner spans, etc.)
+    document.addEventListener('click', (e) => {
+      const incBtn    = e.target.closest('#cartBody .qty-inc');
+      const decBtn    = e.target.closest('#cartBody .qty-dec');
+      const removeBtn = e.target.closest('#cartBody .remove');
 
-    let cart = readCart();
-    let item = cart.find(i => i.sku === sku);
+      if (!incBtn && !decBtn && !removeBtn) return;
 
-    if (e.target.classList.contains('qty-inc')) {
-      if (item) {
+      const row = e.target.closest('#cartBody tr');
+      if (!row) return;
+      const sku = row.dataset.sku;
+
+      let cart = readCart();
+      let item = cart.find(i => i.sku === sku);
+
+      if (incBtn && item) {
         item.qty = (Number(item.qty) || 1) + 1;
-        setCart(cart);
-        renderCart();
-      }
-      return;
-    }
-
-    if (e.target.classList.contains('qty-dec')) {
-      if (item) {
+      } else if (decBtn && item) {
         item.qty = Math.max(1, (Number(item.qty) || 1) - 1);
-        setCart(cart);
-        renderCart();
+      } else if (removeBtn) {
+        cart = cart.filter(i => i.sku !== sku);
+      } else {
+        return;
       }
-      return;
-    }
 
-    if (e.target.classList.contains('remove')) {
-      cart = cart.filter(i => i.sku !== sku);
-      setCart(cart);
-      renderCart();
-      return;
-    }
+      setCart(cart);   // persists + emits 'cart:updated'
+      renderCart();    // repaint table + totals
+    });
+
+    // Initial paint
+    renderCart();
   });
 
-  // Initial paint
-  renderCart();
-});
-
-// Also repaint if something else updates the cart
-window.addEventListener('cart:updated', renderCart);
-window.addEventListener('storage', (e) => {
-  if (e.key === 'cart') renderCart();
-});
+  // Repaint if another tab / code path updates the cart
+  window.addEventListener('cart:updated', renderCart);
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'cart') renderCart();
+  });
+})();
