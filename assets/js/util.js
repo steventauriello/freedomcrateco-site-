@@ -1,6 +1,16 @@
-window.FC = window.FC || {};
-FC.storage = {
-  get(k, d){ try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch(_) { return d; } },
-  set(k, v){ localStorage.setItem(k, JSON.stringify(v)); }
-};
-FC.formatPrice = n => '$' + (isNaN(n)?'0.00':Number(n).toFixed(2));
+// assets/js/util.js
+(function () {
+  'use strict';
+
+  const CART_KEY = 'cart';
+
+  window.readCart = function readCart() {
+    try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
+    catch { return []; }
+  };
+
+  window.setCart = function setCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart || []));
+    window.dispatchEvent(new Event('cart:updated'));
+  };
+})();
