@@ -1,4 +1,4 @@
 status,title,sku,price,qty,image_url,images,tags,description
-active,Footlocker Ammo Box V2,FC-FOOTLOCKER-V2,189,3,,https://picsum.photos/seed/footlocker/600/400,classic|footlocker,Lightweight 15/32 sheathing ply, dual removable trays, nylon strap handles.
-active,Range Box 300,FC-RB-300,139,2,,https://picsum.photos/seed/rb300/600/400,range|compact,Compact box sized for three 4x4x2 trays.
-active,Range Box 1000 (9mm),FC-RB-1000-9,169,0,,https://picsum.photos/seed/rb1000/600/400,range|9mm,Holds ~1000 rds 9mm with sliding shelf; sold out example.
+active,"Footlocker Ammo Box V2",FC-FOOTLOCKER-V2,189,3,https://picsum.photos/seed/footlocker/600/400,,"classic|footlocker","Lightweight 15/32 sheathing ply, dual removable trays."
+active,"Range Box 300",FC-RB-300,139,2,https://picsum.photos/seed/rb300/600/400,,"range|compact","Compact box sized for three 4x4x2 trays."
+active,"Range Box 1000 (9mm)",FC-RB-1000-9,169,0,https://picsum.photos/seed/rb1000/600/400,,"range|9mm","Holds ~1000 rds 9mm with sliding shelf; sold out example."
