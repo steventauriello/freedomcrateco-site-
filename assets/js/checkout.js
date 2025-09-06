@@ -32,9 +32,9 @@ function renderCart() {
   }
 
   cart.forEach(item => {
-    const qty  = Number(item.qty || 1);
+    const qty   = Number(item.qty || 1);
     const price = Number(item.price || 0);
-    const sub  = qty * price;
+    const sub   = qty * price;
     total += sub;
 
     const tr = document.createElement('tr');
@@ -42,7 +42,17 @@ function renderCart() {
 
     tr.innerHTML = `
       <td>${escapeHtml(item.name || item.sku)}</td>
-      
+
+      <td class="qty-cell">
+        <button class="qty-dec" type="button" aria-label="Decrease quantity">−</button>
+        <input class="qty" type="number" inputmode="numeric" pattern="[0-9]*" min="1" value="${qty}" style="width:70px" />
+        <button class="qty-inc" type="button" aria-label="Increase quantity">+</button>
+      </td>
+
+      <td>${money(price)}</td>
+      <td class="subtotal">${money(sub)}</td>
+
+      <td><button class="remove" type="button">Remove</button></td>
     `;
 
     body.appendChild(tr);
@@ -52,11 +62,11 @@ function renderCart() {
   updateCartBadge(cartCount(cart)); // keep the header badge in sync
 }
 
-// Handle qty changes and removes
 document.addEventListener('DOMContentLoaded', () => {
   const body = document.getElementById('cartBody');
   if (!body) return;
 
+  // Typing directly in the qty input
   body.addEventListener('change', (e) => {
     if (!e.target.classList.contains('qty')) return;
 
@@ -68,20 +78,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const item = cart.find(i => i.sku === sku);
     if (item) {
       item.qty = qty;
-      setCart(cart);   // from util.js (this also dispatches 'cart:updated')
+      setCart(cart);       // from util.js (dispatches 'cart:updated')
       renderCart();
     }
   });
 
+  // Clicks for + / − / Remove
   body.addEventListener('click', (e) => {
-    if (!e.target.classList.contains('remove')) return;
-
     const row = e.target.closest('tr');
-    const sku = row?.dataset.sku;
+    if (!row) return;
+    const sku = row.dataset.sku;
 
-    let cart = readCart().filter(i => i.sku !== sku);
-    setCart(cart);
-    renderCart();
+    let cart = readCart();
+    let item = cart.find(i => i.sku === sku);
+
+    if (e.target.classList.contains('qty-inc')) {
+      if (item) {
+        item.qty = (Number(item.qty) || 1) + 1;
+        setCart(cart);
+        renderCart();
+      }
+      return;
+    }
+
+    if (e.target.classList.contains('qty-dec')) {
+      if (item) {
+        item.qty = Math.max(1, (Number(item.qty) || 1) - 1);
+        setCart(cart);
+        renderCart();
+      }
+      return;
+    }
+
+    if (e.target.classList.contains('remove')) {
+      cart = cart.filter(i => i.sku !== sku);
+      setCart(cart);
+      renderCart();
+      return;
+    }
   });
 
   // Initial paint
