@@ -1,63 +1,70 @@
-// --- Cart helpers ---
-function readCart() {
-  try { return JSON.parse(localStorage.getItem('cart') || '[]'); }
-  catch { return []; }
-}
+/* assets/js/cart.js
+   Lightweight cart helpers stored in localStorage.
+   Exposes: readCart(), saveCart(), addToCart(), buyNow(), cartCount()
+*/
 
-function cartCount(cart) {
-  return cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-}
-
-function saveCart(cart) {
-  localStorage.setItem('cart', JSON.stringify(cart));
-  // Dispatch an event so all pages update instantly
-  window.dispatchEvent(new CustomEvent('cart:updated', {
-    detail: { cart, count: cartCount(cart) }
-  }));
-}
-
-function addToCart(sku, name, price, qty = 1) {
-  // If name/price not supplied, pull from PRODUCTS (loaded by data.js)
-  if ((name == null || price == null) && window.PRODUCTS && window.PRODUCTS[sku]) {
-    const p = window.PRODUCTS[sku];
-    name = name ?? p.title;
-    price = price ?? Number(p.price || 0);
+(function () {
+  // --- storage helpers ---
+  function readCart() {
+    try { return JSON.parse(localStorage.getItem('cart') || '[]'); }
+    catch { return []; }
   }
 
-  let cart = readCart();
-  let found = cart.find(i => i.sku === sku);
-
-  if (found) {
-    found.qty = (found.qty || 0) + qty;
-  } else {
-    cart.push({ sku, name, price, qty });
+  function cartCount(cart) {
+    return (cart || []).reduce((sum, item) => sum + (item.qty || 1), 0);
   }
 
-  saveCart(cart);
-}
+  function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    // Keep header badge in sync across pages/tabs
+    const count = cartCount(cart);
+    window.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart, count } }));
+  }
 
-function buyNow(sku, name, price, qty = 1) {
-  addToCart(sku, name, price, qty);
-  window.location.href = 'checkout.html';
-}
+  // --- main API ---
+  // NOTE: supports a 5th "meta" arg (e.g., { image: 'url' })
+  function addToCart(sku, name, price, qty = 1, meta = {}) {
+    // Optional lookup if only sku is provided
+    if ((name == null || price == null) && window.PRODUCTS && window.PRODUCTS[sku]) {
+      const p = window.PRODUCTS[sku];
+      name  = name  ?? p.title;
+      price = price ?? Number(p.price || 0);
+      if (!meta.image && p.image_url) meta.image = p.image_url;
+    }
 
+    const cart = readCart();
+    const found = cart.find(i => i.sku === sku);
 
-// --- Cart badge updater ---
-function updateCartBadge(count) {
-  const el = document.getElementById('cartCount');
-  if (el) el.textContent = count;
-}
+    if (found) {
+      found.qty = (found.qty || 0) + qty;
+      // merge in meta so later adds can update image, etc.
+      Object.assign(found, meta || {});
+    } else {
+      cart.push({ sku, name, price: Number(price || 0), qty: Number(qty || 1), ...(meta || {}) });
+    }
 
-// Keep badge in sync
-window.addEventListener('cart:updated', (e) => updateCartBadge(e.detail.count));
-document.addEventListener('DOMContentLoaded', () => {
-  updateCartBadge(cartCount(readCart()));
-});
-// Also update if another tab changes localStorage
-window.addEventListener('storage', (e) => {
-  if (e.key === 'cart') updateCartBadge(cartCount(readCart()));
-});
+    saveCart(cart);
+  }
 
-// Expose functions for your inline onclick handlers
-window.addToCart = addToCart;
-window.buyNow    = buyNow;
+  function buyNow(sku, name, price, qty = 1, meta = {}) {
+    addToCart(sku, name, price, qty, meta);
+    window.location.href = 'checkout.html';
+  }
+
+  // --- header badge bootstrap + cross-tab sync ---
+  function updateCartBadge(count) {
+    const el = document.getElementById('cartCount');
+    if (el) el.textContent = count;
+  }
+
+  window.addEventListener('cart:updated', (e) => updateCartBadge(e.detail.count));
+  document.addEventListener('DOMContentLoaded', () => updateCartBadge(cartCount(readCart())));
+  window.addEventListener('storage', (e) => { if (e.key === 'cart') updateCartBadge(cartCount(readCart())); });
+
+  // expose globally for inline/onclick usage
+  window.readCart  = readCart;
+  window.saveCart  = saveCart;
+  window.addToCart = addToCart;
+  window.buyNow    = buyNow;
+  window.cartCount = cartCount;
+})();
