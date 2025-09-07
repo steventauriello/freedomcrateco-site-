@@ -17,7 +17,11 @@
       .featured-card {grid-template-columns: 1.2fr 1fr; align-items:start;}
     }
     .featured-card h2 {margin:.25rem 0 .5rem 0;}
-    .fc-media img {max-width:100%; height:auto; border-radius:6px; display:block;}
+    .fc-media img {max-width:100%; height:auto; border-radius:6px; display:block;
+      /* Smooth image fade-in */
+      transition: opacity .25s ease; opacity: 1;
+    }
+    .fc-media img.is-loading { opacity: 0; }
     .fc-controls label {font-weight:600; display:block; margin:.5rem 0 .25rem;}
     .fc-row {display:flex; align-items:center; gap:1rem; margin:.75rem 0;}
     .fc-btn {padding:.75rem 1.25rem; border-radius:6px; cursor:pointer;}
@@ -111,79 +115,144 @@
   <script src="assets/js/cart.js"></script>      <!-- provides addToCart(), buyNow() -->
   <script src="assets/js/catalog.js"></script>   <!-- renders the grid into #products -->
 
-  <!-- Featured card logic (uses images directly in assets/img/) -->
+  <!-- Featured card logic: fade + preload + price animation + saved state -->
   <script>
-    (() => {
-      const IMG = {
-        blank:      "assets/img/blank.jpg",
-        army:       "assets/img/army.jpg",
-        marines:    "assets/img/marines.jpg",
-        navy:       "assets/img/navy.jpg",
-        airforce:   "assets/img/airforce.jpg",
-        coastguard: "assets/img/coastguard.jpg"
-      };
-      const BASE = 95; // update when you finalize prices
+  (() => {
+    const IMG = {
+      blank:      "assets/img/blank.jpg",
+      army:       "assets/img/army.jpg",
+      marines:    "assets/img/marines.jpg",
+      navy:       "assets/img/navy.jpg",
+      airforce:   "assets/img/airforce.jpg",
+      coastguard: "assets/img/coastguard.jpg"
+    };
+    const BASE = 95;
 
-      const imgEl   = document.getElementById('sb-image');
-      const branch  = document.getElementById('sb-branch');
-      const priceEl = document.getElementById('sb-price');
-      const addBtn  = document.getElementById('sb-add');
-      const buyBtn  = document.getElementById('sb-buy');
-      const addons  = Array.from(document.querySelectorAll('.sb-addon'));
+    const imgEl   = document.getElementById('sb-image');
+    const branch  = document.getElementById('sb-branch');
+    const priceEl = document.getElementById('sb-price');
+    const addBtn  = document.getElementById('sb-add');
+    const buyBtn  = document.getElementById('sb-buy');
+    const addons  = Array.from(document.querySelectorAll('.sb-addon'));
+    const persEl  = document.getElementById('sb-personalization');
 
-      function fmt(n){ return `$${Number(n).toFixed(2)}`; }
+    const KEY = 'fcc-standard-box'; // localStorage key
 
-      function updateImage(){
-        const v = branch.value;
-        imgEl.src = IMG[v] || IMG.blank;
+    function fmt(n){ return `$${Number(n).toFixed(2)}`; }
+
+    // --- image preloader ---
+    const cache = {};
+    function preloadAll(){
+      for (const k in IMG){
+        const im = new Image();
+        im.src = IMG[k];
+        cache[k] = im;
+      }
+    }
+
+    // --- fade image on change ---
+    function updateImage(){
+      const v = branch.value;
+      imgEl.classList.add('is-loading');  // start fade-out
+      const next = IMG[v] || IMG.blank;
+      const tmp = new Image();
+      tmp.onload = () => {
+        imgEl.src = next;
         imgEl.alt = (v === 'blank')
           ? 'Standard Ammo Box (blank)'
           : `Standard Ammo Box – ${branch.options[branch.selectedIndex].text}`;
+        // allow repaint then fade-in
+        requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
+      };
+      tmp.src = next;
+    }
+
+    // --- price calculation with tiny counter animation ---
+    function animatePrice(from, to, ms=250){
+      const start = performance.now();
+      function step(t){
+        const k = Math.min(1, (t-start)/ms);
+        const val = from + (to-from)*k;
+        priceEl.textContent = fmt(val);
+        if (k < 1) requestAnimationFrame(step);
       }
+      requestAnimationFrame(step);
+    }
 
-      function calcTotal(){
-        const extras = addons.reduce((s,cb)=> s + (cb.checked ? Number(cb.dataset.price||0) : 0), 0);
-        priceEl.textContent = fmt(BASE + extras);
-      }
+    function calcTotal(animate=true){
+      const extras = addons.reduce((s,cb)=> s + (cb.checked ? Number(cb.dataset.price||0) : 0), 0);
+      const newTotal = BASE + extras;
+      const current = Number(priceEl.textContent.replace('$','')) || BASE;
+      if (animate) animatePrice(current, newTotal);
+      else priceEl.textContent = fmt(newTotal);
+    }
 
-      branch.addEventListener('change', updateImage);
-      addons.forEach(cb => cb.addEventListener('change', calcTotal));
-      updateImage(); calcTotal();
+    // --- save/restore last choices ---
+    function saveState(){
+      const state = {
+        branch: branch.value,
+        addons: addons.filter(cb => cb.checked).map(cb => cb.value),
+        p: persEl.value
+      };
+      localStorage.setItem(KEY, JSON.stringify(state));
+    }
+    function restoreState(){
+      try{
+        const raw = localStorage.getItem(KEY);
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        if (s.branch) branch.value = s.branch;
+        addons.forEach(cb => cb.checked = (s.addons||[]).includes(cb.value));
+        if (typeof s.p === 'string') persEl.value = s.p;
+      }catch(_){}
+    }
 
-      function buildLineItem(){
-        return {
-          id: 'standard-box',
-          name: 'Standard Ammo Box',
-          price: Number(priceEl.textContent.replace('$','')),
-          qty: 1,
-          options: {
-            branch: branch.options[branch.selectedIndex].text,
-            addons: addons.filter(cb=>cb.checked).map(cb=>cb.value),
-            personalization: document.getElementById('sb-personalization').value
-          }
-        };
-      }
+    // --- events ---
+    branch.addEventListener('change', () => { updateImage(); saveState(); });
+    addons.forEach(cb => cb.addEventListener('change', () => { calcTotal(); saveState(); }));
+    persEl.addEventListener('input', () => saveState());
 
-      addBtn.addEventListener('click', () => {
-        const item = buildLineItem();
-        if (typeof window.addToCart === 'function') {
-          window.addToCart(item);
-        } else {
-          alert('Added to cart (demo):\\n' + JSON.stringify(item, null, 2));
+    // --- init ---
+    restoreState();
+    preloadAll();
+    updateImage();
+    calcTotal(false);
+
+    // --- cart actions (same behavior as before) ---
+    function buildLineItem(){
+      return {
+        id: 'standard-box',
+        name: 'Standard Ammo Box',
+        price: Number(priceEl.textContent.replace('$','')),
+        qty: 1,
+        options: {
+          branch: branch.options[branch.selectedIndex].text,
+          addons: addons.filter(cb=>cb.checked).map(cb=>cb.value),
+          personalization: persEl.value
         }
-      });
+      };
+    }
 
-      buyBtn.addEventListener('click', () => {
-        const item = buildLineItem();
-        if (typeof window.buyNow === 'function') {
-          window.buyNow(item);
-        } else if (typeof window.addToCart === 'function') {
-          window.addToCart(item); window.location.href = 'checkout.html';
-        } else {
-          alert('Proceed to checkout (demo).');
-        }
-      });
-    })();
+    addBtn.addEventListener('click', () => {
+      const item = buildLineItem();
+      if (typeof window.addToCart === 'function') {
+        window.addToCart(item);
+      } else {
+        alert('Added to cart (demo):\\n' + JSON.stringify(item, null, 2));
+      }
+    });
+
+    buyBtn.addEventListener('click', () => {
+      const item = buildLineItem();
+      if (typeof window.buyNow === 'function') {
+        window.buyNow(item);
+      } else if (typeof window.addToCart === 'function') {
+        window.addToCart(item); window.location.href = 'checkout.html';
+      } else {
+        alert('Proceed to checkout (demo).');
+      }
+    });
+  })();
   </script>
 </body>
 </html>
