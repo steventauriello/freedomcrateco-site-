@@ -5,6 +5,24 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Freedom Crate Co. – Shop</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <!-- Minimal scoped styles for the featured card; safe to leave inline -->
+  <style>
+    .featured-wrap {margin: 2rem 0;}
+    .featured-card {
+      display:grid; gap:1rem; grid-template-columns: 1fr;
+      padding:1rem; border:1px solid rgba(255,255,255,.08);
+      border-radius:8px; background:rgba(255,255,255,.02);
+    }
+    @media (min-width: 880px){
+      .featured-card {grid-template-columns: 1.2fr 1fr; align-items:start;}
+    }
+    .featured-card h2 {margin:.25rem 0 .5rem 0;}
+    .fc-media img {max-width:100%; height:auto; border-radius:6px; display:block;}
+    .fc-controls label {font-weight:600; display:block; margin:.5rem 0 .25rem;}
+    .fc-row {display:flex; align-items:center; gap:1rem; margin:.75rem 0;}
+    .fc-btn {padding:.75rem 1.25rem; border-radius:6px; cursor:pointer;}
+    .fc-note {opacity:.75; font-size:.9rem;}
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -27,6 +45,54 @@
 
     <section class="hero-banner"></section>
 
+    <!-- === Featured: Standard Box with live branch preview === -->
+    <section class="featured-wrap" aria-label="Featured Product">
+      <div class="featured-card" id="standard-box">
+        <div class="fc-media">
+          <img id="sb-image" src="assets/img/standard/blank.jpg"
+               alt="Standard Ammo Box live preview">
+        </div>
+
+        <div class="fc-controls">
+          <h2>Standard Ammo Box</h2>
+          <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
+
+          <label for="sb-branch">Branch stencil</label>
+          <select id="sb-branch">
+            <option value="blank">Blank (no stencil)</option>
+            <option value="army">U.S. Army</option>
+            <option value="marines">U.S. Marine Corps</option>
+            <option value="navy">U.S. Navy</option>
+            <option value="airforce">U.S. Air Force</option>
+            <option value="coastguard">U.S. Coast Guard</option>
+          </select>
+
+          <label>Add-ons</label>
+          <div>
+            <label><input type="checkbox" class="sb-addon" data-price="10" value="Divider"> Divider</label><br>
+            <label><input type="checkbox" class="sb-addon" data-price="15" value="Sliding Tray"> Sliding Tray</label><br>
+            <label><input type="checkbox" class="sb-addon" data-price="12" value="Locking Hardware"> Locking Hardware</label>
+          </div>
+
+          <label for="sb-personalization">Personalization (optional)</label>
+          <input id="sb-personalization" type="text" placeholder="Name / unit / short quote">
+
+          <div class="fc-row">
+            <div><strong>Total: <span id="sb-price">$95</span></strong></div>
+            <small class="fc-note">Base $95 + add-ons</small>
+          </div>
+
+          <div class="fc-row">
+            <button id="sb-add" class="fc-btn btn">Add to Cart</button>
+            <button id="sb-buy" class="fc-btn btn">Buy Now</button>
+          </div>
+
+          <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
+        </div>
+      </div>
+    </section>
+    <!-- === End Featured === -->
+
     <!-- JS will render all product cards here -->
     <section id="products" class="grid" aria-live="polite"></section>
   </main>
@@ -44,5 +110,71 @@
   <script src="assets/js/data.js"></script>
   <script src="assets/js/cart.js"></script>      <!-- provides addToCart(), buyNow() -->
   <script src="assets/js/catalog.js"></script>   <!-- renders the grid into #products -->
+
+  <!-- Featured card logic (scoped; safe with your existing JS) -->
+  <script>
+    (() => {
+      const IMG = {
+        blank:      "assets/img/standard/blank.jpg",
+        army:       "assets/img/standard/army.jpg",
+        marines:    "assets/img/standard/marines.jpg",
+        navy:       "assets/img/standard/navy.jpg",
+        airforce:   "assets/img/standard/airforce.jpg",
+        coastguard: "assets/img/standard/coastguard.jpg"
+      };
+      const BASE = 95; // adjust when you finalize prices
+
+      const imgEl   = document.getElementById('sb-image');
+      const branch  = document.getElementById('sb-branch');
+      const priceEl = document.getElementById('sb-price');
+      const addBtn  = document.getElementById('sb-add');
+      const buyBtn  = document.getElementById('sb-buy');
+      const addons  = Array.from(document.querySelectorAll('.sb-addon'));
+
+      function updateImage(){ imgEl.src = IMG[branch.value] || IMG.blank; }
+      function calcTotal(){
+        const extras = addons.reduce((sum, cb) => sum + (cb.checked ? Number(cb.dataset.price||0) : 0), 0);
+        priceEl.textContent = `$${(BASE + extras).toFixed(0)}`;
+      }
+
+      branch.addEventListener('change', updateImage);
+      addons.forEach(cb => cb.addEventListener('change', calcTotal));
+      updateImage(); calcTotal();
+
+      function buildLineItem(){
+        return {
+          id: 'standard-box',
+          name: 'Standard Ammo Box',
+          price: Number(priceEl.textContent.replace('$','')),
+          qty: 1,
+          options: {
+            branch: branch.options[branch.selectedIndex].text,
+            addons: addons.filter(cb => cb.checked).map(cb => cb.value),
+            personalization: document.getElementById('sb-personalization').value
+          }
+        };
+      }
+
+      addBtn.addEventListener('click', () => {
+        const item = buildLineItem();
+        if (typeof window.addToCart === 'function') {
+          window.addToCart(item);
+        } else {
+          alert('Added to cart (demo):\\n' + JSON.stringify(item, null, 2));
+        }
+      });
+
+      buyBtn.addEventListener('click', () => {
+        const item = buildLineItem();
+        if (typeof window.buyNow === 'function') {
+          window.buyNow(item);
+        } else if (typeof window.addToCart === 'function') {
+          window.addToCart(item); window.location.href = 'checkout.html';
+        } else {
+          alert('Proceed to checkout (demo).');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
