@@ -16,7 +16,6 @@
     .remove-btn{background:#e85b5b;border:none;color:#fff;padding:.5rem .9rem;border-radius:8px;cursor:pointer}
     .totals{display:flex;justify-content:flex-end;gap:2rem;margin:1rem 0 1.25rem}
     .totals div{min-width:180px;display:flex;justify-content:space-between}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.25)}
     #paypal-buttons{margin-top:1rem}
     .empty{padding:2.5rem;text-align:center;color:rgba(255,255,255,.7);border:1px dashed rgba(255,255,255,.2);border-radius:10px}
   </style>
@@ -44,7 +43,6 @@
     </div>
 
     <div id="actions" hidden>
-      <button id="emptyCart" class="btn btn-ghost">Empty Cart</button>
       <div id="paypal-buttons"></div>
     </div>
 
@@ -57,19 +55,15 @@
   <script src="assets/js/config.js"></script>
   <script src="assets/js/cart.js"></script>
 
-  <!-- PayPal Smart Buttons (replace client-id) -->
+  <!-- PayPal Smart Buttons (replace with your live client-id when ready) -->
   <script src="https://www.paypal.com/sdk/js?client-id=AcqHQkEv2VuHF_V8UL6LhZPiYQJMszdMyXK74SVqvICeoHze2onZj0SouWpYDxAaBXQtCRsPOyJhT4p8&currency=USD" defer></script>
 
   <script>
   (function () {
-    const $ = (sel, root=document) => root.querySelector(sel);
-    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-
     const container = document.getElementById('cartContainer');
     const subtotalEl = document.getElementById('subtotal');
     const totalsBox  = document.getElementById('totals');
     const actionsBox = document.getElementById('actions');
-    const emptyBtn   = document.getElementById('emptyCart');
 
     function fmt(n){ return '$' + (Number(n||0)).toFixed(2); }
 
@@ -124,7 +118,7 @@
 
         subtotal += (Number(item.price)||0) * (item.qty||1);
 
-        // wiring
+        // wire qty / remove
         meta.querySelector('[data-inc]').addEventListener('click', () => {
           const c = readCart(); c[idx].qty = (c[idx].qty||1) + 1; saveCart(c); render();
         });
@@ -142,8 +136,6 @@
       setupPayPal(subtotal);
     }
 
-    emptyBtn.addEventListener('click', () => { localStorage.removeItem('cart'); render(); });
-
     // PayPal buttons lifecycle
     let paypalButtonsInstance = null;
 
@@ -157,9 +149,7 @@
     }
 
     function setupPayPal(amount){
-      // wait until SDK is loaded
       if (!window.paypal || !paypal.Buttons){ setTimeout(()=>setupPayPal(amount), 100); return; }
-
       teardownPayPal();
 
       paypalButtonsInstance = paypal.Buttons({
@@ -178,9 +168,6 @@
             window.location.href = 'thanks.html';
           });
         },
-        onCancel: () => {
-          // stay on page; nothing special
-        },
         onError: (err) => {
           console.error('PayPal error', err);
           alert('There was an issue with PayPal. Please try again.');
@@ -192,13 +179,11 @@
       }
     }
 
-    // util
     function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 
-    // initial
+    // initial render + sync
     document.addEventListener('DOMContentLoaded', render);
     window.addEventListener('storage', (e) => { if (e.key === 'cart') render(); });
-    // immediate render in case DOMContentLoaded already fired
     render();
   })();
   </script>
