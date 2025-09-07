@@ -1,29 +1,19 @@
 /* assets/js/catalog.js
-   Renders product cards with Add to Cart + Buy Now buttons.
-   Requires:
-   - FC.loadProducts() -> Promise<Array<Product>>
-   - FC.formatPrice(number) -> string
-   - FC.storage.get/set(key, value)
-   - global addToCart(sku, name, price, qty), buyNow(sku, name, price, qty) from cart.js
+   Renders product cards from FC.loadProducts() and wires Add/Buy.
+   Requires FC.loadProducts(), FC.formatPrice(), FC.storage.get/set().
 */
 (function () {
   const listEl = document.getElementById('products');
   if (!listEl) return;
 
-  // Initial load
   Promise.all([
     FC.loadProducts(),
     Promise.resolve(FC.storage.get('favs', []))
   ]).then(([items, favs]) => {
-    // Build a simple PRODUCTS map for cart.js fallback (title + price)
+    // Keep a simple products map for cart.js fallbacks (optional)
     try {
-      const map = {};
-      (items || []).forEach(p => {
-        if (!p || !p.sku) return;
-        map[p.sku] = { title: p.title || p.name || 'Item', price: Number(p.price || 0) };
-      });
-      window.PRODUCTS = map;
-    } catch (_) {}
+      window.PRODUCTS = Object.fromEntries(items.map(p => [p.sku, p]));
+    } catch(_) {}
 
     render(items, new Set(favs));
     wireFilters(items);
@@ -37,11 +27,7 @@
         btn.classList.add('active');
 
         const favSet = new Set(FC.storage.get('favs', []));
-        if (mode === 'favorites') {
-          render(items.filter(p => favSet.has(p.sku)), favSet);
-        } else {
-          render(items, favSet);
-        }
+        render(mode === 'favorites' ? items.filter(p => favSet.has(p.sku)) : items, favSet);
       });
     });
   }
@@ -57,16 +43,15 @@
       const card = document.createElement('article');
       card.className = 'card';
 
-      const title = p.title || p.name || 'Item';
-      const priceNum = Number(p.price || 0);
-      const priceStr = FC.formatPrice(priceNum);
-
       const imgHtml = p.image_url
-        ? `<img src="${escapeHtml(p.image_url)}" alt="${escapeHtml(title)}" class="ph">`
+        ? `<img src="${escapeHtml(p.image_url)}" alt="${escapeHtml(p.title)}" class="ph">`
         : `<div class="ph"></div>`;
 
       const soldHtml = (Number(p.qty) <= 0) ? `<div class="soldout">Sold Out</div>` : '';
       const favActive = favSet.has(p.sku) ? 'active' : '';
+
+      const priceNum = Number(p.price) || 0;
+      const title    = p.title || 'Item';
 
       card.innerHTML = `
         <a class="img" href="product.html?sku=${encodeURIComponent(p.sku)}">
@@ -83,50 +68,44 @@
           <p>${escapeHtml(p.description || '')}</p>
 
           <div class="price-row">
-            <span class="price">${priceStr}</span>
-
+            <span class="price">${FC.formatPrice(priceNum)}</span>
             ${
               Number(p.qty) > 0
-                ? `
-                <div class="actions">
-                  <button class="btn" data-add="${escapeHtml(p.sku)}">Add to Cart</button>
-                  <button class="btn" data-buy="${escapeHtml(p.sku)}">Buy Now</button>
-                </div>`
+                ? `<div class="actions">
+                     <button class="btn" data-add="${escapeHtml(p.sku)}">Add to Cart</button>
+                     <button class="btn" data-buy="${escapeHtml(p.sku)}">Buy Now</button>
+                   </div>`
                 : `<span class="muted">Unavailable</span>`
             }
           </div>
         </div>
       `;
 
-      // Heart toggle
+      // Fav toggle
       const favBtn = card.querySelector('.fav');
       favBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+        e.preventDefault(); e.stopPropagation();
         const sku = favBtn.getAttribute('data-sku');
         const cur = new Set(FC.storage.get('favs', []));
-        if (cur.has(sku)) {
-          cur.delete(sku);
-          favBtn.classList.remove('active');
-        } else {
-          cur.add(sku);
-          favBtn.classList.add('active');
-        }
+        cur.has(sku) ? cur.delete(sku) : cur.add(sku);
+        favBtn.classList.toggle('active');
         FC.storage.set('favs', Array.from(cur));
       });
 
-      // Button handlers (pass sku, name, price, qty) — match cart.js contract
+      // Buttons – pass full info + image to cart
       const addBtn = card.querySelector('[data-add]');
       const buyBtn = card.querySelector('[data-buy]');
+
       if (addBtn) addBtn.addEventListener('click', (e) => {
         e.preventDefault(); e.stopPropagation();
         const sku = p.sku;
-        window.addToCart(sku, title, priceNum, 1);
+        window.addToCart(sku, title, priceNum, 1, { image: p.image_url });
       });
+
       if (buyBtn) buyBtn.addEventListener('click', (e) => {
         e.preventDefault(); e.stopPropagation();
         const sku = p.sku;
-        window.buyNow(sku, title, priceNum, 1);
+        window.buyNow(sku, title, priceNum, 1, { image: p.image_url });
       });
 
       listEl.appendChild(card);
@@ -135,7 +114,7 @@
 
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, m => (
-      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]
+      { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[m]
     ));
   }
 })();
