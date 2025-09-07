@@ -26,7 +26,7 @@
     .fc-row {display:flex; align-items:center; gap:1rem; margin:.75rem 0;}
     .fc-btn {padding:.75rem 1.25rem; border-radius:6px; cursor:pointer;}
     .fc-note {opacity:.75; font-size:.9rem;}
-    .option-row {margin-bottom: .5rem;}
+    .option-row {margin-bottom:.5rem;}
   </style>
 </head>
 <body>
@@ -77,13 +77,13 @@
           <div role="group" aria-label="Latch finish">
             <div class="option-row">
               <label>
-                <input type="radio" name="latch" class="sb-latch" value="Stainless" data-price="0" checked>
+                <input type="radio" name="latch" class="sb-latch" value="Stainless" checked>
                 Original Stainless Toggle Latches
               </label>
             </div>
             <div class="option-row">
               <label>
-                <input type="radio" name="latch" class="sb-latch" value="Black" data-price="0">
+                <input type="radio" name="latch" class="sb-latch" value="Black">
                 Black Toggle Latches
               </label>
             </div>
@@ -126,7 +126,7 @@
   <script src="assets/js/cart.js"></script>      <!-- provides addToCart(), buyNow() -->
   <script src="assets/js/catalog.js"></script>   <!-- renders the grid into #products -->
 
-  <!-- Featured card logic: fade + preload + price animation + saved state -->
+  <!-- Featured card logic: fade + preload + price animation + saved state + proper cart calls -->
   <script>
   (() => {
     const IMG = {
@@ -139,11 +139,8 @@
     };
     const BASE = 95;
 
-    // If you want black latches to add a surcharge later, change 0 to the upcharge (e.g., 10)
-    const LATCH_PRICE = {
-      Stainless: 0,
-      Black: 0
-    };
+    // If you ever add a surcharge for black latches, set it here (e.g., {Stainless:0, Black:10})
+    const LATCH_PRICE = { Stainless: 0, Black: 0 };
 
     const imgEl   = document.getElementById('sb-image');
     const branch  = document.getElementById('sb-branch');
@@ -151,22 +148,16 @@
     const addBtn  = document.getElementById('sb-add');
     const buyBtn  = document.getElementById('sb-buy');
     const persEl  = document.getElementById('sb-personalization');
-
     const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
 
     const KEY = 'fcc-standard-box'; // localStorage key
 
     function fmt(n){ return `$${Number(n).toFixed(2)}`; }
+    function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+    function getSelectedLatch(){ const r = latchInputs.find(x=>x.checked); return r ? r.value : 'Stainless'; }
 
     // --- image preloader ---
-    const cache = {};
-    function preloadAll(){
-      for (const k in IMG){
-        const im = new Image();
-        im.src = IMG[k];
-        cache[k] = im;
-      }
-    }
+    function preloadAll(){ Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; }); }
 
     // --- fade image on change ---
     function updateImage(){
@@ -176,64 +167,57 @@
       const tmp = new Image();
       tmp.onload = () => {
         imgEl.src = next;
-        imgEl.alt = (v === 'blank')
-          ? 'Standard Ammo Box (blank)'
-          : `Standard Ammo Box – ${branch.options[branch.selectedIndex].text}`;
+        imgEl.alt = (v === 'blank') ? 'Standard Ammo Box (blank)'
+                                    : `Standard Ammo Box – ${branch.options[branch.selectedIndex].text}`;
         requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
       };
       tmp.src = next;
     }
 
-    // --- price calculation with tiny counter animation ---
+    // --- price calc with tiny animation ---
     function animatePrice(from, to, ms=250){
       const start = performance.now();
-      function step(t){
-        const k = Math.min(1, (t-start)/ms);
-        const val = from + (to-from)*k;
-        priceEl.textContent = fmt(val);
-        if (k < 1) requestAnimationFrame(step);
-      }
+      function step(t){ const k = Math.min(1,(t-start)/ms); priceEl.textContent = fmt(from+(to-from)*k); if(k<1) requestAnimationFrame(step); }
       requestAnimationFrame(step);
     }
-
-    function getSelectedLatch(){
-      const checked = latchInputs.find(r => r.checked);
-      return checked ? checked.value : 'Stainless';
-    }
-
     function calcTotal(animate=true){
       const latch = getSelectedLatch();
-      const latchDelta = LATCH_PRICE[latch] || 0;
-      const newTotal = BASE + latchDelta;
+      const newTotal = BASE + (LATCH_PRICE[latch] || 0);
       const current = Number(priceEl.textContent.replace('$','')) || BASE;
-      if (animate) animatePrice(current, newTotal);
-      else priceEl.textContent = fmt(newTotal);
+      if (animate) animatePrice(current, newTotal); else priceEl.textContent = fmt(newTotal);
     }
 
     // --- save/restore last choices ---
     function saveState(){
-      const state = {
+      localStorage.setItem(KEY, JSON.stringify({
         branch: branch.value,
         latch:  getSelectedLatch(),
-        p: persEl.value
-      };
-      localStorage.setItem(KEY, JSON.stringify(state));
+        p:      persEl.value
+      }));
     }
     function restoreState(){
-      try{
-        const raw = localStorage.getItem(KEY);
-        if (!raw) return;
-        const s = JSON.parse(raw);
+      try {
+        const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (!s) return;
         if (s.branch) branch.value = s.branch;
-        if (s.latch){
-          latchInputs.forEach(r => r.checked = (r.value === s.latch));
-        }
+        if (s.latch)  latchInputs.forEach(r => r.checked = (r.value === s.latch));
         if (typeof s.p === 'string') persEl.value = s.p;
-      }catch(_){}
+      } catch(_) {}
+    }
+
+    // --- helpers for cart.js contract ---
+    function currentPriceNumber(){ return Number(priceEl.textContent.replace('$','')) || 0; }
+    function buildSkuAndName(){
+      const branchText = branch.options[branch.selectedIndex].text;
+      const latchText  = getSelectedLatch();
+      const personalization = persEl.value.trim();
+
+      const sku  = `std-${slug(branch.value)}-${slug(latchText)}-${personalization ? slug(personalization) : 'none'}`;
+      const name = `Standard Ammo Box — ${branchText} • ${latchText}` + (personalization ? ` • "${personalization}"` : '');
+      return { sku, name };
     }
 
     // --- events ---
-    branch.addEventListener('change', () => { updateImage(); saveState(); });
+    branch.addEventListener('change', () => { updateImage(); calcTotal(); saveState(); });
     latchInputs.forEach(r => r.addEventListener('change', () => { calcTotal(); saveState(); }));
     persEl.addEventListener('input', () => saveState());
 
@@ -243,39 +227,17 @@
     updateImage();
     calcTotal(false);
 
-    // --- cart actions ---
-    function buildLineItem(){
-      return {
-        id: 'standard-box',
-        name: 'Standard Ammo Box',
-        price: Number(priceEl.textContent.replace('$','')),
-        qty: 1,
-        options: {
-          branch: branch.options[branch.selectedIndex].text,
-          latch:  getSelectedLatch(),
-          personalization: persEl.value
-        }
-      };
-    }
-
+    // --- buttons: call cart.js API exactly (sku, name, price, qty) ---
     addBtn.addEventListener('click', () => {
-      const item = buildLineItem();
-      if (typeof window.addToCart === 'function') {
-        window.addToCart(item);
-      } else {
-        alert('Added to cart (demo):\\n' + JSON.stringify(item, null, 2));
-      }
+      const { sku, name } = buildSkuAndName();
+      const price = currentPriceNumber();
+      window.addToCart(sku, name, price, 1);
     });
 
     buyBtn.addEventListener('click', () => {
-      const item = buildLineItem();
-      if (typeof window.buyNow === 'function') {
-        window.buyNow(item);
-      } else if (typeof window.addToCart === 'function') {
-        window.addToCart(item); window.location.href = 'checkout.html';
-      } else {
-        alert('Proceed to checkout (demo).');
-      }
+      const { sku, name } = buildSkuAndName();
+      const price = currentPriceNumber();
+      window.buyNow(sku, name, price, 1);
     });
   })();
   </script>
