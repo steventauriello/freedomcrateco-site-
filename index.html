@@ -139,7 +139,6 @@
     };
     const BASE = 95;
 
-    // If you ever add a surcharge for black latches, set it here (e.g., {Stainless:0, Black:10})
     const LATCH_PRICE = { Stainless: 0, Black: 0 };
 
     const imgEl   = document.getElementById('sb-image');
@@ -150,19 +149,17 @@
     const persEl  = document.getElementById('sb-personalization');
     const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
 
-    const KEY = 'fcc-standard-box'; // localStorage key
+    const KEY = 'fcc-standard-box';
 
     function fmt(n){ return `$${Number(n).toFixed(2)}`; }
     function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
     function getSelectedLatch(){ const r = latchInputs.find(x=>x.checked); return r ? r.value : 'Stainless'; }
 
-    // --- image preloader ---
     function preloadAll(){ Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; }); }
 
-    // --- fade image on change ---
     function updateImage(){
       const v = branch.value;
-      imgEl.classList.add('is-loading');  // start fade-out
+      imgEl.classList.add('is-loading');
       const next = IMG[v] || IMG.blank;
       const tmp = new Image();
       tmp.onload = () => {
@@ -174,7 +171,6 @@
       tmp.src = next;
     }
 
-    // --- price calc with tiny animation ---
     function animatePrice(from, to, ms=250){
       const start = performance.now();
       function step(t){ const k = Math.min(1,(t-start)/ms); priceEl.textContent = fmt(from+(to-from)*k); if(k<1) requestAnimationFrame(step); }
@@ -187,7 +183,6 @@
       if (animate) animatePrice(current, newTotal); else priceEl.textContent = fmt(newTotal);
     }
 
-    // --- save/restore last choices ---
     function saveState(){
       localStorage.setItem(KEY, JSON.stringify({
         branch: branch.value,
@@ -204,30 +199,25 @@
       } catch(_) {}
     }
 
-    // --- helpers for cart.js contract ---
     function currentPriceNumber(){ return Number(priceEl.textContent.replace('$','')) || 0; }
     function buildSkuAndName(){
       const branchText = branch.options[branch.selectedIndex].text;
       const latchText  = getSelectedLatch();
       const personalization = persEl.value.trim();
-
       const sku  = `std-${slug(branch.value)}-${slug(latchText)}-${personalization ? slug(personalization) : 'none'}`;
       const name = `Standard Ammo Box — ${branchText} • ${latchText}` + (personalization ? ` • "${personalization}"` : '');
       return { sku, name };
     }
 
-    // --- events ---
     branch.addEventListener('change', () => { updateImage(); calcTotal(); saveState(); });
     latchInputs.forEach(r => r.addEventListener('change', () => { calcTotal(); saveState(); }));
     persEl.addEventListener('input', () => saveState());
 
-    // --- init ---
     restoreState();
     preloadAll();
     updateImage();
     calcTotal(false);
 
-    // --- buttons: call cart.js API exactly (sku, name, price, qty) ---
     addBtn.addEventListener('click', () => {
       const { sku, name } = buildSkuAndName();
       const price = currentPriceNumber();
@@ -241,7 +231,10 @@
     });
   })();
   </script>
-  <button onclick="localStorage.removeItem('cart'); location.reload()">Reset Cart</button>
+
+  <!-- Temporary clear cart button (remove after use) -->
+  <button onclick="localStorage.removeItem('cart'); location.reload()" style="margin:2rem; padding:.5rem 1rem;">
+    Reset Cart
+  </button>
 </body>
 </html>
-
