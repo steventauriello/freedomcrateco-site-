@@ -3,28 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Freedom Crate Co. – Cart</title>
+  <title>Your Cart – Freedom Crate Co.</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    .container { max-width: 1000px; margin: 0 auto; padding: 1.25rem; }
-    .cart-wrap { border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:1rem; }
-    .cart-row { display:grid; grid-template-columns: 64px 1fr auto auto auto; gap:1rem; align-items:center; padding:.75rem 0; border-bottom:1px solid rgba(255,255,255,.06); }
-    .cart-row:last-child { border-bottom:0; }
-    .thumb { width:64px; height:64px; object-fit:cover; border-radius:6px; background:rgba(255,255,255,.08); }
-    .title { font-weight:600; }
-    .subtitle { opacity:.8; font-size:.9rem; }
-    .qty-controls { display:flex; align-items:center; gap:.5rem; }
-    .btn { padding:.4rem .7rem; border-radius:6px; cursor:pointer; }
-    .muted { opacity:.75; }
-    .right { text-align:right; }
-    .totals { display:flex; justify-content:flex-end; gap:2rem; margin-top:1rem; }
-    .totals div { min-width: 200px; }
-    .actions { display:flex; justify-content:flex-end; gap:.75rem; margin-top:1rem; }
-    .empty { text-align:center; padding:2rem 0; opacity:.8; }
-    @media (max-width: 720px){
-      .cart-row { grid-template-columns: 56px 1fr auto; align-items:start; }
-      .cart-row .price, .cart-row .qty, .cart-row .remove { justify-self:end; }
-    }
+    .cart-wrap{max-width:900px;margin:2rem auto}
+    .cart-card{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;background:rgba(255,255,255,.02)}
+    .cart-row{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1rem 0;border-top:1px solid rgba(255,255,255,.06)}
+    .cart-row:first-child{border-top:0;padding-top:0}
+    .cart-row img{width:84px;height:84px;object-fit:cover;border-radius:8px}
+    .qty{display:flex;align-items:center;gap:.5rem}
+    .qty button{width:36px;height:36px;border-radius:8px}
+    .remove-btn{background:#e85b5b;border:none;color:#fff;padding:.5rem .9rem;border-radius:8px;cursor:pointer}
+    .totals{display:flex;justify-content:flex-end;gap:2rem;margin:1rem 0 1.25rem}
+    .totals div{min-width:180px;display:flex;justify-content:space-between}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.25)}
+    #paypal-buttons{margin-top:1rem}
+    .empty{padding:2.5rem;text-align:center;color:rgba(255,255,255,.7);border:1px dashed rgba(255,255,255,.2);border-radius:10px}
   </style>
 </head>
 <body>
@@ -39,152 +33,173 @@
     </nav>
   </header>
 
-  <main class="container">
+  <main class="container cart-wrap">
     <h1>Your Cart</h1>
-    <div id="cart" class="cart-wrap" aria-live="polite"></div>
 
-    <div class="actions">
-      <button id="clearCart" class="btn">Empty Cart</button>
-      <button id="checkout" class="btn">Proceed to Checkout</button>
+    <div id="cartContainer" class="cart-card" aria-live="polite"></div>
+
+    <div class="totals" id="totals" hidden>
+      <div><strong>Subtotal</strong> <span id="subtotal">$0.00</span></div>
+      <div><span>Shipping</span> <span>Free</span></div>
     </div>
+
+    <div id="actions" hidden>
+      <button id="emptyCart" class="btn btn-ghost">Empty Cart</button>
+      <div id="paypal-buttons"></div>
+    </div>
+
+    <p class="muted">US Veteran-inspired • Florida-built</p>
+    <p class="muted">Rugged, practical, and made to be used.</p>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span class="badge">US Veteran-inspired • Florida-built</span>
-      <p class="muted">Rugged, practical, and made to be used.</p>
-    </div>
-  </footer>
-
-  <!-- Scripts (order matters: we use readCart/saveCart from cart.js) -->
+  <!-- Core site helpers -->
   <script src="assets/js/util.js"></script>
   <script src="assets/js/config.js"></script>
-  <script src="assets/js/data.js"></script>
   <script src="assets/js/cart.js"></script>
 
-  <script>
-  (function(){
-    const el = document.getElementById('cart');
+  <!-- PayPal Smart Buttons (replace client-id) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AcqHQkEv2VuHF_V8UL6LhZPiYQJMszdMyXK74SVqvICeoHze2onZj0SouWpYDxAaBXQtCRsPOyJhT4p8&currency=USD" defer></script>
 
-    function money(n){ return `$${Number(n).toFixed(2)}`; }
+  <script>
+  (function () {
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    const container = document.getElementById('cartContainer');
+    const subtotalEl = document.getElementById('subtotal');
+    const totalsBox  = document.getElementById('totals');
+    const actionsBox = document.getElementById('actions');
+    const emptyBtn   = document.getElementById('emptyCart');
+
+    function fmt(n){ return '$' + (Number(n||0)).toFixed(2); }
 
     function render(){
       const cart = readCart(); // from cart.js
-      if (!cart || cart.length === 0){
-        el.innerHTML = `<div class="empty">Your cart is empty.</div>`;
+      const count = cart.reduce((s,i)=>s+(i.qty||1),0);
+      window.dispatchEvent(new CustomEvent('cart:updated',{detail:{cart,count}})); // keep badge synced
+
+      if (!cart.length){
+        container.innerHTML = '<div class="empty">Your cart is empty.</div>';
+        totalsBox.hidden = true;
+        actionsBox.hidden = true;
+        teardownPayPal();
         return;
       }
 
-      let html = '';
+      container.innerHTML = '';
       let subtotal = 0;
 
-      cart.forEach(item => {
-        const qty   = item.qty ?? item.quantity ?? 1;
-        const price = Number(item.price ?? 0);
-        const line  = price * qty;
-        subtotal += line;
+      cart.forEach((item, idx) => {
+        const row = document.createElement('div');
+        row.className = 'cart-row';
 
-        // Build a friendly subtitle from name if you encoded options there
-        const title = item.name ?? item.title ?? 'Item';
-        const parts = String(title).split('—'); // e.g., "Standard Ammo Box — Army • Stainless"
-        const main  = parts[0]?.trim() || title;
-        const sub   = parts.slice(1).join('—').trim();
+        const img = document.createElement('img');
+        img.src = item.image || 'assets/img/blank.jpg';
+        img.alt = item.name || 'Item';
 
-        const img   = item.image || 'assets/img/blank.jpg';
-
-        html += `
-          <div class="cart-row" data-sku="${item.sku}">
-            <img class="thumb" src="${img}" alt="">
+        const meta = document.createElement('div');
+        meta.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;">
             <div>
-              <div class="title">${main}</div>
-              ${sub ? `<div class="subtitle">${sub}</div>` : ''}
-              <div class="muted">SKU: ${item.sku}</div>
+              <div style="font-weight:600">${escapeHtml(item.name || 'Item')}</div>
+              <div class="muted">SKU: ${escapeHtml(item.sku || '')}</div>
             </div>
-            <div class="price right">${money(price)}</div>
-            <div class="qty qty-controls">
-              <button class="btn dec" aria-label="Decrease quantity">−</button>
-              <span>${qty}</span>
-              <button class="btn inc" aria-label="Increase quantity">+</button>
-            </div>
-            <div class="remove right">
-              <button class="btn danger remove-item">Remove</button>
-            </div>
+            <div style="min-width:90px;text-align:right">${fmt(item.price || 0)}</div>
+          </div>
+          <div class="qty" style="margin-top:.5rem;">
+            <button class="btn" data-dec>–</button>
+            <span>${item.qty || 1}</span>
+            <button class="btn" data-inc>+</button>
           </div>
         `;
+
+        const remove = document.createElement('button');
+        remove.className = 'remove-btn';
+        remove.textContent = 'Remove';
+
+        row.appendChild(img);
+        row.appendChild(meta);
+        row.appendChild(remove);
+        container.appendChild(row);
+
+        subtotal += (Number(item.price)||0) * (item.qty||1);
+
+        // wiring
+        meta.querySelector('[data-inc]').addEventListener('click', () => {
+          const c = readCart(); c[idx].qty = (c[idx].qty||1) + 1; saveCart(c); render();
+        });
+        meta.querySelector('[data-dec]').addEventListener('click', () => {
+          const c = readCart(); c[idx].qty = Math.max(1, (c[idx].qty||1) - 1); saveCart(c); render();
+        });
+        remove.addEventListener('click', () => {
+          const c = readCart(); c.splice(idx,1); saveCart(c); render();
+        });
       });
 
-      html += `
-        <div class="totals">
-          <div class="right">
-            <div class="muted">Subtotal</div>
-            <div><strong>${money(subtotal)}</strong></div>
-            <div class="muted" style="font-size:.9rem;margin-top:.25rem;">Free shipping.</div>
-          </div>
-        </div>
-      `;
-
-      el.innerHTML = html;
+      subtotalEl.textContent = fmt(subtotal);
+      totalsBox.hidden = false;
+      actionsBox.hidden = false;
+      setupPayPal(subtotal);
     }
 
-    // Event delegation for quantity and remove
-    document.addEventListener('click', (e) => {
-      const row = e.target.closest('.cart-row');
-      const cart = readCart();
+    emptyBtn.addEventListener('click', () => { localStorage.removeItem('cart'); render(); });
 
-      // Remove
-      if (e.target.closest('.remove-item') && row){
-        const sku = row.dataset.sku;
-        const next = cart.filter(it => it.sku !== sku);
-        saveCart(next); // from cart.js (also updates badge)
-        render();
-        return;
+    // PayPal buttons lifecycle
+    let paypalButtonsInstance = null;
+
+    function teardownPayPal(){
+      if (paypalButtonsInstance && paypalButtonsInstance.isEligible()) {
+        try { paypalButtonsInstance.close(); } catch(_){}
       }
+      const holder = document.getElementById('paypal-buttons');
+      if (holder) holder.innerHTML = '';
+      paypalButtonsInstance = null;
+    }
 
-      // Increase / Decrease
-      if (row && (e.target.closest('.inc') || e.target.closest('.dec'))){
-        const sku = row.dataset.sku;
-        const item = cart.find(it => it.sku === sku);
-        if (!item) return;
+    function setupPayPal(amount){
+      // wait until SDK is loaded
+      if (!window.paypal || !paypal.Buttons){ setTimeout(()=>setupPayPal(amount), 100); return; }
 
-        if (e.target.closest('.inc')) item.qty = (item.qty || 1) + 1;
-        if (e.target.closest('.dec')) item.qty = Math.max(1, (item.qty || 1) - 1);
+      teardownPayPal();
 
-        saveCart(cart);
-        render();
-        return;
+      paypalButtonsInstance = paypal.Buttons({
+        style: { layout: 'vertical', shape: 'rect', label: 'paypal' },
+        createOrder: (data, actions) => {
+          const cart = readCart();
+          const total = cart.reduce((s,i)=> s + (Number(i.price)||0)*(i.qty||1), 0);
+          if (total <= 0) return;
+          return actions.order.create({
+            purchase_units: [{ amount: { value: total.toFixed(2) } }]
+          });
+        },
+        onApprove: (data, actions) => {
+          return actions.order.capture().then(() => {
+            localStorage.removeItem('cart');
+            window.location.href = 'thanks.html';
+          });
+        },
+        onCancel: () => {
+          // stay on page; nothing special
+        },
+        onError: (err) => {
+          console.error('PayPal error', err);
+          alert('There was an issue with PayPal. Please try again.');
+        }
+      });
+
+      if (paypalButtonsInstance.isEligible()){
+        paypalButtonsInstance.render('#paypal-buttons');
       }
-    });
+    }
 
-    // Clear cart button
-    document.getElementById('clearCart').addEventListener('click', () => {
-      localStorage.removeItem('cart');
-      // Tell the rest of the site we changed it (badge etc.)
-      window.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: [], count: 0 }}));
-      render();
-    });
+    // util
+    function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 
-    // Fake "Proceed" action
-    document.getElementById('checkout').addEventListener('click', () => {
-      alert('Proceeding to checkout… (hook up your processor here)');
-    });
-
-    // Render on load
+    // initial
+    document.addEventListener('DOMContentLoaded', render);
+    window.addEventListener('storage', (e) => { if (e.key === 'cart') render(); });
+    // immediate render in case DOMContentLoaded already fired
     render();
-
-    // Also re-render if another tab updates the cart
-    window.addEventListener('storage', (e) => {
-      if (e.key === 'cart') render();
-    });
-    // Re-render on our cart:updated event (from cart.js)
-    window.addEventListener('cart:updated', render);
-
-    // Optional: URL switch to clear cart once: checkout.html?clearcart=1
-    const u = new URLSearchParams(location.search);
-    if (u.get('clearcart') === '1') {
-      localStorage.removeItem('cart');
-      window.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: [], count: 0 }}));
-      location.replace(location.pathname);
-    }
   })();
   </script>
 </body>
