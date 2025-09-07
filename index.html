@@ -234,8 +234,6 @@
       window.addToCart(sku, name, price, 1);
     });
 
-<button onclick="localStorage.removeItem('cart'); location.reload()">Reset Cart</button>
-
     buyBtn.addEventListener('click', () => {
       const { sku, name } = buildSkuAndName();
       const price = currentPriceNumber();
@@ -243,6 +241,7 @@
     });
   })();
   </script>
+  <button onclick="localStorage.removeItem('cart'); location.reload()">Reset Cart</button>
 </body>
 </html>
 
