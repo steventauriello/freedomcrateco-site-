@@ -5,28 +5,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Freedom Crate Co. – Shop</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <!-- Minimal scoped styles for the featured card; safe to leave inline -->
   <style>
     .featured-wrap {margin: 2rem 0;}
-    .featured-card {
-      display:grid; gap:1rem; grid-template-columns: 1fr;
+    .featured-card {display:grid; gap:1rem; grid-template-columns: 1fr;
       padding:1rem; border:1px solid rgba(255,255,255,.08);
-      border-radius:8px; background:rgba(255,255,255,.02);
-    }
-    @media (min-width: 880px){
-      .featured-card {grid-template-columns: 1.2fr 1fr; align-items:start;}
-    }
-    .featured-card h2 {margin:.25rem 0 .5rem 0;}
-    .fc-media img {max-width:100%; height:auto; border-radius:6px; display:block;
-      /* Smooth image fade-in */
-      transition: opacity .25s ease; opacity: 1;
-    }
-    .fc-media img.is-loading { opacity: 0; }
-    .fc-controls label {font-weight:600; display:block; margin:.5rem 0 .25rem;}
-    .fc-row {display:flex; align-items:center; gap:1rem; margin:.75rem 0;}
-    .fc-btn {padding:.75rem 1.25rem; border-radius:6px; cursor:pointer;}
-    .fc-note {opacity:.75; font-size:.9rem;}
-    .option-row {margin-bottom:.5rem;}
+      border-radius:8px; background:rgba(255,255,255,.02);}
+    @media (min-width:880px){ .featured-card{grid-template-columns:1.2fr 1fr; align-items:start;} }
+    .fc-media img{max-width:100%; height:auto; border-radius:6px; display:block; transition:opacity .25s ease; opacity:1;}
+    .fc-media img.is-loading{opacity:0;}
+    .fc-controls label{font-weight:600; display:block; margin:.5rem 0 .25rem;}
+    .fc-row{display:flex; align-items:center; gap:1rem; margin:.75rem 0;}
+    .fc-btn{padding:.75rem 1.25rem; border-radius:6px; cursor:pointer;}
+    .fc-note{opacity:.75; font-size:.9rem;}
+    .option-row{margin-bottom:.5rem;}
   </style>
 </head>
 <body>
@@ -50,14 +41,12 @@
 
     <section class="hero-banner"></section>
 
-    <!-- === Featured: Standard Box with live branch preview === -->
+    <!-- Featured product with live branch preview -->
     <section class="featured-wrap" aria-label="Featured Product">
       <div class="featured-card" id="standard-box">
         <div class="fc-media">
-          <img id="sb-image" src="assets/img/blank.jpg"
-               alt="Standard Ammo Box live preview" loading="lazy">
+          <img id="sb-image" src="assets/img/blank.jpg" alt="Standard Ammo Box live preview" loading="lazy">
         </div>
-
         <div class="fc-controls">
           <h2>Standard Ammo Box</h2>
           <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
@@ -72,20 +61,13 @@
             <option value="coastguard">U.S. Coast Guard</option>
           </select>
 
-          <!-- Hardware (radios) -->
           <label>Hardware (both lockable)</label>
           <div role="group" aria-label="Latch finish">
             <div class="option-row">
-              <label>
-                <input type="radio" name="latch" class="sb-latch" value="Stainless" checked>
-                Original Stainless Toggle Latches
-              </label>
+              <label><input type="radio" name="latch" class="sb-latch" value="Stainless" checked> Original Stainless Toggle Latches</label>
             </div>
             <div class="option-row">
-              <label>
-                <input type="radio" name="latch" class="sb-latch" value="Black">
-                Black Toggle Latches
-              </label>
+              <label><input type="radio" name="latch" class="sb-latch" value="Black"> Black Toggle Latches</label>
             </div>
           </div>
 
@@ -93,7 +75,7 @@
           <input id="sb-personalization" type="text" placeholder="Name / unit / short quote">
 
           <div class="fc-row">
-            <div><strong>Total: <span id="sb-price">$95</span></strong></div>
+            <div><strong>Total: <span id="sb-price">$95.00</span></strong></div>
             <small class="fc-note">Base $95</small>
           </div>
 
@@ -106,9 +88,8 @@
         </div>
       </div>
     </section>
-    <!-- === End Featured === -->
 
-    <!-- JS will render all product cards here -->
+    <!-- Grid rendered by catalog.js -->
     <section id="products" class="grid" aria-live="polite"></section>
   </main>
 
@@ -119,16 +100,16 @@
     </div>
   </footer>
 
-  <!-- Scripts (order matters) -->
+  <!-- Core scripts -->
   <script src="assets/js/util.js"></script>
   <script src="assets/js/config.js"></script>
   <script src="assets/js/data.js"></script>
-  <script src="assets/js/cart.js"></script>      <!-- provides addToCart(), buyNow() -->
-  <script src="assets/js/catalog.js"></script>   <!-- renders the grid into #products -->
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/catalog.js"></script>
 
-  <!-- Featured card logic: fade + preload + price animation + saved state + proper cart calls -->
+  <!-- Featured logic -->
   <script>
-  (() => {
+  (function(){
     const IMG = {
       blank:      "assets/img/blank.jpg",
       army:       "assets/img/army.jpg",
@@ -138,7 +119,6 @@
       coastguard: "assets/img/coastguard.jpg"
     };
     const BASE = 95;
-
     const LATCH_PRICE = { Stainless: 0, Black: 0 };
 
     const imgEl   = document.getElementById('sb-image');
@@ -151,11 +131,11 @@
 
     const KEY = 'fcc-standard-box';
 
-    function fmt(n){ return `$${Number(n).toFixed(2)}`; }
+    function fmt(n){ return '$' + Number(n).toFixed(2); }
     function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
-    function getSelectedLatch(){ const r = latchInputs.find(x=>x.checked); return r ? r.value : 'Stainless'; }
+    function getLatch(){ const r = latchInputs.find(x=>x.checked); return r ? r.value : 'Stainless'; }
 
-    function preloadAll(){ Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; }); }
+    function preload(){ Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; }); }
 
     function updateImage(){
       const v = branch.value;
@@ -164,21 +144,25 @@
       const tmp = new Image();
       tmp.onload = () => {
         imgEl.src = next;
-        imgEl.alt = (v === 'blank') ? 'Standard Ammo Box (blank)'
-                                    : `Standard Ammo Box – ${branch.options[branch.selectedIndex].text}`;
-        requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
+        imgEl.alt = (v==='blank') ? 'Standard Ammo Box (blank)' :
+          `Standard Ammo Box – ${branch.options[branch.selectedIndex].text}`;
+        requestAnimationFrame(()=>imgEl.classList.remove('is-loading'));
       };
       tmp.src = next;
     }
 
-    function animatePrice(from, to, ms=250){
+    function animatePrice(from,to,ms=250){
       const start = performance.now();
-      function step(t){ const k = Math.min(1,(t-start)/ms); priceEl.textContent = fmt(from+(to-from)*k); if(k<1) requestAnimationFrame(step); }
+      const step = (t)=>{
+        const k = Math.min(1,(t-start)/ms);
+        priceEl.textContent = fmt(from + (to-from)*k);
+        if(k<1) requestAnimationFrame(step);
+      };
       requestAnimationFrame(step);
     }
+
     function calcTotal(animate=true){
-      const latch = getSelectedLatch();
-      const newTotal = BASE + (LATCH_PRICE[latch] || 0);
+      const newTotal = BASE + (LATCH_PRICE[getLatch()]||0);
       const current = Number(priceEl.textContent.replace('$','')) || BASE;
       if (animate) animatePrice(current, newTotal); else priceEl.textContent = fmt(newTotal);
     }
@@ -186,55 +170,47 @@
     function saveState(){
       localStorage.setItem(KEY, JSON.stringify({
         branch: branch.value,
-        latch:  getSelectedLatch(),
+        latch:  getLatch(),
         p:      persEl.value
       }));
     }
     function restoreState(){
-      try {
-        const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (!s) return;
+      try{
+        const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(!s) return;
         if (s.branch) branch.value = s.branch;
-        if (s.latch)  latchInputs.forEach(r => r.checked = (r.value === s.latch));
+        if (s.latch)  latchInputs.forEach(r=>r.checked = (r.value===s.latch));
         if (typeof s.p === 'string') persEl.value = s.p;
-      } catch(_) {}
+      }catch(_){}
     }
 
-    function currentPriceNumber(){ return Number(priceEl.textContent.replace('$','')) || 0; }
-    function buildSkuAndName(){
-      const branchText = branch.options[branch.selectedIndex].text;
-      const latchText  = getSelectedLatch();
-      const personalization = persEl.value.trim();
-      const sku  = `std-${slug(branch.value)}-${slug(latchText)}-${personalization ? slug(personalization) : 'none'}`;
-      const name = `Standard Ammo Box — ${branchText} • ${latchText}` + (personalization ? ` • "${personalization}"` : '');
+    function currentPrice(){ return Number(priceEl.textContent.replace('$','')) || BASE; }
+    function buildSkuName(){
+      const bTxt = branch.options[branch.selectedIndex].text;
+      const lTxt = getLatch();
+      const pTxt = persEl.value.trim();
+      const sku  = `std-${slug(branch.value)}-${slug(lTxt)}-${pTxt ? slug(pTxt) : 'none'}`;
+      const name = `Standard Ammo Box — ${bTxt} • ${lTxt}` + (pTxt ? ` • "${pTxt}"` : '');
       return { sku, name };
     }
 
-    branch.addEventListener('change', () => { updateImage(); calcTotal(); saveState(); });
-    latchInputs.forEach(r => r.addEventListener('change', () => { calcTotal(); saveState(); }));
-    persEl.addEventListener('input', () => saveState());
+    // events
+    branch.addEventListener('change', ()=>{ updateImage(); calcTotal(); saveState(); });
+    latchInputs.forEach(r => r.addEventListener('change', ()=>{ calcTotal(); saveState(); }));
+    persEl.addEventListener('input', saveState);
 
-    restoreState();
-    preloadAll();
-    updateImage();
-    calcTotal(false);
+    // init
+    restoreState(); preload(); updateImage(); calcTotal(false);
 
+    // buttons — pass the live preview image to cart meta
     addBtn.addEventListener('click', () => {
-      const { sku, name } = buildSkuAndName();
-      const price = currentPriceNumber();
-      window.addToCart(sku, name, price, 1);
+      const { sku, name } = buildSkuName();
+      window.addToCart(sku, name, currentPrice(), 1, { image: imgEl.src });
     });
-
     buyBtn.addEventListener('click', () => {
-      const { sku, name } = buildSkuAndName();
-      const price = currentPriceNumber();
-      window.buyNow(sku, name, price, 1);
+      const { sku, name } = buildSkuName();
+      window.buyNow(sku, name, currentPrice(), 1, { image: imgEl.src });
     });
   })();
   </script>
-
-  <!-- Temporary clear cart button (remove after use) -->
-  <button onclick="localStorage.removeItem('cart'); location.reload()" style="margin:2rem; padding:.5rem 1rem;">
-    Reset Cart
-  </button>
 </body>
 </html>
