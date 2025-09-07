@@ -26,6 +26,7 @@
     .fc-row {display:flex; align-items:center; gap:1rem; margin:.75rem 0;}
     .fc-btn {padding:.75rem 1.25rem; border-radius:6px; cursor:pointer;}
     .fc-note {opacity:.75; font-size:.9rem;}
+    .option-row {margin-bottom: .5rem;}
   </style>
 </head>
 <body>
@@ -71,11 +72,21 @@
             <option value="coastguard">U.S. Coast Guard</option>
           </select>
 
-          <label>Add-ons</label>
-          <div>
-            <label><input type="checkbox" class="sb-addon" data-price="10" value="Divider"> Divider</label><br>
-            <label><input type="checkbox" class="sb-addon" data-price="15" value="Sliding Tray"> Sliding Tray</label><br>
-            <label><input type="checkbox" class="sb-addon" data-price="12" value="Locking Hardware"> Locking Hardware</label>
+          <!-- Hardware (radios) -->
+          <label>Hardware (both lockable)</label>
+          <div role="group" aria-label="Latch finish">
+            <div class="option-row">
+              <label>
+                <input type="radio" name="latch" class="sb-latch" value="Stainless" data-price="0" checked>
+                Original Stainless Toggle Latches
+              </label>
+            </div>
+            <div class="option-row">
+              <label>
+                <input type="radio" name="latch" class="sb-latch" value="Black" data-price="0">
+                Black Toggle Latches
+              </label>
+            </div>
           </div>
 
           <label for="sb-personalization">Personalization (optional)</label>
@@ -83,7 +94,7 @@
 
           <div class="fc-row">
             <div><strong>Total: <span id="sb-price">$95</span></strong></div>
-            <small class="fc-note">Base $95 + add-ons</small>
+            <small class="fc-note">Base $95</small>
           </div>
 
           <div class="fc-row">
@@ -128,13 +139,20 @@
     };
     const BASE = 95;
 
+    // If you want black latches to add a surcharge later, change 0 to the upcharge (e.g., 10)
+    const LATCH_PRICE = {
+      Stainless: 0,
+      Black: 0
+    };
+
     const imgEl   = document.getElementById('sb-image');
     const branch  = document.getElementById('sb-branch');
     const priceEl = document.getElementById('sb-price');
     const addBtn  = document.getElementById('sb-add');
     const buyBtn  = document.getElementById('sb-buy');
-    const addons  = Array.from(document.querySelectorAll('.sb-addon'));
     const persEl  = document.getElementById('sb-personalization');
+
+    const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
 
     const KEY = 'fcc-standard-box'; // localStorage key
 
@@ -161,7 +179,6 @@
         imgEl.alt = (v === 'blank')
           ? 'Standard Ammo Box (blank)'
           : `Standard Ammo Box – ${branch.options[branch.selectedIndex].text}`;
-        // allow repaint then fade-in
         requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
       };
       tmp.src = next;
@@ -179,9 +196,15 @@
       requestAnimationFrame(step);
     }
 
+    function getSelectedLatch(){
+      const checked = latchInputs.find(r => r.checked);
+      return checked ? checked.value : 'Stainless';
+    }
+
     function calcTotal(animate=true){
-      const extras = addons.reduce((s,cb)=> s + (cb.checked ? Number(cb.dataset.price||0) : 0), 0);
-      const newTotal = BASE + extras;
+      const latch = getSelectedLatch();
+      const latchDelta = LATCH_PRICE[latch] || 0;
+      const newTotal = BASE + latchDelta;
       const current = Number(priceEl.textContent.replace('$','')) || BASE;
       if (animate) animatePrice(current, newTotal);
       else priceEl.textContent = fmt(newTotal);
@@ -191,7 +214,7 @@
     function saveState(){
       const state = {
         branch: branch.value,
-        addons: addons.filter(cb => cb.checked).map(cb => cb.value),
+        latch:  getSelectedLatch(),
         p: persEl.value
       };
       localStorage.setItem(KEY, JSON.stringify(state));
@@ -202,14 +225,16 @@
         if (!raw) return;
         const s = JSON.parse(raw);
         if (s.branch) branch.value = s.branch;
-        addons.forEach(cb => cb.checked = (s.addons||[]).includes(cb.value));
+        if (s.latch){
+          latchInputs.forEach(r => r.checked = (r.value === s.latch));
+        }
         if (typeof s.p === 'string') persEl.value = s.p;
       }catch(_){}
     }
 
     // --- events ---
     branch.addEventListener('change', () => { updateImage(); saveState(); });
-    addons.forEach(cb => cb.addEventListener('change', () => { calcTotal(); saveState(); }));
+    latchInputs.forEach(r => r.addEventListener('change', () => { calcTotal(); saveState(); }));
     persEl.addEventListener('input', () => saveState());
 
     // --- init ---
@@ -218,7 +243,7 @@
     updateImage();
     calcTotal(false);
 
-    // --- cart actions (same behavior as before) ---
+    // --- cart actions ---
     function buildLineItem(){
       return {
         id: 'standard-box',
@@ -227,7 +252,7 @@
         qty: 1,
         options: {
           branch: branch.options[branch.selectedIndex].text,
-          addons: addons.filter(cb=>cb.checked).map(cb=>cb.value),
+          latch:  getSelectedLatch(),
           personalization: persEl.value
         }
       };
