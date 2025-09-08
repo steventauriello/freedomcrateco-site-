@@ -1,16 +1,10 @@
-{
-  "std-army-stainless": 5,
-  "std-army-black": 2,
-  "std-marines-stainless": 3,
-  "std-marines-black": 0,
-  "std-navy-stainless": 4,
-  "std-navy-black": 0,
-  "std-airforce-stainless": 2,
-  "std-airforce-black": 1,
-  "std-coastguard-stainless": 2,
-  "std-coastguard-black": 0,
-
-  "footlocker-v2": 1,
-  "range-300": 6,
-  "range-1000-9mm": 0
-}
+// assets/js/inventory.js
+// Loads live quantities from assets/data/inventory.json into window.INVENTORY
+window.INVENTORY = {};
+(function loadInventory(){
+  const url = `assets/data/inventory.json?v=${Date.now()}`;
+  fetch(url, { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : {})
+    .then(data => { window.INVENTORY = data || {}; })
+    .catch(() => { window.INVENTORY = {}; });
+})();
