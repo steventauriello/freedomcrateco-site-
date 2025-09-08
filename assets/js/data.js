@@ -64,14 +64,23 @@ window.FC = window.FC || {};
   FC.loadProducts = loadProducts;
 
   // ---- normalization + CSV helpers ----
+  const PLACEHOLDER = 'assets/img/placeholder.png';
+  function ensureImagePath(src) {
+    const s = (src || '').trim();
+    if (!s) return PLACEHOLDER;
+    if (/^https?:\/\//i.test(s)) return s;          // absolute URL
+    if (s.startsWith('assets/')) return s;          // already under assets/
+    return 'assets/img/' + s.replace(/^\/+/, '');   // bare filename -> assets/img/filename
+  }
+
   function normalizeProducts(map) {
     for (const [sku, p] of Object.entries(map || {})) {
       p.sku   = sku;
       p.title = p.title ?? sku;
       p.price = Number(p.price || 0);
       p.qty   = parseInt(p.qty ?? 0, 10) || 0;
-      // prefer your real images; fallback to blank.jpg (so cards never show empty)
-      p.image_url = p.image_url || p.image || p.img || 'assets/img/blank.jpg';
+      // prefer your real images; fix/commonize the path; fallback to placeholder
+      p.image_url = ensureImagePath(p.image_url || p.image || p.img || '');
       p.status = p.status || 'active';
       if (typeof p.tags === 'string') {
         p.tags = p.tags.split(/[|,]/).map(s => s.trim()).filter(Boolean);
