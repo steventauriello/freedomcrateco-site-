@@ -34,5 +34,14 @@
     "image_url": "assets/img/rm400.jpg",
     "tags": ["range", "400"],
     "description": "Next generation Rangemaster with upgraded capacity. Launching soon!"
+  },
+  "FC-NEW-SKU": {
+    "status": "active",
+    "title": "Product Name",
+    "price": 123,
+    "qty": 5,
+    "image_url": "assets/img/file.png",
+    "tags": ["keyword1", "keyword2"],
+    "description": "One-sentence description of the product."
   }
 }
