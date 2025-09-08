@@ -288,14 +288,14 @@ input[type="number"]::-webkit-inner-spin-button {
   box-shadow: 0 2px 6px rgba(0,0,0,0.5);
   
 }
-/* === Product title ribbon (diagonal across corner) === */
+/* === Product title ribbon (top-right corner, diagonal) === */
 .card h3 {
   position: absolute;
   top: 15px;
-  left: -45px;              /* shift left so it crosses diagonally */
-  width: 200px;             /* adjust width as needed */
-  transform: rotate(-45deg);
-  background: rgba(0,0,0,0.7); /* dark strip with transparency */
+  right: -45px;             /* shift into corner, opposite side */
+  width: 200px;
+  transform: rotate(45deg); /* flip diagonal */
+  background: rgba(0,0,0,0.7); /* dark semi-transparent strip */
   color: #fff;
   font-weight: 900;
   font-size: 0.85rem;
