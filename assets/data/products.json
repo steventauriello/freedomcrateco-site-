@@ -35,13 +35,13 @@
     "tags": ["range", "400"],
     "description": "Next generation Rangemaster with upgraded capacity. Launching soon!"
   },
-  "FC-NEW-SKU": {
+  "FC-CLASSIC": {
     "status": "active",
-    "title": "Product Name",
-    "price": 123,
+    "title": "Freedom Crate Classic",
+    "price": 139,
     "qty": 5,
-    "image_url": "assets/img/file.png",
-    "tags": ["keyword1", "keyword2"],
-    "description": "One-sentence description of the product."
+    "image_url": "assets/img/standard-box.png",
+    "tags": ["classic", "freedom", "ammo-box"],
+    "description": "The original handcrafted ammo box that launched Freedom Crate Co. Built for durability and timeless style, measurements based on a real Cold War-era ammunition box. Holds 1,000 rounds of 9mm. Interior dimensions: 11\" wide × 8¼\" long × 5½\" deep."
   }
 }
