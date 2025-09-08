@@ -260,3 +260,7 @@ input[type="number"]::-webkit-inner-spin-button {
   display:block;
   object-fit:cover;
 }
+/* disable any legacy title overlay on card images */
+.card .img::before { content: none !important; display: none !important; }
+/* ensure <img> inside card fills its container nicely */
+.card .img img { width:100%; height:auto; display:block; object-fit:cover; }
