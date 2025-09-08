@@ -1,10 +1,6 @@
-// assets/js/inventory.js
-// Loads live quantities from assets/data/inventory.json into window.INVENTORY
-window.INVENTORY = {};
-(function loadInventory(){
-  const url = `assets/data/inventory.json?v=${Date.now()}`;
-  fetch(url, { cache: 'no-store' })
-    .then(r => r.ok ? r.json() : {})
-    .then(data => { window.INVENTORY = data || {}; })
-    .catch(() => { window.INVENTORY = {}; });
-})();
+<script src="assets/js/util.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/inventory.js"></script> <!-- this one -->
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/catalog.js"></script>
