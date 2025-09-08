@@ -273,9 +273,9 @@ input[type="number"]::-webkit-inner-spin-button {
 .card.coming-soon::after {
   content: "COMING SOON";
   position: absolute;
-  top: 20px;
-  left: -40px;
-  width: 200px;
+  top: 40px;       /* move it lower (was 20px) */
+  left: -50px;     /* balance the diagonal shift */
+  width: 220px;    /* a little wider so text breathes */
   text-align: center;
   transform: rotate(-45deg);
   background: #ff0000;
@@ -286,4 +286,5 @@ input[type="number"]::-webkit-inner-spin-button {
   z-index: 3;
   letter-spacing: 1px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  
 }
