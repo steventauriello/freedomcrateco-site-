@@ -288,20 +288,3 @@ input[type="number"]::-webkit-inner-spin-button {
   box-shadow: 0 2px 6px rgba(0,0,0,0.5);
   
 }
-/* === Product title ribbon (top-right corner, diagonal) === */
-.card h3 {
-  position: absolute;
-  top: 40px;                /* push it lower so text fits */
-  right: -45px;             /* stays in top-right corner */
-  width: 220px;             /* a bit wider so long names fit */
-  transform: rotate(45deg); /* diagonal strip */
-  background: rgba(0,0,0,0.75); /* dark semi-transparent strip */
-  color: #fff !important;   /* force white text */
-  font-weight: 900;
-  font-size: 0.85rem;
-  text-align: center;
-  padding: 6px 0;
-  z-index: 3;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-}
