@@ -1,24 +1,48 @@
 /* assets/js/catalog.js
-   Renders product cards from FC.loadProducts() and wires Add/Buy.
-   Requires FC.loadProducts(), FC.formatPrice(), FC.storage.get/set().
+   Loads products + live inventory, renders cards, wires Add/Buy.
+   - Expects FC.loadProducts(), FC.formatPrice(), FC.storage.get/set()
+   - Reads quantities from assets/data/inventory.json (keyed by SKU)
 */
 (function () {
   const listEl = document.getElementById('products');
   if (!listEl) return;
 
-  Promise.all([
-    FC.loadProducts(),
-    Promise.resolve(FC.storage.get('favs', []))
-  ]).then(([items, favs]) => {
-    // Keep a simple products map for cart.js fallbacks (optional)
-    try {
-      window.PRODUCTS = Object.fromEntries(items.map(p => [p.sku, p]));
-    } catch(_) {}
+  // ---- helpers ----
+  const escapeHtml = (s) =>
+    String(s).replace(/[&<>"']/g, m => (
+      { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[m]
+    ));
 
-    render(items, new Set(favs));
-    wireFilters(items);
+  function loadInventory() {
+    return fetch('assets/data/inventory.json', { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : {})
+      .catch(() => ({}));
+  }
+
+  function withInventory(items, inv) {
+    return items.map(p => {
+      const qty = (inv && Object.prototype.hasOwnProperty.call(inv, p.sku))
+        ? Number(inv[p.sku] || 0)
+        : Number(p.qty || 0); // fallback to any qty in products.json
+      return { ...p, qty };
+    });
+  }
+
+  // ---- boot ----
+  Promise.all([
+    FC.loadProducts(),                // product catalog (title, price, img, etc.)
+    loadInventory(),                  // live quantities by SKU
+    Promise.resolve(FC.storage.get('favs', []))
+  ]).then(([items, inventory, favs]) => {
+    // expose a PRODUCTS map for cart fallbacks (unchanged)
+    try { window.PRODUCTS = Object.fromEntries(items.map(p => [p.sku, p])); } catch(_) {}
+
+    const merged = withInventory(items, inventory);
+    render(merged, new Set(favs));
+    wireFilters(merged);
   });
 
+  // ---- filters (Favorites etc.) ----
   function wireFilters(items) {
     document.querySelectorAll('[data-filter]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -27,11 +51,13 @@
         btn.classList.add('active');
 
         const favSet = new Set(FC.storage.get('favs', []));
-        render(mode === 'favorites' ? items.filter(p => favSet.has(p.sku)) : items, favSet);
+        const view = (mode === 'favorites') ? items.filter(p => favSet.has(p.sku)) : items;
+        render(view, favSet);
       });
     });
   }
 
+  // ---- render grid ----
   function render(list, favSet) {
     listEl.innerHTML = '';
     if (!list || !list.length) {
@@ -40,23 +66,34 @@
     }
 
     list.forEach(p => {
+      const priceNum = Number(p.price) || 0;
+      const title    = p.title || 'Item';
+      const qty      = Number(p.qty) || 0;
+      const lowStock = qty > 0 && qty <= 3;
+      const oos      = qty <= 0;
+
       const card = document.createElement('article');
       card.className = 'card';
 
+      // Image (grayscale when OOS)
       const imgHtml = p.image_url
-        ? `<img src="${escapeHtml(p.image_url)}" alt="${escapeHtml(p.title)}" class="ph">`
-        : `<div class="ph"></div>`;
+        ? `<img src="${escapeHtml(p.image_url)}"
+                alt="${escapeHtml(title)}"
+                class="ph"
+                ${oos ? 'style="filter:grayscale(1);opacity:.6;"' : ''}>`
+        : `<div class="ph" ${oos ? 'style="filter:grayscale(1);opacity:.6;"' : ''}></div>`;
 
-      const soldHtml = (Number(p.qty) <= 0) ? `<div class="soldout">Sold Out</div>` : '';
+      // Status ribbons
+      const statusHtml = oos
+        ? `<div class="soldout">Coming back soon</div>`
+        : (lowStock ? `<div class="soldout" style="background:rgba(255,200,0,.18);border-color:rgba(255,200,0,.35);color:#ffc800">Only ${qty} left</div>` : '');
+
       const favActive = favSet.has(p.sku) ? 'active' : '';
-
-      const priceNum = Number(p.price) || 0;
-      const title    = p.title || 'Item';
 
       card.innerHTML = `
         <a class="img" href="product.html?sku=${encodeURIComponent(p.sku)}">
           ${imgHtml}
-          ${soldHtml}
+          ${statusHtml}
           <div class="fav ${favActive}" data-sku="${escapeHtml(p.sku)}" title="Favorite">
             <svg viewBox="0 0 24 24"><path d="M12 21s-6.716-3.948-9.428-6.66C.86 12.628.5 10.5 1.757 9.243c1.257-1.257 3.385-.897 5.097.815L12 13.204l5.146-5.146c1.712-1.712 3.84-2.072 5.097-.815 1.257 1.257.897 3.385-.815 5.097C18.716 17.052 12 21 12 21z"/></svg>
           </div>
@@ -70,18 +107,18 @@
           <div class="price-row">
             <span class="price">${FC.formatPrice(priceNum)}</span>
             ${
-              Number(p.qty) > 0
-                ? `<div class="actions">
+              oos
+                ? `<span class="muted" style="margin-left:auto">Unavailable</span>`
+                : `<div class="actions">
                      <button class="btn" data-add="${escapeHtml(p.sku)}">Add to Cart</button>
                      <button class="btn" data-buy="${escapeHtml(p.sku)}">Buy Now</button>
                    </div>`
-                : `<span class="muted">Unavailable</span>`
             }
           </div>
         </div>
       `;
 
-      // Fav toggle
+      // Favorite toggle
       const favBtn = card.querySelector('.fav');
       favBtn.addEventListener('click', (e) => {
         e.preventDefault(); e.stopPropagation();
@@ -92,29 +129,21 @@
         FC.storage.set('favs', Array.from(cur));
       });
 
-      // Buttons – pass full info + image to cart
-      const addBtn = card.querySelector('[data-add]');
-      const buyBtn = card.querySelector('[data-buy]');
-
-      if (addBtn) addBtn.addEventListener('click', (e) => {
-        e.preventDefault(); e.stopPropagation();
-        const sku = p.sku;
-        window.addToCart(sku, title, priceNum, 1, { image: p.image_url });
-      });
-
-      if (buyBtn) buyBtn.addEventListener('click', (e) => {
-        e.preventDefault(); e.stopPropagation();
-        const sku = p.sku;
-        window.buyNow(sku, title, priceNum, 1, { image: p.image_url });
-      });
+      // Add/Buy buttons (only wired if in-stock)
+      if (!oos) {
+        const addBtn = card.querySelector('[data-add]');
+        const buyBtn = card.querySelector('[data-buy]');
+        if (addBtn) addBtn.addEventListener('click', (e) => {
+          e.preventDefault(); e.stopPropagation();
+          window.addToCart(p.sku, title, priceNum, 1, { image: p.image_url });
+        });
+        if (buyBtn) buyBtn.addEventListener('click', (e) => {
+          e.preventDefault(); e.stopPropagation();
+          window.buyNow(p.sku, title, priceNum, 1, { image: p.image_url });
+        });
+      }
 
       listEl.appendChild(card);
     });
-  }
-
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, m => (
-      { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[m]
-    ));
   }
 })();
