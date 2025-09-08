@@ -48,9 +48,9 @@
 
     <!-- Featured product with live branch preview (no personalization) -->
     <section class="featured-wrap" aria-label="Featured Product">
-      <div class="featured-card" id="standard-box">
+      <div class="featured-card" id="classic-box">
         <div class="fc-media">
-          <img id="sb-image" src="assets/img/blank.jpg" alt="Standard Ammo Box live preview" loading="lazy">
+          <img id="sb-image" src="assets/img/blank.jpg" alt="Freedom Crate Classic live preview" loading="lazy">
         </div>
         <div class="fc-controls">
           <h2>Freedom Crate Classic</h2>
@@ -131,7 +131,7 @@
     const buyBtn  = document.getElementById('sb-buy');
     const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
 
-    const KEY = 'fcc-standard-box';
+    const KEY = 'fcc-classic-box';
     const fmt = (n) => '$' + Number(n).toFixed(2);
     const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
     const getLatch = () => (latchInputs.find(x=>x.checked)?.value || 'Stainless');
@@ -145,8 +145,8 @@
       const tmp = new Image();
       tmp.onload = () => {
         imgEl.src = next;
-        imgEl.alt = (v==='blank') ? 'Standard Ammo Box (blank)' :
-          `Standard Ammo Box – ${branch.options[branch.selectedIndex].text}`;
+        imgEl.alt = (v==='blank') ? 'Freedom Crate Classic (blank)' :
+          `Freedom Crate Classic – ${branch.options[branch.selectedIndex].text}`;
         requestAnimationFrame(()=>imgEl.classList.remove('is-loading'));
       };
       tmp.src = next;
@@ -183,8 +183,8 @@
       const bVal = branch.value;
       const bTxt = branch.options[branch.selectedIndex].text;
       const lTxt = getLatch();
-      const sku  = `std-${slug(bVal)}-${slug(lTxt)}`;
-      const name = `Standard Ammo Box — ${bTxt} • ${lTxt}`;
+      const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`;
+      const name = `Freedom Crate Classic — ${bTxt} • ${lTxt}`;
       return { sku, name };
     }
 
