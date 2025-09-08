@@ -23,26 +23,40 @@
     return items.map(p => {
       const qty = (inv && Object.prototype.hasOwnProperty.call(inv, p.sku))
         ? Number(inv[p.sku] || 0)
-        : Number(p.qty || 0); // fallback to any qty in products.json
+        : Number(p.qty || 0);
       return { ...p, qty };
     });
   }
 
+  // Robust image resolver
+  function resolveImage(p) {
+    // common field names first
+    const src = p.image_url || p.image || p.img;
+    if (src) return String(src);
+
+    // derive for standard box SKUs like "std-army-stainless-..."
+    const m = /^std-(army|marines|navy|airforce|coastguard)/i.exec(p.sku || '');
+    if (m) {
+      const branch = m[1].toLowerCase();
+      return `assets/img/${branch}.jpg`;
+    }
+
+    // final fallback
+    return 'assets/img/blank.jpg';
+  }
+
   // ---- boot ----
   Promise.all([
-    FC.loadProducts(),                // product catalog (title, price, img, etc.)
-    loadInventory(),                  // live quantities by SKU
+    FC.loadProducts(),
+    loadInventory(),
     Promise.resolve(FC.storage.get('favs', []))
   ]).then(([items, inventory, favs]) => {
-    // expose a PRODUCTS map for cart fallbacks (unchanged)
     try { window.PRODUCTS = Object.fromEntries(items.map(p => [p.sku, p])); } catch(_) {}
-
     const merged = withInventory(items, inventory);
     render(merged, new Set(favs));
     wireFilters(merged);
   });
 
-  // ---- filters (Favorites etc.) ----
   function wireFilters(items) {
     document.querySelectorAll('[data-filter]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -57,7 +71,6 @@
     });
   }
 
-  // ---- render grid ----
   function render(list, favSet) {
     listEl.innerHTML = '';
     if (!list || !list.length) {
@@ -72,18 +85,18 @@
       const lowStock = qty > 0 && qty <= 3;
       const oos      = qty <= 0;
 
+      const imgSrc   = resolveImage(p);
+
       const card = document.createElement('article');
       card.className = 'card';
 
-      // Image (grayscale when OOS)
-      const imgHtml = p.image_url
-        ? `<img src="${escapeHtml(p.image_url)}"
-                alt="${escapeHtml(title)}"
-                class="ph"
-                ${oos ? 'style="filter:grayscale(1);opacity:.6;"' : ''}>`
-        : `<div class="ph" ${oos ? 'style="filter:grayscale(1);opacity:.6;"' : ''}></div>`;
+      const imgHtml = `
+        <img src="${escapeHtml(imgSrc)}"
+             alt="${escapeHtml(title)}"
+             class="ph"
+             ${oos ? 'style="filter:grayscale(1);opacity:.6;"' : ''}>
+      `;
 
-      // Status ribbons
       const statusHtml = oos
         ? `<div class="soldout">Coming back soon</div>`
         : (lowStock ? `<div class="soldout" style="background:rgba(255,200,0,.18);border-color:rgba(255,200,0,.35);color:#ffc800">Only ${qty} left</div>` : '');
@@ -129,17 +142,17 @@
         FC.storage.set('favs', Array.from(cur));
       });
 
-      // Add/Buy buttons (only wired if in-stock)
+      // Add/Buy (only if in-stock)
       if (!oos) {
         const addBtn = card.querySelector('[data-add]');
         const buyBtn = card.querySelector('[data-buy]');
         if (addBtn) addBtn.addEventListener('click', (e) => {
           e.preventDefault(); e.stopPropagation();
-          window.addToCart(p.sku, title, priceNum, 1, { image: p.image_url });
+          window.addToCart(p.sku, title, priceNum, 1, { image: imgSrc });
         });
         if (buyBtn) buyBtn.addEventListener('click', (e) => {
           e.preventDefault(); e.stopPropagation();
-          window.buyNow(p.sku, title, priceNum, 1, { image: p.image_url });
+          window.buyNow(p.sku, title, priceNum, 1, { image: imgSrc });
         });
       }
 
