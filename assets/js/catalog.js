@@ -1,13 +1,7 @@
 // assets/js/catalog.js
 // Renders product cards with Add to Cart + Buy Now buttons.
 // Supports: favorites, sold-out (qty=0), coming-soon (status="coming-soon"),
-// stock badge ("X left") shown UNDER the image, and live re-render on inventory:updated.
-//
-// Depends on:
-// - FC.loadProducts()  (from data.js)
-// - FC.formatPrice(n)  (from data.js)
-// - FC.storage.get/set (from data.js)
-// - window.addToCart / window.buyNow (from cart.js)
+// and live re-render on inventory:updated.
 
 (function () {
   const listEl = document.getElementById('products');
@@ -18,13 +12,12 @@
     FC.loadProducts(),
     Promise.resolve(FC.storage.get('favs', []))
   ]).then(([items, favs]) => {
-    // keep a simple map for other scripts
     try { window.PRODUCTS = Object.fromEntries(items.map(p => [p.sku, p])); } catch (_) {}
     render(items, new Set(favs));
     wireFilters(items);
   });
 
-  // Re-render when inventory.js updates in-place quantities
+  // Re-render when inventory.js updates quantities
   window.addEventListener('inventory:updated', () => {
     const items = Object.values(window.PRODUCTS || {});
     const favSet = new Set(FC.storage.get('favs', []));
@@ -54,7 +47,7 @@
 
     list.forEach(p => {
       const card = document.createElement('article');
-      const classes = ['card', 'no-title-overlay']; // prevent legacy title overlays
+      const classes = ['card', 'no-title-overlay'];
       if (p.status === 'coming-soon') classes.push('coming-soon');
       card.className = classes.join(' ');
 
@@ -65,7 +58,7 @@
       const title    = p.title || 'Item';
       const imgUrl   = p.image_url || 'assets/img/blank.jpg';
 
-      // Image block: only SOLD OUT overlay stays on image
+      // IMAGE (no badge inside here anymore)
       const imgBlock = `
         <a class="img" href="product.html?sku=${encodeURIComponent(p.sku)}">
           ${soldOut ? `<div class="soldout">Sold Out</div>` : ''}
@@ -75,13 +68,19 @@
 
       const favActive = favSet.has(p.sku) ? 'active' : '';
 
-      // Stock badge now rendered inside .meta (under the image)
+      // STOCK ROW lives under the photo, above the rest of meta
+      const stockRow = isComing
+        ? '' // no quantity for coming soon
+        : (qty > 0
+            ? `<div class="stock-badge stock-label">${qty} left</div>`
+            : `<div class="stock-badge muted">Out of stock</div>`);
+
       card.innerHTML = `
         ${imgBlock}
         <div class="meta">
+          ${stockRow}
           <div class="sku">SKU: ${escapeHtml(p.sku)}</div>
           <h3><a href="product.html?sku=${encodeURIComponent(p.sku)}">${escapeHtml(title)}</a></h3>
-          ${qty > 0 ? `<div class="stock-badge stock-label">${qty} left</div>` : ''}
           <p>${escapeHtml(p.description || '')}</p>
 
           <div class="price-row">
