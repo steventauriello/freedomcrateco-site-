@@ -338,3 +338,20 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* Hide any badge that may still be rendered inside the image anchor */
 .card .img .stock-badge { display: none !important; }
+
+/* Nuke any legacy title overlay drawn on top of the image */
+.card .img::before,
+.card .img::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Hide any title/overlay elements some themes inject inside the image link */
+.card .img .overlay,
+.card .img .title,
+.card .img .product-title,
+.card .img .caption {
+  display: none !important;
+  color: transparent !important;
+  text-shadow: none !important;
+}
