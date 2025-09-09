@@ -1,14 +1,14 @@
-/* assets/js/catalog.js
-   Renders product cards with Add to Cart + Buy Now buttons.
-   Supports: favorites, sold-out (qty=0), coming-soon (status="coming-soon"),
-   stock badge ("X left"), and live re-render on inventory:updated.
+// assets/js/catalog.js
+// Renders product cards with Add to Cart + Buy Now buttons.
+// Supports: favorites, sold-out (qty=0), coming-soon (status="coming-soon"),
+// stock badge ("X left"), and live re-render on inventory:updated.
+//
+// Depends on:
+// - FC.loadProducts()  (from data.js)
+// - FC.formatPrice(n)  (from data.js)
+// - FC.storage.get/set (from data.js)
+// - window.addToCart / window.buyNow (from cart.js)
 
-   Depends on:
-   - FC.loadProducts()  (from data.js)
-   - FC.formatPrice(n)  (from data.js)
-   - FC.storage.get/set (from data.js)
-   - window.addToCart / window.buyNow (from cart.js)
-*/
 (function () {
   const listEl = document.getElementById('products');
   if (!listEl) return;
@@ -54,21 +54,22 @@
 
     list.forEach(p => {
       const card = document.createElement('article');
-      const classes = ['card', 'no-title-overlay']; // no overlay text on image
+      const classes = ['card', 'no-title-overlay']; // prevent legacy title overlays
       if (p.status === 'coming-soon') classes.push('coming-soon');
       card.className = classes.join(' ');
 
-      const qty = Number(p.qty) || 0;
+      const qty      = Number(p.qty) || 0;
       const isComing = p.status === 'coming-soon';
-      const isSoldOutActive = qty <= 0 && !isComing;
+      const soldOut  = qty <= 0 && !isComing;
       const priceNum = Number(p.price) || 0;
       const title    = p.title || 'Item';
       const imgUrl   = p.image_url || 'assets/img/blank.jpg';
 
+      // add "stock-label" so your CSS can style it (bold red, etc.)
       const imgBlock = `
         <a class="img" href="product.html?sku=${encodeURIComponent(p.sku)}">
-          ${qty > 0 ? `<span class="stock-badge">${qty} left</span>` : ''}
-          ${isSoldOutActive ? `<div class="soldout">Sold Out</div>` : ''}
+          ${qty > 0 ? `<span class="stock-badge stock-label">${qty} left</span>` : ''}
+          ${soldOut ? `<div class="soldout">Sold Out</div>` : ''}
           <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(title)}" loading="lazy">
         </a>
       `;
