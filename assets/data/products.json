@@ -10,8 +10,8 @@
   },
   "FC-RB-300": {
     "status": "active",
-    "title": "Range Box 300",
-    "price": 139,
+    "title": "Rangemaster 300",
+    "price": 49.99,
     "qty": 2,
     "image_url": "assets/img/rb300.png",
     "tags": ["range", "compact"],
