@@ -355,3 +355,10 @@ input[type="number"]::-webkit-inner-spin-button {
   color: transparent !important;
   text-shadow: none !important;
 }
+/* Apply stencil font to main site title */
+.site-title-strip h1 {
+  font-family: "Black Ops One", system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
