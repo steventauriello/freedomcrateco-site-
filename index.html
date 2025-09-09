@@ -4,7 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Freedom Crate Co. – Shop</title>
+
+  <!-- Google Font: Black Ops One (stencil look) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="assets/css/styles.css" />
+
   <style>
     /* Small, page-scoped helpers */
     .featured-wrap {margin: 2rem 0;}
@@ -23,6 +30,13 @@
     .soldout{position:absolute; top:.5rem; left:.5rem; padding:.25rem .5rem;
       font-size:.85rem; border:1px solid rgba(255,255,255,.25);
       background:rgba(255,255,255,.08); border-radius:.5rem;}
+
+    /* Apply stencil font to main site title */
+    .site-title-strip h1{
+      font-family: "Black Ops One", system-ui, sans-serif;
+      font-weight: 400;
+      letter-spacing: 2px;
+    }
   </style>
 </head>
 <body>
@@ -105,10 +119,10 @@
   <!-- Script order (IMPORTANT) -->
   <script src="assets/js/util.js"></script>
   <script src="assets/js/config.js"></script>
-  <script src="assets/js/inventory.js"></script> <!-- loads assets/data/inventory.json -->
-  <script src="assets/js/data.js"></script>      <!-- exposes FC.loadProducts / PRODUCTS -->
-  <script src="assets/js/cart.js"></script>      <!-- addToCart / buyNow -->
-  <script src="assets/js/catalog.js"></script>   <!-- renders the grid with inventory -->
+  <script src="assets/js/inventory.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/catalog.js"></script>
 
   <!-- Featured logic (scoped to this page) -->
   <script>
