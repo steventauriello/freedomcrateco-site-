@@ -237,9 +237,10 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* === Inventory/stock + image fixes (add at very bottom) === */
 
-/* neat badge position */
+/* === Inventory/stock + image fixes === */
+
+/* legacy over-image badge position (will be overridden below) */
 .card .stock-badge{
   position:absolute;
   top:2.2rem;
@@ -264,18 +265,18 @@ input[type="number"]::-webkit-inner-spin-button {
 .card .img::before { content: none !important; display: none !important; }
 /* ensure <img> inside card fills its container nicely */
 .card .img img { width:100%; height:auto; display:block; object-fit:cover; }
+
 /* === Coming Soon diagonal ribbon === */
 .card.coming-soon {
   position: relative;
   overflow: hidden;
 }
-
 .card.coming-soon::after {
   content: "COMING SOON";
   position: absolute;
-  top: 40px;       /* move it lower (was 20px) */
-  left: -50px;     /* balance the diagonal shift */
-  width: 220px;    /* a little wider so text breathes */
+  top: 40px;
+  left: -50px;
+  width: 220px;
   text-align: center;
   transform: rotate(-45deg);
   background: #ff0000;
@@ -286,23 +287,24 @@ input[type="number"]::-webkit-inner-spin-button {
   z-index: 3;
   letter-spacing: 1px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  
 }
+
 /* Force product titles under images to be white */
 .card h3 a {
   color: #fff !important;
   font-weight: 900;
 }
-/* === Stock quantity diagonal ribbon === */
+
+/* (optional) diagonal low-stock ribbon (unused unless you add .low-stock) */
 .card.low-stock::after {
-  content: attr(data-stock);   /* pulls "2 left" etc from HTML */
+  content: attr(data-stock);
   position: absolute;
   top: 12px;
-  left: -45px;                 /* shift so it crosses corner */
+  left: -45px;
   width: 160px;
   transform: rotate(-45deg);
-  background: #ff0000;         /* red ribbon */
-  color: #fff;                 /* white text */
+  background: #ff0000;
+  color: #fff;
   font-weight: 900;
   font-size: 0.9rem;
   text-align: center;
@@ -311,9 +313,28 @@ input[type="number"]::-webkit-inner-spin-button {
   letter-spacing: 0.5px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
-/* === Stock quantity label style === */
+
+/* === Stock quantity label style (color/weight) === */
 .card .stock-label {
-  color: #ff4d4d;     /* bold red */
-  font-weight: 800;   /* make it stand out */
-  font-size: 0.95rem; /* tweak size if needed */
+  color: #ff4d4d;
+  font-weight: 800;
+  font-size: 0.95rem;
 }
+
+/* === NEW: Under-photo quantity badge === */
+/* Place the badge IN the meta block under the image */
+.card .meta .stock-badge {
+  position: static;             /* override the old absolute */
+  display: inline-block;
+  margin: 6px 0 8px;
+  padding: 4px 8px;
+  background: #ff0000;
+  color: #fff;
+  font-weight: 800;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+/* Hide any badge that may still be rendered inside the image anchor */
+.card .img .stock-badge { display: none !important; }
