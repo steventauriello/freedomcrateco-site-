@@ -12,7 +12,7 @@
     "status": "active",
     "title": "Rangemaster 300",
     "price": 49.99,
-    "qty": 2,
+    "qty": 0,
     "image_url": "assets/img/rb300.png",
     "tags": ["range", "compact"],
     "description": "Compact box sized for three 4x4x2 trays."
