@@ -311,3 +311,9 @@ input[type="number"]::-webkit-inner-spin-button {
   letter-spacing: 0.5px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
+/* === Stock quantity label style === */
+.card .stock-label {
+  color: #ff4d4d;     /* bold red */
+  font-weight: 800;   /* make it stand out */
+  font-size: 0.95rem; /* tweak size if needed */
+}
