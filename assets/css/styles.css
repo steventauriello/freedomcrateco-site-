@@ -164,7 +164,7 @@ textarea { min-height: 140px; resize: vertical; }
 /* === Hero Banner === */
 .hero-banner {
   background: url("../img/banner.png") no-repeat center center/cover;
-  background-position: 45% center;   /* shift focus slightly to the right */
+  background-position: 48% center;   /* shift focus slightly to the right */
   height: 300px;
   display: flex;
   align-items: center;
