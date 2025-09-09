@@ -1,7 +1,7 @@
 // assets/js/catalog.js
 // Renders product cards with Add to Cart + Buy Now buttons.
 // Supports: favorites, sold-out (qty=0), coming-soon (status="coming-soon"),
-// stock badge ("X left"), and live re-render on inventory:updated.
+// stock badge ("X left") shown UNDER the image, and live re-render on inventory:updated.
 //
 // Depends on:
 // - FC.loadProducts()  (from data.js)
@@ -65,10 +65,9 @@
       const title    = p.title || 'Item';
       const imgUrl   = p.image_url || 'assets/img/blank.jpg';
 
-      // add "stock-label" so your CSS can style it (bold red, etc.)
+      // Image block: only SOLD OUT overlay stays on image
       const imgBlock = `
         <a class="img" href="product.html?sku=${encodeURIComponent(p.sku)}">
-          ${qty > 0 ? `<span class="stock-badge stock-label">${qty} left</span>` : ''}
           ${soldOut ? `<div class="soldout">Sold Out</div>` : ''}
           <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(title)}" loading="lazy">
         </a>
@@ -76,11 +75,13 @@
 
       const favActive = favSet.has(p.sku) ? 'active' : '';
 
+      // Stock badge now rendered inside .meta (under the image)
       card.innerHTML = `
         ${imgBlock}
         <div class="meta">
           <div class="sku">SKU: ${escapeHtml(p.sku)}</div>
           <h3><a href="product.html?sku=${encodeURIComponent(p.sku)}">${escapeHtml(title)}</a></h3>
+          ${qty > 0 ? `<div class="stock-badge stock-label">${qty} left</div>` : ''}
           <p>${escapeHtml(p.description || '')}</p>
 
           <div class="price-row">
