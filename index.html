@@ -30,10 +30,139 @@
     .soldout{position:absolute; top:.5rem; left:.5rem; padding:.25rem .5rem;
       font-size:.85rem; border:1px solid rgba(255,255,255,.25);
       background:rgba(255,255,255,.08); border-radius:.5rem;}
-
-   
   </style>
 </head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" height="60">
+    </a>
+    <nav class="nav">
+      <a href="index.html">Shop</a>
+      <a href="contact.html">Custom Orders</a>
+      <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="site-title-strip">
+      <h1>Freedom Crate Co.</h1>
+      <p>Handcrafted Ammo & Range Boxes</p>
+      <p class="slogan">Made For The People By The People</p>
+    </div>
+
+    <!-- Product grid rendered by assets/js/catalog.js -->
+    <section>
+      <div id="catalog" class="catalog-grid">
+        <!-- JS will inject product cards here -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <small>&copy; <span id="year"></span> Freedom Crate Co.</small>
+    </div>
+  </footer>
+
+  <script>
+    // Footer year
+    document.addEventListener('DOMContentLoaded', () => {
+      const y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+    });
+  </script>
+
+  <!-- Core site helpers (order matters) -->
+  <script src="assets/js/util.js" defer></script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/inventory.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/cart.js" defer></script>
+  <script src="assets/js/catalog.js" defer></script>
+
+  <!-- Safety shim: guarantees Classic’s image swap + cart wiring even if markup changes -->
+  <script>
+  (function () {
+    'use strict';
+
+    // Must match filenames in /assets/img (case-sensitive on deploy)
+    const IMAGE_MAP = {
+      blank:      'assets/img/blank.jpg',
+      army:       'assets/img/army.jpg',
+      marines:    'assets/img/marines.jpg',
+      navy:       'assets/img/navy.jpg',
+      airforce:   'assets/img/airforce.jpg',
+      coastguard: 'assets/img/coastguard.jpg'
+    };
+
+    function findClassicCard() {
+      return (
+        document.querySelector('[data-product="freedom-crate-classic"]') ||
+        document.querySelector('[data-sku="FC-CLASSIC"]') ||
+        Array.from(document.querySelectorAll('.product-card'))
+          .find(c => c.querySelector('select[name="branch"], .branch-select')) ||
+        null
+      );
+    }
+
+    function bindClassic(card) {
+      if (!card || card.__fcBound) return;
+      card.__fcBound = true;
+
+      const select = card.querySelector('select[name="branch"], .branch-select');
+      const img    = card.querySelector('img.product-image, img');
+      const priceEl= card.querySelector('.price');
+      const addBtn = card.querySelector('.add-to-cart, [data-action="add-to-cart"]');
+      const buyBtn = card.querySelector('.buy-now, #sb-buy');
+
+      const price = priceEl ? Number(String(priceEl.textContent).replace(/[^\d.]/g, '')) : 94.99;
+
+      function updateImage() {
+        if (!select || !img) return;
+        const v = (select.value || 'blank').toLowerCase();
+        img.src = IMAGE_MAP[v] || IMAGE_MAP.blank;
+        img.alt = `Freedom Crate Classic – ${v}`;
+      }
+
+      if (select) {
+        select.addEventListener('change', updateImage);
+        updateImage();
+      }
+
+      if (addBtn) {
+        addBtn.addEventListener('click', () => {
+          const branch = select ? select.value : 'blank';
+          const sku = `FC-CLASSIC-${branch}`;
+          const meta = { branch, image: img && img.src ? img.src : undefined };
+          window.addToCart(sku, 'Freedom Crate Classic', price, 1, meta);
+        });
+      }
+
+      if (buyBtn) {
+        buyBtn.addEventListener('click', () => {
+          const branch = select ? select.value : 'blank';
+          const sku = `FC-CLASSIC-${branch}`;
+          const meta = { branch, image: img && img.src ? img.src : undefined };
+          window.buyNow(sku, 'Freedom Crate Classic', price, 1, meta);
+        });
+      }
+    }
+
+    function tryBind() {
+      const card = findClassicCard();
+      if (card) bindClassic(card);
+    }
+
+    document.addEventListener('DOMContentLoaded', tryBind);
+    const mo = new MutationObserver(tryBind);
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+  })();
+  </script>
+</body>
+</html>
 <body>
   <header class="site-header">
     <a class="brand" href="index.html">
