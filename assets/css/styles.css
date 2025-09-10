@@ -375,3 +375,5 @@ input[type="number"]::-webkit-inner-spin-button {
   object-fit: cover;    /* crop nicely inside the circle */
   border: 2px solid #fff; /* optional outline for contrast */
 }
+/* Temporary: hide all stock/quantity badges */
+.stock-badge { display: none !important; }
