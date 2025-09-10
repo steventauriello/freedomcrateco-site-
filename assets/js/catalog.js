@@ -11,7 +11,11 @@
     coastguard: 'assets/img/coastguard.jpg'
   };
 
-  function el(html){ const t=document.createElement('template'); t.innerHTML=html.trim(); return t.content.firstElementChild; }
+  function el(html){
+    const t = document.createElement('template');
+    t.innerHTML = html.trim();
+    return t.content.firstElementChild;
+  }
 
   async function loadProducts() {
     const res = await fetch('assets/data/products.json', { cache: 'no-cache' });
