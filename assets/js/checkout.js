@@ -1,4 +1,4 @@
-// assets/js/checkout.js (updated to match cart.js API)
+// assets/js/checkout.js
 (function () {
   'use strict';
 
@@ -7,56 +7,52 @@
     .replace(/&/g, '&amp;').replace(/</g, '&lt;')
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-  // Stable key for cart items
+  // from util.js / cart.js
+  // readCart(), setCart()
+  // cartCount(), updateCartBadge()
+
   const getKey = (item) => item?.sku ?? item?.id ?? item?.key ?? null;
 
-  // Keep a hidden <input id="cartJson"> in sync if present (optional)
   function syncHiddenCart() {
     const hidden = document.getElementById('cartJson');
     if (!hidden) return;
     const cart = readCart();
-    const total = cartTotal(cart);
+    const total = cart.reduce((sum, i) =>
+      sum + (Number(i.price) || 0) * (Number(i.qty) || 1), 0);
     hidden.value = JSON.stringify({ items: cart, total: Number(total.toFixed(2)) });
   }
 
   function renderCart() {
     const body   = document.getElementById('cartBody');
     const totalE = document.getElementById('cartTotal');
+    const cart   = readCart();
     if (!body || !totalE) return;
 
-    const cart = readCart();
     body.innerHTML = '';
+    let total = 0;
 
     if (!cart.length) {
       body.innerHTML = `<tr><td colspan="5" class="muted">Your cart is empty.</td></tr>`;
       totalE.textContent = money(0);
+      updateCartBadge(cartCount(cart));
       syncHiddenCart();
       return;
     }
 
     cart.forEach(item => {
       const key   = getKey(item);
-      const qty   = Math.max(0, Number(item.qty || 0)); // allow 0 (we'll remove on update)
+      const qty   = Math.max(0, Number(item.qty || 0)); // allow 0
       const price = Number(item.price || 0);
       const sub   = qty * price;
+      total += sub;
 
       const tr = document.createElement('tr');
       tr.dataset.key = key;
 
       tr.innerHTML = `
-        <td>
-          <div style="display:flex;align-items:center;gap:.75rem;">
-            <img src="${escapeHtml(item?.meta?.image || item.image || 'assets/img/blank.jpg')}"
-                 alt="${escapeHtml(item.name || 'Item')}"
-                 width="64" height="64" style="border-radius:6px;object-fit:cover">
-            <div>
-              <div style="font-weight:600">${escapeHtml(item.name || item.sku || 'Item')}</div>
-              <div class="muted">SKU: ${escapeHtml(item.sku || '')}</div>
-            </div>
-          </div>
-        </td>
+        <td>${escapeHtml(item.name || item.sku || item.id || 'Item')}</td>
 
-        <td class="qty-cell" style="min-width:120px;">
+        <td class="qty-cell">
           <!-- PLUS ON TOP -->
           <button class="qty-inc" type="button" aria-label="Increase quantity">+</button>
           <input class="qty" type="number" inputmode="numeric" pattern="[0-9]*"
@@ -73,7 +69,8 @@
       body.appendChild(tr);
     });
 
-    totalE.textContent = money(cartTotal(readCart()));
+    totalE.textContent = money(total);
+    updateCartBadge(cartCount(cart));
     syncHiddenCart();
   }
 
@@ -88,10 +85,14 @@
       const key = row?.dataset.key;
       const raw = Number(e.target.value || 0);
 
-      if (!key) return;
-      if (!Number.isFinite(raw) || raw <= 0) removeItem(key);
-      else setQty(key, raw);
-      // cart:updated event will call renderCart; calling directly is fine too:
+      let cart = readCart();
+      const idx = cart.findIndex(i => getKey(i) === key);
+      if (idx === -1) return;
+
+      if (!Number.isFinite(raw) || raw <= 0) cart.splice(idx, 1);
+      else cart[idx].qty = raw;
+
+      setCart(cart);
       renderCart();
     });
 
@@ -103,28 +104,34 @@
       if (!incBtn && !decBtn && !removeBtn) return;
 
       const row = e.target.closest('#cartBody tr');
-      const key = row?.dataset.key;
-      if (!key) return;
+      if (!row) return;
+      const key = row.dataset.key;
 
-      const current = readCart().find(i => getKey(i) === key);
-      const curQty = Number(current?.qty || 0);
+      let cart = readCart();
+      const idx = cart.findIndex(i => getKey(i) === key);
+      if (idx === -1) return;
 
       if (incBtn) {
-        setQty(key, curQty + 1);
+        cart[idx].qty = (Number(cart[idx].qty) || 0) + 1;
       } else if (decBtn) {
-        const next = curQty - 1;
-        if (next <= 0) removeItem(key);
-        else setQty(key, next);
+        const next = (Number(cart[idx].qty) || 0) - 1;
+        if (next <= 0) cart.splice(idx, 1);
+        else cart[idx].qty = next;
       } else if (removeBtn) {
-        removeItem(key);
+        cart.splice(idx, 1);
       }
+
+      setCart(cart);
       renderCart();
     });
 
-    // "Update Cart" button (if you keep one on the page)
+    // Update Cart button
     document.getElementById('updateCartBtn')?.addEventListener('click', () => {
       const rows = document.querySelectorAll('#cartBody tr');
       if (!rows.length) return;
+
+      let cart = readCart();
+      const pos = new Map(cart.map((it, i) => [getKey(it), i]));
 
       rows.forEach(row => {
         const key = row.dataset.key;
@@ -132,18 +139,22 @@
         if (!key || !input) return;
 
         const raw = Number(input.value || 0);
-        if (!Number.isFinite(raw) || raw <= 0) removeItem(key);
-        else setQty(key, raw);
+        const idx = pos.get(key);
+        if (idx == null) return;
+
+        if (!Number.isFinite(raw) || raw <= 0) cart[idx] = null;
+        else cart[idx].qty = raw;
       });
 
+      cart = cart.filter(Boolean);
+      setCart(cart);
       renderCart();
     });
 
     renderCart();
   });
 
-  // Repaint when cart changes elsewhere
+  // repaint if cart changes elsewhere
   window.addEventListener('cart:updated', renderCart);
-  // You can keep this for belt-and-suspenders cross-tab updates (cart.js dispatches cart:updated already)
-  window.addEventListener('storage', renderCart);
+  window.addEventListener('storage', (e) => { if (e.key === 'cart') renderCart(); });
 })();
