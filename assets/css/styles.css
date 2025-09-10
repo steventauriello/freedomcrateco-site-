@@ -367,3 +367,11 @@ input[type="number"]::-webkit-inner-spin-button {
   letter-spacing: 2px;
   text-transform: uppercase;
 }
+/* Make header logo circular everywhere */
+.site-header .brand img{
+  width: 60px;          /* force square */
+  height: 60px;         /* keep same height */
+  border-radius: 50%;   /* circle */
+  object-fit: cover;    /* crop nicely inside the circle */
+  border: 2px solid #fff; /* optional outline for contrast */
+}
