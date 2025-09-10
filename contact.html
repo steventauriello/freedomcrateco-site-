@@ -4,19 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Custom Orders • Freedom Crate Co.</title>
-  <meta name="description" content="Request a custom Freedom Crate: branch stencils, hardware, sizing, and finishes. Florida-built. Free shipping." />
-  <link rel="canonical" href="https://freedomcrateco.com/contact.html">
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Custom Orders • Freedom Crate Co.">
-  <meta property="og:description" content="Request a custom Freedom Crate—branch stencils, hardware, sizing, and finishes.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://freedomcrateco.com/contact.html">
-  <meta property="og:image" content="https://freedomcrateco.com/assets/img/og-hero.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
+    /* Small, page-scoped helpers (keeps your global css clean) */
     .narrow{max-width:980px;margin:2rem auto}
     .form-grid{display:grid;grid-template-columns:1fr;gap:1rem}
     @media (min-width:860px){.form-grid.two{grid-template-columns:1fr 1fr}}
@@ -29,65 +19,43 @@
     .preview{margin-top:.5rem}
     .preview img{max-width:220px;height:auto;border-radius:10px;display:block}
     .helper{font-size:.9rem;opacity:.75}
-    .hidden{position:absolute;left:-10000px;height:1px;width:1px;overflow:hidden}
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;border-radius:.25rem}
   </style>
-
-  <!-- Optional: Contact / Org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "url": "https://freedomcrateco.com/contact.html",
-    "about": {
-      "@type": "Organization",
-      "name": "Freedom Crate Co.",
-      "url": "https://freedomcrateco.com/"
-    }
-  }
-  </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
   <header class="site-header">
     <a class="brand" href="index.html">
-      <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" height="60">
     </a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav">
       <a href="index.html">Shop</a>
       <a class="active" href="contact.html">Custom Orders</a>
       <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
     </nav>
   </header>
 
-  <main class="container narrow" id="main">
-    <h1>Custom Orders &amp; Inquiries</h1>
+  <main class="container narrow">
+    <h1>Custom Orders & Inquiries</h1>
     <p>Send details and we’ll get back with a quote.</p>
 
     <!-- Netlify form -->
     <form class="form"
           name="custom-order"
           method="POST"
-          action="/thanks.html"
+          action="/thanks"
           data-netlify="true"
-          netlify-honeypot="bot-field"
-          enctype="multipart/form-data">
+          netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="custom-order" />
-      <div class="hidden">
-        <label>Don’t fill this out: <input name="bot-field" autocomplete="off" tabindex="-1" /></label>
-      </div>
+      <div class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></div>
 
       <!-- Basic info -->
       <div class="form-grid two">
         <div class="field">
           <label for="name">Name *</label>
-          <input id="name" name="name" type="text" required placeholder="Your full name" autocomplete="name" maxlength="120">
+          <input id="name" name="name" type="text" required placeholder="Your full name" autocomplete="name">
         </div>
         <div class="field">
           <label for="email">Email *</label>
-          <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email" inputmode="email" maxlength="180">
+          <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
         </div>
       </div>
 
@@ -142,14 +110,14 @@
 
           <!-- Live preview -->
           <div id="boxPreviewWrap" class="preview" hidden>
-            <img id="boxPreview" src="" alt="" width="220" height="160" decoding="async">
+            <img id="boxPreview" src="" alt="">
             <div id="boxPreviewCaption" class="helper"></div>
           </div>
         </div>
 
         <div class="field">
           <label for="qty">Quantity</label>
-          <input id="qty" name="qty" type="number" min="1" step="1" value="1" inputmode="numeric" pattern="[0-9]*">
+          <input id="qty" name="qty" type="number" min="1" value="1" inputmode="numeric">
         </div>
       </div>
 
@@ -170,21 +138,10 @@
       <div class="field">
         <label for="details">Details *</label>
         <textarea id="details" name="details" rows="8" required
-          placeholder="Tell us stencil choice, placement (front/lid/back), text under lid, etc."
-          maxlength="2000"></textarea>
+          placeholder="Tell us stencil choice, placement (front/lid/back), text under lid, etc."></textarea>
       </div>
 
-      <!-- Optional attachment (reference photo / logo) -->
-      <div class="field">
-        <label for="attachment">Attach a reference photo (optional)</label>
-        <input id="attachment" name="attachment" type="file" accept="image/*">
-        <div class="helper">PNG/JPG only. Max ~5MB recommended.</div>
-      </div>
-
-      <!-- Optional reCAPTCHA (enable in Netlify settings, then uncomment) -->
-      <!-- <div data-netlify-recaptcha="true"></div> -->
-
-      <button id="submitBtn" class="btn" type="submit">Send Inquiry</button>
+      <button class="btn" type="submit">Send Inquiry</button>
     </form>
   </main>
 
@@ -193,67 +150,36 @@
   </footer>
 
   <!-- Keep the cart badge in sync -->
-  <script src="assets/js/util.js" defer></script>
-  <script src="assets/js/config.js" defer></script>
-  <script src="assets/js/cart.js" defer></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/cart.js"></script>
 
-  <!-- Page-scoped script: query param prefill + preview + submit hardening -->
+  <!-- Page-scoped script: updates the box preview + hidden fields -->
   <script>
-  (function(){
-    const sel  = document.getElementById('box');
-    const tH   = document.getElementById('selectedBoxTitle');
-    const iH   = document.getElementById('selectedBoxImage');
-    const wrap = document.getElementById('boxPreviewWrap');
-    const img  = document.getElementById('boxPreview');
-    const cap  = document.getElementById('boxPreviewCaption');
-    const submitBtn = document.getElementById('submitBtn');
-    const form = document.forms['custom-order'];
+    (function(){
+      const sel  = document.getElementById('box');
+      const tH   = document.getElementById('selectedBoxTitle');
+      const iH   = document.getElementById('selectedBoxImage');
+      const wrap = document.getElementById('boxPreviewWrap');
+      const img  = document.getElementById('boxPreview');
+      const cap  = document.getElementById('boxPreviewCaption');
 
-    function updatePreview(){
-      const opt = sel.options[sel.selectedIndex];
-      const title = opt?.dataset?.title || '';
-      const src   = opt?.dataset?.image || '';
-      tH.value = title; iH.value = src;
+      function updatePreview(){
+        const opt = sel.options[sel.selectedIndex];
+        const title = opt?.dataset?.title || '';
+        const src   = opt?.dataset?.image || '';
+        tH.value = title; iH.value = src;
 
-      if (src){
-        img.src = src; img.alt = title || 'Selected box preview'; cap.textContent = title;
-        wrap.hidden = false;
-      } else {
-        wrap.hidden = true; img.src = ''; img.alt = ''; cap.textContent = '';
-      }
-    }
-
-    // Prefill "Which box" from ?box= query
-    (function prefillFromQuery(){
-      const params = new URLSearchParams(location.search);
-      const q = params.get('box');
-      if (!q) return;
-      for (const opt of sel.options) {
-        if (opt.value.toLowerCase() === q.toLowerCase() || (opt.dataset?.title||'').toLowerCase() === q.toLowerCase()) {
-          sel.value = opt.value; break;
+        if (src){
+          img.src = src; img.alt = title; cap.textContent = title;
+          wrap.hidden = false;
+        } else {
+          wrap.hidden = true; img.src = ''; img.alt = ''; cap.textContent = '';
         }
       }
+      sel.addEventListener('change', updatePreview);
+      updatePreview();
     })();
-
-    sel.addEventListener('change', updatePreview);
-    updatePreview();
-
-    // Prevent double-submit & add minimal client-side guardrails
-    form.addEventListener('submit', (e) => {
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
-      }
-      // Basic check: details length
-      const details = document.getElementById('details')?.value || '';
-      if (details.trim().length < 10) {
-        e.preventDefault();
-        alert('Please add a bit more detail so we can give an accurate quote.');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Inquiry';
-      }
-    });
-  })();
   </script>
 </body>
 </html>
