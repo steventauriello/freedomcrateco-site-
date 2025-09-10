@@ -3,95 +3,46 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Freedom Crate Classic • Freedom Crate Co.</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Freedom Crate Classic: hand-built wooden ammo box with lockable hardware and branch stencil options. Florida-built. Free shipping." />
-  <link rel="canonical" href="https://freedomcrateco.com/product.html">
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Freedom Crate Classic • Freedom Crate Co.">
-  <meta property="og:description" content="Hand-built wooden ammo box with lockable hardware and branch stencils. Free shipping.">
-  <meta property="og:type" content="product">
-  <meta property="og:url" content="https://freedomcrateco.com/product.html">
-  <meta property="og:image" content="https://freedomcrateco.com/assets/img/standard-box_1200.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-
+  <title>Product • Freedom Crate Co.</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <style>
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;border-radius:.25rem}
-    .product-detail{max-width:960px;margin:0 auto}
-    .product-hero{display:block;border-radius:8px}
-    .muted{opacity:.8}
-    .actions{display:flex;flex-wrap:wrap;gap:.75rem}
-  </style>
-
-  <!-- Product JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    "name": "Freedom Crate Classic",
-    "image": ["https://freedomcrateco.com/assets/img/standard-box_1200.jpg"],
-    "description": "Hand-built wooden ammo box with lockable hardware and optional U.S. service branch stencil.",
-    "sku": "FC-STD-BOX",
-    "brand": {"@type":"Brand","name":"Freedom Crate Co."},
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "USD",
-      "price": "139.00",
-      "availability": "https://schema.org/InStock",
-      "url": "https://freedomcrateco.com/product.html",
-      "seller": {"@type":"Organization","name":"Freedom Crate Co."}
-    }
-  }
-  </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
   <!-- Header -->
   <header class="site-header">
     <a class="brand" href="index.html">
-      <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" height="60">
     </a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav">
       <a href="index.html">Shop</a>
       <a href="contact.html">Custom Orders</a>
-      <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
     </nav>
   </header>
 
   <!-- Main -->
-  <main class="container" id="main">
+  <main class="container">
     <div id="productHost">
-      <section class="product-detail" aria-labelledby="p-title">
-        <!-- Add width/height & async decode to prevent CLS -->
-        <img class="product-hero"
-             src="assets/img/standard-box.png"
-             alt="Freedom Crate Classic wooden ammo box"
-             width="1200" height="800" decoding="async" loading="eager">
+      <section class="product-detail">
+        <img class="product-hero" src="assets/img/standard-box.png" alt="Freedom Crate Classic">
 
-        <h1 id="p-title">Freedom Crate Classic</h1>
+        <h1>Freedom Crate Classic</h1>
         <p class="muted">Same size across branches. Choose your stencil.</p>
 
         <label for="branch">Branch stencil</label>
         <select id="branch" name="branch">
-          <option value="marines">U.S. Marine Corps</option>
-          <option value="army">U.S. Army</option>
-          <option value="navy">U.S. Navy</option>
-          <option value="airforce">U.S. Air Force</option>
-          <option value="coastguard">U.S. Coast Guard</option>
-          <option value="spaceforce">U.S. Space Force</option>
-          <option value="nationalguard">National Guard</option>
+          <option>Marine Corps</option>
+          <option>Army</option>
+          <option>Navy</option>
+          <option>Air Force</option>
+          <option>Coast Guard</option>
+          <option>Space Force</option>
+          <option>National Guard</option>
         </select>
 
-        <p class="price"><strong><span id="price" aria-live="polite">$139.00</span></strong></p>
+        <p class="price">$139.00</p>
 
         <div class="actions">
-          <button id="addBtn" class="btn" type="button">Add to Cart</button>
-          <button id="buyBtn" class="btn" type="button">Buy Now</button>
+          <button class="btn" onclick="addToCart('FC-STD-BOX')">Add to Cart</button>
+          <button class="btn" onclick="buyNow('FC-STD-BOX')">Buy Now</button>
           <a class="btn ghost" href="contact.html?box=Freedom%20Crate%20Classic">Customize</a>
         </div>
 
@@ -114,57 +65,12 @@
     </div>
   </footer>
 
-  <!-- Scripts (deferred) -->
-  <script src="assets/js/util.js" defer></script>
-  <script src="assets/js/config.js" defer></script>
-  <script src="assets/js/data.js" defer></script>
-  <script src="assets/js/cart.js" defer></script>
-  <script src="assets/js/product.js" defer></script>
-
-  <!-- Page-scoped logic: wire buttons without inline handlers -->
-  <script>
-  (function(){
-    const priceEl = document.getElementById('price');
-    const branchEl = document.getElementById('branch');
-    const addBtn = document.getElementById('addBtn');
-    const buyBtn = document.getElementById('buyBtn');
-
-    // If you ever change price by variant, update here.
-    const BASE_PRICE = 139.00;
-    const fmt = n => '$' + n.toFixed(2);
-
-    function currentVariant(){
-      const branch = branchEl.value; // e.g., "marines"
-      const branchText = branchEl.options[branchEl.selectedIndex].text; // "U.S. Marine Corps"
-      const sku = `FC-STD-BOX-${branch}`;
-      const name = `Freedom Crate Classic — ${branchText}`;
-      return { sku, name };
-    }
-
-    function addToCartSafe(sku, name, price, qty, meta){
-      if (typeof window.addToCart === 'function') return window.addToCart(sku, name, price, qty, meta);
-      console.warn('Cart not ready: addToCart() missing');
-    }
-    function buyNowSafe(sku, name, price, qty, meta){
-      if (typeof window.buyNow === 'function') return window.buyNow(sku, name, price, qty, meta);
-      console.warn('Cart not ready: buyNow() missing');
-    }
-
-    // (Optional) hook if variants change price later:
-    branchEl.addEventListener('change', ()=>{
-      priceEl.textContent = fmt(BASE_PRICE);
-    });
-
-    addBtn.addEventListener('click', ()=>{
-      const { sku, name } = currentVariant();
-      addToCartSafe(sku, name, BASE_PRICE, 1, { image: 'assets/img/standard-box.png' });
-    });
-
-    buyBtn.addEventListener('click', ()=>{
-      const { sku, name } = currentVariant();
-      buyNowSafe(sku, name, BASE_PRICE, 1, { image: 'assets/img/standard-box.png' });
-    });
-  })();
-  </script>
+  <!-- Scripts -->
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/product.js"></script>
+  <script src="assets/js/checkout.js"></script>
 </body>
 </html>
