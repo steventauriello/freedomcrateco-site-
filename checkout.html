@@ -3,24 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Your Cart – Freedom Crate Co.</title>
+  <title>Checkout • Freedom Crate Co.</title>
+
+  <!-- Fonts (optional) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+
+  <!-- Site styles -->
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <style>
-    .cart-wrap{max-width:900px;margin:2rem auto}
-    .cart-card{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;background:rgba(255,255,255,.02)}
-    .cart-row{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1rem 0;border-top:1px solid rgba(255,255,255,.06)}
-    .cart-row:first-child{border-top:0;padding-top:0}
-    .cart-row img{width:84px;height:84px;object-fit:cover;border-radius:8px}
-    .qty{display:flex;align-items:center;gap:.5rem}
-    .qty button{width:36px;height:36px;border-radius:8px}
-    .remove-btn{background:#e85b5b;border:none;color:#fff;padding:.5rem .9rem;border-radius:8px;cursor:pointer}
-    .totals{display:flex;justify-content:flex-end;gap:2rem;margin:1rem 0 1.25rem}
-    .totals div{min-width:180px;display:flex;justify-content:space-between}
-    #paypal-buttons{margin-top:1rem}
-    .empty{padding:2.5rem;text-align:center;color:rgba(255,255,255,.7);border:1px dashed rgba(255,255,255,.2);border-radius:10px}
-  </style>
 </head>
 <body>
+
+  <!-- Header -->
   <header class="site-header">
     <a class="brand" href="index.html">
       <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" height="60">
@@ -32,8 +27,70 @@
     </nav>
   </header>
 
-  <main class="container cart-wrap">
-    <h1>Your Cart</h1>
+  <!-- Main -->
+  <main class="container narrow">
+    <h1>Checkout</h1>
+
+    <!-- Cart table -->
+    <table class="table cart-table" style="width:100%">
+      <thead>
+        <tr>
+          <th style="text-align:left">Product</th>
+          <th style="width:100px">Qty</th>
+          <th style="width:120px">Price</th>
+          <th style="width:140px">Line Total</th>
+          <th style="width:100px">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Filled by assets/js/checkout.js -->
+      </tbody>
+    </table>
+
+    <!-- Total row -->
+    <div class="row right" style="margin-top:1rem">
+      <div class="bold" style="font-size:1.1rem">
+        Total: <span id="cartTotal">$0.00</span>
+      </div>
+    </div>
+
+    <!-- Actions (you can hook buttons here if needed) -->
+    <div class="row right" style="gap:.5rem; margin-top:1rem">
+      <a class="btn ghost" href="index.html">Continue Shopping</a>
+      <!-- Example: <button class="btn">Proceed to Payment</button> -->
+    </div>
+
+    <p class="muted" style="margin-top:2rem">US Veteran-inspired • Florida-built</p>
+    <p class="muted">Rugged, practical, and made to be used.</p>
+  </main>
+
+  <!-- Footer (optional) -->
+  <footer class="site-footer">
+    <div class="container">
+      <small>&copy; <span id="year"></span> Freedom Crate Co.</small>
+    </div>
+  </footer>
+
+  <script>
+    // set footer year
+    document.addEventListener('DOMContentLoaded', () => {
+      const y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+    });
+  </script>
+
+  <!-- Core site helpers -->
+  <script src="assets/js/util.js" defer></script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/cart.js" defer></script>
+
+  <!-- Checkout logic (renders the table and total) -->
+  <script src="assets/js/checkout.js" defer></script>
+
+  <!-- PayPal Smart Buttons (optional; replace YOUR_CLIENT_ID when you’re ready) -->
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD" defer></script> -->
+</body>
+</html>
 
     <div id="cartContainer" class="cart-card" aria-live="polite"></div>
 
