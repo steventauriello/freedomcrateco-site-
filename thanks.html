@@ -1,24 +1,60 @@
 <!doctype html>
-<html lang='en'><head>
-<meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/>
-<title>Thanks! • Freedom Crate Co.</title>
-<link rel='stylesheet' href='assets/css/styles.css'/>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thank You • Freedom Crate Co.</title>
+  <meta name="description" content="Thanks for your order! We’ll email your confirmation and shipping updates shortly." />
+  <link rel="canonical" href="https://freedomcrateco.com/thanks.html">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Thank You • Freedom Crate Co.">
+  <meta property="og:description" content="Your order is confirmed. We’ll email tracking when it ships.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://freedomcrateco.com/thanks.html">
+  <meta property="og:image" content="https://freedomcrateco.com/assets/img/og-hero.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    .wrap{max-width:780px;margin:3rem auto;text-align:center}
+    .card{border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:2rem;background:rgba(255,255,255,.03)}
+    .actions{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:1rem}
+  </style>
 </head>
 <body>
   <header class="site-header">
-  <a class="brand" href="index.html">
-    <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" height="60">
-  </a>
-  <nav class="nav">
-    <a href="index.html">Shop</a>
-    <a href="contact.html">Custom Orders</a>
-  </nav>
-</header>
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Shop</a>
+      <a href="contact.html">Custom Orders</a>
+      <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
+    </nav>
+  </header>
 
-  <main class='container narrow'>
-    <h1>Thanks! We got your message.</h1>
-    <p>We’ll reply by email with next steps and a quote.</p>
-    <p><a class='btn' href='index.html'>Back to Home</a></p>
+  <main class="container wrap">
+    <div class="card" role="status" aria-live="polite">
+      <h1>Thank you for your order!</h1>
+      <p class="muted">We’ve received your order and sent a confirmation email. You’ll get tracking as soon as it ships. Some orders ship in two packages—if so, we’ll share both tracking numbers.</p>
+
+      <div class="actions">
+        <a class="btn" href="index.html">Back to Shop</a>
+        <a class="btn ghost" href="contact.html">Questions? Contact Us</a>
+      </div>
+
+      <p class="muted" style="margin-top:1rem">US Veteran-inspired • Florida-built</p>
+    </div>
   </main>
-  <footer class="site-footer"><div class="container"><span class="badge">Florida-built</span></div></footer>
-</body></html>
+
+  <footer class="site-footer">
+    <div class="container"><span class="badge">Florida-built</span></div>
+  </footer>
+
+  <!-- Keep cart badge in sync (it should be 0 after checkout) -->
+  <script src="assets/js/util.js" defer></script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/cart.js" defer></script>
+</body>
+</html>
