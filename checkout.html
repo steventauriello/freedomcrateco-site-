@@ -4,8 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Your Cart – Freedom Crate Co.</title>
-  <meta name="description" content="Review your cart, update quantities, and checkout securely. Free shipping on all handcrafted ammo & range boxes." />
-  <link rel="canonical" href="https://freedomcrateco.com/checkout.html">
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
     .cart-wrap{max-width:900px;margin:2rem auto}
@@ -20,25 +18,21 @@
     .totals div{min-width:180px;display:flex;justify-content:space-between}
     #paypal-buttons{margin-top:1rem}
     .empty{padding:2.5rem;text-align:center;color:rgba(255,255,255,.7);border:1px dashed rgba(255,255,255,.2);border-radius:10px}
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;border-radius:.25rem}
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
   <header class="site-header">
     <a class="brand" href="index.html">
-      <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" height="60">
     </a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav">
       <a href="index.html">Shop</a>
       <a href="contact.html">Custom Orders</a>
       <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
     </nav>
   </header>
 
-  <main class="container cart-wrap" id="main">
+  <main class="container cart-wrap">
     <h1>Your Cart</h1>
 
     <div id="cartContainer" class="cart-card" aria-live="polite"></div>
@@ -57,9 +51,9 @@
   </main>
 
   <!-- Core site helpers -->
-  <script src="assets/js/util.js" defer></script>
-  <script src="assets/js/config.js" defer></script>
-  <script src="assets/js/cart.js" defer></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/cart.js"></script>
 
   <!-- PayPal Smart Buttons (replace with your live client-id when ready) -->
   <script src="https://www.paypal.com/sdk/js?client-id=AcqHQkEv2VuHF_V8UL6LhZPiYQJMszdMyXK74SVqvICeoHze2onZj0SouWpYDxAaBXQtCRsPOyJhT4p8&currency=USD" defer></script>
@@ -71,11 +65,12 @@
     const totalsBox  = document.getElementById('totals');
     const actionsBox = document.getElementById('actions');
 
-    const fmt = (n) => '$' + (Number(n||0)).toFixed(2);
-    const escapeHtml = (s) => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    function fmt(n){ return '$' + (Number(n||0)).toFixed(2); }
 
     function render(){
       const cart = readCart(); // from cart.js
+      const count = cart.reduce((s,i)=>s+(i.qty||1),0);
+      window.dispatchEvent(new CustomEvent('cart:updated',{detail:{cart,count}})); // keep badge synced
 
       if (!cart.length){
         container.innerHTML = '<div class="empty">Your cart is empty.</div>';
@@ -86,14 +81,14 @@
       }
 
       container.innerHTML = '';
-      cart.forEach((item) => {
+      let subtotal = 0;
+
+      cart.forEach((item, idx) => {
         const row = document.createElement('div');
         row.className = 'cart-row';
-        row.dataset.sku = item.sku;
 
         const img = document.createElement('img');
-        const src = (item.meta && item.meta.image) ? item.meta.image : (item.image || 'assets/img/blank.jpg');
-        img.src = src;
+        img.src = item.image || 'assets/img/blank.jpg';
         img.alt = item.name || 'Item';
 
         const meta = document.createElement('div');
@@ -106,15 +101,14 @@
             <div style="min-width:90px;text-align:right">${fmt(item.price || 0)}</div>
           </div>
           <div class="qty" style="margin-top:.5rem;">
-            <button class="btn" data-dec type="button" aria-label="Decrease quantity">–</button>
-            <span aria-live="polite">${item.qty || 1}</span>
-            <button class="btn" data-inc type="button" aria-label="Increase quantity">+</button>
+            <button class="btn" data-dec>–</button>
+            <span>${item.qty || 1}</span>
+            <button class="btn" data-inc>+</button>
           </div>
         `;
 
         const remove = document.createElement('button');
         remove.className = 'remove-btn';
-        remove.type = 'button';
         remove.textContent = 'Remove';
 
         row.appendChild(img);
@@ -122,33 +116,31 @@
         row.appendChild(remove);
         container.appendChild(row);
 
-        // wire qty / remove using SKU (stable id)
+        subtotal += (Number(item.price)||0) * (item.qty||1);
+
+        // wire qty / remove
         meta.querySelector('[data-inc]').addEventListener('click', () => {
-          const current = readCart().find(i => i.sku === item.sku);
-          const nextQty = (current?.qty || 1) + 1;
-          setQty(item.sku, nextQty);
+          const c = readCart(); c[idx].qty = (c[idx].qty||1) + 1; saveCart(c); render();
         });
         meta.querySelector('[data-dec]').addEventListener('click', () => {
-          const current = readCart().find(i => i.sku === item.sku);
-          const nextQty = Math.max(1, (current?.qty || 1) - 1);
-          setQty(item.sku, nextQty);
+          const c = readCart(); c[idx].qty = Math.max(1, (c[idx].qty||1) - 1); saveCart(c); render();
         });
         remove.addEventListener('click', () => {
-          removeItem(item.sku);
+          const c = readCart(); c.splice(idx,1); saveCart(c); render();
         });
       });
 
-      subtotalEl.textContent = fmt(cartTotal(readCart()));
+      subtotalEl.textContent = fmt(subtotal);
       totalsBox.hidden = false;
       actionsBox.hidden = false;
-      setupPayPal();
+      setupPayPal(subtotal);
     }
 
-    // --- PayPal buttons lifecycle ---
+    // PayPal buttons lifecycle
     let paypalButtonsInstance = null;
 
     function teardownPayPal(){
-      if (paypalButtonsInstance && paypalButtonsInstance.isEligible && paypalButtonsInstance.isEligible()) {
+      if (paypalButtonsInstance && paypalButtonsInstance.isEligible()) {
         try { paypalButtonsInstance.close(); } catch(_){}
       }
       const holder = document.getElementById('paypal-buttons');
@@ -156,14 +148,15 @@
       paypalButtonsInstance = null;
     }
 
-    function setupPayPal(){
-      if (!window.paypal || !paypal.Buttons){ setTimeout(setupPayPal, 100); return; }
+    function setupPayPal(amount){
+      if (!window.paypal || !paypal.Buttons){ setTimeout(()=>setupPayPal(amount), 100); return; }
       teardownPayPal();
 
       paypalButtonsInstance = paypal.Buttons({
         style: { layout: 'vertical', shape: 'rect', label: 'paypal' },
         createOrder: (data, actions) => {
-          const total = cartTotal(readCart());
+          const cart = readCart();
+          const total = cart.reduce((s,i)=> s + (Number(i.price)||0)*(i.qty||1), 0);
           if (total <= 0) return;
           return actions.order.create({
             purchase_units: [{ amount: { value: total.toFixed(2) } }]
@@ -171,7 +164,7 @@
         },
         onApprove: (data, actions) => {
           return actions.order.capture().then(() => {
-            clearCart(); // use API so badge & events stay in sync
+            localStorage.removeItem('cart');
             window.location.href = 'thanks.html';
           });
         },
@@ -186,12 +179,12 @@
       }
     }
 
+    function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
     // initial render + sync
     document.addEventListener('DOMContentLoaded', render);
-    // Re-render when the cart changes (same-tab updates)
-    window.addEventListener('cart:updated', render);
-    // Cross-tab updates also dispatch 'storage' from cart.js; re-render anyway:
-    window.addEventListener('storage', render);
+    window.addEventListener('storage', (e) => { if (e.key === 'cart') render(); });
+    render();
   })();
   </script>
 </body>
