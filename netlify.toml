@@ -1,6 +1,54 @@
 [build]
-  publish = "."        # your site root (where index.html lives)
+  publish = "."
   functions = "netlify/functions"
 
 [functions]
   node_bundler = "esbuild"
+
+# ---------- Pretty URLs ----------
+[[redirects]]
+  from = "/product"
+  to = "/product.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/checkout"
+  to = "/checkout.html"
+  status = 200
+
+[[redirects]]
+  from = "/thanks"
+  to = "/thanks.html"
+  status = 200
+
+# ---------- Security headers (global) ----------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=(), interest-cohort=()"
+
+    # CSP: allow self, Google Fonts, and PayPal. Extend if you add more CDNs.
+    Content-Security-Policy = """
+      default-src 'self';
+      img-src 'self' https: data:;
+      script-src 'self' https://www.paypal.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src https://fonts.gstatic.com data:;
+      connect-src 'self' https://www.paypal.com;
+      frame-src https://www.paypal.com
+    """
+
+# ---------- Aggressive caching for static assets ----------
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
