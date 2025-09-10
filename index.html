@@ -3,19 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Freedom Crate Co. – Handcrafted Ammo & Range Boxes</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Hand-built ammo and range boxes with lockable hardware and custom stencils. Florida-built, free shipping, veteran-inspired craftsmanship." />
-  <link rel="canonical" href="https://freedomcrateco.com/">
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Freedom Crate Co. – Handcrafted Ammo & Range Boxes">
-  <meta property="og:description" content="Hand-built ammo and range boxes with lockable hardware and custom stencils. Free shipping.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://freedomcrateco.com/">
-  <meta property="og:image" content="https://freedomcrateco.com/assets/img/og-hero.jpg">
-  <meta name="twitter:card" content="summary_large_image">
+  <title>Freedom Crate Co. – Shop</title>
 
   <!-- Google Font: Black Ops One (stencil look) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,9 +13,6 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 
   <style>
-    /* Improve font loading behavior (avoid FOIT) */
-    @font-face { font-display: swap; }
-
     /* Small, page-scoped helpers */
     .featured-wrap {margin: 2rem 0;}
     .featured-card {display:grid; gap:1rem; grid-template-columns: 1fr;
@@ -41,66 +26,47 @@
     .fc-btn{padding:.75rem 1.25rem; border-radius:6px; cursor:pointer;}
     .fc-note{opacity:.75; font-size:.9rem;}
     .option-row{margin-bottom:.5rem;}
-    /* Card ribbons used by catalog.js (kept for compatibility) */
+    /* Card ribbons used by catalog.js */
     .soldout{position:absolute; top:.5rem; left:.5rem; padding:.25rem .5rem;
       font-size:.85rem; border:1px solid rgba(255,255,255,.25);
       background:rgba(255,255,255,.08); border-radius:.5rem;}
-    /* Skip link */
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;border-radius:.25rem}
-  </style>
 
-  <!-- Organization JSON-LD (homepage) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Freedom Crate Co.",
-    "url": "https://freedomcrateco.com/",
-    "logo": "https://freedomcrateco.com/assets/img/logo.png"
-  }
-  </script>
+   
+  </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
   <header class="site-header">
     <a class="brand" href="index.html">
-      <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" height="60">
     </a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav">
       <a class="active" href="index.html">Shop</a>
       <a href="contact.html">Custom Orders</a>
       <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
     </nav>
   </header>
 
-  <main class="container" id="main">
-    <div class="site-title-strip" role="region" aria-label="Brand Intro">
+  <main class="container">
+    <div class="site-title-strip">
       <h1>Freedom Crate Co.</h1>
-      <p>Handcrafted Ammo &amp; Range Boxes</p>
+      <p>Handcrafted Ammo & Range Boxes</p>
       <p class="slogan">Made For The People By The People</p>
     </div>
 
-    <section class="hero-banner" aria-label="Hero"></section>
+    <section class="hero-banner"></section>
 
-    <!-- Featured product with live branch preview -->
+    <!-- Featured product with live branch preview (no personalization) -->
     <section class="featured-wrap" aria-label="Featured Product">
       <div class="featured-card" id="classic-box">
         <div class="fc-media">
-          <!-- Added width/height & async decode to prevent CLS -->
-          <img id="sb-image"
-               src="assets/img/blank.jpg"
-               alt="Freedom Crate Classic live preview"
-               loading="eager" decoding="async"
-               width="1200" height="800">
+          <img id="sb-image" src="assets/img/blank.jpg" alt="Freedom Crate Classic live preview" loading="lazy">
         </div>
         <div class="fc-controls">
           <h2>Freedom Crate Classic</h2>
           <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
 
           <label for="sb-branch">Branch stencil</label>
-          <select id="sb-branch" aria-describedby="sb-branch-help">
+          <select id="sb-branch">
             <option value="blank">Blank (no stencil)</option>
             <option value="army">U.S. Army</option>
             <option value="marines">U.S. Marine Corps</option>
@@ -108,7 +74,6 @@
             <option value="airforce">U.S. Air Force</option>
             <option value="coastguard">U.S. Coast Guard</option>
           </select>
-          <p id="sb-branch-help" class="sr-only" aria-hidden="true"></p>
 
           <label>Hardware (both lockable)</label>
           <div role="group" aria-label="Latch finish">
@@ -121,13 +86,13 @@
           </div>
 
           <div class="fc-row">
-            <div><strong>Total: <span id="sb-price" aria-live="polite">$95.00</span></strong></div>
-            <small class="fc-note">Base $95 • Limit 3 per item per order.</small>
+            <div><strong>Total: <span id="sb-price">$95.00</span></strong></div>
+            <small class="fc-note">Base $95</small>
           </div>
 
           <div class="fc-row">
-            <button id="sb-add" class="fc-btn btn" type="button">Add to Cart</button>
-            <button id="sb-buy" class="fc-btn btn" type="button">Buy Now</button>
+            <button id="sb-add" class="fc-btn btn">Add to Cart</button>
+            <button id="sb-buy" class="fc-btn btn">Buy Now</button>
           </div>
 
           <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
@@ -146,18 +111,17 @@
     </div>
   </footer>
 
-  <!-- Core scripts (deferred so DOM paints first) -->
-  <script src="assets/js/util.js" defer></script>
-  <script src="assets/js/config.js" defer></script>
-  <script src="assets/js/inventory.js" defer></script>
-  <script src="assets/js/data.js" defer></script>
-  <script src="assets/js/cart.js" defer></script>
-  <script src="assets/js/catalog.js" defer></script>
+  <!-- Script order (IMPORTANT) -->
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/inventory.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/catalog.js"></script>
 
   <!-- Featured logic (scoped to this page) -->
   <script>
   (function(){
-    // --- Config (update paths if your images live elsewhere) ---
     const IMG = {
       blank:      "assets/img/blank.jpg",
       army:       "assets/img/army.jpg",
@@ -166,20 +130,9 @@
       airforce:   "assets/img/airforce.jpg",
       coastguard: "assets/img/coastguard.jpg"
     };
-    const BASE_PRICE = 95.00;
+    const BASE = 95;
     const LATCH_PRICE = { Stainless: 0, Black: 0 };
 
-    // Safe cart wrappers (work even if cart.js loads a tad later)
-    function addToCartSafe(sku, name, price, qty, meta){
-      if (typeof window.addToCart === 'function') return window.addToCart(sku, name, price, qty, meta);
-      console.warn('Cart not ready: addToCart() missing');
-    }
-    function buyNowSafe(sku, name, price, qty, meta){
-      if (typeof window.buyNow === 'function') return window.buyNow(sku, name, price, qty, meta);
-      console.warn('Cart not ready: buyNow() missing');
-    }
-
-    // --- DOM refs ---
     const imgEl   = document.getElementById('sb-image');
     const branch  = document.getElementById('sb-branch');
     const priceEl = document.getElementById('sb-price');
@@ -187,7 +140,7 @@
     const buyBtn  = document.getElementById('sb-buy');
     const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
 
-    // --- Helpers ---
+    const KEY = 'fcc-classic-box';
     const fmt = (n) => '$' + Number(n).toFixed(2);
     const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
     const getLatch = () => (latchInputs.find(x=>x.checked)?.value || 'Stainless');
@@ -195,67 +148,69 @@
     function preload(){ Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; }); }
 
     function updateImage(){
-      const k = branch.value;
-      const next = IMG[k] || IMG.blank;
+      const v = branch.value;
       imgEl.classList.add('is-loading');
+      const next = IMG[v] || IMG.blank;
       const tmp = new Image();
       tmp.onload = () => {
         imgEl.src = next;
-        imgEl.alt = (k==='blank') ? 'Freedom Crate Classic (blank)' :
+        imgEl.alt = (v==='blank') ? 'Freedom Crate Classic (blank)' :
           `Freedom Crate Classic – ${branch.options[branch.selectedIndex].text}`;
         requestAnimationFrame(()=>imgEl.classList.remove('is-loading'));
       };
       tmp.src = next;
     }
 
-    function calcTotal(){
-      const target = BASE_PRICE + (LATCH_PRICE[getLatch()] || 0);
-      priceEl.textContent = fmt(target);
-      return target;
+    function animatePrice(from,to,ms=200){
+      const t0 = performance.now();
+      const step = (t)=>{
+        const k = Math.min(1,(t-t0)/ms);
+        priceEl.textContent = fmt(from + (to-from)*k);
+        if(k<1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
     }
 
-    function buildSkuName(){
-      const bVal = branch.value; // e.g., "marines"
-      const bTxt = branch.options[branch.selectedIndex].text; // "U.S. Marine Corps"
-      const lTxt = getLatch();   // "Stainless" | "Black"
-      const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`;
-      const name = `Freedom Crate Classic — ${bTxt} • ${lTxt}`;
-      return { sku, name };
+    function calcTotal(animate=true){
+      const target = BASE + (LATCH_PRICE[getLatch()]||0);
+      const current = Number(priceEl.textContent.replace('$','')) || BASE;
+      if (animate) animatePrice(current, target); else priceEl.textContent = fmt(target);
     }
 
     function saveState(){
-      try {
-        localStorage.setItem('fcc-classic-box', JSON.stringify({ branch: branch.value, latch: getLatch() }));
-      } catch(_) {}
+      localStorage.setItem(KEY, JSON.stringify({ branch: branch.value, latch: getLatch() }));
     }
     function restoreState(){
       try{
-        const s = JSON.parse(localStorage.getItem('fcc-classic-box')||'null'); if(!s) return;
+        const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(!s) return;
         if (s.branch) branch.value = s.branch;
         if (s.latch)  latchInputs.forEach(r=>r.checked = (r.value===s.latch));
       }catch(_){}
     }
 
-    // --- Events ---
+    function buildSkuName(){
+      const bVal = branch.value;
+      const bTxt = branch.options[branch.selectedIndex].text;
+      const lTxt = getLatch();
+      const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`;
+      const name = `Freedom Crate Classic — ${bTxt} • ${lTxt}`;
+      return { sku, name };
+    }
+
     branch.addEventListener('change', ()=>{ updateImage(); calcTotal(); saveState(); });
     latchInputs.forEach(r => r.addEventListener('change', ()=>{ calcTotal(); saveState(); }));
 
+    restoreState(); preload(); updateImage(); calcTotal(false);
+
+    // Pass the preview image to cart meta so the cart shows the right picture
     addBtn.addEventListener('click', () => {
       const { sku, name } = buildSkuName();
-      const price = Number(String(priceEl.textContent).replace(/[^0-9.]/g,'')) || BASE_PRICE;
-      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+      window.addToCart(sku, name, Number(priceEl.textContent.replace('$','')), 1, { image: imgEl.src });
     });
     buyBtn.addEventListener('click', () => {
       const { sku, name } = buildSkuName();
-      const price = Number(String(priceEl.textContent).replace(/[^0-9.]/g,'')) || BASE_PRICE;
-      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+      window.buyNow(sku, name, Number(priceEl.textContent.replace('$','')), 1, { image: imgEl.src });
     });
-
-    // --- Init ---
-    restoreState();
-    preload();
-    updateImage();
-    calcTotal();
   })();
   </script>
 </body>
