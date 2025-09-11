@@ -14,26 +14,24 @@
 
   <style>
     /* Small, page-scoped helpers */
-    .featured-wrap { margin: 2rem 0; }
-    .featured-card {
-      display: grid; gap: 1rem; grid-template-columns: 1fr;
-      padding: 1rem; border: 1px solid rgba(255,255,255,.08);
-      border-radius: 8px; background: rgba(255,255,255,.02);
-    }
-    @media (min-width:880px){ .featured-card{ grid-template-columns:1.2fr 1fr; align-items:start; } }
-    .fc-media img{ max-width:100%; height:auto; border-radius:6px; display:block; transition:opacity .25s ease; opacity:1; }
-    .fc-media img.is-loading{ opacity:0; }
-    .fc-controls label{ font-weight:600; display:block; margin:.5rem 0 .25rem; }
-    .fc-row{ display:flex; align-items:center; gap:1rem; margin:.75rem 0; }
-    .fc-btn{ padding:.75rem 1.25rem; border-radius:6px; cursor:pointer; }
-    .fc-note{ opacity:.75; font-size:.9rem; }
-    .option-row{ margin-bottom:.5rem; }
+    .featured-wrap {margin: 2rem 0;}
+    .featured-card {display:grid; gap:1rem; grid-template-columns: 1fr;
+      padding:1rem; border:1px solid rgba(255,255,255,.08);
+      border-radius:8px; background:rgba(255,255,255,.02);}
+    @media (min-width:880px){ .featured-card{grid-template-columns:1.2fr 1fr; align-items:start;} }
+    .fc-media img{max-width:100%; height:auto; border-radius:6px; display:block; transition:opacity .25s ease; opacity:1;}
+    .fc-media img.is-loading{opacity:0;}
+    .fc-controls label{font-weight:600; display:block; margin:.5rem 0 .25rem;}
+    .fc-row{display:flex; align-items:center; gap:1rem; margin:.75rem 0;}
+    .fc-btn{padding:.75rem 1.25rem; border-radius:6px; cursor:pointer;}
+    .fc-note{opacity:.75; font-size:.9rem;}
+    .option-row{margin-bottom:.5rem;}
     /* Card ribbons used by catalog.js */
-    .soldout{
-      position:absolute; top:.5rem; left:.5rem; padding:.25rem .5rem;
+    .soldout{position:absolute; top:.5rem; left:.5rem; padding:.25rem .5rem;
       font-size:.85rem; border:1px solid rgba(255,255,255,.25);
-      background:rgba(255,255,255,.08); border-radius:.5rem;
-    }
+      background:rgba(255,255,255,.08); border-radius:.5rem;}
+
+   
   </style>
 </head>
 <body>
@@ -57,7 +55,7 @@
 
     <section class="hero-banner"></section>
 
-    <!-- Featured product with live branch preview -->
+    <!-- Featured product with live branch preview (no personalization) -->
     <section class="featured-wrap" aria-label="Featured Product">
       <div class="featured-card" id="classic-box">
         <div class="fc-media">
@@ -93,8 +91,8 @@
           </div>
 
           <div class="fc-row">
-            <button id="sb-add" class="fc-btn btn" type="button">Add to Cart</button>
-            <button id="sb-buy" class="fc-btn btn" type="button">Buy Now</button>
+            <button id="sb-add" class="fc-btn btn">Add to Cart</button>
+            <button id="sb-buy" class="fc-btn btn">Buy Now</button>
           </div>
 
           <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
@@ -113,7 +111,7 @@
     </div>
   </footer>
 
-  <!-- Script order (kept for the rest of the catalog/grid) -->
+  <!-- Script order (IMPORTANT) -->
   <script src="assets/js/util.js"></script>
   <script src="assets/js/config.js"></script>
   <script src="assets/js/inventory.js"></script>
@@ -121,86 +119,228 @@
   <script src="assets/js/cart.js"></script>
   <script src="assets/js/catalog.js"></script>
 
-  <!-- SINGLE drop-in binder for the featured card (image swap + cart) -->
+  <!-- Featured logic (scoped to this page) -->
   <script>
-  (function () {
-    function $(id){ return document.getElementById(id); }
-    function readLS(k){ try { return JSON.parse(localStorage.getItem(k)||'[]'); } catch { return []; } }
-    function writeLS(k, v){
-      try { localStorage.setItem(k, JSON.stringify(v||[])); } catch {}
-      const badge = $('cartCount');
-      if (badge){
-        const qty = (v||[]).reduce((n,i)=> n + (Number(i.qty)||1), 0);
-        badge.textContent = String(qty);
-      }
+  (function(){
+    const IMG = {
+      blank:      "assets/img/blank.jpg",
+      army:       "assets/img/army.jpg",
+      marines:    "assets/img/marines.jpg",
+      navy:       "assets/img/navy.jpg",
+      airforce:   "assets/img/airforce.jpg",
+      coastguard: "assets/img/coastguard.jpg"
+    };
+    const BASE = 95;
+    const LATCH_PRICE = { Stainless: 0, Black: 0 };
+
+    const imgEl   = document.getElementById('sb-image');
+    const branch  = document.getElementById('sb-branch');
+    const priceEl = document.getElementById('sb-price');
+    const addBtn  = document.getElementById('sb-add');
+    const buyBtn  = document.getElementById('sb-buy');
+    const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
+
+    const KEY = 'fcc-classic-box';
+    const fmt = (n) => '$' + Number(n).toFixed(2);
+    const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    const getLatch = () => (latchInputs.find(x=>x.checked)?.value || 'Stainless');
+
+    function preload(){ Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; }); }
+
+    function updateImage(){
+      const v = branch.value;
+      imgEl.classList.add('is-loading');
+      const next = IMG[v] || IMG.blank;
+      const tmp = new Image();
+      tmp.onload = () => {
+        imgEl.src = next;
+        imgEl.alt = (v==='blank') ? 'Freedom Crate Classic (blank)' :
+          `Freedom Crate Classic – ${branch.options[branch.selectedIndex].text}`;
+        requestAnimationFrame(()=>imgEl.classList.remove('is-loading'));
+      };
+      tmp.src = next;
     }
 
+    function animatePrice(from,to,ms=200){
+      const t0 = performance.now();
+      const step = (t)=>{
+        const k = Math.min(1,(t-t0)/ms);
+        priceEl.textContent = fmt(from + (to-from)*k);
+        if(k<1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+
+    function calcTotal(animate=true){
+      const target = BASE + (LATCH_PRICE[getLatch()]||0);
+      const current = Number(priceEl.textContent.replace('$','')) || BASE;
+      if (animate) animatePrice(current, target); else priceEl.textContent = fmt(target);
+    }
+
+    function saveState(){
+      localStorage.setItem(KEY, JSON.stringify({ branch: branch.value, latch: getLatch() }));
+    }
+    function restoreState(){
+      try{
+        const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(!s) return;
+        if (s.branch) branch.value = s.branch;
+        if (s.latch)  latchInputs.forEach(r=>r.checked = (r.value===s.latch));
+      }catch(_){}
+    }
+
+    function buildSkuName(){
+      const bVal = branch.value;
+      const bTxt = branch.options[branch.selectedIndex].text;
+      const lTxt = getLatch();
+      const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`;
+      const name = `Freedom Crate Classic — ${bTxt} • ${lTxt}`;
+      return { sku, name };
+    }
+
+    branch.addEventListener('change', ()=>{ updateImage(); calcTotal(); saveState(); });
+    latchInputs.forEach(r => r.addEventListener('change', ()=>{ calcTotal(); saveState(); }));
+
+    restoreState(); preload(); updateImage(); calcTotal(false);
+
+    // Pass the preview image to cart meta so the cart shows the right picture
+    addBtn.addEventListener('click', () => {
+      const { sku, name } = buildSkuName();
+      window.addToCart(sku, name, Number(priceEl.textContent.replace('$','')), 1, { image: imgEl.src });
+    });
+    buyBtn.addEventListener('click', () => {
+      const { sku, name } = buildSkuName();
+      window.buyNow(sku, name, Number(priceEl.textContent.replace('$','')), 1, { image: imgEl.src });
+    });
+  })();
+  </script>
+  <script>
+(function () {
+  // ---------- helpers ----------
+  function ready(fn){ (document.readyState==='loading') ? 
+    document.addEventListener('DOMContentLoaded', fn, {once:true}) : fn(); }
+  function $(id){ return document.getElementById(id); }
+  function slug(s){
+    return String(s||'').trim()
+      .replace(/&/g,'and')
+      .replace(/[\u2018\u2019\u201C\u201D]/g,'"')
+      .replace(/[^a-z0-9]+/gi,'-')
+      .replace(/^-+|-+$/g,'')
+      .toLowerCase();
+  }
+  function tryImage(srcs, done){
+    let i=0, img=new Image();
+    function next(){
+      if(i>=srcs.length) return done(null);
+      img = new Image();
+      img.onload = () => done(srcs[i]);
+      img.onerror = () => { i++; next(); };
+      img.src = srcs[i];
+    }
+    next();
+  }
+  function readCartLS(key){
+    try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : []; }
+    catch { return []; }
+  }
+  function writeCartLS(key, items){
+    try { localStorage.setItem(key, JSON.stringify(items||[])); } catch {}
+    const badge = $('cartCount');
+    if (badge){
+      const qty = (items||[]).reduce((n,i)=>n+(Number(i.qty)||1),0);
+      badge.textContent = String(qty);
+    }
+  }
+
+  ready(function init(){
     const img = $('sb-image');
     const sel = $('sb-branch');
     const add = $('sb-add');
     const buy = $('sb-buy');
-    const priceEl = $('sb-price');
-    const CART_KEY = 'fcc_cart_v1';
-    const BASE_PRICE = 95;
 
-    if (!img || !sel) return;
+    if(!img || !sel){ console.warn('[FCC] Missing #sb-image or #sb-branch'); return; }
 
-    // Initialize badge from storage
-    writeLS(CART_KEY, readLS(CART_KEY));
-
-    // --- Image swap (filenames match your repo: blank/army/marines/navy/airforce/coastguard) ---
-    function imgPath(v){ return `assets/img/${v||'blank'}.jpg`; }
-    function updatePreview(){
-      const v   = sel.value || 'blank';
-      const src = imgPath(v);
-      if (img.getAttribute('src') !== src) img.setAttribute('src', src);
-      img.alt = v==='blank'
-        ? 'Freedom Crate Classic (blank)'
-        : `Freedom Crate Classic — ${sel.options[sel.selectedIndex].text}`;
+    // ---------- IMAGE SWAP ----------
+    function candidateSrcs(value){
+      // Accept either <option value="U.S. Army"> or "army" etc.
+      const raw = value || sel.options[sel.selectedIndex]?.text || 'blank';
+      const keys = [
+        raw,
+        slug(raw),
+        (''+raw).toLowerCase(),
+      ];
+      // File roots to try (add/remove if your repo differs)
+      const roots = [
+        'assets/img/stencils/',
+        'assets/images/stencils/',
+        'assets/img/',
+      ];
+      const exts = ['.webp','.png','.jpg','.jpeg'];
+      const out = [];
+      for (const r of roots){
+        for (const k of keys){
+          for (const e of exts){ out.push(r + k + e); }
+        }
+      }
+      // Always include generic blank as last resort
+      out.push('assets/img/blank.jpg','assets/img/blank.png');
+      return out;
     }
+
+    function updatePreview(){
+      const val = sel.value;
+      const tries = candidateSrcs(val);
+      tryImage(tries, function(found){
+        if(found){ if(img.src.indexOf(found)===-1){ img.src = found; } }
+        else { console.warn('[FCC] No stencil image found for', val); }
+      });
+    }
+
     sel.addEventListener('change', updatePreview);
-    updatePreview();
+    updatePreview(); // initial
 
-    // --- Price (latches are currently $0 delta; keep hook if you change prices) ---
-    function getLatch(){ const r = document.querySelector('.sb-latch:checked'); return r ? r.value : 'Stainless'; }
-    function setPrice(p){ if (priceEl) priceEl.textContent = '$' + Number(p).toFixed(2); }
-    setPrice(BASE_PRICE);
-    document.querySelectorAll('.sb-latch').forEach(r=>r.addEventListener('change',()=>setPrice(BASE_PRICE)));
+    // ---------- CART (self-contained) ----------
+    const CART_KEY = 'fcc_cart_v1';
 
-    // --- Cart helpers ---
     function currentItem(){
-      const branch = sel.value || 'blank';
+      const branch = sel.value || sel.options[sel.selectedIndex]?.text || 'blank';
       return {
-        id:   'freedom-crate-classic',
-        sku:  `fcc-classic:${branch}:${getLatch()}`,
-        name: `Freedom Crate Classic — ${sel.options[sel.selectedIndex].text} • ${getLatch()}`,
-        price: BASE_PRICE,
-        qty:   1,
+        id: 'freedom-crate-classic',
+        sku: 'fcc-classic:' + (branch || 'blank'),
+        name: 'Freedom Crate Classic',
+        options: { branch: branch },
+        price: 95,
+        qty: 1,
         image: img.getAttribute('src') || ''
       };
     }
 
     function addToCart(goCheckout){
-      // If site defines global cart helpers, use them; else use localStorage fallback
-      if (goCheckout && typeof window.buyNow === 'function'){
-        const it = currentItem(); return window.buyNow(it.sku, it.name, it.price, it.qty, { image: it.image });
-      }
-      if (!goCheckout && typeof window.addToCart === 'function'){
-        const it = currentItem(); return window.addToCart(it.sku, it.name, it.price, it.qty, { image: it.image });
-      }
-
-      const cart = readLS(CART_KEY);
+      const cart = readCartLS(CART_KEY);
       const item = currentItem();
-      const idx  = cart.findIndex(x => (x.sku||x.id) === item.sku);
-      if (idx >= 0) cart[idx].qty = (Number(cart[idx].qty)||1) + 1;
-      else cart.push(item);
-      writeLS(CART_KEY, cart);
-      if (goCheckout) window.location.href = 'checkout.html';
+      const i = cart.findIndex(x => (x.sku||x.id) === item.sku);
+      if(i>=0){ cart[i].qty = (Number(cart[i].qty)||1) + 1; }
+      else { cart.push(item); }
+      writeCartLS(CART_KEY, cart);
+      if(goCheckout) window.location.href = 'checkout.html';
     }
 
-    if (add) add.addEventListener('click', () => addToCart(false));
-    if (buy) buy.addEventListener('click', () => addToCart(true));
-  })();
-  </script>
+    if(add) add.addEventListener('click', () => addToCart(false));
+    if(buy) buy.addEventListener('click', () => addToCart(true));
+
+    // If you already have a different cart key in use, merge once:
+    try {
+      const legacyKeys = Object.keys(localStorage).filter(k => /cart/i.test(k) && k!==CART_KEY);
+      for(const k of legacyKeys){
+        const legacy = readCartLS(k);
+        if(Array.isArray(legacy) && legacy.length){
+          const now = readCartLS(CART_KEY).concat(legacy);
+          writeCartLS(CART_KEY, now);
+          localStorage.removeItem(k);
+        }
+      }
+    } catch {}
+  });
+})();
+</script>
 </body>
 </html>
