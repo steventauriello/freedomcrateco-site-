@@ -213,5 +213,134 @@
     });
   })();
   </script>
+  <script>
+(function () {
+  // ---------- helpers ----------
+  function ready(fn){ (document.readyState==='loading') ? 
+    document.addEventListener('DOMContentLoaded', fn, {once:true}) : fn(); }
+  function $(id){ return document.getElementById(id); }
+  function slug(s){
+    return String(s||'').trim()
+      .replace(/&/g,'and')
+      .replace(/[\u2018\u2019\u201C\u201D]/g,'"')
+      .replace(/[^a-z0-9]+/gi,'-')
+      .replace(/^-+|-+$/g,'')
+      .toLowerCase();
+  }
+  function tryImage(srcs, done){
+    let i=0, img=new Image();
+    function next(){
+      if(i>=srcs.length) return done(null);
+      img = new Image();
+      img.onload = () => done(srcs[i]);
+      img.onerror = () => { i++; next(); };
+      img.src = srcs[i];
+    }
+    next();
+  }
+  function readCartLS(key){
+    try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : []; }
+    catch { return []; }
+  }
+  function writeCartLS(key, items){
+    try { localStorage.setItem(key, JSON.stringify(items||[])); } catch {}
+    const badge = $('cartCount');
+    if (badge){
+      const qty = (items||[]).reduce((n,i)=>n+(Number(i.qty)||1),0);
+      badge.textContent = String(qty);
+    }
+  }
+
+  ready(function init(){
+    const img = $('sb-image');
+    const sel = $('sb-branch');
+    const add = $('sb-add');
+    const buy = $('sb-buy');
+
+    if(!img || !sel){ console.warn('[FCC] Missing #sb-image or #sb-branch'); return; }
+
+    // ---------- IMAGE SWAP ----------
+    function candidateSrcs(value){
+      // Accept either <option value="U.S. Army"> or "army" etc.
+      const raw = value || sel.options[sel.selectedIndex]?.text || 'blank';
+      const keys = [
+        raw,
+        slug(raw),
+        (''+raw).toLowerCase(),
+      ];
+      // File roots to try (add/remove if your repo differs)
+      const roots = [
+        'assets/img/stencils/',
+        'assets/images/stencils/',
+        'assets/img/',
+      ];
+      const exts = ['.webp','.png','.jpg','.jpeg'];
+      const out = [];
+      for (const r of roots){
+        for (const k of keys){
+          for (const e of exts){ out.push(r + k + e); }
+        }
+      }
+      // Always include generic blank as last resort
+      out.push('assets/img/blank.jpg','assets/img/blank.png');
+      return out;
+    }
+
+    function updatePreview(){
+      const val = sel.value;
+      const tries = candidateSrcs(val);
+      tryImage(tries, function(found){
+        if(found){ if(img.src.indexOf(found)===-1){ img.src = found; } }
+        else { console.warn('[FCC] No stencil image found for', val); }
+      });
+    }
+
+    sel.addEventListener('change', updatePreview);
+    updatePreview(); // initial
+
+    // ---------- CART (self-contained) ----------
+    const CART_KEY = 'fcc_cart_v1';
+
+    function currentItem(){
+      const branch = sel.value || sel.options[sel.selectedIndex]?.text || 'blank';
+      return {
+        id: 'freedom-crate-classic',
+        sku: 'fcc-classic:' + (branch || 'blank'),
+        name: 'Freedom Crate Classic',
+        options: { branch: branch },
+        price: 95,
+        qty: 1,
+        image: img.getAttribute('src') || ''
+      };
+    }
+
+    function addToCart(goCheckout){
+      const cart = readCartLS(CART_KEY);
+      const item = currentItem();
+      const i = cart.findIndex(x => (x.sku||x.id) === item.sku);
+      if(i>=0){ cart[i].qty = (Number(cart[i].qty)||1) + 1; }
+      else { cart.push(item); }
+      writeCartLS(CART_KEY, cart);
+      if(goCheckout) window.location.href = 'checkout.html';
+    }
+
+    if(add) add.addEventListener('click', () => addToCart(false));
+    if(buy) buy.addEventListener('click', () => addToCart(true));
+
+    // If you already have a different cart key in use, merge once:
+    try {
+      const legacyKeys = Object.keys(localStorage).filter(k => /cart/i.test(k) && k!==CART_KEY);
+      for(const k of legacyKeys){
+        const legacy = readCartLS(k);
+        if(Array.isArray(legacy) && legacy.length){
+          const now = readCartLS(CART_KEY).concat(legacy);
+          writeCartLS(CART_KEY, now);
+          localStorage.removeItem(k);
+        }
+      }
+    } catch {}
+  });
+})();
+</script>
 </body>
 </html>
