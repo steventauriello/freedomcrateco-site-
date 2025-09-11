@@ -97,7 +97,7 @@
     });
 
     // + / − / Remove (delegated)
-    document.getElementById('cartBody')?.addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
       const incBtn    = e.target.closest('#cartBody .qty-inc');
       const decBtn    = e.target.closest('#cartBody .qty-dec');
       const removeBtn = e.target.closest('#cartBody .remove');
