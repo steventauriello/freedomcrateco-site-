@@ -9,19 +9,20 @@ index 5fc96ad2e532f6dd1de732b35e48cfd6030c500b..13e7d9ad1b6bea64d6ce8a3c6edca222
      }
  
      // Fallback to CSV
-     try {
-       const r = await fetch('assets/data/products.csv', { cache: 'no-store' });
-       if (!r.ok) throw new Error('CSV not found');
-       const text = await r.text();
-       const map = csvToProducts(text);
-       normalizeProducts(map);
-       window.PRODUCTS = map;
-       return Object.values(map);
-     } catch (e) {
-       console.error('Failed to load products.csv', e);
-       window.PRODUCTS = {};
-       return [];
-     }
+try {
+  const r = await fetch('assets/data/products.csv', { cache: 'no-store' });
+  if (!r.ok) throw new Error('CSV not found');
+  const text = await r.text();
+  const map = csvToProducts(text);
+  normalizeProducts(map);
+  const arr = Object.values(map);
+  window.PRODUCTS = arr;   // <-- now an array
+  return arr;
+} catch (e) {
+  console.error('Failed to load products.csv', e);
+  window.PRODUCTS = [];
+  return [];
+}
    }
  
    // expose the loader under FC as catalog.js expects
