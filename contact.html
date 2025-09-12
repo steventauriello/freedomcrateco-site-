@@ -1,185 +1,68 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Custom Orders • Freedom Crate Co.</title>
-  <link rel="stylesheet" href="assets/css/styles.css" />
-  <style>
-    /* Small, page-scoped helpers (keeps your global css clean) */
-    .narrow{max-width:980px;margin:2rem auto}
-    .form-grid{display:grid;grid-template-columns:1fr;gap:1rem}
-    @media (min-width:860px){.form-grid.two{grid-template-columns:1fr 1fr}}
-    label{font-weight:600;display:block;margin:.35rem 0}
-    input[type="text"],input[type="email"],input[type="number"],select,textarea{
-      width:100%;padding:.9rem 1rem;border-radius:10px;
-      border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:inherit;
-    }
-    textarea{min-height:160px;resize:vertical}
-    .preview{margin-top:.5rem}
-    .preview img{max-width:220px;height:auto;border-radius:10px;display:block}
-    .helper{font-size:.9rem;opacity:.75}
-  </style>
-</head>
-<body>
-  <header class="site-header">
-    <a class="brand" href="index.html">
-      <img src="assets/img/logo.png" alt="Freedom Crate Co. logo" height="60">
-    </a>
-    <nav class="nav">
-      <a href="index.html">Shop</a>
-      <a class="active" href="contact.html">Custom Orders</a>
-      <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
-    </nav>
-  </header>
-
-  <main class="container narrow">
-    <h1>Custom Orders & Inquiries</h1>
-    <p>Send details and we’ll get back with a quote.</p>
-
-    <!-- Netlify form -->
-    <form class="form"
-          name="custom-order"
-          method="POST"
-          action="/thanks"
-          data-netlify="true"
-          netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="custom-order" />
-      <div class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></div>
-
-      <!-- Basic info -->
-      <div class="form-grid two">
-        <div class="field">
-          <label for="name">Name *</label>
-          <input id="name" name="name" type="text" required placeholder="Your full name" autocomplete="name">
-        </div>
-        <div class="field">
-          <label for="email">Email *</label>
-          <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
-        </div>
-      </div>
-
-      <!-- Which box -->
-      <div class="form-grid two">
-        <div class="field">
-          <label for="box">Which box?</label>
-          <select id="box" name="box" required>
-            <option value="">-- Select --</option>
-            <optgroup label="Standard Ammo Box">
-              <option value="Standard — U.S. Army"
-                      data-title="Standard Ammo Box — U.S. Army"
-                      data-image="assets/img/army.jpg">U.S. Army</option>
-              <option value="Standard — U.S. Marine Corps"
-                      data-title="Standard Ammo Box — U.S. Marine Corps"
-                      data-image="assets/img/marines.jpg">U.S. Marine Corps</option>
-              <option value="Standard — U.S. Navy"
-                      data-title="Standard Ammo Box — U.S. Navy"
-                      data-image="assets/img/navy.jpg">U.S. Navy</option>
-              <option value="Standard — U.S. Air Force"
-                      data-title="Standard Ammo Box — U.S. Air Force"
-                      data-image="assets/img/airforce.jpg">U.S. Air Force</option>
-              <option value="Standard — U.S. Coast Guard"
-                      data-title="Standard Ammo Box — U.S. Coast Guard"
-                      data-image="assets/img/coastguard.jpg">U.S. Coast Guard</option>
-              <option value="Standard — Blank (no stencil)"
-                      data-title="Standard Ammo Box — Blank (no stencil)"
-                      data-image="assets/img/blank.jpg">Blank (no stencil)</option>
-            </optgroup>
-            <optgroup label="Other Products">
-              <option value="Footlocker Ammo Box V2"
-                      data-title="Footlocker Ammo Box V2"
-                      data-image="assets/img/footlocker-v2.png">Footlocker Ammo Box V2</option>
-              <option value="Rangemaster 300"
-                      data-title="Rangemaster 300"
-                      data-image="assets/img/rb300.png">Rangemaster 300</option>
-              <option value="Rangemaster 400"
-                      data-title="Rangemaster 400"
-                      data-image="assets/img/rm400.jpg">Rangemaster 400</option>
-              <option value="Range Box 1000 (9mm)"
-                      data-title="Range Box 1000 (9mm)"
-                      data-image="assets/img/rb1000.png">Range Box 1000 (9mm)</option>
-              <option value="Other / Custom"
-                      data-title="Other / Custom"
-                      data-image="">Other / Custom</option>
-            </optgroup>
-          </select>
-
-          <!-- Hidden fields to carry preview data into the submission -->
-          <input type="hidden" name="selected_box_title" id="selectedBoxTitle">
-          <input type="hidden" name="selected_box_image" id="selectedBoxImage">
-
-          <!-- Live preview -->
-          <div id="boxPreviewWrap" class="preview" hidden>
-            <img id="boxPreview" src="" alt="">
-            <div id="boxPreviewCaption" class="helper"></div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="qty">Quantity</label>
-          <input id="qty" name="qty" type="number" min="1" value="1" inputmode="numeric">
-        </div>
-      </div>
-
-      <!-- Latch preference -->
-      <div class="field">
-        <label>Hardware (both lockable)</label>
-        <div role="group" aria-label="Latch finish" class="helper">
-          <label style="display:flex;gap:.5rem;align-items:center;margin:.35rem 0;">
-            <input type="radio" name="latch" value="Stainless" checked> Original Stainless Toggle Latches
-          </label>
-          <label style="display:flex;gap:.5rem;align-items:center;">
-            <input type="radio" name="latch" value="Black"> Black Toggle Latches
-          </label>
-        </div>
-      </div>
-
-      <!-- Details -->
-      <div class="field">
-        <label for="details">Details *</label>
-        <textarea id="details" name="details" rows="8" required
-          placeholder="Tell us stencil choice, placement (front/lid/back), text under lid, etc."></textarea>
-      </div>
-
-      <button class="btn" type="submit">Send Inquiry</button>
-    </form>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container"><span class="badge">Florida-built</span></div>
-  </footer>
-
-  <!-- Keep the cart badge in sync -->
-  <script src="assets/js/util.js"></script>
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/cart.js"></script>
-
-  <!-- Page-scoped script: updates the box preview + hidden fields -->
-  <script>
-    (function(){
-      const sel  = document.getElementById('box');
-      const tH   = document.getElementById('selectedBoxTitle');
-      const iH   = document.getElementById('selectedBoxImage');
-      const wrap = document.getElementById('boxPreviewWrap');
-      const img  = document.getElementById('boxPreview');
-      const cap  = document.getElementById('boxPreviewCaption');
-
-      function updatePreview(){
-        const opt = sel.options[sel.selectedIndex];
-        const title = opt?.dataset?.title || '';
-        const src   = opt?.dataset?.image || '';
-        tH.value = title; iH.value = src;
-
-        if (src){
-          img.src = src; img.alt = title; cap.textContent = title;
-          wrap.hidden = false;
-        } else {
-          wrap.hidden = true; img.src = ''; img.alt = ''; cap.textContent = '';
-        }
-      }
-      sel.addEventListener('change', updatePreview);
-      updatePreview();
-    })();
-  </script>
-</body>
-</html>
+diff --git a/contact.html b/contact.html
+index 15f94a2114abde8501bd10c271808c80df96fde6..cc4c87230b6e9112e7d400307ee3fb673e29c5b5 100644
+--- a/contact.html
++++ b/contact.html
+@@ -66,60 +66,60 @@
+           <select id="box" name="box" required>
+             <option value="">-- Select --</option>
+             <optgroup label="Standard Ammo Box">
+               <option value="Standard — U.S. Army"
+                       data-title="Standard Ammo Box — U.S. Army"
+                       data-image="assets/img/army.jpg">U.S. Army</option>
+               <option value="Standard — U.S. Marine Corps"
+                       data-title="Standard Ammo Box — U.S. Marine Corps"
+                       data-image="assets/img/marines.jpg">U.S. Marine Corps</option>
+               <option value="Standard — U.S. Navy"
+                       data-title="Standard Ammo Box — U.S. Navy"
+                       data-image="assets/img/navy.jpg">U.S. Navy</option>
+               <option value="Standard — U.S. Air Force"
+                       data-title="Standard Ammo Box — U.S. Air Force"
+                       data-image="assets/img/airforce.jpg">U.S. Air Force</option>
+               <option value="Standard — U.S. Coast Guard"
+                       data-title="Standard Ammo Box — U.S. Coast Guard"
+                       data-image="assets/img/coastguard.jpg">U.S. Coast Guard</option>
+               <option value="Standard — Blank (no stencil)"
+                       data-title="Standard Ammo Box — Blank (no stencil)"
+                       data-image="assets/img/blank.jpg">Blank (no stencil)</option>
+             </optgroup>
+             <optgroup label="Other Products">
+               <option value="Footlocker Ammo Box V2"
+                       data-title="Footlocker Ammo Box V2"
+-                      data-image="assets/img/footlocker-v2.png">Footlocker Ammo Box V2</option>
++                        data-image="assets/img/blank.jpg">Footlocker Ammo Box V2</option>
+               <option value="Rangemaster 300"
+                       data-title="Rangemaster 300"
+-                      data-image="assets/img/rb300.png">Rangemaster 300</option>
++                        data-image="assets/img/rm400.jpg">Rangemaster 300</option>
+               <option value="Rangemaster 400"
+                       data-title="Rangemaster 400"
+                       data-image="assets/img/rm400.jpg">Rangemaster 400</option>
+               <option value="Range Box 1000 (9mm)"
+                       data-title="Range Box 1000 (9mm)"
+-                      data-image="assets/img/rb1000.png">Range Box 1000 (9mm)</option>
++                        data-image="assets/img/rm400.jpg">Range Box 1000 (9mm)</option>
+               <option value="Other / Custom"
+                       data-title="Other / Custom"
+                       data-image="">Other / Custom</option>
+             </optgroup>
+           </select>
+ 
+           <!-- Hidden fields to carry preview data into the submission -->
+           <input type="hidden" name="selected_box_title" id="selectedBoxTitle">
+           <input type="hidden" name="selected_box_image" id="selectedBoxImage">
+ 
+           <!-- Live preview -->
+           <div id="boxPreviewWrap" class="preview" hidden>
+             <img id="boxPreview" src="" alt="">
+             <div id="boxPreviewCaption" class="helper"></div>
+           </div>
+         </div>
+ 
+         <div class="field">
+           <label for="qty">Quantity</label>
+           <input id="qty" name="qty" type="number" min="1" value="1" inputmode="numeric">
+         </div>
+       </div>
+ 
+       <!-- Latch preference -->
+       <div class="field">
