@@ -150,6 +150,52 @@ a { color: var(--link); text-decoration: none; }
   min-height: 320px;
   display: flex; align-items: center; justify-content: center;
 }
+/* Override gallery layout for better mobile behavior */
+.gallery{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 10px;
+}
+
+.gallery > img {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  border-radius: 8px;
+}
+
+.gallery .thumbs{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gallery .thumbs img{
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* On phones: thumbs below the main image */
+@media (max-width:700px){
+  .gallery{
+    grid-template-columns: 1fr;
+  }
+  .gallery .thumbs{
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .gallery .thumbs img{
+    width: 72px;
+    height: 72px;
+  }
+}
 .gallery img { max-width: 100%; max-height: 420px; border-radius: 8px; }
 .product .info h1 { margin: 0 0 10px; }
 .product .price { font-size: 22px; }
