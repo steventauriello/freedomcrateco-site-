@@ -25,9 +25,12 @@
     .product-hero{display:block;border-radius:8px}
     .muted{opacity:.8}
     .actions{display:flex;flex-wrap:wrap;gap:.75rem}
+    /* Small helper if thumbs are rendered */
+    .thumbs{display:flex;gap:.5rem;margin-top:.75rem;flex-wrap:wrap}
+    .thumbs img{width:72px;height:72px;object-fit:cover;border:1px solid var(--border);border-radius:6px;cursor:pointer}
   </style>
 
-  <!-- Product JSON-LD -->
+  <!-- Product JSON-LD (Classic) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org/",
@@ -59,6 +62,7 @@
     <nav class="nav" aria-label="Primary">
       <a href="index.html">Shop</a>
       <a href="contact.html">Custom Orders</a>
+      <a href="reviews.html">Reviews</a>
       <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
     </nav>
   </header>
@@ -66,8 +70,10 @@
   <!-- Main -->
   <main class="container" id="main">
     <div id="productHost">
-      <section class="product-detail" aria-labelledby="p-title">
-        <!-- Add width/height & async decode to prevent CLS -->
+
+      <!-- ===== Classic block (unchanged behavior) ===== -->
+      <section class="product-detail" id="classicBlock" aria-labelledby="p-title">
+        <!-- Your existing Classic content -->
         <img class="product-hero"
              src="assets/img/standard-box.png"
              alt="Freedom Crate Classic wooden ammo box"
@@ -104,6 +110,19 @@
           <em>Interior dimensions:</em> 11" wide × 8¼" long × 5½" deep.
         </p>
       </section>
+
+      <!-- ===== Dynamic block (Rangemaster 400, etc.) ===== -->
+      <section class="product-detail" id="dynamicBlock" hidden>
+        <div class="gallery"></div>
+        <h1 id="p-title-2"></h1>
+        <p id="p-desc-2" class="muted"></p>
+        <p class="price"><strong id="p-price-2"></strong></p>
+        <div class="actions">
+          <button id="addBtn2" class="btn" type="button">Add to Cart</button>
+          <button id="buyBtn2" class="btn" type="button">Buy Now</button>
+        </div>
+      </section>
+
     </div>
   </main>
 
@@ -121,7 +140,7 @@
   <script src="assets/js/cart.js" defer></script>
   <script src="assets/js/product.js" defer></script>
 
-  <!-- Page-scoped logic: wire buttons without inline handlers -->
+  <!-- Classic-only wiring (unchanged) -->
   <script>
   (function(){
     const priceEl = document.getElementById('price');
@@ -129,40 +148,101 @@
     const addBtn = document.getElementById('addBtn');
     const buyBtn = document.getElementById('buyBtn');
 
-    // If you ever change price by variant, update here.
     const BASE_PRICE = 139.00;
     const fmt = n => '$' + n.toFixed(2);
 
     function currentVariant(){
-      const branch = branchEl.value; // e.g., "marines"
-      const branchText = branchEl.options[branchEl.selectedIndex].text; // "U.S. Marine Corps"
+      const branch = branchEl.value;
+      const branchText = branchEl.options[branchEl.selectedIndex].text;
       const sku = `FC-STD-BOX-${branch}`;
       const name = `Freedom Crate Classic — ${branchText}`;
       return { sku, name };
     }
 
-    function addToCartSafe(sku, name, price, qty, meta){
-      if (typeof window.addToCart === 'function') return window.addToCart(sku, name, price, qty, meta);
-      console.warn('Cart not ready: addToCart() missing');
-    }
-    function buyNowSafe(sku, name, price, qty, meta){
-      if (typeof window.buyNow === 'function') return window.buyNow(sku, name, price, qty, meta);
-      console.warn('Cart not ready: buyNow() missing');
-    }
+    function safe(fn){ return (typeof fn === 'function') ? fn : () => console.warn('Cart not ready'); }
 
-    // (Optional) hook if variants change price later:
-    branchEl.addEventListener('change', ()=>{
-      priceEl.textContent = fmt(BASE_PRICE);
-    });
+    branchEl.addEventListener('change', ()=>{ priceEl.textContent = fmt(BASE_PRICE); });
 
     addBtn.addEventListener('click', ()=>{
       const { sku, name } = currentVariant();
-      addToCartSafe(sku, name, BASE_PRICE, 1, { image: 'assets/img/standard-box.png' });
+      safe(window.addToCart)(sku, name, BASE_PRICE, 1, { image: 'assets/img/standard-box.png' });
     });
 
     buyBtn.addEventListener('click', ()=>{
       const { sku, name } = currentVariant();
-      buyNowSafe(sku, name, BASE_PRICE, 1, { image: 'assets/img/standard-box.png' });
+      safe(window.buyNow)(sku, name, BASE_PRICE, 1, { image: 'assets/img/standard-box.png' });
+    });
+  })();
+  </script>
+
+  <!-- Dynamic product loader (e.g., FC-RM-400) -->
+  <script>
+  (async function () {
+    const params = new URLSearchParams(location.search);
+    const sku = params.get('sku');
+
+    const classic = document.getElementById('classicBlock');
+    const dynamic = document.getElementById('dynamicBlock');
+
+    // No SKU (or classic SKU) -> show Classic as-is
+    if (!sku || sku === 'FC-STD-BOX' || sku === 'FC-CLASSIC') {
+      classic.hidden = false;
+      dynamic.hidden = true;
+      return;
+    }
+
+    // Load product data for dynamic items
+    const res = await fetch('assets/data/products.json', { cache: 'no-store' });
+    const products = await res.json();
+
+    if (!products[sku]) {
+      location.href = 'index.html';
+      return;
+    }
+
+    const p = products[sku];
+
+    // Toggle: hide Classic, show Dynamic
+    classic.hidden = true;
+    dynamic.hidden = false;
+
+    // Fill dynamic content
+    const titleEl = document.getElementById('p-title-2');
+    const descEl  = document.getElementById('p-desc-2');
+    const priceEl = document.getElementById('p-price-2');
+    const gallery = dynamic.querySelector('.gallery');
+
+    titleEl.textContent = p.title || '';
+    descEl.textContent  = p.description || '';
+    priceEl.textContent = '$' + Number(p.price || 0).toFixed(2);
+
+    const imgs = (Array.isArray(p.images) && p.images.length) ? p.images : [p.image_url];
+    gallery.innerHTML = `<img src="${imgs[0]}" alt="${p.title}" class="product-hero">`;
+
+    if (imgs.length > 1) {
+      const strip = document.createElement('div');
+      strip.className = 'thumbs';
+      imgs.forEach(src => {
+        const t = document.createElement('img');
+        t.src = src;
+        t.alt = '';
+        t.addEventListener('click', () => { gallery.querySelector('img').src = src; });
+        strip.appendChild(t);
+      });
+      gallery.appendChild(strip);
+    }
+
+    // Wire dynamic Add/Buy
+    const addBtn2 = document.getElementById('addBtn2');
+    const buyBtn2 = document.getElementById('buyBtn2');
+    const safe = fn => (typeof fn === 'function') ? fn : () => console.warn('Cart not ready');
+
+    addBtn2.addEventListener('click', () => {
+      safe(window.addToCart)(sku, p.title, Number(p.price || 0), 1, { image: imgs[0] });
+    });
+
+    buyBtn2.addEventListener('click', () => {
+      safe(window.buyNow)(sku, p.title, Number(p.price || 0), 1, { image: imgs[0] });
     });
   })();
   </script>
