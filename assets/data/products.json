@@ -32,8 +32,14 @@
     "price": 1.99,
     "qty": 0,
     "image_url": "assets/img/rm400.jpg",
+    "images": [
+      "assets/img/rm400-back.jpg",
+      "assets/img/rm400-carry.jpg",
+      "assets/img/rm400-open.jpg",
+      "assets/img/rm400-top.jpg"
+    ],
     "tags": ["range", "400"],
-    "description": "Up to 400 rounds in one compact crate — no cardboard, no clutter, just ammo ready to load and shoot."
+    "description": "Up to 400 rounds in one compact crate — no cardboard, no…"
   },
   "FC-CLASSIC": {
     "status": "active",
