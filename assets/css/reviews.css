@@ -1,0 +1,16 @@
+.reviews-page .card { background:#fff; border:1px solid #ddd; border-radius:8px; padding:1rem; margin:1rem 0; }
+.summary { display:flex; justify-content:space-between; align-items:center; }
+.reviews-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
+.review { display:flex; flex-direction:column; gap:.5rem; }
+.review .header { display:flex; justify-content:space-between; align-items:baseline; }
+.stars { letter-spacing:2px; font-size:1.1rem; }
+.star { display:inline-block; }
+.star::before { content:"☆"; }
+.star.filled::before { content:"★"; }
+.review .product { font-size:.9rem; color:#666; }
+.review .photo { width:100%; height:200px; object-fit:cover; border-radius:6px; border:1px solid #eee; }
+.review .name { font-weight:600; }
+.hidden { display:none; }
+.review-form .row { display:grid; gap:.75rem; grid-template-columns:1fr 1fr; }
+.review-form input, .review-form textarea, .review-form select { width:100%; }
+@media (max-width:700px){ .review-form .row { grid-template-columns:1fr; } }
