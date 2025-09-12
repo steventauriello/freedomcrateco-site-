@@ -17,7 +17,22 @@
     .qty button{width:36px;height:36px;border-radius:8px}
     .remove-btn{background:#e85b5b;border:none;color:#fff;padding:.5rem .9rem;border-radius:8px;cursor:pointer}
     .totals{display:flex;justify-content:flex-end;gap:2rem;margin:1rem 0 1.25rem}
-    .totals div{min-width:180px;display:flex;justify-content:space-between}
+    /* make labels line up nicely on small screens */
+.totals div {
+  min-width:200px;
+  display:flex;
+  justify-content:flex-end;
+  gap:.75rem;
+}
+.totals div strong,
+.totals div > span:first-child {
+  flex:0 0 auto;
+  text-align:right;
+}
+
+@media (max-width:480px){
+  .totals div { min-width:140px; }
+}
     #paypal-buttons{margin-top:1rem}
     .empty{padding:2.5rem;text-align:center;color:rgba(255,255,255,.7);border:1px dashed rgba(255,255,255,.2);border-radius:10px}
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
@@ -32,10 +47,11 @@
       <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html">Shop</a>
-      <a href="contact.html">Custom Orders</a>
-      <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
-    </nav>
+  <a class="active" href="index.html">Shop</a>
+  <a href="contact.html">Custom Orders</a>
+  <a href="reviews.html">Reviews</a>
+  <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
+</nav>
   </header>
 
   <main class="container cart-wrap" id="main">

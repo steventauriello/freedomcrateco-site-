@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Chris",
+    "product": "Footlocker Ammo Box",
+    "rating": 5,
+    "text": "Built like a tank. Looks perfect in my Humvee.",
+    "photo": "assets/img/reviews/humvee-box.jpg",
+    "date": "2025-09-08"
+  },
+  {
+    "name": "R.G.",
+    "product": "Freedom Crate Classic (USMC)",
+    "rating": 5,
+    "text": "Crisp stencils, smooth hardware, packed well. Recommend!",
+    "photo": "",
+    "date": "2025-09-05"
+  }
+]
