@@ -1,3 +1,4 @@
+// assets/js/reviews.js
 (async function () {
   const listEl = document.getElementById('reviewsList');
   const avgEl = document.getElementById('avgRating');
@@ -32,25 +33,22 @@
   function fmtDate(iso) {
     try {
       const d = new Date(iso);
-      return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
     } catch { return iso; }
   }
 
- function injectSEO(company, avg, count) {
-  const data = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Freedom Crate Co.",
-    "url": "https://freedomcrateco.com",
-    "image": "https://freedomcrateco.com/assets/img/logo.png",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": avg.toFixed(2),
-      "reviewCount": String(count)
-    }
-  };
-  ldScript.textContent = JSON.stringify(data);
-}
+  function injectSEO(company, avg, count) {
+    const data = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Freedom Crate Co.",
+      "url": "https://freedomcrateco.com",
+      "image": "https://freedomcrateco.com/assets/img/logo.png",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": avg.toFixed(2),
+        "reviewCount": String(count)
+      }
     };
     ldScript.textContent = JSON.stringify(data);
   }
@@ -80,13 +78,17 @@
   for (const r of reviews) {
     const card = document.createElement('article');
     card.className = 'card review';
+
     const header = document.createElement('div');
     header.className = 'header';
+
     const left = document.createElement('div');
     left.appendChild(renderStars(r.rating));
+
     const when = document.createElement('div');
     when.className = 'date';
     when.textContent = fmtDate(r.date);
+
     header.append(left, when);
 
     const name = document.createElement('div');
