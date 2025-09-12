@@ -1,68 +1,59 @@
-diff --git a/contact.html b/contact.html
-index 15f94a2114abde8501bd10c271808c80df96fde6..cc4c87230b6e9112e7d400307ee3fb673e29c5b5 100644
---- a/contact.html
-+++ b/contact.html
-@@ -66,60 +66,60 @@
-           <select id="box" name="box" required>
-             <option value="">-- Select --</option>
-             <optgroup label="Standard Ammo Box">
-               <option value="Standard — U.S. Army"
-                       data-title="Standard Ammo Box — U.S. Army"
-                       data-image="assets/img/army.jpg">U.S. Army</option>
-               <option value="Standard — U.S. Marine Corps"
-                       data-title="Standard Ammo Box — U.S. Marine Corps"
-                       data-image="assets/img/marines.jpg">U.S. Marine Corps</option>
-               <option value="Standard — U.S. Navy"
-                       data-title="Standard Ammo Box — U.S. Navy"
-                       data-image="assets/img/navy.jpg">U.S. Navy</option>
-               <option value="Standard — U.S. Air Force"
-                       data-title="Standard Ammo Box — U.S. Air Force"
-                       data-image="assets/img/airforce.jpg">U.S. Air Force</option>
-               <option value="Standard — U.S. Coast Guard"
-                       data-title="Standard Ammo Box — U.S. Coast Guard"
-                       data-image="assets/img/coastguard.jpg">U.S. Coast Guard</option>
-               <option value="Standard — Blank (no stencil)"
-                       data-title="Standard Ammo Box — Blank (no stencil)"
-                       data-image="assets/img/blank.jpg">Blank (no stencil)</option>
-             </optgroup>
-             <optgroup label="Other Products">
-               <option value="Footlocker Ammo Box V2"
-                       data-title="Footlocker Ammo Box V2"
--                      data-image="assets/img/footlocker-v2.png">Footlocker Ammo Box V2</option>
-+                        data-image="assets/img/blank.jpg">Footlocker Ammo Box V2</option>
-               <option value="Rangemaster 300"
-                       data-title="Rangemaster 300"
--                      data-image="assets/img/rb300.png">Rangemaster 300</option>
-+                        data-image="assets/img/rm400.jpg">Rangemaster 300</option>
-               <option value="Rangemaster 400"
-                       data-title="Rangemaster 400"
-                       data-image="assets/img/rm400.jpg">Rangemaster 400</option>
-               <option value="Range Box 1000 (9mm)"
-                       data-title="Range Box 1000 (9mm)"
--                      data-image="assets/img/rb1000.png">Range Box 1000 (9mm)</option>
-+                        data-image="assets/img/rm400.jpg">Range Box 1000 (9mm)</option>
-               <option value="Other / Custom"
-                       data-title="Other / Custom"
-                       data-image="">Other / Custom</option>
-             </optgroup>
-           </select>
- 
-           <!-- Hidden fields to carry preview data into the submission -->
-           <input type="hidden" name="selected_box_title" id="selectedBoxTitle">
-           <input type="hidden" name="selected_box_image" id="selectedBoxImage">
- 
-           <!-- Live preview -->
-           <div id="boxPreviewWrap" class="preview" hidden>
-             <img id="boxPreview" src="" alt="">
-             <div id="boxPreviewCaption" class="helper"></div>
-           </div>
-         </div>
- 
-         <div class="field">
-           <label for="qty">Quantity</label>
-           <input id="qty" name="qty" type="number" min="1" value="1" inputmode="numeric">
-         </div>
-       </div>
- 
-       <!-- Latch preference -->
-       <div class="field">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Custom Orders • Freedom Crate Co.</title>
+  <meta name="description" content="Request a custom Freedom Crate with your stencil, size, or hardware." />
+  <link rel="canonical" href="https://freedomcrateco.com/contact.html">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>.container{max-width:960px;margin:0 auto}</style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60"></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Shop</a>
+      <a class="active" href="contact.html">Custom Orders</a>
+      <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
+    </nav>
+  </header>
+
+  <main class="container" id="main">
+    <h1>Custom Orders</h1>
+    <p class="muted">Tell us what you want and we’ll get back to you with a quote.</p>
+
+    <!-- Netlify Forms (works on static sites) -->
+    <form name="custom-order" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="custom-order">
+      <label>Your name <input name="name" required></label>
+      <label>Email <input type="email" name="email" required></label>
+      <label>Phone (optional) <input name="phone"></label>
+      <label>Which box? 
+        <select name="box">
+          <option>Freedom Crate Classic</option>
+          <option>Rangemaster 300</option>
+          <option>Rangemaster 400</option>
+          <option>Footlocker Ammo Box V2</option>
+          <option>Other / Custom size</option>
+        </select>
+      </label>
+      <label>Details
+        <textarea name="details" rows="6" placeholder="Stencil text/branch, finish, dimensions…"></textarea>
+      </label>
+      <button class="btn" type="submit">Send Request</button>
+    </form>
+
+    <p class="muted">Prefer email? <a href="mailto:orders@freedomcrateco.com">orders@freedomcrateco.com</a></p>
+  </main>
+
+  <footer class="site-footer"><div class="container">
+    <span class="badge">US Veteran-inspired • Florida-built</span>
+  </div></footer>
+
+  <!-- Keep cart count working; do NOT include reviews.js here -->
+  <script src="assets/js/util.js" defer></script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/cart.js" defer></script>
+</body>
+</html>
