@@ -25,28 +25,44 @@
     <h1>Request a Custom Order</h1>
     <p class="muted">Want a box personalized with your own stencils, colors, or hardware? Fill out the form below and we’ll get back to you.</p>
 
-    <form id="customOrderForm" class="form">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" required>
+   <form id="customOrderForm" class="form">
+  <div>
+    <label for="name">Your Name</label>
+    <input type="text" id="name" name="name" required>
+  </div>
 
-      <label for="email">Your Email</label>
-      <input type="email" id="email" name="email" required>
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+  </div>
 
-      <label for="boxType">Box Type</label>
-      <select id="boxType" name="boxType" required>
-        <option value="">Select one...</option>
-        <option value="classic">Freedom Crate Classic</option>
-        <option value="footlocker">Footlocker Ammo Box</option>
-        <option value="rangemaster300">Rangemaster 300</option>
-        <option value="rangemaster400">Rangemaster 400</option>
-        <option value="custom">Other / Fully Custom</option>
-      </select>
+  <div>
+    <label for="boxType">Box Type</label>
+    <select id="boxType" name="boxType" required>
+      <option value="">Select one...</option>
+      <option value="classic">Freedom Crate Classic</option>
+      <option value="footlocker">Footlocker Ammo Box</option>
+      <option value="rangemaster300">Rangemaster 300</option>
+      <option value="rangemaster400">Rangemaster 400</option>
+      <option value="custom">Other / Fully Custom</option>
+    </select>
+  </div>
 
-      <label for="details">Custom Details</label>
-      <textarea id="details" name="details" rows="5" placeholder="Describe your customization (stencils, finish, dimensions, etc.)"></textarea>
+  <div>
+    <label for="phone">Phone (optional)</label>
+    <input type="tel" id="phone" name="phone" inputmode="tel" autocomplete="tel">
+  </div>
 
-      <button type="submit" class="btn">Send Request</button>
-    </form>
+  <div class="full">
+    <label for="details">Custom Details</label>
+    <textarea id="details" name="details" rows="5"
+      placeholder="Describe your customization (stencils, finish, dimensions, etc.)"></textarea>
+  </div>
+
+  <div class="actions">
+    <button type="submit" class="btn">Send Request</button>
+  </div>
+</form>
   </main>
 
   <footer class="site-footer">
