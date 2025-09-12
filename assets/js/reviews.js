@@ -43,7 +43,7 @@
       "@type": "Organization",
       "name": "Freedom Crate Co.",
       "url": "https://freedomcrateco.com",
-      "image": "https://freedomcrateco.com/assets/img/logo.png",
+      "image": "https://freedomcrateco.com/assets/img/Logo.png",
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": avg.toFixed(2),
