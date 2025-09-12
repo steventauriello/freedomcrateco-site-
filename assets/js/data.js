@@ -8,10 +8,12 @@ window.FC = window.FC || {};
  const r = await fetch('assets/data/products.json', { cache: 'no-store' });
       if (!r.ok) throw new Error('JSON not found');
       const json = await r.json();
-      const arr = Array.isArray(json) ? json : Object.values(json || {});
-      normalizeProducts(arr);
-      window.PRODUCTS = arr; // always an ARRAY
-      return arr;
+const arr = Array.isArray(json)
+  ? json
+  : Object.entries(json || {}).map(([sku, p]) => ({ ...p, sku }));
+normalizeProducts(arr);
+window.PRODUCTS = arr; // always an ARRAY
+return arr;
     } catch (e) {
       console.warn('products.json not found or invalid, trying CSV…', e);
     }
