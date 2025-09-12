@@ -1,0 +1,110 @@
+diff --git a//dev/null b/reviews.html
+index 0000000000000000000000000000000000000000..064c6c409eb2efae054477fbbbd79bf5d2208f35 100644
+--- a//dev/null
++++ b/reviews.html
+@@ -0,0 +1,105 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="utf-8" />
++  <meta name="viewport" content="width=device-width,initial-scale=1" />
++  <title>Customer Reviews • Freedom Crate Co.</title>
++  <link rel="stylesheet" href="assets/css/styles.css" />
++  <style>
++    .review-grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin:2rem 0;}
++    .review-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1rem;}
++    .review-card img{width:100%;height:auto;border-radius:8px;margin-bottom:.5rem;}
++    .stars{color:#f5b50a;font-size:1.2rem;margin-bottom:.5rem;}
++    .reviews-form{margin-top:3rem;max-width:640px;}
++    .rating{display:flex;flex-direction:row-reverse;justify-content:flex-end;}
++    .rating input{display:none;}
++    .rating label{font-size:2rem;color:#444;cursor:pointer;}
++    .rating label:hover,
++    .rating label:hover ~ label,
++    .rating input:checked ~ label{color:#f5b50a;}
++  </style>
++</head>
++<body>
++  <a class="skip-link" href="#main">Skip to content</a>
++  <header class="site-header">
++    <a class="brand" href="index.html">
++      <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
++    </a>
++    <nav class="nav" aria-label="Primary">
++      <a href="index.html">Shop</a>
++      <a class="active" href="reviews.html">Reviews</a>
++      <a href="contact.html">Custom Orders</a>
++      <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
++    </nav>
++  </header>
++
++  <main class="container narrow" id="main">
++    <h1>Customer Reviews</h1>
++    <p class="muted">See what others are saying about our handcrafted boxes.</p>
++
++    <section class="review-grid" aria-label="Customer Reviews">
++      <article class="review-card">
++        <img src="assets/img/army.jpg" alt="Customer box photo">
++        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
++        <p>"Excellent craftsmanship and fast shipping."</p>
++        <p><strong>- Alex P.</strong></p>
++      </article>
++    </section>
++
++    <section class="reviews-form" aria-labelledby="leave-review">
++      <h2 id="leave-review">Leave Your Review</h2>
++      <form name="customer-review" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data">
++        <input type="hidden" name="form-name" value="customer-review">
++        <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
++
++        <div class="field">
++          <label for="r-name">Name *</label>
++          <input id="r-name" name="name" type="text" required>
++        </div>
++
++        <div class="field">
++          <label>Rating *</label>
++          <div class="rating">
++            <input type="radio" id="r5" name="rating" value="5" required><label for="r5" title="5 stars">★</label>
++            <input type="radio" id="r4" name="rating" value="4"><label for="r4" title="4 stars">★</label>
++            <input type="radio" id="r3" name="rating" value="3"><label for="r3" title="3 stars">★</label>
++            <input type="radio" id="r2" name="rating" value="2"><label for="r2" title="2 stars">★</label>
++            <input type="radio" id="r1" name="rating" value="1"><label for="r1" title="1 star">★</label>
++          </div>
++        </div>
++
++        <div class="field">
++          <label for="r-photo">Photo</label>
++          <input id="r-photo" name="photo" type="file" accept="image/*">
++        </div>
++
++        <div class="field">
++          <label for="r-text">Review *</label>
++          <textarea id="r-text" name="review" required placeholder="Share your experience..."></textarea>
++        </div>
++
++        <button class="btn" type="submit">Submit Review</button>
++      </form>
++    </section>
++
++    <section aria-labelledby="marketplace-reviews">
++      <h2 id="marketplace-reviews">Marketplace Reviews</h2>
++      <p class="muted">Photos and feedback from our eBay and Etsy stores.</p>
++      <div class="review-grid">
++        <!-- Add your external marketplace reviews here -->
++      </div>
++    </section>
++  </main>
++
++  <footer class="site-footer">
++    <div class="container">
++      <span class="badge">US Veteran-inspired • Florida-built</span>
++      <p class="muted">Rugged, practical, and made to be used.</p>
++    </div>
++  </footer>
++
++  <script src="assets/js/util.js"></script>
++  <script src="assets/js/config.js"></script>
++  <script src="assets/js/cart.js"></script>
++</body>
++</html>
