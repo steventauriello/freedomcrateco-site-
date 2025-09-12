@@ -6,11 +6,11 @@
   const starsEl = document.getElementById('avgStars');
   const ldScript = document.getElementById('seo-ld-json');
 
-if (!listEl || !avgEl || !countEl || !starsEl || !ldScript) return;
-  
+  if (!listEl || !avgEl || !countEl || !starsEl || !ldScript) return;
+
   async function loadReviews() {
     try {
-      const res = await fetch('/data/reviews.json', { cache: 'no-store' });
+      const res = await fetch('assets/data/reviews.json', { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return await res.json();
     } catch (e) {
