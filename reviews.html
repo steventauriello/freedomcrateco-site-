@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Freedom Crate Co. – Reviews</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/reviews.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="/">Freedom Crate Co.</a>
+    <nav class="nav">
+      <a href="/shop.html">Shop</a>
+      <a href="/cart.html">Cart</a>
+      <a href="/reviews.html" class="active">Reviews</a>
+    </nav>
+  </header>
+
+  <main class="container reviews-page">
+    <h1>Customer Reviews</h1>
+
+    <!-- Aggregate summary -->
+    <section id="review-summary" class="card summary">
+      <div>
+        <span id="avgStars" class="stars" aria-hidden="true"></span>
+        <strong id="avgRating">0.0</strong> out of 5
+      </div>
+      <div id="reviewCount">0 reviews</div>
+    </section>
+
+    <!-- Reviews list -->
+    <section id="reviewsList" class="reviews-list" aria-live="polite"></section>
+
+    <!-- Submit a review (Netlify Form) -->
+    <section class="card">
+      <h2>Leave a Review</h2>
+      <form name="reviews" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="review-form">
+        <input type="hidden" name="form-name" value="reviews" />
+        <p class="hidden">
+          <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+        </p>
+        <div class="row">
+          <label>Order / Lot # (optional)
+            <input type="text" name="order" placeholder="e.g., FC-240608B01" />
+          </label>
+          <label>Product
+            <input type="text" name="product" placeholder="e.g., Footlocker Ammo Box" required />
+          </label>
+        </div>
+        <div class="row">
+          <label>Your Name
+            <input type="text" name="name" placeholder="First name or initials" required />
+          </label>
+          <label>Rating
+            <select name="rating" required>
+              <option value="">Select…</option>
+              <option>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
+            </select>
+          </label>
+        </div>
+        <label>Review
+          <textarea name="text" rows="4" placeholder="What did you think?" required></textarea>
+        </label>
+        <label>Photo URL (optional)
+          <input type="url" name="photo" placeholder="https:// (direct image link)" />
+        </label>
+
+        <!-- Optional: reCAPTCHA v2 -->
+        <!-- <div data-netlify-recaptcha="true"></div> -->
+
+        <button type="submit">Submit Review</button>
+        <p class="form-note">Submissions are reviewed before appearing publicly.</p>
+      </form>
+    </section>
+  </main>
+
+  <script src="assets/js/reviews.js" defer></script>
+
+  <!-- SEO: JSON-LD will be injected by reviews.js -->
+  <script id="seo-ld-json" type="application/ld+json"></script>
+</body>
+</html>
