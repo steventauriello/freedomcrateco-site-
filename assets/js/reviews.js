@@ -36,18 +36,21 @@
     } catch { return iso; }
   }
 
-  function injectSEO(company, avg, count) {
-    const data = {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Freedom Crate Co.",
-      "url": "https://freedomcrateco.com",
-"image": "https://freedomcrateco.com/assets/img/logo.png",",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": avg.toFixed(2),
-        "reviewCount": String(count)
-      }
+ function injectSEO(company, avg, count) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Freedom Crate Co.",
+    "url": "https://freedomcrateco.com",
+    "image": "https://freedomcrateco.com/assets/img/logo.png",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": avg.toFixed(2),
+      "reviewCount": String(count)
+    }
+  };
+  ldScript.textContent = JSON.stringify(data);
+}
     };
     ldScript.textContent = JSON.stringify(data);
   }
