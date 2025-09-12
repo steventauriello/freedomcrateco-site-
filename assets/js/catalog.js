@@ -7,10 +7,30 @@
   const listEl = document.getElementById('products');
   if (!listEl) return;
 
+  // ---- safe fallbacks so rendering never crashes ----
+  const safeGetFavs = () => {
+    try {
+      return (FC && FC.storage && typeof FC.storage.get === 'function')
+        ? FC.storage.get('favs', [])
+        : [];
+    } catch { return []; }
+  };
+  const safeSetFavs = (arr) => {
+    try {
+      if (FC && FC.storage && typeof FC.storage.set === 'function') {
+        FC.storage.set('favs', arr);
+      }
+    } catch {}
+  };
+  const formatPrice = (n) =>
+    (FC && typeof FC.formatPrice === 'function')
+      ? FC.formatPrice(n)
+      : ('$' + (Number(n) || 0).toFixed(2));
+
   // Initial load
   Promise.all([
     FC.loadProducts(),
-    Promise.resolve(FC.storage.get('favs', []))
+    Promise.resolve(safeGetFavs())
   ]).then(([items, favs]) => {
     try { window.PRODUCTS = Object.fromEntries(items.map(p => [p.sku, p])); } catch (_) {}
     render(items, new Set(favs));
@@ -20,7 +40,7 @@
   // Re-render when inventory.js updates quantities
   window.addEventListener('inventory:updated', () => {
     const items = Object.values(window.PRODUCTS || {});
-    const favSet = new Set(FC.storage.get('favs', []));
+    const favSet = new Set(safeGetFavs());
     render(items, favSet);
   });
 
@@ -31,7 +51,7 @@
         document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        const favSet = new Set(FC.storage.get('favs', []));
+        const favSet = new Set(safeGetFavs());
         const list = (mode === 'favorites') ? items.filter(p => favSet.has(p.sku)) : items;
         render(list, favSet);
       });
@@ -58,7 +78,6 @@
       const title    = p.title || 'Item';
       const imgUrl   = p.image_url || 'assets/img/blank.jpg';
 
-      // IMAGE (no badge inside here anymore)
       const imgBlock = `
         <a class="img" href="product.html?sku=${encodeURIComponent(p.sku)}">
           ${soldOut ? `<div class="soldout">Sold Out</div>` : ''}
@@ -68,9 +87,8 @@
 
       const favActive = favSet.has(p.sku) ? 'active' : '';
 
-      // STOCK ROW lives under the photo, above the rest of meta
       const stockRow = isComing
-        ? '' // no quantity for coming soon
+        ? ''
         : (qty > 0
             ? `<div class="stock-badge stock-label">${qty} left</div>`
             : `<div class="stock-badge muted">Out of stock</div>`);
@@ -84,7 +102,7 @@
           <p>${escapeHtml(p.description || '')}</p>
 
           <div class="price-row">
-            <span class="price">${FC.formatPrice(priceNum)}</span>
+            <span class="price">${formatPrice(priceNum)}</span>
             ${
               isComing
                 ? `<span class="muted">Coming Soon</span>`
@@ -110,10 +128,10 @@
       favBtn.addEventListener('click', (e) => {
         e.preventDefault(); e.stopPropagation();
         const sku = favBtn.getAttribute('data-sku');
-        const cur = new Set(FC.storage.get('favs', []));
+        const cur = new Set(safeGetFavs());
         cur.has(sku) ? cur.delete(sku) : cur.add(sku);
         favBtn.classList.toggle('active');
-        FC.storage.set('favs', Array.from(cur));
+        safeSetFavs(Array.from(cur));
       });
 
       // Buttons – pass full info + image to cart
