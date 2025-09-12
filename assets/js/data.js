@@ -5,7 +5,7 @@ window.FC = window.FC || {};
   async function loadProducts() {
     // 1) Try JSON first
     try {
-      const r = await fetch('/data/products.json', { cache: 'no-store' });
+ const r = await fetch('assets/data/products.json', { cache: 'no-store' });
       if (!r.ok) throw new Error('JSON not found');
       const json = await r.json();
       const arr = Array.isArray(json) ? json : Object.values(json || {});
