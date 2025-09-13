@@ -73,7 +73,6 @@
 
       <!-- ===== Classic block (unchanged behavior) ===== -->
       <section class="product-detail" id="classicBlock" aria-labelledby="p-title">
-        <!-- Your existing Classic content -->
         <img class="product-hero"
              src="assets/img/standard-box.png"
              alt="Freedom Crate Classic wooden ammo box"
@@ -175,76 +174,12 @@
   })();
   </script>
 
-  <!-- Dynamic product loader (e.g., FC-RM-400) -->
-  <script>
-  (async function () {
-    const params = new URLSearchParams(location.search);
-    const sku = params.get('sku');
-
-    const classic = document.getElementById('classicBlock');
-    const dynamic = document.getElementById('dynamicBlock');
-
-    // No SKU (or classic SKU) -> show Classic as-is
-    if (!sku || sku === 'FC-STD-BOX' || sku === 'FC-CLASSIC') {
-      classic.hidden = false;
-      dynamic.hidden = true;
-      return;
-    }
-
-    // Load product data for dynamic items
-    const res = await fetch('assets/data/products.json', { cache: 'no-store' });
-    const products = await res.json();
-
-    if (!products[sku]) {
-      location.href = 'index.html';
-      return;
-    }
-
-    const p = products[sku];
-
-    // Toggle: hide Classic, show Dynamic
-    classic.hidden = true;
-    dynamic.hidden = false;
-
-    // Fill dynamic content
-    const titleEl = document.getElementById('p-title-2');
-    const descEl  = document.getElementById('p-desc-2');
-    const priceEl = document.getElementById('p-price-2');
-    const gallery = dynamic.querySelector('.gallery');
-
-    titleEl.textContent = p.title || '';
-    descEl.textContent  = p.description || '';
-    priceEl.textContent = '$' + Number(p.price || 0).toFixed(2);
-
-    const imgs = (Array.isArray(p.images) && p.images.length) ? p.images : [p.image_url];
-    gallery.innerHTML = `<img src="${imgs[0]}" alt="${p.title}" class="product-hero">`;
-
-    if (imgs.length > 1) {
-      const strip = document.createElement('div');
-      strip.className = 'thumbs';
-      imgs.forEach(src => {
-        const t = document.createElement('img');
-        t.src = src;
-        t.alt = '';
-        t.addEventListener('click', () => { gallery.querySelector('img').src = src; });
-        strip.appendChild(t);
-      });
-      gallery.appendChild(strip);
-    }
-
-    // Wire dynamic Add/Buy
-    const addBtn2 = document.getElementById('addBtn2');
-    const buyBtn2 = document.getElementById('buyBtn2');
-    const safe = fn => (typeof fn === 'function') ? fn : () => console.warn('Cart not ready');
-
-    addBtn2.addEventListener('click', () => {
-      safe(window.addToCart)(sku, p.title, Number(p.price || 0), 1, { image: imgs[0] });
-    });
-
-    buyBtn2.addEventListener('click', () => {
-      safe(window.buyNow)(sku, p.title, Number(p.price || 0), 1, { image: imgs[0] });
-    });
-  })();
-  </script>
+  <!-- Lightbox (used by product.js when dynamic items have multiple images) -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="ctrl prev" aria-label="Previous image">‹</button>
+    <img id="lightboxImg" alt="">
+    <button class="ctrl next" aria-label="Next image">›</button>
+    <button class="close" aria-label="Close">✕</button>
+  </div>
 </body>
 </html>
