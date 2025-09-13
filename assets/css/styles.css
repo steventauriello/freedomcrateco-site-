@@ -488,3 +488,50 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* Hint cursor on the main product image */
 .gallery .product-hero{ cursor: zoom-in; }
+
+/* --- Force gallery layout to be bulletproof across Safari/DDG/Chrome --- */
+.gallery{
+  display: grid !important;           /* override any earlier flex */
+  grid-template-columns: 1fr 92px;    /* main image + fixed thumbs column */
+  align-items: start;
+  gap: 10px;
+}
+
+.gallery > img{
+  grid-column: 1;                     /* main image stays in column 1 */
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.gallery .thumbs{
+  grid-column: 2;                     /* thumbs always in column 2 */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gallery .thumbs img{
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Phones: put thumbs *below* as a horizontal strip */
+@media (max-width: 640px){
+  .gallery{
+    grid-template-columns: 1fr;       /* single column */
+  }
+  .gallery .thumbs{
+    grid-column: 1;
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .gallery .thumbs img{
+    width: 72px;
+  }
+}
