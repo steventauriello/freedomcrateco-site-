@@ -191,7 +191,7 @@
         onApprove: (data, actions) => {
           return actions.order.capture().then(() => {
             clearCart(); // use API so badge & events stay in sync
-            window.location.href = 'thanks.html';
+            window.location.href = 'order-success.html?orderId=' + encodeURIComponent(data.orderID || '');
           });
         },
         onError: (err) => {
