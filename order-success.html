@@ -8,27 +8,14 @@
   <link rel="canonical" href="https://freedomcrateco.com/order-success.html">
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    .success-wrap {
-      max-width: 700px;
-      margin: 3rem auto;
-      text-align: center;
-    }
-    .success-wrap h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    .success-wrap p {
-      margin: 0.75rem 0;
-    }
-    .success-wrap .btn {
-      margin-top: 2rem;
-      background: #28a745;
-      color: #fff;
-      padding: 0.75rem 1.25rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-    }
+    .success-wrap{max-width:700px;margin:3rem auto;text-align:center}
+    .success-wrap h1{font-size:2rem;margin-bottom:1rem}
+    .success-wrap p{margin:.75rem 0}
+    .btn-primary{display:inline-block;margin-top:2rem;background:#28a745;color:#fff;padding:.75rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:600}
+    .order-line{margin-top:1rem;opacity:.9}
+    .order-id{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      display:inline-block;padding:.25rem .5rem;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    .copy-btn{margin-left:.5rem;border:1px solid rgba(255,255,255,.25);background:transparent;color:inherit;border-radius:6px;padding:.25rem .5rem;cursor:pointer}
   </style>
 </head>
 <body>
@@ -49,15 +36,47 @@
     <p>Your order has been received and is now being processed.</p>
     <p>It’s people like you who keep small businesses thriving. 🇺🇸</p>
     <p>We’ll email you shortly with your order details and tracking information.</p>
-    <a href="index.html" class="btn">Back to Home</a>
+
+    <!-- Order ID gets revealed here if present -->
+    <p class="order-line" id="orderLine" hidden>
+      Your PayPal Order ID:
+      <span class="order-id" id="orderId"></span>
+      <button class="copy-btn" id="copyBtn" type="button" aria-label="Copy order ID">Copy</button>
+      <span class="muted" id="copiedMsg" style="margin-left:.5rem;display:none;">Copied</span>
+    </p>
+
+    <a href="index.html" class="btn-primary">Back to Home</a>
+
+    <p class="muted" style="margin-top:1.5rem">US Veteran-inspired • Florida-built</p>
+    <p class="muted">Rugged, practical, and made to be used.</p>
   </main>
 
-  <footer class="site-footer">
-    <p class="muted">US Veteran-inspired • Florida-built</p>
-    <p class="muted">Rugged, practical, and made to be used.</p>
-  </footer>
+  <footer class="site-footer"></footer>
 
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
+  <script>
+    // Reveal PayPal order id if provided as ?orderId=... in the URL
+    (function(){
+      const params = new URLSearchParams(location.search);
+      const id = params.get('orderId');
+      if (!id) return;
+      document.getElementById('orderId').textContent = id;
+      document.getElementById('orderLine').hidden = false;
+
+      const copyBtn = document.getElementById('copyBtn');
+      const msg = document.getElementById('copiedMsg');
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(id);
+          msg.style.display = 'inline';
+          setTimeout(()=> msg.style.display = 'none', 1200);
+        } catch(e){
+          // fallback: select and copy via prompt
+          window.prompt('Copy this Order ID:', id);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
