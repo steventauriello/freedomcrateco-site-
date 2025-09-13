@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Order Successful – Freedom Crate Co.</title>
+  <meta name="description" content="Thank you for your order from Freedom Crate Co. We appreciate your support of handcrafted, veteran-inspired ammo and range boxes." />
+  <link rel="canonical" href="https://freedomcrateco.com/order-success.html">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    .success-wrap {
+      max-width: 700px;
+      margin: 3rem auto;
+      text-align: center;
+    }
+    .success-wrap h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .success-wrap p {
+      margin: 0.75rem 0;
+    }
+    .success-wrap .btn {
+      margin-top: 2rem;
+      background: #28a745;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Shop</a>
+      <a href="contact.html">Custom Orders</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
+    </nav>
+  </header>
+
+  <main class="container success-wrap">
+    <h1>Thank You for Your Order!</h1>
+    <p>Your order has been received and is now being processed.</p>
+    <p>It’s people like you who keep small businesses thriving. 🇺🇸</p>
+    <p>We’ll email you shortly with your order details and tracking information.</p>
+    <a href="index.html" class="btn">Back to Home</a>
+  </main>
+
+  <footer class="site-footer">
+    <p class="muted">US Veteran-inspired • Florida-built</p>
+    <p class="muted">Rugged, practical, and made to be used.</p>
+  </footer>
+
+  <script src="assets/js/util.js" defer></script>
+  <script src="assets/js/cart.js" defer></script>
+</body>
+</html>
