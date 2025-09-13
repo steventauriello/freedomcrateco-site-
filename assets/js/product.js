@@ -1,45 +1,155 @@
-(async function(){
-  const params = new URLSearchParams(location.search);
-  const sku = params.get('sku');
-  const host = document.getElementById('productHost');
-  if (!host){ return; }
+// assets/js/product.js
+(async function () {
+  const params  = new URLSearchParams(location.search);
+  const sku     = params.get('sku');
 
-  const all = await FC.loadProducts();
-  const item = all.find(p => p.sku === sku) || all[0];
-  if (!item){
-    host.innerHTML = '<p class="muted">Product not found.</p>';
+  const classic = document.getElementById('classicBlock');
+  const dynamic = document.getElementById('dynamicBlock');
+  if (!classic || !dynamic) return;
+
+  // If classic or no SKU, show Classic and bail (keeps your dropdown box untouched)
+  if (!sku || sku === 'FC-STD-BOX' || sku === 'FC-CLASSIC') {
+    classic.hidden = false;
+    dynamic.hidden = true;
     return;
   }
 
-  host.innerHTML = render(item);
-
-  // Buy button → simple cart in localStorage + link to checkout
-  document.getElementById('buyBtn').addEventListener('click', () => {
-    const cart = FC.storage.get('cart', []);
-    const existing = cart.find(i => i.sku === item.sku);
-    if (existing) existing.qty += 1; else cart.push({ sku: item.sku, title: item.title, price: item.price, qty: 1 });
-    FC.storage.set('cart', cart);
-    location.href = 'checkout.html';
-  });
-
-  function render(p){
-    const img = p.images && p.images.length ? `<img src="${p.images[0]}" alt="${escapeHtml(p.title)}">` : '<div class="ph" style="height:320px"></div>';
-    const sold = p.qty <= 0;
-    return `
-      <div class="product">
-        <div class="gallery">${img}</div>
-        <div class="info">
-          <div class="sku muted">SKU: ${escapeHtml(p.sku)}</div>
-          <h1>${escapeHtml(p.title)}</h1>
-          <div class="price">${FC.formatPrice(p.price)}</div>
-          <p>${escapeHtml(p.description || '')}</p>
-          <div class="buy-row">
-            ${sold ? '<span class="btn danger">Sold Out</span>' : '<button id="buyBtn" class="btn">Buy Now</button>'}
-            <a href="index.html">Back to Shop</a>
-          </div>
-        </div>
-      </div>`;
+  // --- Load product data safely ---
+  let p;
+  try {
+    const res = await fetch('assets/data/products.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('fetch failed');
+    const products = await res.json();
+    p = products[sku];
+    if (!p) throw new Error('sku not found');
+  } catch (e) {
+    // Fallback to Classic (no white screen)
+    classic.hidden = false;
+    dynamic.hidden = true;
+    console.warn('Product load failed:', e);
+    return;
   }
 
-  function escapeHtml(s){return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  // --- Toggle to dynamic view ---
+  classic.hidden = true;
+  dynamic.hidden = false;
+
+  // --- Fill text fields ---
+  const titleEl = document.getElementById('p-title-2');
+  const descEl  = document.getElementById('p-desc-2');
+  const priceEl = document.getElementById('p-price-2');
+  const gallery = dynamic.querySelector('.gallery');
+
+  titleEl.textContent = p.title || '';
+  descEl.textContent  = p.description || '';
+  priceEl.textContent = '$' + Number(p.price || 0).toFixed(2);
+
+  // --- Build image list (ordered + de-duped) ---
+  let imgs = Array.isArray(p.images) && p.images.length ? [...p.images]
+           : (p.image_url ? [p.image_url] : []);
+
+  // Example of product-specific ordering (keep if you want this for RM-400)
+  if (sku === 'FC-RM-400') {
+    const prio = ['open','carry','top','back'];
+    const rank = s => {
+      const L = (s || '').toLowerCase();
+      const i = prio.findIndex(k => L.includes(k));
+      return i === -1 ? 99 : i;
+    };
+    imgs.sort((a,b) => rank(a) - rank(b));
+  }
+
+  const seen = new Set();
+  imgs = imgs.filter(src => src && !seen.has(src) && (seen.add(src), true));
+
+  if (!imgs.length) {
+    // No images? Bounce safely.
+    classic.hidden = false;
+    dynamic.hidden = true;
+    return;
+  }
+
+  // --- Render gallery (main image + thumb strip) ---
+  gallery.innerHTML = `<img src="${imgs[0]}" alt="${p.title}" class="product-hero">`;
+  const mainImgEl = gallery.querySelector('img');
+  let currentIdx = 0;
+
+  if (imgs.length > 1) {
+    const strip = document.createElement('div');
+    strip.className = 'thumbs';
+    imgs.forEach((src, i) => {
+      if (i === 0) return; // don't duplicate main image
+      const t = document.createElement('img');
+      t.src = src;
+      t.alt = '';
+      t.addEventListener('click', () => {
+        currentIdx = i;
+        mainImgEl.src = src;
+      });
+      t.addEventListener('dblclick', () => openLightbox(i));
+      strip.appendChild(t);
+    });
+    gallery.appendChild(strip);
+  }
+
+  // --- Lightbox wiring (uses #lightbox markup already in product.html) ---
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lightboxImg');
+  const lbPrev  = lb.querySelector('.prev');
+  const lbNext  = lb.querySelector('.next');
+  const lbClose = lb.querySelector('.close');
+  let lbIndex = 0;
+
+  function openLightbox(i = 0){
+    lbIndex = i;
+    lbImg.src = imgs[lbIndex];
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  function step(dir){
+    lbIndex = (lbIndex + dir + imgs.length) % imgs.length;
+    lbImg.src = imgs[lbIndex];
+  }
+
+  mainImgEl.style.cursor = 'zoom-in';
+  mainImgEl.addEventListener('click', () => openLightbox(currentIdx));
+  lbPrev.addEventListener('click', () => step(-1));
+  lbNext.addEventListener('click', () => step(1));
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowRight') step(1);
+    if (e.key === 'ArrowLeft')  step(-1);
+  });
+
+  let startX = null;
+  lb.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', (e) => {
+    if (startX == null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+    startX = null;
+  });
+
+  // --- Dynamic Add/Buy wiring (uses your existing cart helpers) ---
+  const addBtn2 = document.getElementById('addBtn2');
+  const buyBtn2 = document.getElementById('buyBtn2');
+  const safe = fn => (typeof fn === 'function') ? fn : () => console.warn('Cart not ready');
+
+  addBtn2?.addEventListener('click', () => {
+    safe(window.addToCart)(sku, p.title, Number(p.price || 0), 1, { image: imgs[0] });
+  });
+
+  buyBtn2?.addEventListener('click', () => {
+    safe(window.buyNow)(sku, p.title, Number(p.price || 0), 1, { image: imgs[0] });
+  });
 })();
