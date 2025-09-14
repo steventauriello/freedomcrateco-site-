@@ -67,7 +67,7 @@
 
     list.forEach(p => {
       const card = document.createElement('article');
-      const classes = ['card', 'no-title-overlay'];
+     const classes = ['card', 'product-card', 'no-title-overlay'];
       if (p.status === 'coming-soon') classes.push('coming-soon');
       card.className = classes.join(' ');
 
