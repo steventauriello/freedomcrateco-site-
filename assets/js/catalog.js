@@ -116,7 +116,7 @@ function render(list, favSet) {
         </div>
       </div>
 
-      <div class="fav ${favActive}" data-sku="${escapeHtml(p.sku)}" title="Favorite">
+     <div class="fav ${favActive}" data-sku="${escapeHtml(p.sku)}" aria-label="Favorite" role="button" aria-pressed="${favActive ? 'true' : 'false'}">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 21s-6.716-3.948-9.428-6.66C.86 12.628.5 10.5 1.757 9.243c1.257-1.257 3.385-.897 5.097.815L12 13.204l5.146-5.146c1.712-1.712 3.84-2.072 5.097-.815 1.257 1.257.897 3.385-.815 5.097C18.716 17.052 12 21 12 21z"/>
         </svg>
