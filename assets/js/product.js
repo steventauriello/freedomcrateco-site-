@@ -44,23 +44,16 @@
   descEl.textContent  = p.description || '';
   priceEl.textContent = '$' + Number(p.price || 0).toFixed(2);
 
-  // --- Build image list (ordered + de-duped) ---
-  let imgs = Array.isArray(p.images) && p.images.length ? [...p.images]
-           : (p.image_url ? [p.image_url] : []);
+  // --- Build image list (force image_url first, then the rest de-duped) ---
+  let imgs = [];
+  if (p.image_url) imgs.push(p.image_url);
+  if (Array.isArray(p.images) && p.images.length) imgs.push(...p.images);
 
-  // Example of product-specific ordering (keep if you want this for RM-400)
-  if (sku === 'FC-RM-400') {
-    const prio = ['open','carry','top','back'];
-    const rank = s => {
-      const L = (s || '').toLowerCase();
-      const i = prio.findIndex(k => L.includes(k));
-      return i === -1 ? 99 : i;
-    };
-    imgs.sort((a,b) => rank(a) - rank(b));
+  // de-dup while preserving order (prevents double-first image)
+  {
+    const seen = new Set();
+    imgs = imgs.filter(src => src && !seen.has(src) && (seen.add(src), true));
   }
-
-  const seen = new Set();
-  imgs = imgs.filter(src => src && !seen.has(src) && (seen.add(src), true));
 
   if (!imgs.length) {
     // No images? Bounce safely.
