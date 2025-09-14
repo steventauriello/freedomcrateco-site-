@@ -76,7 +76,9 @@ a { color: var(--link); text-decoration: none; }
   border-radius: 8px;
   font-weight: 600;
 }
-.nav a:hover, .nav a.active {
+.nav a:hover,
+.nav a.active,
+.nav a[aria-current="page"] {
   background: #1a1d26;
   color: var(--brand);
 }
