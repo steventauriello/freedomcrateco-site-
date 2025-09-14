@@ -33,6 +33,7 @@
     "qty": 0,
     "image_url": "assets/img/rm400.jpg",
     "images": [
+      "assets/img/rm400.jpg",
       "assets/img/rm400-back.jpg",
       "assets/img/rm400-carry.jpg",
       "assets/img/rm400-open.jpg",
