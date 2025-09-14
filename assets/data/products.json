@@ -27,23 +27,21 @@
     "description": "Holds ~1000 rounds 9mm with sliding shelf; sold out example."
   },
   "FC-RM-400": {
-    "status": "coming-soon",
-    "title": "Rangemaster 400",
-    "price": 0.10,
-    "qty": 0,
-    "image_url": "assets/img/rm400.jpg",
-    "images": [
-      "assets/img/rm400.jpg",
-      "assets/img/rm400-back.jpg",
-      "assets/img/rm400-carry.jpg",
-      "assets/img/rm400-open.jpg",
-      "assets/img/rm400-top.jpg"
-    ],
-    "tags": ["range", "400"],
-    "description": "Up to 400 rounds in one compact crate — no cardboard,no styrofoam inserts,
-    no mess. Just open-load-shoot-close. small enough to keep next to you in the bay 
-    big enough to store ammo for the day"
-  },
+  "status": "coming-soon",
+  "title": "Rangemaster 400",
+  "price": 0.10,
+  "qty": 0,
+  "image_url": "assets/img/rm400.jpg",
+  "images": [
+    "assets/img/rm400.jpg",
+    "assets/img/rm400-back.jpg",
+    "assets/img/rm400-carry.jpg",
+    "assets/img/rm400-open.jpg",
+    "assets/img/rm400-top.jpg"
+  ],
+  "tags": ["range", "400"],
+  "description": "Up to 400 rounds in one compact carry; no mess. Just open-load-shoot-close. Small enough to grab and go, big enough to store ammo for the day."
+},
   "FC-CLASSIC": {
     "status": "active",
     "title": "Freedom Crate Classic",
