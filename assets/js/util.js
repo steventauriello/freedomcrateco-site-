@@ -15,18 +15,27 @@
   };
 })();
 // Auto-set active nav link based on current page
-(function(){
-  let here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-  // Treat product pages as part of "Shop"
+(function () {
+  // Normalize current page (handle "/" + query + hash)
+  let here = location.pathname.split('/').pop() || 'index.html';
+  here = here.toLowerCase();
+
+  // Map certain pages to an existing tab
   const alias = { 'product.html': 'index.html' };
   if (alias[here]) here = alias[here];
 
   document.querySelectorAll('.nav a').forEach(a => {
-    const target = (a.getAttribute('href') || '').split('/').pop().toLowerCase();
-    if (target === here) {
-      a.classList.add('active');
+    // Normalize target href (strip path, query, hash)
+    const href = (a.getAttribute('href') || '').split('/').pop();
+    const target = href.split('?')[0].split('#')[0].toLowerCase();
+
+    const isActive = target === here;
+    a.classList.toggle('active', isActive);
+
+    if (isActive) {
+      a.setAttribute('aria-current', 'page');
     } else {
-      a.classList.remove('active');
+      a.removeAttribute('aria-current');
     }
   });
 })();
