@@ -83,6 +83,31 @@ a { color: var(--link); text-decoration: none; }
   color: var(--brand);
 }
 
+/* --- Maintenance banner + safety styles --- */
+.maint-banner{
+  background:#d90429;
+  color:#fff;
+  text-align:center;
+  padding:10px 12px;
+  font-weight:800;
+  border-radius:8px;
+  margin-bottom:8px;            /* space under the banner in header */
+  letter-spacing:.4px;
+}
+
+/* Visually disable purchasing while in maintenance */
+.maintenance .btn[data-add],
+.maintenance .btn[data-buy],
+.maintenance #sb-add,
+.maintenance #sb-buy {
+  pointer-events:none;
+  opacity:.5;
+  cursor:not-allowed;
+}
+.maintenance a[href*="checkout.html"]{
+  pointer-events:none;
+  opacity:.6;
+}
 /* === Buttons === */
 .btn {
   display: inline-block;
