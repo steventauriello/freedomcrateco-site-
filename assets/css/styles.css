@@ -535,3 +535,4 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 72px;
   }
 }
+.product-card{ position:relative; cursor:pointer; }
