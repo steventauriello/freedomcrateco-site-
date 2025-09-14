@@ -535,4 +535,23 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 72px;
   }
 }
+/* Make entire product card clickable */
 .product-card{ position:relative; cursor:pointer; }
+
+/* Invisible overlay that turns the whole card into a link */
+.product-card .overlay-link{
+  position:absolute;
+  inset:0;          /* top/right/bottom/left: 0 */
+  z-index:5;        /* above text, below buttons */
+  text-indent:-9999px;
+  overflow:hidden;
+}
+
+/* Keep interactive bits above the overlay so they still work */
+.product-card .actions,
+.product-card .fav {
+  position:relative;
+  z-index:10;
+}
+
+/* Don't lift regular text or title above the overlay */
