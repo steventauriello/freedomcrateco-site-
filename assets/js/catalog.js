@@ -127,16 +127,30 @@ function render(list, favSet) {
     `;
 
     // Fav toggle
-    const favBtn = card.querySelector('.fav');
-    favBtn.addEventListener('click', (e) => {
-      e.preventDefault(); e.stopPropagation();
-      const sku = favBtn.getAttribute('data-sku');
-      const cur = new Set(safeGetFavs());
-      cur.has(sku) ? cur.delete(sku) : cur.add(sku);
-      favBtn.classList.toggle('active');
-      safeSetFavs(Array.from(cur));
-    });
+const favBtn = card.querySelector('.fav');
+favBtn.setAttribute('role', 'button');
+favBtn.setAttribute('aria-label', 'Favorite');
+favBtn.setAttribute('aria-pressed', favActive ? 'true' : 'false');
 
+favBtn.addEventListener('click', (e) => {
+  e.preventDefault(); e.stopPropagation();
+  const sku = favBtn.getAttribute('data-sku');
+
+  const cur = new Set(safeGetFavs());
+  const nowFav = cur.has(sku) ? (cur.delete(sku), false) : (cur.add(sku), true);
+
+  favBtn.classList.toggle('active', nowFav);
+  favBtn.setAttribute('aria-pressed', nowFav ? 'true' : 'false');
+  safeSetFavs(Array.from(cur));
+
+  // Screen-reader announcement
+  const ann = document.getElementById('sr-announcer');
+  if (ann) {
+    ann.textContent = nowFav
+      ? "You're awesome! Added to favorites."
+      : "Removed from favorites.";
+  }
+});
     // Buttons – pass full info + image to cart
     const addBtn = card.querySelector('[data-add]');
     const buyBtn = card.querySelector('[data-buy]');
