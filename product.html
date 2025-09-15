@@ -60,18 +60,18 @@
       <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
     </a>
     <nav class="nav" aria-label="Primary">
-  <a href="index.html">Shop</a>
-  <a href="contact.html">Custom Orders</a>
-  <a href="reviews.html">Reviews</a>
-  <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
-</nav>
+      <a href="index.html">Shop</a>
+      <a href="contact.html">Custom Orders</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="checkout.html">Cart (<span id="cartCount">0</span>)</a>
+    </nav>
   </header>
 
   <!-- Main -->
   <main class="container" id="main">
     <div id="productHost">
 
-      <!-- ===== Classic block (unchanged behavior) ===== -->
+      <!-- ===== Classic block ===== -->
       <section class="product-detail" id="classicBlock" aria-labelledby="p-title">
         <img class="product-hero"
              src="assets/img/standard-box.png"
@@ -91,126 +91,39 @@
           <option value="spaceforce">U.S. Space Force</option>
           <option value="nationalguard">National Guard</option>
         </select>
-        <!-- Classic-only wiring (with personalization limits) -->
-<script>
-(function(){
-  const priceEl = document.getElementById('price');
-  const branchEl = document.getElementById('branch');
-  const addBtn = document.getElementById('addBtn');
-  const buyBtn = document.getElementById('buyBtn');
 
-  // Personalization elements
-  const addPz = document.getElementById('addPersonalization');
-  const pzWrap = document.getElementById('pzWrap');
-  const pz1 = document.getElementById('pz1');
-  const pz2 = document.getElementById('pz2');
-  const c1 = document.getElementById('pz1Count');
-  const c2 = document.getElementById('pz2Count');
-  const err = document.getElementById('pzError');
+        <!-- Personalization (2 lines, 30 chars each) -->
+        <div class="opt-row">
+          <label class="check">
+            <input type="checkbox" id="addPersonalization">
+            <span><strong>Add personalization?</strong> (up to 2 lines, 30 chars each)</span>
+          </label>
+        </div>
 
-  const BASE_PRICE = 139.00;
-  const fmt = n => '$' + n.toFixed(2);
-  const MAX = 30; // chars per line
+        <div class="opt-row" id="pzWrap" style="display:none">
+          <div class="grid2">
+            <label>
+              <span><strong>Line 1</strong></span>
+              <input id="pz1" name="personalization_line1" type="text" maxlength="30"
+                     placeholder="e.g., Sgt. John Smith – USMC" />
+              <small class="help"><span id="pz1Count">0</span>/30</small>
+            </label>
 
-  function currentVariant(){
-    const branch = branchEl.value;
-    const branchText = branchEl.options[branchEl.selectedIndex].text;
-    const sku = `FC-STD-BOX-${branch}`;
-    const name = `Freedom Crate Classic — ${branchText}`;
-    return { sku, name, branch, branchText };
-  }
+            <label>
+              <span><strong>Line 2 (optional)</strong></span>
+              <input id="pz2" name="personalization_line2" type="text" maxlength="30"
+                     placeholder="e.g., Semper Fi – Always Faithful" />
+              <small class="help"><span id="pz2Count">0</span>/30</small>
+            </label>
+          </div>
 
-  function safe(fn){ return (typeof fn === 'function') ? fn : () => console.warn('Cart not ready'); }
+          <div class="inline-hint">
+            Need more than 2 lines or 30 chars per line?
+            <a href="contact.html?box=Freedom%20Crate%20Classic&reason=custom">Request a Custom Order</a>
+          </div>
 
-  // Pricing stays fixed per your current code
-  branchEl.addEventListener('change', ()=>{ priceEl.textContent = fmt(BASE_PRICE); });
-
-  // --- Personalization UI/validation ---
-  function updateCount(el, counter){
-    if (!el || !counter) return;
-    counter.textContent = (el.value || '').length;
-  }
-  function toggleBtn(enabled){
-    [addBtn, buyBtn].forEach(btn=>{
-      if (!btn) return;
-      btn.disabled = !enabled;
-      btn.classList.toggle('disabled', !enabled);
-    });
-  }
-  function showError(msg){
-    if (err){ err.textContent = msg; err.style.display = 'block'; }
-    toggleBtn(false);
-  }
-  function clearError(){
-    if (err){ err.textContent = ''; err.style.display = 'none'; }
-    toggleBtn(true);
-  }
-  function validate(){
-    if (!addPz?.checked) { clearError(); return true; }
-    const l1 = (pz1.value || '').trim();
-    const l2 = (pz2.value || '').trim();
-    if (!l1) { showError('Please enter at least Line 1.'); return false; }
-    if (l1.length > MAX) { showError(`Line 1 exceeds ${MAX} characters.`); return false; }
-    if (l2.length > MAX) { showError(`Line 2 exceeds ${MAX} characters.`); return false; }
-    clearError();
-    return true;
-  }
-
-  // Wire up UI behavior
-  addPz?.addEventListener('change', ()=>{
-    pzWrap.style.display = addPz.checked ? '' : 'none';
-    if (!addPz.checked){
-      pz1.value = ''; pz2.value = '';
-      updateCount(pz1,c1); updateCount(pz2,c2);
-      clearError();
-    }
-  });
-  pz1?.addEventListener('input', ()=>{ updateCount(pz1,c1); validate(); });
-  pz2?.addEventListener('input', ()=>{ updateCount(pz2,c2); validate(); });
-  // init counters
-  updateCount(pz1,c1); updateCount(pz2,c2);
-
-  // Helpers to collect options
-  function selectedOptions(){
-    const { sku, name, branch, branchText } = currentVariant();
-    return {
-      sku, name, price: BASE_PRICE,
-      image: 'assets/img/standard-box.png',
-      options: {
-        branch,
-        branchLabel: branchText,
-        personalization: addPz?.checked ? {
-          line1: (pz1.value || '').trim(),
-          line2: (pz2.value || '').trim()
-        } : null
-      }
-    };
-  }
-
-  // Add to Cart / Buy Now with guardrails
-  addBtn.addEventListener('click', ()=>{
-    if (!validate()) return;
-    const sel = selectedOptions();
-    safe(window.addToCart)(sel.sku, sel.name, sel.price, 1, {
-      image: sel.image,
-      branch: sel.options.branch,
-      branchLabel: sel.options.branchLabel,
-      personalization: sel.options.personalization
-    });
-  });
-
-  buyBtn.addEventListener('click', ()=>{
-    if (!validate()) return;
-    const sel = selectedOptions();
-    safe(window.buyNow)(sel.sku, sel.name, sel.price, 1, {
-      image: sel.image,
-      branch: sel.options.branch,
-      branchLabel: sel.options.branchLabel,
-      personalization: sel.options.personalization
-    });
-  });
-})();
-</script>
+          <div id="pzError" class="error" style="display:none"></div>
+        </div>
 
         <p class="price"><strong><span id="price" aria-live="polite">$139.00</span></strong></p>
 
@@ -219,11 +132,12 @@
           <button id="buyBtn" class="btn" type="button">Buy Now</button>
           <a class="btn ghost" href="contact.html?box=Freedom%20Crate%20Classic">Customize</a>
         </div>
+
         <div class="return-policy" role="note" aria-label="Returns policy">
-  <p><strong>Returns:</strong> Standard boxes may be returned within 
-     <strong>14 days</strong>. Buyer pays return shipping.<br>
-     ⚠️ <strong>Custom-built boxes are final sale</strong> — no returns or exchanges.</p>
-</div>
+          <p><strong>Returns:</strong> Standard boxes may be returned within
+             <strong>14 days</strong>. Buyer pays return shipping.<br>
+             ⚠️ <strong>Custom-built boxes are final sale</strong> — no returns or exchanges.</p>
+        </div>
 
         <hr style="border:0;border-top:1px solid var(--border);margin:16px 0 12px">
 
@@ -264,7 +178,7 @@
   <script src="assets/js/cart.js" defer></script>
   <script src="assets/js/product.js" defer></script>
 
-  <!-- Classic-only wiring (unchanged) -->
+  <!-- Classic wiring with personalization limits -->
   <script>
   (function(){
     const priceEl = document.getElementById('price');
@@ -272,29 +186,102 @@
     const addBtn = document.getElementById('addBtn');
     const buyBtn = document.getElementById('buyBtn');
 
+    // Personalization elements
+    const addPz = document.getElementById('addPersonalization');
+    const pzWrap = document.getElementById('pzWrap');
+    const pz1 = document.getElementById('pz1');
+    const pz2 = document.getElementById('pz2');
+    const c1 = document.getElementById('pz1Count');
+    const c2 = document.getElementById('pz2Count');
+    const err = document.getElementById('pzError');
+
     const BASE_PRICE = 139.00;
     const fmt = n => '$' + n.toFixed(2);
+    const MAX = 30; // chars per line
 
     function currentVariant(){
       const branch = branchEl.value;
       const branchText = branchEl.options[branchEl.selectedIndex].text;
       const sku = `FC-STD-BOX-${branch}`;
       const name = `Freedom Crate Classic — ${branchText}`;
-      return { sku, name };
+      return { sku, name, branch, branchText };
     }
 
     function safe(fn){ return (typeof fn === 'function') ? fn : () => console.warn('Cart not ready'); }
 
+    // Fixed price for this product
     branchEl.addEventListener('change', ()=>{ priceEl.textContent = fmt(BASE_PRICE); });
 
+    // --- Personalization UI/validation ---
+    function updateCount(el, counter){ if (el && counter) counter.textContent = (el.value || '').length; }
+    function toggleBtn(enabled){
+      [addBtn, buyBtn].forEach(btn=>{
+        if (!btn) return;
+        btn.disabled = !enabled;
+        btn.classList.toggle('disabled', !enabled);
+      });
+    }
+    function showError(msg){ if (err){ err.textContent = msg; err.style.display = 'block'; } toggleBtn(false); }
+    function clearError(){ if (err){ err.textContent = ''; err.style.display = 'none'; } toggleBtn(true); }
+
+    function validate(){
+      if (!addPz?.checked) { clearError(); return true; }
+      const l1 = (pz1.value || '').trim();
+      const l2 = (pz2.value || '').trim();
+      if (!l1) { showError('Please enter at least Line 1.'); return false; }
+      if (l1.length > MAX) { showError(`Line 1 exceeds ${MAX} characters.`); return false; }
+      if (l2.length > MAX) { showError(`Line 2 exceeds ${MAX} characters.`); return false; }
+      clearError(); return true;
+    }
+
+    addPz?.addEventListener('change', ()=>{
+      pzWrap.style.display = addPz.checked ? '' : 'none';
+      if (!addPz.checked){
+        pz1.value = ''; pz2.value = '';
+        updateCount(pz1,c1); updateCount(pz2,c2);
+        clearError();
+      }
+    });
+    pz1?.addEventListener('input', ()=>{ updateCount(pz1,c1); validate(); });
+    pz2?.addEventListener('input', ()=>{ updateCount(pz2,c2); validate(); });
+    updateCount(pz1,c1); updateCount(pz2,c2); // init counters
+
+    function selectedOptions(){
+      const { sku, name, branch, branchText } = currentVariant();
+      return {
+        sku, name, price: BASE_PRICE,
+        image: 'assets/img/standard-box.png',
+        options: {
+          branch,
+          branchLabel: branchText,
+          personalization: addPz?.checked ? {
+            line1: (pz1.value || '').trim(),
+            line2: (pz2.value || '').trim()
+          } : null
+        }
+      };
+    }
+
     addBtn.addEventListener('click', ()=>{
-      const { sku, name } = currentVariant();
-      safe(window.addToCart)(sku, name, BASE_PRICE, 1, { image: 'assets/img/standard-box.png' });
+      if (!validate()) return;
+      const sel = selectedOptions();
+      safe(window.addToCart)(sel.sku, sel.name, sel.price, 1, {
+        image: sel.image,
+        branch: sel.options.branch,
+        branchLabel: sel.options.branchLabel,
+        personalization: sel.options.personalization
+      });
     });
 
     buyBtn.addEventListener('click', ()=>{
-      const { sku, name } = currentVariant();
-      safe(window.buyNow)(sku, name, BASE_PRICE, 1, { image: 'assets/img/standard-box.png' });
+      if (!validate()) return;
+      const sel = selectedOptions();
+      safe(window.buyNow)(sel.sku, sel.name, sel.price, 1, {
+        image: sel.image,
+        branch: sel.options.branch,
+        branchLabel: sel.options.branchLabel,
+        personalization: sel.options.personalization
+      });
     });
   })();
   </script>
