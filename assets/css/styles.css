@@ -594,3 +594,12 @@ input[type="number"]::-webkit-inner-spin-button {
   white-space:nowrap !important;
   border:0 !important;
 }
+/* === Personalization UI (2 lines × 30 chars) === */
+.opt-row{margin:.75rem 0}
+.check{display:flex;gap:.5rem;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.help{display:block;opacity:.8;margin-top:.25rem}
+.inline-hint{font-size:.9rem;opacity:.85;margin-top:.5rem}
+.error{color: var(--danger); margin-top:.4rem; font-size:.92rem}
+.btn.disabled{opacity:.6;pointer-events:none}
+@media (max-width:640px){ .grid2{grid-template-columns:1fr;} }
