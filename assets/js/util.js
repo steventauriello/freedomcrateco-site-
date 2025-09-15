@@ -41,7 +41,7 @@
 })();
 // ---- Maintenance mode (banner + disabled checkout) ----
 (function maintenanceMode(){
-  const ON = true;               // <-- flip to false to turn OFF
+  const ON = false;               // <-- flip to false to turn OFF
 
   if (!ON) return;
 
