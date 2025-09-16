@@ -603,13 +603,16 @@ input[type="number"]::-webkit-inner-spin-button {
 .error{color: var(--danger); margin-top:.4rem; font-size:.92rem}
 .btn.disabled{opacity:.6;pointer-events:none}
 @media (max-width:640px){ .grid2{grid-template-columns:1fr;} }
-/* Split Cart left, rest right */
+/* Cart on the far right; other links on the left */
 .site-header .nav {
   display: flex;
   align-items: center;
   gap: .75rem;
-  flex-wrap: wrap; /* better on small screens */
+  flex-wrap: wrap;
+  justify-content: space-between; /* spreads left group and cart to edges */
 }
-.nav .nav-spacer {
-  flex: 1;
+
+/* push the Cart link to the far right even if other CSS applies */
+.nav .cart-link {
+  margin-left: auto;
 }
