@@ -1,0 +1,20 @@
+[
+  {
+    "src": "assets/img/chris-humvee-1.jpg",
+    "alt": "Army box on Chris' Humvee",
+    "caption": "Army Box + Humvee = perfect combo",
+    "tags": ["Customer", "Army"]
+  },
+  {
+    "src": "assets/img/rm400.jpg",
+    "alt": "RangeMaster 400 angled view",
+    "caption": "RangeMaster 400 • One-off finish",
+    "tags": ["One-of-One", "Range"]
+  },
+  {
+    "src": "assets/img/rm400-top.jpg",
+    "alt": "RangeMaster 400 lid and hardware detail",
+    "caption": "Lid & hardware detail",
+    "tags": ["Detail"]
+  }
+]
