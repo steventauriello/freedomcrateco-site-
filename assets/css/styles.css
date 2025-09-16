@@ -69,6 +69,15 @@ a { color: var(--link); text-decoration: none; }
 .site-header .brand { display: flex; align-items: center; gap: 12px; color: #fff; }
 .site-header .brand img { height: 60px; width: auto; display: block; }
 .brand-text small { color: var(--muted); }
+.site-header .nav {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  justify-content: space-between;
+  flex-wrap: nowrap;          /* prevents wrapping */
+  overflow-x: auto;           /* lets it scroll instead */
+  -webkit-overflow-scrolling: touch;
+}
 .nav a {
   
   margin-left: 20px;
