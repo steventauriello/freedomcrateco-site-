@@ -22,7 +22,14 @@
   border-radius:.35rem;
   padding:.25rem .5rem;
   cursor:pointer;
-  color:#fff; /* make button text white */
+  color:#fff; /* button text white */
+  transition: background .2s, outline .2s;
+}
+
+.tag[aria-pressed="true"] {
+  background:rgba(255,255,255,.25); /* brighter background */
+  outline:2px solid rgba(255,255,255,.6); /* clear highlight */
+  font-weight:bold; /* makes text stand out */
 }
     .tag[aria-pressed="true"]{outline:2px solid rgba(255,255,255,.45)}
     .lightbox-backdrop{position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.8); z-index:9999}
