@@ -85,6 +85,7 @@ a { color: var(--link); text-decoration: none; }
   padding: 8px 10px;
   border-radius: 8px;
   font-weight: 600;
+  white-space: nowrap;
 }
 /* Cart link alignment */
 .nav .cart-link {
