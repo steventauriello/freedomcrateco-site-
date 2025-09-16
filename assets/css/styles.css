@@ -70,11 +70,17 @@ a { color: var(--link); text-decoration: none; }
 .site-header .brand img { height: 60px; width: auto; display: block; }
 .brand-text small { color: var(--muted); }
 .nav a {
+  
   margin-left: 20px;
   color: var(--text);
   padding: 8px 10px;
   border-radius: 8px;
   font-weight: 600;
+}
+/* Cart link alignment */
+.nav .cart-link {
+  margin-left: auto;
+  order: 99;
 }
 .nav a:hover,
 .nav a.active,
