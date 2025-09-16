@@ -203,12 +203,13 @@
     const MAX = 30; // chars per line
 
     function currentVariant(){
-      const branch = branchEl.value;
-      const branchText = branchEl.options[branchEl.selectedIndex].text;
-      const sku = `FC-STD-BOX-${branch}`;
-      const name = `Freedom Crate Classic — ${branchText}`;
-      return { sku, name, branch, branchText };
-    }
+  const opt = branchEl.options[branchEl.selectedIndex];
+  const branch = opt.value;
+  const branchText = opt.text;
+  const sku = opt.dataset.sku || `FC-STD-BOX-${branch}`; // prefer data-sku, fallback
+  const name = `Freedom Crate Classic — ${branchText}`;
+  return { sku, name, branch, branchText };
+}
 
     function safe(fn){ return (typeof fn === 'function') ? fn : () => console.warn('Cart not ready'); }
 
