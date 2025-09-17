@@ -4,69 +4,167 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About • Freedom Crate Co.</title>
-  <meta name="description" content="Learn about Freedom Crate Co. – veteran-inspired, handcrafted ammo boxes built in Florida.">
+  <meta name="description" content="The story, mission, and legacy goals behind Freedom Crate Co.—plus a gallery of our one-of-one handcrafted ammo & range boxes.">
   <link rel="canonical" href="https://freedomcrateco.com/about.html">
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    /* Page-scoped helpers for About */
+    .hero-about { padding: 3rem 1rem; text-align: center; }
+    .hero-about h1 { font-size: clamp(2rem, 2.8vw, 3rem); margin-bottom: .5rem; }
+    .hero-about p.lede { max-width: 60ch; margin: .5rem auto 0; opacity:.9 }
+    .about-grid { display:grid; gap: 1.25rem; grid-template-columns: 1fr; }
+    .about-card { border:1px solid rgba(255,255,255,.08); border-radius: .75rem; padding: 1rem; background: rgba(255,255,255,.03);} 
+    .about-card h2 { margin: 0 0 .5rem 0; font-size: 1.25rem; }
+    .goals ul { margin: .25rem 0 0 1.1rem; }
+    .gallery-grid { display:grid; gap: .75rem; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 900px) { .about-grid { grid-template-columns: 2fr 1fr; } .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+    .gallery-grid figure { margin:0; border-radius:.5rem; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#111; }
+    .gallery-grid img { width:100%; height:160px; object-fit:cover; display:block; }
+    .gallery-grid figcaption { font-size:.85rem; padding:.5rem; opacity:.9 }
+    /* Lightweight lightbox */
+    .lightbox-backdrop { position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.8); z-index:9999; }
+    .lightbox-backdrop[open] { display:grid; }
+    .lightbox-img { max-width: min(1200px, 92vw); max-height: 86vh; border-radius:.5rem; }
+    .close-btn { position:absolute; top:1rem; right:1rem; background:#000; color:#fff; border:1px solid rgba(255,255,255,.25); padding:.35rem .6rem; border-radius:.35rem; }
+    .badge-row { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.5rem; }
+    .badge-row .badge { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.2); }
+    /* Contact block tweaks */
+    .contact-info ul { list-style:none; padding:0; line-height:1.8; }
+    .socials a { margin-right:.5rem; }
+  </style>
 </head>
 <body>
-  <!-- Header -->
   <header class="site-header">
-    <a class="brand" href="index.html">
-      <img src="assets/img/logo.png" alt="Freedom Crate Co.">
-    </a>
+    <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60"></a>
     <nav class="nav" aria-label="Primary">
       <a href="index.html">Shop</a>
       <a href="about.html" aria-current="page">About</a>
       <a href="gallery.html">Gallery</a>
       <a href="reviews.html">Reviews</a>
       <a href="contact.html">Custom Orders</a>
-      <a href="checkout.html" class="cart-link">Cart</a>
+      <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
     </nav>
   </header>
 
-  <!-- Main -->
-  <main class="container" id="main">
-    <h1>About Freedom Crate Co.</h1>
-    <p class="muted">
-      Freedom Crate Co. was built on the belief that American craftsmanship should stand the test of time. 
-      Every crate is handcrafted in Florida with pride, precision, and respect for the men and women who serve our nation.
-    </p>
+  <main class="container">
+    <section class="hero-about">
+      <h1>Freedom Crate Co.</h1>
+      <p class="lede">Handcrafted ammo & range boxes built by a family in Florida—rooted in American history, veteran-inspired craftsmanship, and a mission to make rugged gear that lasts.</p>
+      <div class="badge-row">
+        <span class="badge">Florida-built</span>
+        <span class="badge">Veteran-inspired</span>
+        <span class="badge">Small-batch</span>
+        <span class="badge">Free Shipping</span>
+      </div>
+    </section>
 
-    <p class="muted">
-      Our ammo boxes are inspired by authentic Cold War–era designs, reimagined with modern durability and personalization options. 
-      Whether for storage, display, or a meaningful gift, each crate tells a story of patriotism and tradition.
-    </p>
+    <section class="about-grid">
+      <article class="about-card" id="our-story">
+        <h2>Our Story</h2>
+        <p>Freedom Crate Co. began when I was using a Cold War–era ammo crate to store baseball and basketball cards. I wanted another one for my actual ammo, but nothing on the market felt right—most were decorative, not rugged. So I measured that crate, built my own, and then engineered it to be tougher and more functional with better handles, sturdier lids, and durable finishes.</p>
+        <p>What started as a personal project combined my love for engineering, woodworking, and patriotism. I began adding stenciled Founders’ quotes and military insignia, inspired by a Marine veteran friend who asked me to build a crate to hold his medals. That request grew into our Military Branch Collection.</p>
+        <p>Every crate we make is signed and lot-numbered, built to be both functional and collectible. Whether it sits proudly on a shelf or travels with you to the range, a Freedom Crate is built to last—part rugged gear, part functional art.</p>
+      </article>
 
-    <hr style="border:0;border-top:1px solid var(--border);margin:2rem 0">
+      <aside class="about-card goals" id="our-mission">
+        <h2>Mission & Values</h2>
+        <ul>
+          <li>Build <strong>reliable, hard-use</strong> boxes that look sharp and work harder.</li>
+          <li>Honor American craftsmanship with <strong>hand-built, small-batch</strong> production.</li>
+          <li>Keep things <strong>simple, serviceable,</strong> and <strong>affordable</strong> with free shipping.</li>
+          <li>We’re always in R&D—engineering tougher, smarter designs for every use case, whether that’s range days, long-term ammo storage, or everyday carry solutions like our med kit box with sliding trays and dividers.</li>
+          <li>I build each box as if I was building it for myself.</li>
+        </ul>
+      </aside>
+    </section>
 
-    <!-- Contact Info -->
-    <section class="contact-info">
+    <section class="about-card goals" id="legacy">
+      <h2>The Legacy Project: Where We’re Headed</h2>
+      <p>Our long-term goal is bigger than just building crates—we want to give back. The Legacy Project will be the non-profit side of Freedom Crate Co., created to honor newly retired veterans by gifting them handcrafted crates to hold their medals, awards, and keepsakes.</p>
+      <p>The project will be funded solely by a percentage of profits from Freedom Crate Co. sales and by donations. With the support of even a few generous donors, we could be building crates for newly retired veterans for years to come.</p>
+      <p>Veterans will be able to request a crate by verifying their service and choosing their branch, rank, and even a personalized quote under the lid. Once we reach the point where every newly retired veteran can receive a Freedom Crate at no cost, our vision will be complete.</p>
+      <ul>
+        <li><strong>Give-Back:</strong> provide free handcrafted crates to newly retired veterans.</li>
+        <li><strong>Personalization:</strong> branch insignia, rank, initials, or a custom quote under the lid.</li>
+        <li><strong>Funding:</strong> supported by Freedom Crate Co. profits and generous donor contributions.</li>
+      </ul>
+    </section>
+
+    <section class="about-card" id="gallery">
+      <h2>Gallery: One-of-One & Past Builds</h2>
+      <p>Browse a few favorites below. Want your build featured? Send photos after delivery or tag us on social.</p>
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Example items; duplicate and swap filenames/captions as you add images -->
+        <figure>
+          <img src="assets/img/gallery/rm400.jpg" alt="RangeMaster 400 – angled view" loading="lazy" data-full="assets/img/gallery/rm400.jpg">
+          <figcaption>RangeMaster 400 • One-off finish</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/chris-humvee-1.jpg" alt="Freedom Crate on Humvee interior" loading="lazy" data-full="assets/img/chris-humvee-1.jpg">
+          <figcaption>Army Box + Humvee = perfect combo</figcaption>
+        </figure>
+      </div>
+
+      <p><a class="btn" href="gallery.html">See the full gallery →</a></p>
+
+      <dialog class="lightbox-backdrop" id="lightbox" aria-label="Image preview">
+        <button class="close-btn" data-close>&times; Close</button>
+        <img class="lightbox-img" id="lightboxImg" alt="Gallery preview">
+      </dialog>
+    </section>
+
+    <section class="about-card" id="cta">
+      <h2>Want a custom build?</h2>
+      <p>We take on a limited number of custom projects each month. Tell us what you’re after—dimensions, hardware, stenciling, and finish—and we’ll confirm a build slot.</p>
+      <p><a class="btn" href="contact.html">Request a Custom Order</a></p>
+    </section>
+
+    <!-- NEW: Contact block -->
+    <section class="about-card contact-info" id="contact">
       <h2>Contact Freedom Crate Co.</h2>
       <p class="muted">Have a question, custom request, or wholesale inquiry? We’d love to hear from you.</p>
-      <ul style="list-style:none;padding:0;line-height:1.8;">
+      <ul>
         <li><strong>Email:</strong> <a href="mailto:support@freedomcrateco.com">support@freedomcrateco.com</a></li>
-        <li><strong>Follow Us:</strong> 
-          <a href="https://tiktok.com/@freedomcrateco" target="_blank">TikTok</a> • 
-          <a href="https://instagram.com/freedomcrateco" target="_blank">Instagram</a> • 
-          <a href="https://facebook.com/freedomcrateco" target="_blank">Facebook</a>
+        <li class="socials"><strong>Follow Us:</strong>
+          <a href="https://tiktok.com/@freedomcrateco" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://instagram.com/freedomcrateco" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://facebook.com/freedomcrateco" target="_blank" rel="noopener">Facebook</a>
         </li>
       </ul>
-      <p class="muted">
-        <em>The best way to support our mission is by sharing Freedom Crate Co. with fellow patriots, or picking up a handcrafted box for yourself.</em>
-      </p>
+      <p class="muted"><em>The best way to support our mission is by sharing Freedom Crate Co. with fellow patriots, or picking up a handcrafted box for yourself.</em></p>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <span class="badge">US Veteran-inspired • Florida-built</span>
-    </div>
-  </footer>
+  <footer class="site-footer"><div class="container">
+    <span class="badge">US Veteran-inspired • Florida-built</span>
+  </div></footer>
 
-  <!-- Scripts -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
+  <script>
+    // Minimal lightbox
+    const grid = document.getElementById('galleryGrid');
+    const dialog = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    grid?.addEventListener('click', (e) => {
+      const t = e.target;
+      if (t && t.tagName === 'IMG') { img.src = t.dataset.full || t.src; dialog.showModal(); }
+    });
+    dialog?.addEventListener('click', (e) => { if (e.target.hasAttribute('data-close') || e.target === dialog) dialog.close(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dialog?.open) dialog.close(); });
+  </script>
+
+  <!-- BreadcrumbList JSON-LD for About page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://freedomcrateco.com/"},
+      {"@type":"ListItem","position":2,"name":"About","item":"https://freedomcrateco.com/about.html"}
+    ]
+  }
+  </script>
 </body>
 </html>
