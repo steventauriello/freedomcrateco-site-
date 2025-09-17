@@ -7,6 +7,34 @@
   <meta name="description" content="Customer reviews for Freedom Crate Co.">
   <link rel="canonical" href="https://freedomcrateco.com/reviews.html">
   <link rel="stylesheet" href="assets/css/styles.css?v=10" />
+
+<style>
+  /* Page-only review photo layout */
+  .review-card.has-photo {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .75rem;
+    align-items: start;
+  }
+  .review-card .review-photo { display: none; }       /* hidden on mobile */
+  .review-card .photo-toggle { display: inline-block; font-size: .9rem; opacity: .85; }
+
+  .review-card .review-photo img {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover; border-radius: 10px;
+  }
+
+  /* Desktop/tablet: show thumbnail, hide tiny link */
+  @media (min-width: 900px) {
+    .review-card.has-photo { grid-template-columns: 1fr 220px; }
+    .review-card .review-photo { display: block; justify-self: end; width: 220px; max-height: 160px; overflow: hidden; }
+    .review-card .photo-toggle { display: none; }
+  }
+
+  /* Stars line (optional tidy) */
+  .review-card .meta { display: block; margin-bottom: .25rem; opacity: .9; }
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -34,9 +62,22 @@
   <p>“Awesome retirement gift I’m proud to present to my friend next week! I didn’t need customer service but liked the personal note on my invoice. I hope they are back in stock in the future because I plan to buy one for myself!”</p>
 </div>
 
-<div class="review-card">
+<div class="review-card has-photo">
   <span class="meta">★★★★★ — Kelly McDevitt-Smith. (Etsy)</span>
   <p>“My marine husband was very happy with his birthday present. It is well made, high quality, and it shipped quickly. Thank you!”</p>
+
+  <!-- Tiny link for phones -->
+  <a class="photo-toggle" href="assets/img/reviews/kelly-box-1280.jpg" data-lightbox title="View photo">See photo</a>
+
+  <!-- Desktop thumbnail on the right -->
+  <a class="review-photo" href="assets/img/reviews/kelly-box-1280.jpg" data-lightbox aria-label="Open larger photo">
+    <img
+      src="assets/img/reviews/kelly-box-320.jpg"
+      srcset="assets/img/reviews/kelly-box-320.jpg 320w, assets/img/reviews/kelly-box-640.jpg 640w"
+      sizes="(min-width: 900px) 220px"
+      alt="Kelly’s Freedom Crate Co. box"
+      loading="lazy" width="320" height="240">
+  </a>
 </div>
 
 <div class="review-card">
