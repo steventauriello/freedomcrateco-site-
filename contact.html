@@ -27,7 +27,18 @@
     <h1>Request a Custom Order</h1>
     <p class="muted">Want a box personalized with your own stencils, colors, or hardware? Fill out the form below and we’ll get back to you.</p>
 
-   <form id="customOrderForm" class="form">
+   <form
+  id="customOrderForm"
+  class="form"
+  name="custom-order"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  action="/thanks.html">
+  <input type="hidden" name="form-name" value="custom-order">
+  <p class="hidden" style="display:none">
+    <label>Don’t fill this out: <input name="bot-field"></label>
+  </p>
   <div>
     <label for="name">Your Name</label>
     <input type="text" id="name" name="name" required>
