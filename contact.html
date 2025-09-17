@@ -106,5 +106,26 @@
       e.target.reset();
     });
   </script>
+  <script>
+  (function(){
+    const boxType = document.getElementById('boxType');
+    const classicWrap = document.getElementById('classicOptions');
+    const branchEl = document.getElementById('branch');
+    const hardwareEl = document.getElementById('hardware');
+
+    function updateClassicVisibility(){
+      const isClassic = boxType.value === 'classic';
+      classicWrap.hidden = !isClassic;
+      [branchEl, hardwareEl].forEach(el => {
+        el.disabled = !isClassic;
+        el.required = isClassic;
+        if (!isClassic) el.value = '';
+      });
+    }
+
+    boxType.addEventListener('change', updateClassicVisibility);
+    updateClassicVisibility();
+  })();
+</script>
 </body>
 </html>
