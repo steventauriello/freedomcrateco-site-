@@ -12,7 +12,7 @@
   /* Review layout: text left, photo right */
   .review-card.has-photo {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;   /* mobile = single column */
     gap: 1rem;
     align-items: start;
     margin-bottom: 2rem;
@@ -31,7 +31,7 @@
 
   .review-card .review-photo img {
     display: block;
-    width: 100%;
+    max-width: 160px;   /* make the photo small; change to 140px/120px if you want */
     height: auto;
     object-fit: cover;
     border-radius: 10px;
@@ -39,13 +39,17 @@
 
   /* Desktop/tablet: two columns; show photo, hide tiny link */
   @media (min-width: 900px) {
-    .review-card.has-photo { grid-template-columns: 1fr 220px; }
-    .review-card .review-photo { display: block; justify-self: end; }
+    .review-card.has-photo { grid-template-columns: auto 160px; }  /* text auto, photo fixed */
+    .review-card .review-photo { display: block; justify-self: start; }
     .review-card .photo-toggle { display: none; }
   }
 
   /* Stars/name line */
-  .review-card .meta { display: block; margin-bottom: .25rem; opacity: .9; }
+  .review-card .meta {
+    display: block;
+    margin-bottom: .25rem;
+    opacity: .9;
+  }
 </style>
 </head>
 <body>
