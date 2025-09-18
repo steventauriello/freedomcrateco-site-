@@ -760,3 +760,11 @@ input[type="number"]::-webkit-inner-spin-button {
 .bullets, .specs{ margin: .25rem 0 .75rem 1.1rem; }
 .bullets li + li, .specs li + li{ margin-top: .35rem; }
 .details-actions{ display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .5rem; }
+/* Skip link (visually hidden until keyboard focus) */
+.skip-link{
+  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+}
+.skip-link:focus{
+  position:static; width:auto; height:auto; padding:.5rem;
+  background:#000; color:#fff; border-radius:.25rem;
+}
