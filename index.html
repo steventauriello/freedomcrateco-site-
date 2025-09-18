@@ -24,9 +24,7 @@
 
   <link rel="stylesheet" href="assets/css/styles.css" />
 
-
-
-  <!-- Organization JSON-LD (homepage) -->
+  <!-- Organization JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -34,34 +32,30 @@
     "name": "Freedom Crate Co.",
     "url": "https://freedomcrateco.com/",
     "logo": "https://freedomcrateco.com/assets/img/logo.png",
-    "sameAs": [
-      "https://www.etsy.com/shop/YourShopIfAny",
-      "https://www.ebay.com/usr/YourEbayIfAny"
-    ]
+    "sameAs": []
   }
   </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Header -->
   <header class="site-header">
     <a class="brand" href="index.html">
       <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
     </a>
-<nav class="nav" aria-label="Primary">
-  <!-- Left group -->
-  <a href="index.html" aria-current="page">Shop</a>
-  <a href="about.html">About</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="reviews.html">Reviews</a>
-  <a href="contact.html">Custom Orders</a>
-
-  <!-- Right: Cart -->
-  <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
-</nav>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" aria-current="page">Shop</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Custom Orders</a>
+      <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
+    </nav>
   </header>
 
   <main class="container" id="main">
+    <!-- Title strip + hero -->
     <div class="site-title-strip" role="region" aria-label="Brand Intro">
       <h1>Freedom Crate Co.</h1>
       <p>Handcrafted Ammo &amp; Range Boxes</p>
@@ -70,17 +64,19 @@
 
     <section class="hero-banner" aria-label="Hero"></section>
 
-    <!-- Featured product with live branch preview (no personalization) -->
-    <section class="featured-wrap" aria-label="Featured Product">
+    <!-- ========================= -->
+    <!-- Featured: Freedom Crate Classic -->
+    <!-- ========================= -->
+    <section class="featured-wrap" aria-label="Freedom Crate Classic">
       <div class="featured-card" id="classic-box">
         <div class="fc-media">
-          <!-- Added width/height + decoding to prevent CLS -->
           <img id="sb-image"
                src="assets/img/blank.jpg"
                alt="Freedom Crate Classic live preview"
                loading="lazy" decoding="async"
                width="1200" height="800">
         </div>
+
         <div class="fc-controls">
           <h2>Freedom Crate Classic</h2>
           <div class="branch-label">Branch Collection</div>
@@ -121,72 +117,73 @@
         </div>
       </div>
     </section>
-    
-    <!-- Featured product: Rangemaster 400 -->
-<section class="featured-wrap" aria-label="Rangemaster 400 Options">
-  <div class="featured-card" id="rm400-card">
-    <div class="fc-media">
-      <!-- Default (closed) image on first load -->
-      <img id="rm400-image"
-           src="assets/img/rm400-top.jpg"
-           alt="Rangemaster 400 — Closed"
-           loading="lazy" decoding="async"
-           width="1200" height="800">
-    </div>
 
-    <div class="fc-controls">
-      <h2>Rangemaster 400</h2>
-      <p class="fc-note">Choose your package to preview instantly.</p>
-
-      <label for="rm400-package">Package</label>
-      <select id="rm400-package" aria-describedby="rm400-help">
-        <option value="base"
-                data-sku="RM400-BASE"
-                data-price="49.99"
-                data-img="assets/img/rm400-open.jpg">
-          Rangemaster 400 (Base)
-        </option>
-        <option value="armor"
-                data-sku="RM400-ARMOR"
-                data-price="59.99"
-                data-img="assets/img/rm400-armor-core.jpg">
-          Rangemaster 400 — Armor Core (bed-liner interior)
-        </option>
-        <option value="battleguard"
-                data-sku="RM400-BG"
-                data-price="69.99"
-                data-img="assets/img/rm400-battle-guard.jpg">
-          Rangemaster 400 — Battle Guard (protective exterior)
-        </option>
-      </select>
-      <p id="rm400-help" class="sr-only" aria-hidden="true"></p>
-
-      <label>Hardware (both lockable)</label>
-      <div role="group" aria-label="Hardware finish">
-        <div class="option-row">
-          <label><input type="radio" name="rm400-hw" class="rm400-hw" value="Stainless" data-code="STN" checked> Original Stainless Toggle Latches</label>
+    <!-- ========================= -->
+    <!-- Featured: Rangemaster 400 -->
+    <!-- ========================= -->
+    <section class="featured-wrap" aria-label="Rangemaster 400 Options">
+      <div class="featured-card" id="rm400-card">
+        <div class="fc-media">
+          <img id="rm400-image"
+               src="assets/img/rm400-top.jpg"
+               alt="Rangemaster 400 — Closed"
+               loading="lazy" decoding="async"
+               width="1200" height="800">
         </div>
-        <div class="option-row">
-          <label><input type="radio" name="rm400-hw" class="rm400-hw" value="Black" data-code="BLK"> Black Toggle Latches</label>
+
+        <div class="fc-controls">
+          <h2>Rangemaster 400</h2>
+          <p class="fc-note">Choose your package to preview instantly.</p>
+
+          <label for="rm400-package">Package</label>
+          <select id="rm400-package" aria-describedby="rm400-help">
+            <option value="base"
+                    data-sku="RM400-BASE"
+                    data-price="49.99"
+                    data-img="assets/img/rm400-open.jpg">
+              Rangemaster 400 (Base)
+            </option>
+            <option value="armor"
+                    data-sku="RM400-ARMOR"
+                    data-price="59.99"
+                    data-img="assets/img/rm400-armor-core.jpg">
+              Rangemaster 400 — Armor Core (bed-liner interior)
+            </option>
+            <option value="battleguard"
+                    data-sku="RM400-BG"
+                    data-price="69.99"
+                    data-img="assets/img/rm400-battle-guard.jpg">
+              Rangemaster 400 — Battle Guard (protective exterior)
+            </option>
+          </select>
+          <p id="rm400-help" class="sr-only" aria-hidden="true"></p>
+
+          <label>Hardware (both lockable)</label>
+          <div role="group" aria-label="Hardware finish">
+            <div class="option-row">
+              <label><input type="radio" name="rm400-hw" class="rm400-hw" value="Stainless" data-code="STN" checked> Original Stainless Toggle Latches</label>
+            </div>
+            <div class="option-row">
+              <label><input type="radio" name="rm400-hw" class="rm400-hw" value="Black" data-code="BLK"> Black Toggle Latches</label>
+            </div>
+          </div>
+
+          <div class="fc-row">
+            <div><strong>Total: <span id="rm400-price" aria-live="polite">$49.99</span></strong></div>
+            <small class="fc-note">Base $49.99</small>
+          </div>
+
+          <div class="fc-row">
+            <button id="rm400-add" class="fc-btn btn" type="button">Add to Cart</button>
+            <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
+          </div>
+
+          <p class="fc-note">Armor Core = interior bed liner. Battle Guard = exterior protective coating. Free shipping.</p>
         </div>
       </div>
+    </section>
 
-      <div class="fc-row">
-        <div><strong>Total: <span id="rm400-price" aria-live="polite">$49.99</span></strong></div>
-        <small class="fc-note">Base $49.99</small>
-      </div>
-
-      <div class="fc-row">
-        <button id="rm400-add" class="fc-btn btn" type="button">Add to Cart</button>
-        <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
-      </div>
-
-      <p class="fc-note">Armor Core = interior bed liner. Battle Guard = exterior protective coating. Free shipping.</p>
-    </div>
-  </div>
-</section>
-
-    <!-- Grid rendered by catalog.js -->
+    <!-- Product grid (small cards) -->
     <section id="products" class="grid" aria-live="polite"></section>
   </main>
 
@@ -197,7 +194,7 @@
     </div>
   </footer>
 
-    <!-- Script order (IMPORTANT) -->
+  <!-- Scripts (order matters) -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/inventory.js" defer></script>
@@ -205,7 +202,7 @@
   <script src="assets/js/cart.js" defer></script>
   <script src="assets/js/catalog.js" defer></script>
 
-  <!-- Featured logic (scoped to this page) -->
+  <!-- Page-scoped featured card logic -->
   <script>
   // --- Freedom Crate Classic (Branch Collection) ---
   (function(){
@@ -233,7 +230,6 @@
     const getLatch = () => (latchInputs.find(x=>x.checked)?.value || 'Stainless');
 
     function preload(){ Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; }); }
-
     function updateImage(){
       const v = branch.value;
       imgEl.classList.add('is-loading');
@@ -247,7 +243,6 @@
       };
       tmp.src = next;
     }
-
     function animatePrice(from,to,ms=200){
       const t0 = performance.now();
       const step = (t)=>{
@@ -257,17 +252,13 @@
       };
       requestAnimationFrame(step);
     }
-
     function calcTotal(animate=true){
       const target = BASE + (LATCH_PRICE[getLatch()]||0);
       const current = Number(String(priceEl.textContent).replace(/[^0-9.]/g,'')) || BASE;
       if (animate) animatePrice(current, target); else priceEl.textContent = fmt(target);
     }
-
     function saveState(){
-      try {
-        localStorage.setItem(KEY, JSON.stringify({ branch: branch.value, latch: getLatch() }));
-      } catch(_) {}
+      try { localStorage.setItem(KEY, JSON.stringify({ branch: branch.value, latch: getLatch() })); } catch(_) {}
     }
     function restoreState(){
       try{
@@ -276,7 +267,6 @@
         if (s.latch)  latchInputs.forEach(r=>r.checked = (r.value===s.latch));
       }catch(_){}
     }
-
     function buildSkuName(){
       const bVal = branch.value;
       const bTxt = branch.options[branch.selectedIndex].text;
@@ -285,7 +275,6 @@
       const name = `Freedom Crate Classic — ${bTxt} • ${lTxt}`;
       return { sku, name };
     }
-
     function addToCartSafe(sku, name, price, qty, meta){
       if (typeof window.addToCart === 'function') return window.addToCart(sku, name, price, qty, meta);
       console.warn('Cart not ready: addToCart() missing');
@@ -295,13 +284,10 @@
       console.warn('Cart not ready: buyNow() missing');
     }
 
-    // Init
+    // Init + events
     restoreState(); preload(); updateImage(); calcTotal(false);
-
-    // Events
     branch.addEventListener('change', ()=>{ updateImage(); calcTotal(); saveState(); });
     latchInputs.forEach(r => r.addEventListener('change', ()=>{ calcTotal(); saveState(); }));
-
     addBtn.addEventListener('click', () => {
       const { sku, name } = buildSkuName();
       const price = Number(String(priceEl.textContent).replace(/[^0-9.]/g,'')) || BASE;
@@ -324,17 +310,15 @@
     const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
 
     const fmt  = (n) => '$' + Number(n).toFixed(2);
-    const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 
-    if (!pkgSel || !priceEl || !imgEl) return; // guard if card not present
+    if (!pkgSel || !priceEl || !imgEl) return;
 
     function getPkg(){ return pkgSel.options[pkgSel.selectedIndex]; }
     function getHW(){ return hwInputs.find(x=>x.checked)?.value || 'Stainless'; }
 
     function updateView(){
       const pkg = getPkg();
-      const price = Number(pkg.dataset.price);
-      priceEl.textContent = fmt(price);
+      priceEl.textContent = fmt(Number(pkg.dataset.price));
       if (pkg.dataset.img){
         const next = pkg.dataset.img;
         const tmp = new Image();
@@ -342,24 +326,12 @@
         tmp.src = next;
       }
     }
-  // Preload RM400 images
-  function preloadRm400(){
-  const imgs = [
-    "assets/img/rm400-top.jpg",         // default closed image
-    "assets/img/rm400-open.jpg",        // base option (inside)
-    "assets/img/rm400-armor-core.jpg",  // armor core (inside painted)
-    "assets/img/rm400-battle-guard.jpg" // battle guard (exterior coated)
-  ];
-  imgs.forEach(src => { const im = new Image(); im.src = src; });
-}
     function buildSkuName(){
       const pkg = getPkg();
       const hw  = getHW();
-      const sku = `${pkg.dataset.sku}-${(hw === 'Stainless' ? 'STN' : 'BLK')}`;
-      const name = `${pkg.text} • ${hw}`;
-      return { sku, name, price: Number(pkg.dataset.price) };
+      const code = (hw === 'Stainless' ? 'STN' : 'BLK');
+      return { sku: `${pkg.dataset.sku}-${code}`, name: `${pkg.text} • ${hw}`, price: Number(pkg.dataset.price) };
     }
-
     function addToCartSafe(sku, name, price, qty, meta){
       if (typeof window.addToCart === 'function') return window.addToCart(sku, name, price, qty, meta);
       console.warn('Cart not ready: addToCart() missing');
@@ -369,14 +341,14 @@
       console.warn('Cart not ready: buyNow() missing');
     }
 
-    // Init
+    // init
     updateView();
-    preloadRm400();
+    ["assets/img/rm400-top.jpg","assets/img/rm400-open.jpg","assets/img/rm400-armor-core.jpg","assets/img/rm400-battle-guard.jpg"]
+      .forEach(src => { const im = new Image(); im.src = src; });
 
-    // Events
+    // events
     pkgSel.addEventListener('change', updateView);
     hwInputs.forEach(r => r.addEventListener('change', updateView));
-
     addBtn.addEventListener('click', () => {
       const { sku, name, price } = buildSkuName();
       addToCartSafe(sku, name, price, 1, { image: imgEl.src });
@@ -387,95 +359,7 @@
     });
   })();
   </script>
-  <!-- RM400 Details & Specs -->
-<section class="details-wrap" id="rm400-details">
-  <div class="details-card">
-    <button class="details-toggle" type="button" aria-expanded="true" aria-controls="rm400-body">
-      <span>Rangemaster 400 — Details &amp; Specs</span>
-      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/>
-      </svg>
-    </button>
 
-    <div class="details-body" id="rm400-body">
-      <div class="details-grid">
-        <!-- Left: media -->
-        <div class="details-media">
-          <img id="rm400-detail-img"
-               src="assets/img/rm400-top.jpg"
-               alt="Rangemaster 400 (closed)"
-               loading="lazy" decoding="async">
-          <div class="thumbs-mini" role="group" aria-label="Image thumbnails">
-            <button type="button" data-img="assets/img/rm400-top.jpg" class="active">Closed</button>
-            <button type="button" data-img="assets/img/rm400-open.jpg">Base (inside)</button>
-            <button type="button" data-img="assets/img/rm400-armor-core.jpg">Armor Core</button>
-            <button type="button" data-img="assets/img/rm400-battle-guard.jpg">Battle Guard</button>
-          </div>
-        </div>
-
-        <!-- Right: info -->
-        <div class="details-info">
-          <p class="lede">
-            The Rangemaster 400 is a compact, hand-built range box sized for fast setup and easy carry. 
-            Choose your protection package to fit how you use it.
-          </p>
-
-          <h4>What it’s made of</h4>
-          <ul class="bullets">
-            <li>Handcrafted wood construction, glued and fastened for durability.</li>
-            <li>Lockable metal toggle latches (choose Original Stainless or Black).</li>
-            <li>Ergonomic carry handle; rugged hinges.</li>
-          </ul>
-
-          <h4>Packages explained</h4>
-          <ul class="bullets">
-            <li><strong>Base:</strong> Raw wood interior/exterior, ready to use as-is or finish yourself.</li>
-            <li><strong>Armor Core:</strong> Adds a truck-bed-liner style coating to the <em>interior</em> for impact and spill resistance.</li>
-            <li><strong>Battle Guard:</strong> Adds a protective coating to the <em>exterior</em> for weather and scuff resistance.</li>
-          </ul>
-
-          <h4>Good to know</h4>
-          <ul class="bullets">
-            <li>Capacity: designed to keep ammo, ear/eye pro, and small range essentials organized.</li>
-            <li>Made in Florida. Free shipping; some orders ship in two packages (you’ll get both tracking numbers).</li>
-          </ul>
-
-          <!-- Optional: quick actions that mirror the top card -->
-          <div class="details-actions">
-            <button class="btn" id="rm400-details-add" type="button">Add selected package</button>
-            <button class="btn ghost" id="rm400-details-buy" type="button">Buy selected package</button>
-          </div>
-
-          <small class="inline-hint">
-            The actions above use whatever options you picked in the RM400 box selector.
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<script>
-(() => {
-  // Thumbnail swapper
-  const detailImg = document.getElementById('rm400-detail-img');
-  document.querySelectorAll('#rm400-details .thumbs-mini button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('#rm400-details .thumbs-mini button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const src = btn.getAttribute('data-img');
-      const tmp = new Image();
-      tmp.onload = () => { detailImg.src = src; detailImg.alt = btn.textContent.trim(); };
-      tmp.src = src;
-    });
-  });
-
-  // Proxy Details actions to the main RM400 buttons (uses current selections)
-  const clickById = id => document.getElementById(id)?.click();
-  document.getElementById('rm400-details-add')?.addEventListener('click', () => clickById('rm400-add'));
-  document.getElementById('rm400-details-buy')?.addEventListener('click', () => clickById('rm400-buy'));
-})();
-</script>
-  <!-- Screen-reader announcer -->
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
