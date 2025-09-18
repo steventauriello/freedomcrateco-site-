@@ -163,18 +163,50 @@
         </p>
       </section>
 
-      <!-- ===== Dynamic block (Rangemaster 400, etc.) ===== -->
-      <section class="product-detail" id="dynamicBlock" hidden>
-        <div class="gallery"></div>
-        <h1 id="p-title-2"></h1>
-        <p id="p-desc-2" class="muted"></p>
-        <p class="price"><strong id="p-price-2"></strong></p>
-        <div class="actions">
-          <button id="addBtn2" class="btn" type="button">Add to Cart</button>
-          <button id="buyBtn2" class="btn" type="button">Buy Now</button>
-        </div>
-      </section>
+      <!-- ===== Rangemaster 400 block ===== -->
+<section class="product-detail" id="rm400Block" aria-labelledby="rm400-title">
+  <img class="product-hero" id="rm400Img"
+       src="assets/img/rm400-base.jpg"
+       alt="Rangemaster 400 (Base)"
+       width="1200" height="800" decoding="async" loading="lazy">
 
+  <h1 id="rm400-title">Rangemaster 400</h1>
+  <div class="branch-label">Options</div>
+  <p class="muted">Choose your protection package and hardware.</p>
+
+  <!-- Package -->
+  <label for="rm400Variant">Package</label>
+  <select id="rm400Variant" name="rm400Variant">
+    <option value="base" data-sku="RM400-BASE" data-price="49.99" data-img="assets/img/rm400-base.jpg">
+      Rangemaster 400 (Base)
+    </option>
+    <option value="armor" data-sku="RM400-ARMOR" data-price="59.99" data-img="assets/img/rm400-armor-core.jpg">
+      Rangemaster 400 — Armor Core (bed-liner interior)
+    </option>
+    <option value="battleguard" data-sku="RM400-BG" data-price="69.99" data-img="assets/img/rm400-battle-guard.jpg">
+      Rangemaster 400 — Battle Guard (protective exterior)
+    </option>
+  </select>
+
+  <!-- Hardware (same price for now) -->
+  <label for="rm400Hardware">Hardware</label>
+  <select id="rm400Hardware" name="rm400Hardware">
+    <option value="stainless" data-code="STN">Original Stainless Hardware</option>
+    <option value="black" data-code="BLK">Black Hardware</option>
+  </select>
+
+  <p class="price"><strong><span id="rm400Price" aria-live="polite">$49.99</span></strong></p>
+
+  <div class="actions">
+    <button id="rm400Add" class="btn" type="button">Add to Cart</button>
+    <button id="rm400Buy" class="btn" type="button">Buy Now</button>
+  </div>
+
+  <p class="muted">
+    Base = raw wood. Armor Core adds truck-bed-liner to the <em>interior</em>.
+    Battle Guard adds the protective <em>exterior</em> coating.
+  </p>
+</section>
     </div>
   </main>
 
