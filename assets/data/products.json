@@ -10,7 +10,7 @@
       "assets/img/freedom-footlocker-3.jpg"
     ],
     "tags": ["footlocker", "classic"],
-    "description": "The Freedom Footlocker is our largest handcrafted ammo box, built from durable 1/2-inch plywood to balance strength with reduced weight. Designed with dual removable compartments for organized storage, it offers an impressive interior capacity of 20 1/4\" wide × 10\" long × 8\" deep. Each Footlocker is crafted in limited quantities due to the time and material required. Available occasionally as stock permits or by custom request.""
+    "description": "The Freedom Footlocker is our largest handcrafted ammo box, built from durable 1/2-inch plywood to balance strength with reduced weight. Designed with dual removable compartments for organized storage, it offers an impressive interior capacity of 20 1/4\" wide × 10\" long × 8\" deep. Crafted in limited quantities due to the time and material required—available occasionally as stock permits or by custom request."
   },
   "FC-RB-300": {
     "status": "active",
@@ -38,7 +38,7 @@
       "assets/img/rm400.jpg"
     ],
     "tags": ["range", "9mm"],
-    "description": "Holds ~1000 rounds 9mm with sliding shelf; sold out example."
+    "description": "Holds ~1000 rounds 9mm with sliding shelf."
   },
   "FC-RM-400": {
     "status": "active",
@@ -54,7 +54,7 @@
       "assets/img/rm400-top.jpg"
     ],
     "tags": ["range", "400"],
-    "description": "Up to 400 rounds in one compact carry; no mess. Just open-load-shoot-close. Small enough to grab and go, big enough to store ammo for the day."
+    "description": "Up to 400 rounds in one compact carry; open–load–shoot–close."
   },
   "FC-CLASSIC": {
     "status": "active",
@@ -68,6 +68,6 @@
       "assets/img/rm400.jpg"
     ],
     "tags": ["classic", "freedom", "ammo-box"],
-    "description": "The original handcrafted ammo box that launched Freedom Crate Co. Built for durability and timeless style, measurements based on a real Cold War-era ammunition box. Holds 1,000 rounds of 9mm. Interior dimensions: 11\" wide × 8¼\" long × 5½\" deep."
+    "description": "The original handcrafted ammo box that launched Freedom Crate Co."
   }
 }
