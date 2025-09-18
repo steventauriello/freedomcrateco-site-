@@ -50,6 +50,12 @@
     margin-bottom: .25rem;
     opacity: .9;
   }
+  /* ensure the photo link wins the click + shows zoom cursor */
+.review-card .review-photo { position: relative; z-index: 1; cursor: zoom-in; }
+.review-card .photo-toggle  { cursor: zoom-in; }
+
+/* belt-and-suspenders: make the dialog overlay everything */
+.lightbox { z-index: 9999; }
 </style>
 </head>
 <body>
@@ -178,27 +184,40 @@
 <dialog id="lb" class="lightbox"><img alt=""></dialog>
 <script>
   (function () {
-    const lb = document.getElementById('lb');
-    const img = lb.querySelector('img');
+    const lb  = document.getElementById('lb');
+    const img = lb ? lb.querySelector('img') : null;
+    const supportsDialog = typeof HTMLDialogElement === 'function' &&
+                           'showModal' in HTMLDialogElement.prototype;
 
-    function openLightbox(url, alt) {
-      img.src = url;
-      img.alt = alt || 'Review photo';
-      if (!lb.open) lb.showModal();
-    }
-
+    // Use capture so we run before other handlers that might stop the click
     document.addEventListener('click', (e) => {
-      const a = e.target.closest('a[data-lightbox]');
+      const el = e.target;
+      if (!el) return;
+      const a = el.closest && el.closest('a[data-lightbox]');
       if (!a) return;
-      e.preventDefault();
-      openLightbox(
-        a.href,
-        a.getAttribute('aria-label') || a.title || a.querySelector('img')?.alt
-      );
-    });
 
-    lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.open) lb.close(); });
+      e.preventDefault();
+      const url = a.getAttribute('href');
+      const alt = a.getAttribute('aria-label') || a.title ||
+                  (a.querySelector && a.querySelector('img')?.alt) ||
+                  'Review photo';
+
+      if (supportsDialog && lb && img) {
+        img.src = url;
+        img.alt = alt;
+        lb.showModal();
+      } else {
+        // Fallback: open the image in a new tab/window
+        window.open(url, '_blank');
+      }
+    }, true); // <-- capture phase
+
+    if (lb) {
+      lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.open) lb.close();
+      });
+    }
   })();
 </script>
 <style>
