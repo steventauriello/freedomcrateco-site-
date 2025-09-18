@@ -1,7 +1,7 @@
 {
   "FC-FOOTLOCKER": {
     "status": "active",
-    "title": "Footlocker Ammo Box",
+    "title": "Freedom Footlocker",
     "price": 189,
     "qty": 0,
     "image_url": "assets/img/freedom-footlocker.jpg",
@@ -11,7 +11,7 @@
     
     ],
     "tags": ["footlocker", "classic"],
-    "description": "Lightweight 15/32 sheathing ply, dual removable trays."
+    "description": "Lightweight 1/2" plywood, dual removable trays, lockable stainless hardware."
   },
   "FC-RB-300": {
     "status": "active",
