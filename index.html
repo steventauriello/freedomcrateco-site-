@@ -414,7 +414,15 @@
         tmp.src = next;
       }
     }
-
+  // Preload RM400 images
+  function preloadRm400(){
+    const imgs = [
+      "assets/img/rm400-base.jpg",
+      "assets/img/rm400-armor-core.jpg",
+      "assets/img/rm400-battle-guard.jpg"
+    ];
+    imgs.forEach(src => { const im = new Image(); im.src = src; });
+  }
     function buildSkuName(){
       const pkg = getPkg();
       const hw  = getHW();
