@@ -86,9 +86,12 @@
     const sku = params.get('sku');
 
     // load products from data.js
-    const all = await (window.FC?.loadProducts?.() || Promise.resolve([]));
-    const P = all.find(p => String(p.sku) === String(sku));
-
+    // wait until data.js has attached FC.loadProducts
+while (!window.FC || typeof window.FC.loadProducts !== 'function') {
+  await new Promise(r => setTimeout(r, 10));
+}
+const all = await window.FC.loadProducts();
+const P = all.find(p => String(p.sku) === String(sku));
     if (!P) { location.href = 'index.html'; return; }
 
     // DOM
