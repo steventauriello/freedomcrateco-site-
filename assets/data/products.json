@@ -1,10 +1,15 @@
 {
-  "FC-FOOTLOCKER-V2": {
+  "FC-FOOTLOCKER": {
     "status": "active",
-    "title": "Footlocker Ammo Box V2",
+    "title": "Footlocker Ammo Box",
     "price": 189,
     "qty": 0,
     "image_url": "assets/img/freedom-footlocker.jpg",
+    "images": [
+      "assets/img/rm400.jpg",
+      "assets/img/rm400.jpg",
+      "assets/img/rm400.jpg"
+    ],
     "tags": ["footlocker", "classic"],
     "description": "Lightweight 15/32 sheathing ply, dual removable trays."
   },
@@ -14,6 +19,11 @@
     "price": 49.99,
     "qty": 0,
     "image_url": "assets/img/rm400.jpg",
+    "images": [
+      "assets/img/rm400.jpg",
+      "assets/img/rm400.jpg",
+      "assets/img/rm400.jpg"
+    ],
     "tags": ["range", "compact"],
     "description": "Compact box sized for three 4x4x2 trays."
   },
@@ -23,31 +33,41 @@
     "price": 89.99,
     "qty": 0,
     "image_url": "assets/img/rm400.jpg",
+    "images": [
+      "assets/img/rm400.jpg",
+      "assets/img/rm400.jpg",
+      "assets/img/rm400.jpg"
+    ],
     "tags": ["range", "9mm"],
     "description": "Holds ~1000 rounds 9mm with sliding shelf; sold out example."
   },
   "FC-RM-400": {
-  "status": "active",
-  "title": "Rangemaster 400",
-  "price": 0.10,
-  "qty": 10,
-  "image_url": "assets/img/rm400.jpg",
-  "images": [
-    "assets/img/rm400.jpg",
-    "assets/img/rm400-back.jpg",
-    "assets/img/rm400-carry.jpg",
-    "assets/img/rm400-open.jpg",
-    "assets/img/rm400-top.jpg"
-  ],
-  "tags": ["range", "400"],
-  "description": "Up to 400 rounds in one compact carry; no mess. Just open-load-shoot-close. Small enough to grab and go, big enough to store ammo for the day."
-},
+    "status": "active",
+    "title": "Rangemaster 400",
+    "price": 0.10,
+    "qty": 10,
+    "image_url": "assets/img/rm400.jpg",
+    "images": [
+      "assets/img/rm400.jpg",
+      "assets/img/rm400-back.jpg",
+      "assets/img/rm400-carry.jpg",
+      "assets/img/rm400-open.jpg",
+      "assets/img/rm400-top.jpg"
+    ],
+    "tags": ["range", "400"],
+    "description": "Up to 400 rounds in one compact carry; no mess. Just open-load-shoot-close. Small enough to grab and go, big enough to store ammo for the day."
+  },
   "FC-CLASSIC": {
     "status": "active",
     "title": "Freedom Crate Classic",
     "price": 94.99,
     "qty": 3,
     "image_url": "assets/img/blank.jpg",
+    "images": [
+      "assets/img/rm400.jpg",
+      "assets/img/rm400.jpg",
+      "assets/img/rm400.jpg"
+    ],
     "tags": ["classic", "freedom", "ammo-box"],
     "description": "The original handcrafted ammo box that launched Freedom Crate Co. Built for durability and timeless style, measurements based on a real Cold War-era ammunition box. Holds 1,000 rounds of 9mm. Interior dimensions: 11\" wide × 8¼\" long × 5½\" deep."
   }
