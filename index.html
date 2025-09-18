@@ -387,7 +387,94 @@
     });
   })();
   </script>
+  <!-- RM400 Details & Specs -->
+<section class="details-wrap" id="rm400-details">
+  <div class="details-card">
+    <button class="details-toggle" type="button" aria-expanded="true" aria-controls="rm400-body">
+      <span>Rangemaster 400 — Details &amp; Specs</span>
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </button>
 
+    <div class="details-body" id="rm400-body">
+      <div class="details-grid">
+        <!-- Left: media -->
+        <div class="details-media">
+          <img id="rm400-detail-img"
+               src="assets/img/rm400-top.jpg"
+               alt="Rangemaster 400 (closed)"
+               loading="lazy" decoding="async">
+          <div class="thumbs-mini" role="group" aria-label="Image thumbnails">
+            <button type="button" data-img="assets/img/rm400-top.jpg" class="active">Closed</button>
+            <button type="button" data-img="assets/img/rm400-open.jpg">Base (inside)</button>
+            <button type="button" data-img="assets/img/rm400-armor-core.jpg">Armor Core</button>
+            <button type="button" data-img="assets/img/rm400-battle-guard.jpg">Battle Guard</button>
+          </div>
+        </div>
+
+        <!-- Right: info -->
+        <div class="details-info">
+          <p class="lede">
+            The Rangemaster 400 is a compact, hand-built range box sized for fast setup and easy carry. 
+            Choose your protection package to fit how you use it.
+          </p>
+
+          <h4>What it’s made of</h4>
+          <ul class="bullets">
+            <li>Handcrafted wood construction, glued and fastened for durability.</li>
+            <li>Lockable metal toggle latches (choose Original Stainless or Black).</li>
+            <li>Ergonomic carry handle; rugged hinges.</li>
+          </ul>
+
+          <h4>Packages explained</h4>
+          <ul class="bullets">
+            <li><strong>Base:</strong> Raw wood interior/exterior, ready to use as-is or finish yourself.</li>
+            <li><strong>Armor Core:</strong> Adds a truck-bed-liner style coating to the <em>interior</em> for impact and spill resistance.</li>
+            <li><strong>Battle Guard:</strong> Adds a protective coating to the <em>exterior</em> for weather and scuff resistance.</li>
+          </ul>
+
+          <h4>Good to know</h4>
+          <ul class="bullets">
+            <li>Capacity: designed to keep ammo, ear/eye pro, and small range essentials organized.</li>
+            <li>Made in Florida. Free shipping; some orders ship in two packages (you’ll get both tracking numbers).</li>
+          </ul>
+
+          <!-- Optional: quick actions that mirror the top card -->
+          <div class="details-actions">
+            <button class="btn" id="rm400-details-add" type="button">Add selected package</button>
+            <button class="btn ghost" id="rm400-details-buy" type="button">Buy selected package</button>
+          </div>
+
+          <small class="inline-hint">
+            The actions above use whatever options you picked in the RM400 box selector.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(() => {
+  // Thumbnail swapper
+  const detailImg = document.getElementById('rm400-detail-img');
+  document.querySelectorAll('#rm400-details .thumbs-mini button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#rm400-details .thumbs-mini button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const src = btn.getAttribute('data-img');
+      const tmp = new Image();
+      tmp.onload = () => { detailImg.src = src; detailImg.alt = btn.textContent.trim(); };
+      tmp.src = src;
+    });
+  });
+
+  // Proxy Details actions to the main RM400 buttons (uses current selections)
+  const clickById = id => document.getElementById(id)?.click();
+  document.getElementById('rm400-details-add')?.addEventListener('click', () => clickById('rm400-add'));
+  document.getElementById('rm400-details-buy')?.addEventListener('click', () => clickById('rm400-buy'));
+})();
+</script>
   <!-- Screen-reader announcer -->
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 </body>
