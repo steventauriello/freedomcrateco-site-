@@ -1,6 +1,7 @@
 /* === Imports === */
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+
 /* === Root Variables === */
 :root {
   --bg:#0f0f12;
@@ -12,6 +13,7 @@
   --border:#242632;
   --link:#9bc2ff;
 }
+
 /* === Fluid type scale + rhythm === */
 :root{
   --step--1: clamp(.86rem, .84rem + .2vw, .95rem);
@@ -53,6 +55,26 @@ a { color: var(--link); text-decoration: none; }
 .narrow { max-width: 900px; margin: 0 auto; }
 .hidden { display: none; }
 
+/* === Accessibility helpers === */
+.sr-only{
+  position:absolute !important;
+  width:1px !important;
+  height:1px !important;
+  padding:0 !important;
+  margin:-1px !important;
+  overflow:hidden !important;
+  clip:rect(0,0,0,0) !important;
+  white-space:nowrap !important;
+  border:0 !important;
+}
+.skip-link{
+  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+}
+.skip-link:focus{
+  position:static; width:auto; height:auto; padding:.5rem;
+  background:#000; color:#fff; border-radius:.25rem;
+}
+
 /* === Site Header === */
 .site-header {
   position: sticky;
@@ -68,18 +90,16 @@ a { color: var(--link); text-decoration: none; }
 }
 .site-header .brand { display: flex; align-items: center; gap: 12px; color: #fff; }
 .site-header .brand img { height: 60px; width: auto; display: block; }
-.brand-text small { color: var(--muted); }
+
+/* Nav (cart forced to far right) */
 .site-header .nav {
   display: flex;
   align-items: center;
   gap: .75rem;
+  flex-wrap: wrap;
   justify-content: space-between;
-  flex-wrap: nowrap;          /* prevents wrapping */
-  overflow-x: auto;           /* lets it scroll instead */
-  -webkit-overflow-scrolling: touch;
 }
 .nav a {
-  
   margin-left: 20px;
   color: var(--text);
   padding: 8px 10px;
@@ -87,16 +107,20 @@ a { color: var(--link); text-decoration: none; }
   font-weight: 600;
   white-space: nowrap;
 }
-/* Cart link alignment */
-.nav .cart-link {
-  margin-left: auto;
-  order: 99;
-}
+.nav .cart-link { margin-left: auto; order: 99; }
 .nav a:hover,
 .nav a.active,
 .nav a[aria-current="page"] {
   background: #1a1d26;
   color: var(--brand);
+}
+
+/* Make header logo circular everywhere */
+.site-header .brand img{
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
 }
 
 /* --- Maintenance banner + safety styles --- */
@@ -107,11 +131,9 @@ a { color: var(--link); text-decoration: none; }
   padding:10px 12px;
   font-weight:800;
   border-radius:8px;
-  margin-bottom:8px;            /* space under the banner in header */
+  margin-bottom:8px;
   letter-spacing:.4px;
 }
-
-/* Visually disable purchasing while in maintenance */
 .maintenance .btn[data-add],
 .maintenance .btn[data-buy],
 .maintenance #sb-add,
@@ -124,6 +146,7 @@ a { color: var(--link); text-decoration: none; }
   pointer-events:none;
   opacity:.6;
 }
+
 /* === Buttons === */
 .btn {
   display: inline-block;
@@ -140,7 +163,7 @@ a { color: var(--link); text-decoration: none; }
 .btn.danger { background: var(--danger); color: #210000; }
 .btn:hover { background: #27ae60; }
 
-/* === Hero Section === */
+/* === Hero Section (generic) === */
 .hero { padding: 28px 20px; border-bottom: 1px solid var(--border); }
 .hero h1 { margin: 0 0 8px; }
 .actions { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -182,38 +205,35 @@ a { color: var(--link); text-decoration: none; }
 /* === Misc === */
 .notice { padding: 10px 0; color: #cfead7; }
 
-/* === Product Page === */
+/* === Product Page (gallery + info) === */
 .product { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 @media (max-width:900px){ .product { grid-template-columns: 1fr; } }
-.gallery {
+
+/* Bulletproof gallery layout */
+.gallery{
+  display: grid !important;
+  grid-template-columns: 1fr 92px;
+  align-items: start;
+  gap: 10px;
   background: #0d0f14;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 10px;
   min-height: 320px;
-  display: flex; align-items: center; justify-content: center;
 }
-/* Override gallery layout for better mobile behavior */
-.gallery{
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: start;
-  gap: 10px;
-}
-
-.gallery > img {
+.gallery > img{
+  grid-column: 1;
   width: 100%;
   height: auto;
   max-height: 420px;
   border-radius: 8px;
 }
-
 .gallery .thumbs{
+  grid-column: 2;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .gallery .thumbs img{
   width: 80px;
   height: 80px;
@@ -222,10 +242,18 @@ a { color: var(--link); text-decoration: none; }
   border-radius: 6px;
   cursor: pointer;
 }
+/* Phones: thumbs below main image */
+@media (max-width: 640px){
+  .gallery{ grid-template-columns: 1fr; }
+  .gallery .thumbs{
+    grid-column: 1;
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .gallery .thumbs img{ width: 72px; }
+}
 
-/* On phones: thumbs below the main image */
-
-.gallery img { max-width: 100%; max-height: 420px; border-radius: 8px; }
 .product .info h1 { margin: 0 0 10px; }
 .product .price { font-size: 22px; }
 .product .buy-row { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
@@ -260,18 +288,14 @@ input, select, textarea {
 input::placeholder, textarea::placeholder { color: #999; font-size: 14px; }
 textarea { min-height: 140px; resize: vertical; }
 
-/* === Hero Banner === */
+/* === Hero Banner (Homepage) === */
 .hero-banner {
   background: url("../img/banner.png") no-repeat center center/cover;
-  background-position: 48% center;   /* shift focus slightly to the right */
+  background-position: 48% center;
   height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; color: #fff;
 }
-
 .hero-banner .hero-content {
   background: rgba(0, 0, 0, 0.5);
   padding: 20px 40px; border-radius: 8px;
@@ -285,6 +309,9 @@ textarea { min-height: 140px; resize: vertical; }
   font-size: 3rem;
   font-weight: 900;
   margin: 0 0 0.5rem 0;
+  font-family: "Black Ops One", system-ui, sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 .site-title-strip p { font-size: 1.25rem; margin: 5px 0 0 0; font-weight: 400; }
 .site-title-strip .slogan {
@@ -303,12 +330,12 @@ textarea { min-height: 140px; resize: vertical; }
 .product-detail h1 { margin: 8px 0 6px; }
 .branch-label {
   font-family: "Black Ops One", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 700;        /* bump up weight */
-  letter-spacing: 1px;     /* spread out a little */
-  font-size: 1.05rem;      /* slightly larger */
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 1.05rem;
   text-transform: uppercase;
-  color: var(--link);      /* matches your accent blue */
-  opacity: 1;              /* full strength */
+  color: var(--link);
+  opacity: 1;
   display: inline-block;
   margin: -.25rem 0 .5rem;
 }
@@ -329,7 +356,7 @@ textarea { min-height: 140px; resize: vertical; }
 /* === Cart qty controls === */
 .qty-cell {
   display: inline-flex;
-  flex-direction: column;  /* + on top, input middle, − on bottom */
+  flex-direction: column;
   align-items: center;
   gap: 6px;
 }
@@ -352,6 +379,7 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 /* === Cart Totals Alignment Fix === */
 .cart-summary {
   display: flex;
@@ -359,103 +387,56 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: center;
   padding: 12px 16px;
 }
-
 .cart-summary .label {
   flex: 1;
-  text-align: right;   /* push "Subtotal" and "Shipping" closer to price */
+  text-align: right;
   padding-right: 10px;
 }
+.cart-summary .value { font-weight: 600; }
 
-.cart-summary .value {
-  font-weight: 600;
-}
 /* === Inventory/stock + image fixes === */
-
-/* legacy over-image badge position (will be overridden below) */
-.card .stock-badge{
-  position:absolute;
-  top:2.2rem;
-  left:.5rem;
-  z-index:2;
-}
-
-/* kill any legacy title overlay on images */
-.card.no-title-overlay .img::before{
-  content:none !important;
-  display:none !important;
-}
-
-/* make product images behave + avoid layout jumps */
-.product-hero{
-  width:100%;
-  height:auto;
-  display:block;
-  object-fit:cover;
-}
-/* disable any legacy title overlay on card images */
+.card .stock-badge{ position:absolute; top:2.2rem; left:.5rem; z-index:2; }
+.card.no-title-overlay .img::before{ content:none !important; display:none !important; }
+.product-hero{ width:100%; height:auto; display:block; object-fit:cover; }
 .card .img::before { content: none !important; display: none !important; }
-/* ensure <img> inside card fills its container nicely */
 .card .img img { width:100%; height:auto; display:block; object-fit:cover; }
 
 /* === Coming Soon diagonal ribbon === */
-.card.coming-soon {
-  position: relative;
-  overflow: hidden;
-}
+.card.coming-soon { position: relative; overflow: hidden; }
 .card.coming-soon::after {
   content: "COMING SOON";
   position: absolute;
-  top: 40px;
-  left: -50px;
-  width: 220px;
-  text-align: center;
-  transform: rotate(-45deg);
-  background: #ff0000;
-  color: #fff;
-  font-weight: 900;
-  font-size: 1rem;
-  padding: 6px 0;
-  z-index: 3;
-  letter-spacing: 1px;
+  top: 40px; left: -50px; width: 220px;
+  text-align: center; transform: rotate(-45deg);
+  background: #ff0000; color: #fff; font-weight: 900;
+  font-size: 1rem; padding: 6px 0; z-index: 3; letter-spacing: 1px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.5);
 }
 
 /* Force product titles under images to be white */
-.card h3 a {
-  color: #fff !important;
-  font-weight: 900;
-}
+.card h3 a { color: #fff !important; font-weight: 900; }
 
-/* (optional) diagonal low-stock ribbon (unused unless you add .low-stock) */
+/* Optional low-stock ribbon */
 .card.low-stock::after {
   content: attr(data-stock);
   position: absolute;
-  top: 12px;
-  left: -45px;
-  width: 160px;
+  top: 12px; left: -45px; width: 160px;
   transform: rotate(-45deg);
-  background: #ff0000;
-  color: #fff;
-  font-weight: 900;
-  font-size: 0.9rem;
-  text-align: center;
-  padding: 4px 0;
-  z-index: 3;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  background: #ff0000; color: #fff; font-weight: 900;
+  font-size: 0.9rem; text-align: center; padding: 4px 0; z-index: 3;
+  letter-spacing: 0.5px; box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
-/* === Stock quantity label style (color/weight) === */
+/* Stock quantity label */
 .card .stock-label {
   color: #ff4d4d;
   font-weight: 800;
   font-size: 0.95rem;
 }
 
-/* === NEW: Under-photo quantity badge === */
-/* Place the badge IN the meta block under the image */
+/* NEW: Under-photo quantity badge (in meta) */
 .card .meta .stock-badge {
-  position: static;             /* override the old absolute */
+  position: static;
   display: inline-block;
   margin: 6px 0 8px;
   padding: 4px 8px;
@@ -466,75 +447,31 @@ input[type="number"]::-webkit-inner-spin-button {
   font-size: 0.9rem;
   line-height: 1;
 }
-
-/* Hide any badge that may still be rendered inside the image anchor */
 .card .img .stock-badge { display: none !important; }
 
-/* Nuke any legacy title overlay drawn on top of the image */
-.card .img::before,
-.card .img::after {
-  content: none !important;
-  display: none !important;
-}
-
-/* Hide any title/overlay elements some themes inject inside the image link */
-.card .img .overlay,
-.card .img .title,
-.card .img .product-title,
-.card .img .caption {
-  display: none !important;
-  color: transparent !important;
-  text-shadow: none !important;
-}
-/* Apply stencil font to main site title */
-.site-title-strip h1 {
-  font-family: "Black Ops One", system-ui, sans-serif;
-  font-weight: 400;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-/* Make header logo circular everywhere */
-.site-header .brand img{
-  width: 60px;          /* force square */
-  height: 60px;         /* keep same height */
-  border-radius: 50%;   /* circle */
-  object-fit: cover;    /* crop nicely inside the circle */
-  border: 2px solid #fff; /* optional outline for contrast */
-}
 /* === Lightbox overlay (for product detail) === */
 .lightbox{
-  position: fixed;
-  inset: 0;
-  display: none;              /* hidden until .open is added */
-  place-items: center;        /* center the image */
-  background: rgba(0,0,0,.8); /* dark backdrop */
-  z-index: 10000;
-  padding: 16px;
+  position: fixed; inset: 0;
+  display: none; place-items: center;
+  background: rgba(0,0,0,.8); z-index: 10000; padding: 16px;
 }
 .lightbox.open{ display: grid; }
-
 .lightbox img{
   max-width: min(92vw, 1200px);
   max-height: 92vh;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0,0,0,.6);
 }
-
-/* Controls */
 .lightbox .ctrl,
 .lightbox .close{
   position: absolute;
   background: rgba(0,0,0,.55);
   color: #fff;
   border: 1px solid rgba(255,255,255,.25);
-  width: 44px;
-  height: 44px;
+  width: 44px; height: 44px;
   border-radius: 999px;
-  font-size: 28px;
-  line-height: 42px;
-  text-align: center;
-  cursor: pointer;
-  user-select: none;
+  font-size: 28px; line-height: 42px;
+  text-align: center; cursor: pointer; user-select: none;
 }
 .lightbox .prev{ left: 12px;  top: 50%; transform: translateY(-50%); }
 .lightbox .next{ right: 12px; top: 50%; transform: translateY(-50%); }
@@ -543,84 +480,14 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Hint cursor on the main product image */
 .gallery .product-hero{ cursor: zoom-in; }
 
-/* --- Force gallery layout to be bulletproof across Safari/DDG/Chrome --- */
-.gallery{
-  display: grid !important;           /* override any earlier flex */
-  grid-template-columns: 1fr 92px;    /* main image + fixed thumbs column */
-  align-items: start;
-  gap: 10px;
-}
-
-.gallery > img{
-  grid-column: 1;                     /* main image stays in column 1 */
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.gallery .thumbs{
-  grid-column: 2;                     /* thumbs always in column 2 */
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.gallery .thumbs img{
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* Phones: put thumbs *below* as a horizontal strip */
-@media (max-width: 640px){
-  .gallery{
-    grid-template-columns: 1fr;       /* single column */
-  }
-  .gallery .thumbs{
-    grid-column: 1;
-    flex-direction: row;
-    overflow-x: auto;
-    padding-bottom: 6px;
-  }
-  .gallery .thumbs img{
-    width: 72px;
-  }
-}
 /* Make entire product card clickable */
 .product-card{ position:relative; cursor:pointer; }
-
-/* Invisible overlay that turns the whole card into a link */
 .product-card .overlay-link{
-  position:absolute;
-  inset:0;          /* top/right/bottom/left: 0 */
-  z-index:5;        /* above text, below buttons */
-  text-indent:-9999px;
-  overflow:hidden;
+  position:absolute; inset:0; z-index:5;
+  text-indent:-9999px; overflow:hidden;
 }
+.product-card .actions, .product-card .fav { position:relative; z-index:10; }
 
-/* Keep interactive bits above the overlay so they still work */
-.product-card .actions,
-.product-card .fav {
-  position:relative;
-  z-index:10;
-}
-
-/* Don't lift regular text or title above the overlay */
-/* Visually hidden but screen-reader readable */
-.sr-only{
-  position:absolute !important;
-  width:1px !important;
-  height:1px !important;
-  padding:0 !important;
-  margin:-1px !important;
-  overflow:hidden !important;
-  clip:rect(0,0,0,0) !important;
-  white-space:nowrap !important;
-  border:0 !important;
-}
 /* === Personalization UI (2 lines × 30 chars) === */
 .opt-row{margin:.75rem 0}
 .check{display:flex;gap:.5rem;align-items:center}
@@ -630,57 +497,38 @@ input[type="number"]::-webkit-inner-spin-button {
 .error{color: var(--danger); margin-top:.4rem; font-size:.92rem}
 .btn.disabled{opacity:.6;pointer-events:none}
 @media (max-width:640px){ .grid2{grid-template-columns:1fr;} }
-/* Cart on the far right; other links on the left */
-.site-header .nav {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  flex-wrap: wrap;
-  justify-content: space-between; /* spreads left group and cart to edges */
-}
 
-/* push the Cart link to the far right even if other CSS applies */
-.nav .cart-link {
-  margin-left: auto;
-}
 /* Clamp product card descriptions */
 .product-card .meta p {
   display: -webkit-box;
-  -webkit-line-clamp: 3;   /* number of lines to show */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* ==== Featured cards (Classic + RM400) – final layout fix ==== */
-.featured-wrap { margin: 2rem 0; }
 
-/* shared card shell */
+/* ==== Featured cards (Classic + RM400) ==== */
+.featured-wrap { margin: 2rem 0; }
 .featured-card{
   display: grid;
   gap: 1rem;
-  grid-template-columns: 1fr;         /* mobile: single column */
+  grid-template-columns: 1fr;
   padding: 1rem;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: rgba(255,255,255,.02);
-  max-width: 1100px;                   /* contain width */
-  margin: 0 auto;                      /* center on page */
-  overflow: hidden;                    /* stop horizontal drift */
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
 }
-
-/* desktop: two columns; minmax prevents overflow pushing things off-screen */
 @media (min-width: 880px){
   .featured-card{
     grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
     align-items: start;
   }
 }
-
-/* allow grid children to actually shrink (critical for “text drifting right” bug) */
 .featured-card > .fc-media,
 .featured-card > .fc-controls { min-width: 0; }
-
-/* media/image */
 .fc-media img{
   max-width: 100%;
   height: auto;
@@ -690,81 +538,96 @@ input[type="number"]::-webkit-inner-spin-button {
   opacity: 1;
 }
 .fc-media img.is-loading{ opacity: 0; }
-
-/* right column controls */
 .fc-controls label{ font-weight: 600; display: block; margin: .5rem 0 .25rem; }
 .fc-row{ display: flex; align-items: center; gap: 1rem; margin: .75rem 0; }
 .fc-btn{ padding: .75rem 1.25rem; border-radius: 6px; cursor: pointer; }
 .fc-note{ opacity: .75; font-size: .9rem; }
 .option-row{ margin-bottom: .5rem; }
+#classic-box, #rm400-card{ max-width: 1100px; margin: 2rem auto; }
 
-/* optional: keep each featured card nicely separated */
-#classic-box, #rm400-card{
-  max-width: 1100px;
+/* ==== RM400 Details & Specs (single, unified) ==== */
+.details-wrap {
+  max-width: 1000px;
   margin: 2rem auto;
+  padding: 1rem;
 }
-
-/* ==== RM400 “Details & Specs” accordion ==== */
-.details-wrap { margin: 1.25rem 0 2.5rem; }
 .details-card {
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.02);
-  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   overflow: hidden;
 }
 
-/* Toggle header */
-.details-toggle{
+/* Toggle button */
+.details-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: .75rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  padding: 1rem;
   background: #12141a;
+  border: none;
+  cursor: pointer;
   color: var(--text);
-  padding: 14px 16px;
-  border: 0; cursor: pointer; text-align: left; font-weight: 800;
 }
 .details-toggle svg{ transition: transform .2s ease; }
 .details-toggle[aria-expanded="true"] svg{ transform: rotate(180deg); }
 
 /* Body */
-.details-body{ padding: 14px 16px; border-top: 1px solid var(--border); }
-
-.details-grid{
-  display: grid; gap: 16px;
+.details-body { padding: 1.25rem; border-top: 1px solid var(--border); }
+.details-grid {
+  display: grid;
   grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
-@media (min-width: 880px){
-  .details-grid{ grid-template-columns: 1.15fr 1fr; }
-}
+@media (min-width: 880px) { .details-grid { grid-template-columns: 1.15fr 1fr; } }
 
-.details-media img{
-  width: 100%; height: auto; border-radius: 8px; display: block;
+/* Media (image + thumbnails) */
+.details-media img {
+  max-width: 100%;
+  border-radius: 8px;
+  display: block;
   background: #0d0f14;
   border: 1px solid var(--border);
 }
-
-.thumbs-mini{
-  margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;
+.thumbs-mini {
+  display: flex;
+  gap: .5rem;
+  margin-top: .75rem;
+  flex-wrap: wrap;
 }
-.thumbs-mini button{
-  border: 1px solid var(--border);
+.thumbs-mini button {
+  font-weight: 700;
+  font-size: .85rem;
+  padding: .35rem .5rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
   background: #0e1013;
   color: var(--text);
-  padding: 6px 10px; border-radius: 8px; cursor: pointer;
-  font-weight: 700;
+  cursor: pointer;
 }
-.thumbs-mini button.active{ outline: 2px solid var(--brand); }
+.thumbs-mini button.active {
+  outline: 2px solid var(--brand);
+}
 
-.details-info .lede{ opacity: .95; }
-.details-info h4{ margin: .6rem 0 .35rem; }
-.bullets, .specs{ margin: .25rem 0 .75rem 1.1rem; }
-.bullets li + li, .specs li + li{ margin-top: .35rem; }
-.details-actions{ display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .5rem; }
-/* Skip link (visually hidden until keyboard focus) */
-.skip-link{
-  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+/* Info side */
+.details-info .lede {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  opacity: .95;
 }
-.skip-link:focus{
-  position:static; width:auto; height:auto; padding:.5rem;
-  background:#000; color:#fff; border-radius:.25rem;
+.details-info h4 { margin: .6rem 0 .35rem; font-size: 1.1rem; }
+.bullets { margin: .5rem 0; padding-left: 1.25rem; list-style: disc; }
+.bullets li + li { margin-top: .35rem; }
+
+/* Actions row */
+.details-actions {
+  margin-top: .75rem;
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
 }
+.details-actions .btn { flex: 1; }
