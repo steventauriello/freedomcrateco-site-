@@ -24,31 +24,80 @@
 
   <link rel="stylesheet" href="assets/css/styles.css" />
 
-  <style>
-    /* Improve font loading behavior (avoid FOIT) */
-    @font-face { font-display: swap; }
+ <style>
+  /* Improve font loading behavior (avoid FOIT) */
+  @font-face { font-display: swap; }
 
-    /* Small, page-scoped helpers */
-    .featured-wrap {margin: 2rem 0;}
-    .featured-card {display:grid; gap:1rem; grid-template-columns: 1fr;
-      padding:1rem; border:1px solid rgba(255,255,255,.08);
-      border-radius:8px; background:rgba(255,255,255,.02);}
-    @media (min-width:880px){ .featured-card{grid-template-columns:1.2fr 1fr; align-items:start;} }
-    .fc-media img{max-width:100%; height:auto; border-radius:6px; display:block; transition:opacity .25s ease; opacity:1;}
-    .fc-media img.is-loading{opacity:0;}
-    .fc-controls label{font-weight:600; display:block; margin:.5rem 0 .25rem;}
-    .fc-row{display:flex; align-items:center; gap:1rem; margin:.75rem 0;}
-    .fc-btn{padding:.75rem 1.25rem; border-radius:6px; cursor:pointer;}
-    .fc-note{opacity:.75; font-size:.9rem;}
-    .option-row{margin-bottom:.5rem;}
-    /* Card ribbons used by catalog.js */
-    .soldout{position:absolute; top:.5rem; left:.5rem; padding:.25rem .5rem;
-      font-size:.85rem; border:1px solid rgba(255,255,255,.25);
-      background:rgba(255,255,255,.08); border-radius:.5rem;}
-    /* Skip link */
-    .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;}
-    .skip-link:focus{position:static; width:auto; height:auto; padding:.5rem; background:#000; color:#fff; border-radius:.25rem;}
-  </style>
+  /* ---------- Featured cards (Classic + RM400) ---------- */
+  .featured-wrap { margin: 2rem 0; }
+
+  /* shared card shell */
+  .featured-card{
+    display:grid;
+    gap:1rem;
+    grid-template-columns: 1fr;     /* mobile: single column */
+    padding:1rem;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:8px;
+    background:rgba(255,255,255,.02);
+    max-width:1100px;               /* keep card contained */
+    margin: 0 auto;                 /* center it */
+    overflow:hidden;                /* stop any drift */
+  }
+
+  /* desktop: two columns; minmax(0,*) prevents overflow */
+  @media (min-width:880px){
+    .featured-card{
+      grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
+      align-items:start;
+    }
+  }
+
+  /* allow columns to shrink inside the grid (critical fix) */
+  .featured-card > .fc-media,
+  .featured-card > .fc-controls { min-width:0; }
+
+  /* media/image */
+  .fc-media img{
+    max-width:100%;
+    height:auto;
+    border-radius:6px;
+    display:block;
+    transition:opacity .25s ease;
+    opacity:1;
+  }
+  .fc-media img.is-loading{ opacity:0; }
+
+  /* right column controls */
+  .fc-controls label{ font-weight:600; display:block; margin:.5rem 0 .25rem; }
+  .fc-row{ display:flex; align-items:center; gap:1rem; margin:.75rem 0; }
+  .fc-btn{ padding:.75rem 1.25rem; border-radius:6px; cursor:pointer; }
+  .fc-note{ opacity:.75; font-size:.9rem; }
+  .option-row{ margin-bottom:.5rem; }
+
+  /* Card ribbons used by catalog.js */
+  .soldout{
+    position:absolute; top:.5rem; left:.5rem; padding:.25rem .5rem;
+    font-size:.85rem; border:1px solid rgba(255,255,255,.25);
+    background:rgba(255,255,255,.08); border-radius:.5rem;
+  }
+
+  /* ---------- Small helpers ---------- */
+  /* Skip link */
+  .skip-link{
+    position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+  }
+  .skip-link:focus{
+    position:static; width:auto; height:auto; padding:.5rem; background:#000; color:#fff; border-radius:.25rem;
+  }
+
+  /* ---------- Optional: explicit IDs (not strictly needed, but safe) ---------- */
+  /* If you want belt-and-suspenders, these keep each card contained/centered */
+  #classic-box, #rm400-card{
+    max-width:1100px;
+    margin:2rem auto;
+  }
+</style>
 
   <!-- Organization JSON-LD (homepage) -->
   <script type="application/ld+json">
