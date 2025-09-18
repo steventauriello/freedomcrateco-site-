@@ -145,6 +145,69 @@
         </div>
       </div>
     </section>
+    
+    <!-- Featured product: Rangemaster 400 -->
+<section class="featured-wrap" aria-label="Rangemaster 400 Options">
+  <div class="featured-card" id="rm400-card">
+    <div class="fc-media">
+      <img id="rm400-image"
+           src="assets/img/rm400-base.jpg"
+           alt="Rangemaster 400 – Base"
+           loading="lazy" decoding="async"
+           width="1200" height="800">
+    </div>
+
+    <div class="fc-controls">
+      <h2>Rangemaster 400</h2>
+      <p class="fc-note">Choose your package to preview instantly.</p>
+
+      <label for="rm400-package">Package</label>
+      <select id="rm400-package" aria-describedby="rm400-help">
+        <option value="base"
+                data-sku="RM400-BASE"
+                data-price="49.99"
+                data-img="assets/img/rm400-base.jpg">
+          Rangemaster 400 (Base)
+        </option>
+        <option value="armor"
+                data-sku="RM400-ARMOR"
+                data-price="59.99"
+                data-img="assets/img/rm400-armor-core.jpg">
+          Rangemaster 400 — Armor Core (bed-liner interior)
+        </option>
+        <option value="battleguard"
+                data-sku="RM400-BG"
+                data-price="69.99"
+                data-img="assets/img/rm400-battle-guard.jpg">
+          Rangemaster 400 — Battle Guard (protective exterior)
+        </option>
+      </select>
+      <p id="rm400-help" class="sr-only" aria-hidden="true"></p>
+
+      <label>Hardware (both lockable)</label>
+      <div role="group" aria-label="Hardware finish">
+        <div class="option-row">
+          <label><input type="radio" name="rm400-hw" class="rm400-hw" value="Stainless" data-code="STN" checked> Original Stainless Toggle Latches</label>
+        </div>
+        <div class="option-row">
+          <label><input type="radio" name="rm400-hw" class="rm400-hw" value="Black" data-code="BLK"> Black Toggle Latches</label>
+        </div>
+      </div>
+
+      <div class="fc-row">
+        <div><strong>Total: <span id="rm400-price" aria-live="polite">$49.99</span></strong></div>
+        <small class="fc-note">Base $49.99</small>
+      </div>
+
+      <div class="fc-row">
+        <button id="rm400-add" class="fc-btn btn" type="button">Add to Cart</button>
+        <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
+      </div>
+
+      <p class="fc-note">Armor Core = interior bed liner. Battle Guard = exterior protective coating. Free shipping.</p>
+    </div>
+  </div>
+</section>
 
     <!-- Grid rendered by catalog.js -->
     <section id="products" class="grid" aria-live="polite"></section>
@@ -273,7 +336,399 @@
     });
   })();
   </script>
+  <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Freedom Crate Co. – Handcrafted Ammo & Range Boxes</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Hand-built ammo and range boxes with lockable hardware and custom stencils. Florida-built, free shipping, veteran-inspired craftsmanship." />
+  <link rel="canonical" href="https://freedomcrateco.com/">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Freedom Crate Co. – Handcrafted Ammo & Range Boxes">
+  <meta property="og:description" content="Hand-built ammo and range boxes with lockable hardware and custom stencils. Free shipping.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://freedomcrateco.com/">
+  <meta property="og:image" content="https://freedomcrateco.com/assets/img/og-hero.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Font: Black Ops One (stencil look) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <style>
+    /* Improve font loading behavior (avoid FOIT) */
+    @font-face { font-display: swap; }
+
+    /* Small, page-scoped helpers */
+    .featured-wrap {margin: 2rem 0;}
+    .featured-card {display:grid; gap:1rem; grid-template-columns: 1fr;
+      padding:1rem; border:1px solid rgba(255,255,255,.08);
+      border-radius:8px; background:rgba(255,255,255,.02);}
+    @media (min-width:880px){ .featured-card{grid-template-columns:1.2fr 1fr; align-items:start;} }
+    .fc-media img{max-width:100%; height:auto; border-radius:6px; display:block; transition:opacity .25s ease; opacity:1;}
+    .fc-media img.is-loading{opacity:0;}
+    .fc-controls label{font-weight:600; display:block; margin:.5rem 0 .25rem;}
+    .fc-row{display:flex; align-items:center; gap:1rem; margin:.75rem 0;}
+    .fc-btn{padding:.75rem 1.25rem; border-radius:6px; cursor:pointer;}
+    .fc-note{opacity:.75; font-size:.9rem;}
+    .option-row{margin-bottom:.5rem;}
+    /* Card ribbons used by catalog.js */
+    .soldout{position:absolute; top:.5rem; left:.5rem; padding:.25rem .5rem;
+      font-size:.85rem; border:1px solid rgba(255,255,255,.25);
+      background:rgba(255,255,255,.08); border-radius:.5rem;}
+    /* Skip link */
+    .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;}
+    .skip-link:focus{position:static; width:auto; height:auto; padding:.5rem; background:#000; color:#fff; border-radius:.25rem;}
+  </style>
+
+  <!-- Organization JSON-LD (homepage) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Freedom Crate Co.",
+    "url": "https://freedomcrateco.com/",
+    "logo": "https://freedomcrateco.com/assets/img/logo.png",
+    "sameAs": [
+      "https://www.etsy.com/shop/YourShopIfAny",
+      "https://www.ebay.com/usr/YourEbayIfAny"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60">
+    </a>
+<nav class="nav" aria-label="Primary">
+  <!-- Left group -->
+  <a href="index.html" aria-current="page">Shop</a>
+  <a href="about.html">About</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="reviews.html">Reviews</a>
+  <a href="contact.html">Custom Orders</a>
+
+  <!-- Right: Cart -->
+  <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
+</nav>
+  </header>
+
+  <main class="container" id="main">
+    <div class="site-title-strip" role="region" aria-label="Brand Intro">
+      <h1>Freedom Crate Co.</h1>
+      <p>Handcrafted Ammo &amp; Range Boxes</p>
+      <p class="slogan">Made For The People By The People</p>
+    </div>
+
+    <section class="hero-banner" aria-label="Hero"></section>
+
+    <!-- Featured product with live branch preview (no personalization) -->
+    <section class="featured-wrap" aria-label="Featured Product">
+      <div class="featured-card" id="classic-box">
+        <div class="fc-media">
+          <!-- Added width/height + decoding to prevent CLS -->
+          <img id="sb-image"
+               src="assets/img/blank.jpg"
+               alt="Freedom Crate Classic live preview"
+               loading="lazy" decoding="async"
+               width="1200" height="800">
+        </div>
+        <div class="fc-controls">
+          <h2>Freedom Crate Classic</h2>
+          <div class="branch-label">Branch Collection</div>
+          <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
+
+          <label for="sb-branch">Branch stencil</label>
+          <select id="sb-branch" aria-describedby="sb-branch-help">
+            <option value="blank">Blank (no stencil)</option>
+            <option value="army">U.S. Army</option>
+            <option value="marines">U.S. Marine Corps</option>
+            <option value="navy">U.S. Navy</option>
+            <option value="airforce">U.S. Air Force</option>
+            <option value="coastguard">U.S. Coast Guard</option>
+          </select>
+          <p id="sb-branch-help" class="sr-only" aria-hidden="true"></p>
+
+          <label>Hardware (both lockable)</label>
+          <div role="group" aria-label="Latch finish">
+            <div class="option-row">
+              <label><input type="radio" name="latch" class="sb-latch" value="Stainless" checked> Original Stainless Toggle Latches</label>
+            </div>
+            <div class="option-row">
+              <label><input type="radio" name="latch" class="sb-latch" value="Black"> Black Toggle Latches</label>
+            </div>
+          </div>
+
+          <div class="fc-row">
+            <div><strong>Total: <span id="sb-price" aria-live="polite">$95.00</span></strong></div>
+            <small class="fc-note">Base $95</small>
+          </div>
+
+          <div class="fc-row">
+            <button id="sb-add" class="fc-btn btn" type="button">Add to Cart</button>
+            <button id="sb-buy" class="fc-btn btn" type="button">Buy Now</button>
+          </div>
+
+          <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Featured product: Rangemaster 400 -->
+<section class="featured-wrap" aria-label="Rangemaster 400 Options">
+  <div class="featured-card" id="rm400-card">
+    <div class="fc-media">
+      <img id="rm400-image"
+           src="assets/img/rm400-base.jpg"
+           alt="Rangemaster 400 – Base"
+           loading="lazy" decoding="async"
+           width="1200" height="800">
+    </div>
+
+    <div class="fc-controls">
+      <h2>Rangemaster 400</h2>
+      <p class="fc-note">Choose your package to preview instantly.</p>
+
+      <label for="rm400-package">Package</label>
+      <select id="rm400-package" aria-describedby="rm400-help">
+        <option value="base"
+                data-sku="RM400-BASE"
+                data-price="49.99"
+                data-img="assets/img/rm400-base.jpg">
+          Rangemaster 400 (Base)
+        </option>
+        <option value="armor"
+                data-sku="RM400-ARMOR"
+                data-price="59.99"
+                data-img="assets/img/rm400-armor-core.jpg">
+          Rangemaster 400 — Armor Core (bed-liner interior)
+        </option>
+        <option value="battleguard"
+                data-sku="RM400-BG"
+                data-price="69.99"
+                data-img="assets/img/rm400-battle-guard.jpg">
+          Rangemaster 400 — Battle Guard (protective exterior)
+        </option>
+      </select>
+      <p id="rm400-help" class="sr-only" aria-hidden="true"></p>
+
+      <label>Hardware (both lockable)</label>
+      <div role="group" aria-label="Hardware finish">
+        <div class="option-row">
+          <label><input type="radio" name="rm400-hw" class="rm400-hw" value="Stainless" data-code="STN" checked> Original Stainless Toggle Latches</label>
+        </div>
+        <div class="option-row">
+          <label><input type="radio" name="rm400-hw" class="rm400-hw" value="Black" data-code="BLK"> Black Toggle Latches</label>
+        </div>
+      </div>
+
+      <div class="fc-row">
+        <div><strong>Total: <span id="rm400-price" aria-live="polite">$49.99</span></strong></div>
+        <small class="fc-note">Base $49.99</small>
+      </div>
+
+      <div class="fc-row">
+        <button id="rm400-add" class="fc-btn btn" type="button">Add to Cart</button>
+        <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
+      </div>
+
+      <p class="fc-note">Armor Core = interior bed liner. Battle Guard = exterior protective coating. Free shipping.</p>
+    </div>
+  </div>
+</section>
+
+    <!-- Grid rendered by catalog.js -->
+    <section id="products" class="grid" aria-live="polite"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span class="badge">US Veteran-inspired • Florida-built</span>
+      <p class="muted">Rugged, practical, and made to be used.</p>
+    </div>
+  </footer>
+
+  <!-- Script order (IMPORTANT) -->
+  <script src="assets/js/util.js" defer></script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/inventory.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/cart.js" defer></script>
+  <script src="assets/js/catalog.js" defer></script>
+
+    <!-- Featured logic (scoped to this page) -->
+  <script>
+  // Freedom Crate Classic (Branch Collection)
+  (function(){
+    const IMG = {
+      blank:      "assets/img/blank.jpg",
+      army:       "assets/img/army.jpg",
+      marines:    "assets/img/marines.jpg",
+      navy:       "assets/img/navy.jpg",
+      airforce:   "assets/img/airforce.jpg",
+      coastguard: "assets/img/coastguard.jpg"
+    };
+    const BASE = 95;
+    const LATCH_PRICE = { Stainless: 0, Black: 0 };
+
+    const imgEl   = document.getElementById('sb-image');
+    const branch  = document.getElementById('sb-branch');
+    const priceEl = document.getElementById('sb-price');
+    const addBtn  = document.getElementById('sb-add');
+    const buyBtn  = document.getElementById('sb-buy');
+    const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
+
+    const KEY = 'fcc-classic-box';
+    const fmt = (n) => '$' + Number(n).toFixed(2);
+    const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    const getLatch = () => (latchInputs.find(x=>x.checked)?.value || 'Stainless');
+
+    function preload(){ Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; }); }
+
+    function updateImage(){
+      const v = branch.value;
+      imgEl.classList.add('is-loading');
+      const next = IMG[v] || IMG.blank;
+      const tmp = new Image();
+      tmp.onload = () => {
+        imgEl.src = next;
+        imgEl.alt = (v==='blank') ? 'Freedom Crate Classic (blank)' :
+          `Freedom Crate Classic – ${branch.options[branch.selectedIndex].text}`;
+        requestAnimationFrame(()=>imgEl.classList.remove('is-loading'));
+      };
+      tmp.src = next;
+    }
+
+    function animatePrice(from,to,ms=200){
+      const t0 = performance.now();
+      const step = (t)=>{
+        const k = Math.min(1,(t-t0)/ms);
+        priceEl.textContent = fmt(from + (to-from)*k);
+        if(k<1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+
+    function calcTotal(animate=true){
+      const target = BASE + (LATCH_PRICE[getLatch()]||0);
+      const current = Number(String(priceEl.textContent).replace(/[^0-9.]/g,'')) || BASE;
+      if (animate) animatePrice(current, target); else priceEl.textContent = fmt(target);
+    }
+
+    function saveState(){
+      try {
+        localStorage.setItem(KEY, JSON.stringify({ branch: branch.value, latch: getLatch() }));
+      } catch(_) {}
+    }
+    function restoreState(){
+      try{
+        const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(!s) return;
+        if (s.branch) branch.value = s.branch;
+        if (s.latch)  latchInputs.forEach(r=>r.checked = (r.value===s.latch));
+      }catch(_){}
+    }
+
+    function buildSkuName(){
+      const bVal = branch.value;
+      const bTxt = branch.options[branch.selectedIndex].text;
+      const lTxt = getLatch();
+      const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`;
+      const name = `Freedom Crate Classic — ${bTxt} • ${lTxt}`;
+      return { sku, name };
+    }
+
+    function addToCartSafe(sku, name, price, qty, meta){
+      if (typeof window.addToCart === 'function') return window.addToCart(sku, name, price, qty, meta);
+    }
+    function buyNowSafe(sku, name, price, qty, meta){
+      if (typeof window.buyNow === 'function') return window.buyNow(sku, name, price, qty, meta);
+    }
+
+    // Init
+    restoreState(); preload(); updateImage(); calcTotal(false);
+
+    // Events
+    branch.addEventListener('change', ()=>{ updateImage(); calcTotal(); saveState(); });
+    latchInputs.forEach(r => r.addEventListener('change', ()=>{ calcTotal(); saveState(); }));
+
+    addBtn.addEventListener('click', () => {
+      const { sku, name } = buildSkuName();
+      const price = Number(String(priceEl.textContent).replace(/[^0-9.]/g,'')) || BASE;
+      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+    });
+    buyBtn.addEventListener('click', () => {
+      const { sku, name } = buildSkuName();
+      const price = Number(String(priceEl.textContent).replace(/[^0-9.]/g,'')) || BASE;
+      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+    });
+  })();
+
+  // Rangemaster 400
+  (function(){
+    const pkgSel   = document.getElementById('rm400-package');
+    const priceEl  = document.getElementById('rm400-price');
+    const imgEl    = document.getElementById('rm400-image');
+    const addBtn   = document.getElementById('rm400-add');
+    const buyBtn   = document.getElementById('rm400-buy');
+    const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
+
+    const fmt = (n) => '$' + Number(n).toFixed(2);
+    const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+
+    function getPkg(){ return pkgSel.options[pkgSel.selectedIndex]; }
+    function getHW(){ return hwInputs.find(x=>x.checked)?.value || 'Stainless'; }
+
+    function updateView(){
+      const pkg = getPkg();
+      const price = Number(pkg.dataset.price);
+      priceEl.textContent = fmt(price);
+      if(pkg.dataset.img){ imgEl.src = pkg.dataset.img; imgEl.alt = pkg.text; }
+    }
+
+    function buildSkuName(){
+      const pkg = getPkg();
+      const hw  = getHW();
+      const sku = `${pkg.dataset.sku}-${slug(hw)}`;
+      const name = `${pkg.text} • ${hw}`;
+      return { sku, name, price: Number(pkg.dataset.price) };
+    }
+
+    function addToCartSafe(sku, name, price, qty, meta){
+      if (typeof window.addToCart === 'function') return window.addToCart(sku, name, price, qty, meta);
+    }
+    function buyNowSafe(sku, name, price, qty, meta){
+      if (typeof window.buyNow === 'function') return window.buyNow(sku, name, price, qty, meta);
+    }
+
+    // Init
+    updateView();
+
+    // Events
+    pkgSel.addEventListener('change', updateView);
+    hwInputs.forEach(r => r.addEventListener('change', updateView));
+
+    addBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuName();
+      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+    });
+    buyBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuName();
+      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+    });
+  })();
+  </script>
+
   <!-- Screen-reader announcer -->
-<div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
