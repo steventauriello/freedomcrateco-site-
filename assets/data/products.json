@@ -27,7 +27,7 @@
     "tags": ["range", "compact"],
     "description": "Compact box sized for three 4x4x2 trays."
   },
-  "FC-RB-1000-9": {
+  "FC-RB-1000": {
     "status": "active",
     "title": "Range Box 1000 (9mm)",
     "price": 89.99,
