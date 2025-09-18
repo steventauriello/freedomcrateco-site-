@@ -1,325 +1,44 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Freedom Crate Classic • Freedom Crate Co.</title>
+<!-- ===== Rangemaster 400 block ===== -->
+<section class="product-detail" id="rm400Block" aria-labelledby="rm400-title">
+  <img class="product-hero" id="rm400Img"
+       src="assets/img/rm400-base.jpg"
+       alt="Rangemaster 400 (Base)"
+       width="1200" height="800" decoding="async" loading="lazy">
 
-  <!-- SEO -->
-  <meta name="description" content="Freedom Crate Classic: hand-built wooden ammo box with lockable hardware and branch stencil options. Florida-built. Free shipping." />
-  <link rel="canonical" href="https://freedomcrateco.com/product.html">
+  <h1 id="rm400-title">Rangemaster 400</h1>
+  <div class="branch-label">Options</div>
+  <p class="muted">Choose your protection package and hardware.</p>
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Freedom Crate Classic • Freedom Crate Co.">
-  <meta property="og:description" content="Hand-built wooden ammo box with lockable hardware and branch stencils. Free shipping.">
-  <meta property="og:type" content="product">
-  <meta property="og:url" content="https://freedomcrateco.com/product.html">
-  <meta property="og:image" content="https://freedomcrateco.com/assets/img/standard-box_1200.jpg">
-  <meta name="twitter:card" content="summary_large_image">
+  <!-- Package -->
+  <label for="rm400Variant">Package</label>
+  <select id="rm400Variant" name="rm400Variant">
+    <option value="base" data-sku="RM400-BASE" data-price="49.99" data-img="assets/img/rm400-base.jpg">
+      Rangemaster 400 (Base)
+    </option>
+    <option value="armor" data-sku="RM400-ARMOR" data-price="59.99" data-img="assets/img/rm400-armor-core.jpg">
+      Rangemaster 400 — Armor Core (bed-liner interior)
+    </option>
+    <option value="battleguard" data-sku="RM400-BG" data-price="69.99" data-img="assets/img/rm400-battle-guard.jpg">
+      Rangemaster 400 — Battle Guard (protective exterior)
+    </option>
+  </select>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="assets/css/styles.css?v=11" />
-  <style>
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;border-radius:.25rem}
-    .product-detail{max-width:960px;margin:0 auto}
-    .product-hero{display:block;border-radius:8px}
-    .muted{opacity:.8}
-    .actions{display:flex;flex-wrap:wrap;gap:.75rem}
-    /* Small helper if thumbs are rendered */
-    .thumbs{display:flex;gap:.5rem;margin-top:.75rem;flex-wrap:wrap}
-    .thumbs img{width:72px;height:72px;object-fit:cover;border:1px solid var(--border);border-radius:6px;cursor:pointer}
-  </style>
+  <!-- Hardware -->
+  <label for="rm400Hardware">Hardware</label>
+  <select id="rm400Hardware" name="rm400Hardware">
+    <option value="stainless" data-code="STN">Original Stainless Hardware</option>
+    <option value="black" data-code="BLK">Black Hardware</option>
+  </select>
 
-  <!-- Product JSON-LD (Classic) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    "name": "Freedom Crate Classic",
-    "image": ["https://freedomcrateco.com/assets/img/standard-box_1200.jpg"],
-    "description": "Hand-built wooden ammo box with lockable hardware and optional U.S. service branch stencil.",
-    "sku": "FC-STD-BOX",
-    "brand": {"@type":"Brand","name":"Freedom Crate Co."},
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "USD",
-      "price": "139.00",
-      "availability": "https://schema.org/InStock",
-      "url": "https://freedomcrateco.com/product.html",
-      "seller": {"@type":"Organization","name":"Freedom Crate Co."}
-    }
-  }
-  </script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <p class="price"><strong><span id="rm400Price" aria-live="polite">$49.99</span></strong></p>
 
-  <!-- Header -->
-  <header class="site-header">
-  <a class="brand" href="index.html">
-    <img src="assets/img/logo.png" alt="Freedom Crate Co." />
-  </a>
-  <nav class="nav" aria-label="Primary">
-    <a href="index.html">Shop</a>
-    <a href="about.html">About</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="reviews.html">Reviews</a>
-    <a href="contact.html">Custom Orders</a>
-    <a href="checkout.html" class="cart-link">Cart</a>
-  </nav>
-</header>
-
-  <!-- Main -->
-  <main class="container" id="main">
-    <div id="productHost">
-
-      <!-- ===== Classic block ===== -->
-      <section class="product-detail" id="classicBlock" aria-labelledby="p-title">
-        <img class="product-hero"
-             src="assets/img/standard-box.png"
-             alt="Freedom Crate Classic wooden ammo box"
-             width="1200" height="800" decoding="async" loading="eager">
-
-        <h1 id="p-title">Freedom Crate Classic</h1>
-        <div class="branch-label" style="color:#9bc2ff">Branch Collection</div>
-        <p class="muted">Build marker: Classic v1.0.4</p>
-        <p class="muted">Same size across branches. Choose your stencil.</p>
-
-        <label for="branch">Branch stencil</label>
-        <select id="branch" name="branch">
-  <option value="marines" data-sku="FC-CLASSIC-USMC">U.S. Marine Corps</option>
-  <option value="army" data-sku="FC-CLASSIC-ARMY">U.S. Army</option>
-  <option value="navy" data-sku="FC-CLASSIC-NAVY">U.S. Navy</option>
-  <option value="airforce" data-sku="FC-CLASSIC-AF">U.S. Air Force</option>
-  <option value="coastguard" data-sku="FC-CLASSIC-USCG">U.S. Coast Guard</option>
-  <option value="spaceforce" data-sku="FC-CLASSIC-SF">U.S. Space Force</option>
-  <option value="nationalguard" data-sku="FC-CLASSIC-NG">National Guard</option>
-</select>
-<label for="hardware">Hardware finish</label>
-<select id="hardware" name="hardware">
-  <option value="stainless" data-code="STN">Stainless</option>
-  <option value="black" data-code="BLK">Black</option>
-  <option value="black-stainless" data-code="BST">Black Stainless</option>
-</select>
-
-        <!-- Personalization (2 lines, 30 chars each) -->
-        <div class="opt-row">
-          <label class="check">
-            <input type="checkbox" id="addPersonalization">
-            <span><strong>Add personalization?</strong> (up to 2 lines, 30 chars each)</span>
-          </label>
-        </div>
-
-        <div class="opt-row" id="pzWrap" style="display:none">
-          <div class="grid2">
-            <label>
-              <span><strong>Line 1</strong></span>
-              <input id="pz1" name="personalization_line1" type="text" maxlength="30"
-                     placeholder="e.g., Sgt. John Smith – USMC" />
-              <small class="help"><span id="pz1Count">0</span>/30</small>
-            </label>
-
-            <label>
-              <span><strong>Line 2 (optional)</strong></span>
-              <input id="pz2" name="personalization_line2" type="text" maxlength="30"
-                     placeholder="e.g., Semper Fi – Always Faithful" />
-              <small class="help"><span id="pz2Count">0</span>/30</small>
-            </label>
-          </div>
-
-          <div class="inline-hint">
-            Need more than 2 lines or 30 chars per line?
-            <a href="contact.html?box=Freedom%20Crate%20Classic&reason=custom">Request a Custom Order</a>
-          </div>
-
-          <div id="pzError" class="error" style="display:none"></div>
-        </div>
-
-        <p class="price"><strong><span id="price" aria-live="polite">$139.00</span></strong></p>
-
-        <div class="actions">
-          <button id="addBtn" class="btn" type="button">Add to Cart</button>
-          <button id="buyBtn" class="btn" type="button">Buy Now</button>
-          <a class="btn ghost" href="contact.html?box=Freedom%20Crate%20Classic">Customize</a>
-        </div>
-
-        <div class="return-policy" role="note" aria-label="Returns policy">
-          <p><strong>Returns:</strong> Standard boxes may be returned within
-             <strong>14 days</strong>. Buyer pays return shipping.<br>
-             ⚠️ <strong>Custom-built boxes are final sale</strong> — no returns or exchanges.</p>
-        </div>
-
-        <hr style="border:0;border-top:1px solid var(--border);margin:16px 0 12px">
-
-        <p class="muted">
-          <strong>Freedom Crate Classic —</strong>
-          The original handcrafted ammo box that launched Freedom Crate Co. Built for durability and timeless style, with measurements based on a real Cold War–era ammunition box. Holds ~1,000 rounds of 9mm.
-          <br>
-          <em>Interior dimensions:</em> 11" wide × 8¼" long × 5½" deep.
-        </p>
-      </section>
-
-      <!-- ===== Dynamic block (Rangemaster 400, etc.) ===== -->
-      <section class="product-detail" id="dynamicBlock" hidden>
-        <div class="gallery"></div>
-        <h1 id="p-title-2"></h1>
-        <p id="p-desc-2" class="muted"></p>
-        <p class="price"><strong id="p-price-2"></strong></p>
-        <div class="actions">
-          <button id="addBtn2" class="btn" type="button">Add to Cart</button>
-          <button id="buyBtn2" class="btn" type="button">Buy Now</button>
-        </div>
-      </section>
-
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <span class="badge">US Veteran-inspired • Florida-built</span>
-    </div>
-  </footer>
-
-  <!-- Scripts (deferred) -->
-  <script src="assets/js/util.js" defer></script>
-  <script src="assets/js/config.js" defer></script>
-  <script src="assets/js/data.js" defer></script>
-  <script src="assets/js/cart.js" defer></script>
-  <script src="assets/js/product.js" defer></script>
-
-  <!-- Classic wiring with personalization limits -->
-  <script>
-  (function(){
-    const priceEl = document.getElementById('price');
-    const branchEl = document.getElementById('branch');
-    const addBtn = document.getElementById('addBtn');
-    const buyBtn = document.getElementById('buyBtn');
-
-    // Personalization elements
-    const addPz = document.getElementById('addPersonalization');
-    const pzWrap = document.getElementById('pzWrap');
-    const pz1 = document.getElementById('pz1');
-    const pz2 = document.getElementById('pz2');
-    const c1 = document.getElementById('pz1Count');
-    const c2 = document.getElementById('pz2Count');
-    const err = document.getElementById('pzError');
-
-    const BASE_PRICE = 139.00;
-    const fmt = n => '$' + n.toFixed(2);
-    const MAX = 30; // chars per line
-
-    function currentVariant(){
-  const opt = branchEl.options[branchEl.selectedIndex];
-  const branch = opt.value;
-  const branchText = opt.text;
-  const sku = opt.dataset.sku || `FC-STD-BOX-${branch}`; // prefer data-sku, fallback
-  const name = `Freedom Crate Classic — ${branchText}`;
-  return { sku, name, branch, branchText };
-}
-
-    function safe(fn){ return (typeof fn === 'function') ? fn : () => console.warn('Cart not ready'); }
-
-    // Fixed price for this product
-    branchEl.addEventListener('change', ()=>{ priceEl.textContent = fmt(BASE_PRICE); });
-
-    // --- Personalization UI/validation ---
-    function updateCount(el, counter){ if (el && counter) counter.textContent = (el.value || '').length; }
-    function toggleBtn(enabled){
-      [addBtn, buyBtn].forEach(btn=>{
-        if (!btn) return;
-        btn.disabled = !enabled;
-        btn.classList.toggle('disabled', !enabled);
-      });
-    }
-    function showError(msg){ if (err){ err.textContent = msg; err.style.display = 'block'; } toggleBtn(false); }
-    function clearError(){ if (err){ err.textContent = ''; err.style.display = 'none'; } toggleBtn(true); }
-
-    function validate(){
-      if (!addPz?.checked) { clearError(); return true; }
-      const l1 = (pz1.value || '').trim();
-      const l2 = (pz2.value || '').trim();
-      if (!l1) { showError('Please enter at least Line 1.'); return false; }
-      if (l1.length > MAX) { showError(`Line 1 exceeds ${MAX} characters.`); return false; }
-      if (l2.length > MAX) { showError(`Line 2 exceeds ${MAX} characters.`); return false; }
-      clearError(); return true;
-    }
-
-    addPz?.addEventListener('change', ()=>{
-      pzWrap.style.display = addPz.checked ? '' : 'none';
-      if (!addPz.checked){
-        pz1.value = ''; pz2.value = '';
-        updateCount(pz1,c1); updateCount(pz2,c2);
-        clearError();
-      }
-    });
-    pz1?.addEventListener('input', ()=>{ updateCount(pz1,c1); validate(); });
-    pz2?.addEventListener('input', ()=>{ updateCount(pz2,c2); validate(); });
-    updateCount(pz1,c1); updateCount(pz2,c2); // init counters
-
-    function selectedOptions(){
-  const { sku, name, branch, branchText } = currentVariant();
-  const hardwareEl = document.getElementById('hardware');
-  const hardwareOpt = hardwareEl.options[hardwareEl.selectedIndex];
-  const hardware = hardwareOpt.value;
-  const hardwareLabel = hardwareOpt.text;
-  const hardwareCode = hardwareOpt.dataset.code;
-
-  return {
-    sku: `${sku}-${hardwareCode}`, // explicit SKU (branch + hardware)
-    name: `${name} • ${hardwareLabel}`,
-    price: BASE_PRICE,
-    image: 'assets/img/standard-box.png',
-    options: {
-      branch,
-      branchLabel: branchText,
-      hardware,
-      hardwareLabel,
-      personalization: addPz?.checked ? {
-        line1: (pz1.value || '').trim(),
-        line2: (pz2.value || '').trim()
-      } : null
-    }
-  };
-}
-    addBtn.addEventListener('click', ()=>{
-  if (!validate()) return;
-  const sel = selectedOptions();
-  safe(window.addToCart)(sel.sku, sel.name, sel.price, 1, {
-    image: sel.image,
-    branch: sel.options.branch,
-    branchLabel: sel.options.branchLabel,
-    hardware: sel.options.hardware,
-    hardwareLabel: sel.options.hardwareLabel,
-    personalization: sel.options.personalization
-  });
-});
-
-buyBtn.addEventListener('click', ()=>{
-  if (!validate()) return;
-  const sel = selectedOptions();
-  safe(window.buyNow)(sel.sku, sel.name, sel.price, 1, {
-    image: sel.image,
-    branch: sel.options.branch,
-    branchLabel: sel.options.branchLabel,
-    hardware: sel.options.hardware,
-    hardwareLabel: sel.options.hardwareLabel,
-    personalization: sel.options.personalization
-  });
-});
-})();
-  </script>
-
-  <!-- Lightbox (used by product.js when dynamic items have multiple images) -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button class="ctrl prev" aria-label="Previous image">‹</button>
-    <img id="lightboxImg" alt="">
-    <button class="ctrl next" aria-label="Next image">›</button>
-    <button class="close" aria-label="Close">✕</button>
+  <div class="actions">
+    <button id="rm400Add" class="btn" type="button">Add to Cart</button>
+    <button id="rm400Buy" class="btn" type="button">Buy Now</button>
   </div>
-</body>
-</html>
+
+  <p class="muted">
+    Base = raw wood. Armor Core adds truck-bed-liner to the <em>interior</em>.
+    Battle Guard adds the protective <em>exterior</em> coating.
+  </p>
+</section>
