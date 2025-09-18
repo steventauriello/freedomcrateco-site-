@@ -13,7 +13,7 @@
   },
   {
     "src": "assets/img/Rich-review-2.jpg",
-    "alt": "Custom Crate Build For rich",
+    "alt": "Custom Crate Build For Rich",
     "caption": "A Honer To Build These For Two WW2 Heroes",
     "tags": ["Customer", "Army"]
   },
@@ -148,5 +148,41 @@
     "alt": "Single Black Hardware",
     "caption": "Single Black Hardware Close-up",
     "tags": ["One-of-One", "Customer", "Shop/Studio"]
+  },
+  {
+    "src": "assets/img/heavy-ordnance-front.JPG",
+    "alt": "Heavy Ordnance Box Front",
+    "caption": "Heavy Ordnance Ammo Box Front View",
+    "tags": ["One-of-One"]
+  },
+  {
+    "src": "assets/img/heavy-ordnance-side.JPG",
+    "alt": "Heavy Ordnance Box Side",
+    "caption": "Heavy Ordnance Ammo Box Side View",
+    "tags": ["One-of-One"]
+  },
+  {
+    "src": "assets/img/heavy-ordnance-top.JPG",
+    "alt": "Heavy Ordnance Box Top",
+    "caption": "Heavy Ordnance Ammo Box Top View",
+    "tags": ["One-of-One"]
+  },
+  {
+    "src": "assets/img/slide-top-lid-open.JPG",
+    "alt": "Slide Top Lid Open",
+    "caption": "Slide Top Lid Ammo Box Open View",
+    "tags": ["Shop/Studio"]
+  },
+  {
+    "src": "assets/img/slide-top-lid-pair.JPG",
+    "alt": "Slide Top Lid Pair",
+    "caption": "Pair of Slide Top Lid Ammo Boxes",
+    "tags": ["Shop/Studio"]
+  },
+  {
+    "src": "assets/img/slide-top-lid.JPG",
+    "alt": "Slide Top Lid",
+    "caption": "Slide Top Lid Ammo Box",
+    "tags": ["Shop/Studio"]
   }
 ]
