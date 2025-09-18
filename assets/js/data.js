@@ -5,38 +5,41 @@ window.FC = window.FC || {};
   async function loadProducts() {
     // 1) Try JSON first
     try {
- const r = await fetch('assets/data/products.json', { cache: 'no-store' });
+      const r = await fetch('assets/data/products.json?v=' + Date.now(), { cache: 'no-store' });
       if (!r.ok) throw new Error('JSON not found');
       const json = await r.json();
-const arr = Array.isArray(json)
-  ? json
-  : Object.entries(json || {}).map(([sku, p]) => ({ ...p, sku }));
-normalizeProducts(arr);
-window.PRODUCTS = arr; // always an ARRAY
-return arr;
+      const arr = Array.isArray(json)
+        ? json
+        : Object.entries(json || {}).map(([sku, p]) => ({ ...p, sku }));
+      normalizeProducts(arr);
+      window.PRODUCTS = arr;              // always an ARRAY
+      window.dispatchEvent(new Event('products:loaded'));  // <-- important
+      return arr;
     } catch (e) {
       console.warn('products.json not found or invalid, trying CSV…', e);
     }
 
     // 2) Fallback to CSV
     try {
-      const r = await fetch('assets/data/products.csv', { cache: 'no-store' });
+      const r = await fetch('assets/data/products.csv?v=' + Date.now(), { cache: 'no-store' });
       if (!r.ok) throw new Error('CSV not found');
       const text = await r.text();
-      const map = csvToProducts(text);         // returns an object keyed by sku
+      const map = csvToProducts(text);    // returns an object keyed by sku
       const arr = Object.values(map);
       normalizeProducts(arr);
-      window.PRODUCTS = arr;                    // always an ARRAY
+      window.PRODUCTS = arr;              // always an ARRAY
+      window.dispatchEvent(new Event('products:loaded'));  // <-- important
       return arr;
     } catch (e) {
       console.error('Failed to load products.csv', e);
       window.PRODUCTS = [];
+      window.dispatchEvent(new Event('products:loaded'));  // still fire so listeners run
       return [];
     }
   }
 
   // Expose loader for catalog.js
-  FC.loadProducts = loadProducts;
+  window.FC.loadProducts = loadProducts;
 
   // ---------- helpers ----------
   const PLACEHOLDER = 'assets/img/blank.jpg';
@@ -52,14 +55,24 @@ return arr;
   // Accepts an ARRAY of product objects
   function normalizeProducts(arr) {
     for (const p of arr) {
-      p.sku   = p.sku || p.id || '';
-      p.title = p.title || p.name || p.sku || 'Untitled';
-      p.price = Number(p.price || 0);
-      p.qty   = parseInt(p.qty ?? 0, 10) || 0;
+      p.sku       = p.sku || p.id || '';
+      p.title     = p.title || p.name || p.sku || 'Untitled';
+      p.price     = Number(p.price || 0);
+      p.qty       = parseInt(p.qty ?? 0, 10) || 0;
       p.image_url = ensureImagePath(p.image_url || p.image || p.img || '');
-      p.status = p.status || 'active';
+      p.status    = p.status || 'active';
+
       if (typeof p.tags === 'string') {
         p.tags = p.tags.split(/[|,]/).map(s => s.trim()).filter(Boolean);
+      }
+
+      // normalize images to array of paths if present
+      if (Array.isArray(p.images)) {
+        p.images = p.images.map(ensureImagePath);
+      } else if (typeof p.images === 'string' && p.images.trim()) {
+        p.images = p.images.split(/[|,]/).map(s => ensureImagePath(s.trim())).filter(Boolean);
+      } else {
+        p.images = [];
       }
     }
   }
@@ -98,8 +111,8 @@ return arr;
     let cur = '', inQ = false;
     for (let i = 0; i < line.length; i++) {
       const ch = line[i];
-      if (ch === '"' ) {
-        if (inQ && line[i+1] === '"') { cur += '"'; i++; }
+      if (ch === '"') {
+        if (inQ && line[i + 1] === '"') { cur += '"'; i++; }
         else inQ = !inQ;
       } else if (ch === ',' && !inQ) {
         out.push(cur); cur = '';
