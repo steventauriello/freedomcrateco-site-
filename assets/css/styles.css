@@ -632,3 +632,11 @@ input[type="number"]::-webkit-inner-spin-button {
 .nav .cart-link {
   margin-left: auto;
 }
+/* Clamp product card descriptions */
+.product-card .meta p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;   /* number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
