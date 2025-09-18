@@ -417,13 +417,14 @@
     }
   // Preload RM400 images
   function preloadRm400(){
-    const imgs = [
-      "assets/img/rm400-top.jpg",
-      "assets/img/rm400-armor-core.jpg",
-      "assets/img/rm400-battle-guard.jpg"
-    ];
-    imgs.forEach(src => { const im = new Image(); im.src = src; });
-  }
+  const imgs = [
+    "assets/img/rm400-top.jpg",         // default closed image
+    "assets/img/rm400-open.jpg",        // base option (inside)
+    "assets/img/rm400-armor-core.jpg",  // armor core (inside painted)
+    "assets/img/rm400-battle-guard.jpg" // battle guard (exterior coated)
+  ];
+  imgs.forEach(src => { const im = new Image(); im.src = src; });
+}
     function buildSkuName(){
       const pkg = getPkg();
       const hw  = getHW();
