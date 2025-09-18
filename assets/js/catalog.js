@@ -1,20 +1,23 @@
 // assets/js/catalog.js
 // Renders product cards with Add to Cart + Buy Now buttons.
 // Supports: sold-out (qty=0), coming-soon (status="coming-soon"),
-// and live re-render on inventory:updated.  (Favorites removed)
+// and live re-render on inventory:updated. (Favorites removed)
 
 (function () {
   const listEl = document.getElementById('products');
   if (!listEl) return;
 
   const formatPrice = (n) =>
-    (FC && typeof FC.formatPrice === 'function')
+    (window.FC && typeof FC.formatPrice === 'function')
       ? FC.formatPrice(n)
       : ('$' + (Number(n) || 0).toFixed(2));
 
   // Initial load
   FC.loadProducts().then((items) => {
-    try { window.PRODUCTS = Object.fromEntries(items.map(p => [p.sku, p])); } catch (_) {}
+    try {
+      // Keep an object map for quick refresh after inventory updates
+      window.PRODUCTS = Object.fromEntries(items.map(p => [p.sku, p]));
+    } catch (_) {}
     render(items);
     wireFilters(items);
   });
@@ -34,7 +37,7 @@
         btn.classList.add('active');
 
         // No favorites mode anymore; everything renders.
-        const list = items; 
+        const list = items;
         render(list);
       });
     });
@@ -60,8 +63,11 @@
       const title    = p.title || 'Item';
       const imgUrl   = p.image_url || 'assets/img/blank.jpg';
 
+      // NEW: allow custom deep-links (e.g., index.html#rm400-card)
+      const link = p.link || `product.html?sku=${encodeURIComponent(p.sku)}`;
+
       const imgBlock = `
-        <a class="img" href="product.html?sku=${encodeURIComponent(p.sku)}">
+        <a class="img" href="${escapeHtml(link)}">
           ${soldOut ? `<div class="soldout">Sold Out</div>` : ''}
           <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(title)}" loading="lazy">
         </a>
@@ -78,7 +84,7 @@
         <div class="meta">
           ${stockRow}
           <div class="sku">SKU: ${escapeHtml(p.sku)}</div>
-          <h3><a href="product.html?sku=${encodeURIComponent(p.sku)}">${escapeHtml(title)}</a></h3>
+          <h3><a href="${escapeHtml(link)}">${escapeHtml(title)}</a></h3>
           <p>${escapeHtml(p.description || '')}</p>
 
           <div class="price-row">
@@ -97,7 +103,7 @@
         </div>
 
         <!-- Full-card overlay link -->
-        <a class="overlay-link" href="product.html?sku=${encodeURIComponent(p.sku)}" aria-label="${escapeHtml(title)}"></a>
+        <a class="overlay-link" href="${escapeHtml(link)}" aria-label="${escapeHtml(title)}"></a>
       `;
 
       // Buttons – pass full info + image to cart
@@ -105,15 +111,19 @@
       const buyBtn = card.querySelector('[data-buy]');
       if (addBtn) addBtn.addEventListener('click', (e) => {
         e.preventDefault(); e.stopPropagation();
-        window.addToCart(p.sku, title, priceNum, 1, { image: imgUrl });
+        safeCall(window.addToCart)(p.sku, title, priceNum, 1, { image: imgUrl });
       });
       if (buyBtn) buyBtn.addEventListener('click', (e) => {
         e.preventDefault(); e.stopPropagation();
-        window.buyNow(p.sku, title, priceNum, 1, { image: imgUrl });
+        safeCall(window.buyNow)(p.sku, title, priceNum, 1, { image: imgUrl });
       });
 
       listEl.appendChild(card);
     });
+  }
+
+  function safeCall(fn) {
+    return (typeof fn === 'function') ? fn : () => console.warn('Cart function missing');
   }
 
   function escapeHtml(s) {
