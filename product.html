@@ -53,24 +53,45 @@
     </div>
   </footer>
 
-  <!-- Shared libs -->
+  <!-- Shared libs (order matters) -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/inventory.js" defer></script>
   <script src="assets/js/data.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
 
-  <!-- Generic product loader -->
+  <!-- Generic product loader (single script) -->
   <script>
-  (function(){
+  (async function () {
+    // helpers
+    const ensurePath = (src) => {
+      const s = String(src || '').trim();
+      if (!s) return 'assets/img/blank.jpg';
+      if (/^https?:\/\//i.test(s)) return s;
+      if (s.startsWith('assets/')) return s;
+      return 'assets/img/' + s.replace(/^\/+/, '');
+    };
+    const toImgArray = (images) => {
+      if (Array.isArray(images)) return images.map(ensurePath);
+      if (!images) return [];
+      return String(images)
+        .split(/[|,]/)
+        .map(s => s.trim())
+        .filter(Boolean)
+        .map(ensurePath);
+    };
+
+    // sku from URL
     const params = new URLSearchParams(location.search);
     const sku = params.get('sku');
-    const DB = (window.PRODUCTS || {});
-    const P = DB[sku];
 
-    if (!P){ location.href = 'index.html'; return; }
+    // load products from data.js
+    const all = await (window.FC?.loadProducts?.() || Promise.resolve([]));
+    const P = all.find(p => String(p.sku) === String(sku));
 
-    // Elements
+    if (!P) { location.href = 'index.html'; return; }
+
+    // DOM
     const hero    = document.getElementById('pd-hero');
     const thumbs  = document.getElementById('pd-thumbs');
     const titleEl = document.getElementById('pd-title');
@@ -81,51 +102,52 @@
     const buyBtn  = document.getElementById('pd-buy');
     const noteEl  = document.getElementById('pd-note');
 
-    // Fill
-    titleEl.textContent = P.title;
-    document.title = P.title + ' • Freedom Crate Co.';
-    skuEl.textContent = 'SKU: ' + sku;
+    // data -> UI
+    titleEl.textContent = P.title || P.sku;
+    document.title = (P.title || P.sku) + ' • Freedom Crate Co.';
+    skuEl.textContent = 'SKU: ' + P.sku;
     descEl.textContent = P.description || '';
-    priceEl.textContent = '$' + Number(P.price).toFixed(2);
+    priceEl.textContent = '$' + Number(P.price || 0).toFixed(2);
     if (P.note) noteEl.textContent = P.note;
 
-    // Gallery
-    const imgs = (P.images && P.images.length) ? P.images : ['assets/img/blank.jpg'];
-    const setHero = (src, alt)=>{ hero.src = src; hero.alt = alt || P.title; };
+    // images
+    const imgs = toImgArray(P.images);
+    if (!imgs.length) imgs.push(ensurePath(P.image_url));
+    const setHero = (src, alt) => { hero.src = src; hero.alt = alt || P.title; };
     setHero(imgs[0], P.title);
 
     thumbs.innerHTML = '';
     imgs.forEach((src, i) => {
       const t = document.createElement('img');
-      t.src = src; t.alt = P.title + ' ' + (i+1);
-      t.addEventListener('click', ()=> setHero(src, t.alt));
+      t.src = src; t.alt = `${P.title} ${i+1}`;
+      t.addEventListener('click', () => setHero(src, t.alt));
       thumbs.appendChild(t);
     });
 
-    // Lightbox
+    // lightbox
     hero.style.cursor = 'zoom-in';
-    hero.addEventListener('click', ()=>{
+    hero.addEventListener('click', () => {
       const lb = document.createElement('div');
       lb.className = 'lightbox open';
       lb.innerHTML = '<img src="'+hero.src+'" alt="'+hero.alt+'"><div class="close">×</div>';
-      lb.querySelector('.close').onclick = ()=> lb.remove();
+      lb.querySelector('.close').onclick = () => lb.remove();
       lb.onclick = (e)=>{ if(e.target===lb) lb.remove(); };
       document.body.appendChild(lb);
     });
 
-    // Cart helpers
-    function addToCartSafe(sku, name, price, qty, meta){
-      if (typeof window.addToCart === 'function') return window.addToCart(sku, name, price, qty, meta);
-      console.warn('Cart not ready');
-    }
-    function buyNowSafe(sku, name, price, qty, meta){
-      if (typeof window.buyNow === 'function') return window.buyNow(sku, name, price, qty, meta);
-      console.warn('Cart not ready');
-    }
+    // cart helpers
+    const addToCartSafe = (sku, name, price, qty, meta) =>
+      (typeof window.addToCart === 'function')
+        ? window.addToCart(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
+    const buyNowSafe = (sku, name, price, qty, meta) =>
+      (typeof window.buyNow === 'function')
+        ? window.buyNow(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
 
     const meta = { image: imgs[0] };
-    addBtn.addEventListener('click', ()=> addToCartSafe(sku, P.title, P.price, 1, meta));
-    buyBtn.addEventListener('click', ()=> buyNowSafe(sku, P.title, P.price, 1, meta));
+    addBtn.addEventListener('click', () => addToCartSafe(P.sku, P.title, Number(P.price||0), 1, meta));
+    buyBtn.addEventListener('click', () => buyNowSafe(P.sku, P.title, Number(P.price||0), 1, meta));
   })();
   </script>
 
