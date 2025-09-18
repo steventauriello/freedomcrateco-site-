@@ -9,8 +9,11 @@
       "assets/img/freedom-footlocker-2.jpg",
       "assets/img/freedom-footlocker-3.jpg"
     ],
-    "tags": ["footlocker", "classic"],
-    "description": "The Freedom Footlocker is our largest handcrafted ammo box, built from durable 1/2-inch plywood to balance strength with reduced weight. Designed with dual removable compartments for organized storage, it offers an impressive interior capacity of 20 1/4\" wide × 10\" long × 8\" deep. Crafted in limited quantities due to the time and material required—available occasionally as stock permits or by custom request."
+    "tags": [
+      "footlocker",
+      "classic"
+    ],
+    "description": "The Freedom Footlocker is our largest handcrafted ammo box, built from durable 1/2-inch plywood to balance strength with reduced weight. Designed with dual removable compartments for organized storage, it offers an impressive interior capacity of 20 1/4\" wide \u00d7 10\" long \u00d7 8\" deep. Crafted in limited quantities due to the time and material required\u2014available occasionally as stock permits or by custom request."
   },
   "FC-RB-300": {
     "status": "active",
@@ -23,7 +26,10 @@
       "assets/img/rm400.jpg",
       "assets/img/rm400.jpg"
     ],
-    "tags": ["range", "compact"],
+    "tags": [
+      "range",
+      "compact"
+    ],
     "description": "Compact box sized for three 4x4x2 trays."
   },
   "FC-RB-1000": {
@@ -37,13 +43,16 @@
       "assets/img/rm400.jpg",
       "assets/img/rm400.jpg"
     ],
-    "tags": ["range", "9mm"],
+    "tags": [
+      "range",
+      "9mm"
+    ],
     "description": "Holds ~1000 rounds 9mm with sliding shelf."
   },
   "FC-RM-400": {
     "status": "active",
     "title": "Rangemaster 400",
-    "price": 0.10,
+    "price": 0.1,
     "qty": 10,
     "image_url": "assets/img/rm400-top.jpg",
     "images": [
@@ -52,9 +61,11 @@
       "assets/img/rm400-armor-core.jpg",
       "assets/img/rm400-battle-guard.jpg"
     ],
-    "tags": ["range", "400"],
-    "description": "Up to 400 rounds in one compact carry; open–load–shoot–close.",
-    "link": "index.html#rm400-card"
+    "tags": [
+      "range",
+      "400"
+    ],
+    "description": "Up to 400 rounds in one compact carry; open\u2013load\u2013shoot\u2013close."
   },
   "FC-CLASSIC": {
     "status": "active",
@@ -67,7 +78,11 @@
       "assets/img/rm400.jpg",
       "assets/img/rm400.jpg"
     ],
-    "tags": ["classic", "freedom", "ammo-box"],
+    "tags": [
+      "classic",
+      "freedom",
+      "ammo-box"
+    ],
     "description": "The original handcrafted ammo box that launched Freedom Crate Co."
   }
 }
