@@ -52,8 +52,8 @@
   "FC-RM-400": {
     "status": "active",
     "title": "Rangemaster 400",
-    "price": 0.1,
-    "qty": 10,
+    "price": 0.10,
+    "qty": 0,
     "image_url": "assets/img/rm400-top.jpg",
     "images": [
       "assets/img/rm400-top.jpg",
