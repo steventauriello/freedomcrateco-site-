@@ -186,37 +186,39 @@
   (function () {
     const lb  = document.getElementById('lb');
     const img = lb ? lb.querySelector('img') : null;
-    const supportsDialog = typeof HTMLDialogElement === 'function' &&
-                           'showModal' in HTMLDialogElement.prototype;
+    const supportsDialog = !!(window.HTMLDialogElement && HTMLDialogElement.prototype.showModal);
 
-    // Use capture so we run before other handlers that might stop the click
-    document.addEventListener('click', (e) => {
-      const el = e.target;
-      if (!el) return;
-      const a = el.closest && el.closest('a[data-lightbox]');
-      if (!a) return;
-
-      e.preventDefault();
-      const url = a.getAttribute('href');
-      const alt = a.getAttribute('aria-label') || a.title ||
-                  (a.querySelector && a.querySelector('img')?.alt) ||
-                  'Review photo';
-
+    function showPhoto(url, alt) {
       if (supportsDialog && lb && img) {
         img.src = url;
-        img.alt = alt;
+        img.alt = alt || 'Review photo';
         lb.showModal();
       } else {
-        // Fallback: open the image in a new tab/window
-        window.open(url, '_blank');
+        // Popup-safe fallback (same tab so blockers won't kill it)
+        window.location.href = url;
       }
-    }, true); // <-- capture phase
+    }
+
+    // Expose a global as a last-resort fallback if needed
+    window.openReviewPhoto = showPhoto;
+
+    // Bind directly to each link so other document-level handlers can't swallow it
+    document.querySelectorAll('a[data-lightbox]').forEach((a) => {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        const url = this.getAttribute('href');
+        const alt =
+          this.getAttribute('aria-label') ||
+          this.title ||
+          (this.querySelector('img') && this.querySelector('img').alt) ||
+          'Review photo';
+        showPhoto(url, alt);
+      }, { passive: false });
+    });
 
     if (lb) {
       lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lb.open) lb.close();
-      });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.open) lb.close(); });
     }
   })();
 </script>
