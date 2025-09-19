@@ -672,3 +672,15 @@ input[type="number"]::-webkit-inner-spin-button {
   flex-wrap: wrap;
 }
 .details-actions .btn { flex: 1; }
+
+/* Final override: cart trash icon should be icon-only */
+#cartContainer .remove-btn,
+.cart-card .remove-btn,
+.cart-row .remove-btn {
+  background: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+#cartContainer .remove-btn svg { display: block; }
