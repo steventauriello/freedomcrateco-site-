@@ -25,6 +25,26 @@
     .empty{padding:2.5rem;text-align:center;color:rgba(255,255,255,.7);border:1px dashed rgba(255,255,255,.2);border-radius:10px}
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;border-radius:.25rem}
+
+    /* 📱 Mobile layout: stack rows; center the Remove button */
+    @media (max-width:600px) {
+      .cart-row {
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+          "img meta"
+          "remove remove";
+        gap: 0.5rem;
+      }
+      .cart-row img { grid-area: img; }
+      .cart-row div { grid-area: meta; }
+      .cart-row .remove-btn {
+        grid-area: remove;
+        justify-self: center;   /* centered */
+        margin-top: 0.6rem;
+        padding: .6rem 1rem;    /* larger tap target */
+        border-radius: 999px;   /* pill style */
+      }
+    }
   </style>
 </head>
 <body>
@@ -78,7 +98,6 @@
   <script src="https://www.paypal.com/sdk/js?client-id=Acgmdk8HBF7vwWZVVlNSWaSkUmiS_d8W9sPUYL3ChpldJtFOmboTxRro0ZyTxSGN8fH52gMsgcDMEDWU&currency=USD" defer></script>
 
   <script>
-  /* checkout inline script */
   (function () {
     const container  = document.getElementById('cartContainer');
     const subtotalEl = document.getElementById('subtotal');
@@ -91,7 +110,7 @@
     ));
 
     function render() {
-      const cart = readCart(); // from cart.js
+      const cart = readCart();
 
       if (!cart.length){
         container.innerHTML = '<div class="empty">Your cart is empty.</div>';
@@ -141,17 +160,13 @@
         // qty controls / remove
         meta.querySelector('[data-inc]').addEventListener('click', () => {
           const current = readCart().find(i => i.sku === item.sku);
-          const nextQty = (current?.qty || 1) + 1;
-          setQty(item.sku, nextQty);
+          setQty(item.sku, (current?.qty || 1) + 1);
         });
         meta.querySelector('[data-dec]').addEventListener('click', () => {
           const current = readCart().find(i => i.sku === item.sku);
-          const nextQty = Math.max(1, (current?.qty || 1) - 1);
-          setQty(item.sku, nextQty);
+          setQty(item.sku, Math.max(1, (current?.qty || 1) - 1));
         });
-        remove.addEventListener('click', () => {
-          removeItem(item.sku);
-        });
+        remove.addEventListener('click', () => removeItem(item.sku));
       });
 
       subtotalEl.textContent = fmt(cartTotal(readCart()));
@@ -172,10 +187,8 @@
       paypalButtonsInstance = null;
     }
 
-    // Build purchase unit with line items + SKUs so they appear in PayPal
     function buildPayPalPurchaseUnit() {
-      const cart = readCart(); // [{ name, sku, price, qty, ... }]
-
+      const cart = readCart();
       const items = cart.map(i => {
         const name = i.name || 'Item';
         const sku  = i.sku || ('SKU-' + (i.id || name.replace(/\s+/g,'-').slice(0,20).toUpperCase()));
@@ -189,20 +202,15 @@
         };
       });
 
-      const itemTotal = items
-        .reduce((sum, it) => sum + (Number(it.unit_amount.value) * Number(it.quantity)), 0)
-        .toFixed(2);
+      const itemTotal = items.reduce((sum, it) => sum + (Number(it.unit_amount.value) * Number(it.quantity)), 0).toFixed(2);
 
       return {
         description: 'Freedom Crate Co. order',
         amount: {
           currency_code: 'USD',
-          value: itemTotal, // must equal the breakdown total
+          value: itemTotal,
           breakdown: {
             item_total: { currency_code: 'USD', value: itemTotal }
-            // tax_total: { currency_code: 'USD', value: '0.00' },
-            // shipping:  { currency_code: 'USD', value: '0.00' },
-            // discount:  { currency_code: 'USD', value: '0.00' }
           }
         },
         items
@@ -215,28 +223,23 @@
 
       paypalButtonsInstance = paypal.Buttons({
         style: { layout: 'vertical', shape: 'rect', label: 'paypal' },
-
-        // send items[] with name + sku so PayPal shows what was bought
         createOrder: (data, actions) => {
           const unit = buildPayPalPurchaseUnit();
           if (Number(unit.amount.value) <= 0) return;
           return actions.order.create({
             purchase_units: [ unit ],
             application_context: {
-              brand_name: 'Freedom Crate Co.', // ✅ polish: shows brand at PayPal
-              user_action: 'PAY_NOW'           // ✅ polish: button says "Pay Now"
-              // shipping_preference: 'GET_FROM_FILE' // enable if you want PayPal to ask for shipping
+              brand_name: 'Freedom Crate Co.',
+              user_action: 'PAY_NOW'
             }
           });
         },
-
         onApprove: (data, actions) => {
           return actions.order.capture().then(() => {
             clearCart();
             window.location.href = 'order-success.html?orderId=' + encodeURIComponent(data.orderID || '');
           });
         },
-
         onError: (err) => {
           console.error('PayPal error', err);
           alert('There was an issue with PayPal. Please try again.');
@@ -248,7 +251,6 @@
       }
     }
 
-    // initial render + sync
     document.addEventListener('DOMContentLoaded', render);
     window.addEventListener('cart:updated', render);
     window.addEventListener('storage', render);
