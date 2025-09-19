@@ -74,9 +74,9 @@
   "qty": 5,
   "image_url": "assets/img/blank.jpg",
   "images": [
-    "assets/img/rm400.jpg",
-    "assets/img/rm400.jpg",
-    "assets/img/rm400.jpg"
+    "assets/img/blank.jpg",
+    "assets/img/slide-top-lid-open.jpg",
+    "assets/img/slide-top-lid.jpg"
   ],
   "tags": [
     "classic",
