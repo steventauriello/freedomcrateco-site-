@@ -63,8 +63,7 @@
     </div>
 
     <section class="hero-banner" aria-label="Hero"></section>
-
-    <!-- ========================= -->
+        <!-- ========================= -->
     <!-- Featured: Freedom Crate Classic -->
     <!-- ========================= -->
     <section class="featured-wrap" aria-label="Freedom Crate Classic">
@@ -104,8 +103,8 @@
           </div>
 
           <div class="fc-row">
-            <div><strong>Total: <span id="sb-price" aria-live="polite">$95.00</span></strong></div>
-            <small class="fc-note">Base $95</small>
+            <div><strong>Total: <span id="sb-price" aria-live="polite">$89.99</span></strong></div>
+            <small class="fc-note">Blank $89.99 • Branch $95</small>
           </div>
 
           <div class="fc-row">
@@ -117,8 +116,7 @@
         </div>
       </div>
     </section>
-
-    <!-- ========================= -->
+        <!-- ========================= -->
     <!-- Featured: Rangemaster 400 -->
     <!-- ========================= -->
     <section class="featured-wrap" aria-label="Rangemaster 400 Options">
@@ -178,10 +176,7 @@
             <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
           </div>
 
-         <p class="fc-note">
-  Armor Core is an Interior PolyShield that protects against oils and chemicals.  
-  Battle Guard is an Exterior PolyShield that gives the Rangemaster ultimate durability and defense against scratches and dents.
-        </p>
+          <p class="fc-note">Armor Core = interior PolyShield (oil/chemical resistant). Battle Guard = exterior PolyShield (scratch/dent resistant). Free shipping.</p>
         </div>
       </div>
     </section>
@@ -196,8 +191,7 @@
       <p class="muted">Rugged, practical, and made to be used.</p>
     </div>
   </footer>
-
-  <!-- Scripts (order matters) -->
+    <!-- Scripts (order matters) -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/inventory.js" defer></script>
@@ -210,15 +204,16 @@
   // --- Freedom Crate Classic (Branch Collection) ---
   (function(){
     const IMG = {
-      blank:      "assets/img/blank.jpg",
-      army:       "assets/img/army.jpg",
-      marines:    "assets/img/marines.jpg",
-      navy:       "assets/img/navy.jpg",
-      airforce:   "assets/img/airforce.jpg",
+      blank: "assets/img/blank.jpg",
+      army: "assets/img/army.jpg",
+      marines: "assets/img/marines.jpg",
+      navy: "assets/img/navy.jpg",
+      airforce: "assets/img/airforce.jpg",
       coastguard: "assets/img/coastguard.jpg"
     };
-    const BASE = 95;
-    const LATCH_PRICE = { Stainless: 0, Black: 0 };
+    const BRANCH_PRICE = 95.00;
+    const BLANK_PRICE  = 89.99;
+    const LATCH_PRICE  = { Stainless: 0, Black: 0 };
 
     const imgEl   = document.getElementById('sb-image');
     const branch  = document.getElementById('sb-branch');
@@ -227,80 +222,15 @@
     const buyBtn  = document.getElementById('sb-buy');
     const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
 
-    const KEY = 'fcc-classic-box';
     const fmt = (n) => '$' + Number(n).toFixed(2);
-    const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-    const getLatch = () => (latchInputs.find(x=>x.checked)?.value || 'Stainless');
 
-    function preload(){ Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; }); }
-    function updateImage(){
-      const v = branch.value;
-      imgEl.classList.add('is-loading');
-      const next = IMG[v] || IMG.blank;
-      const tmp = new Image();
-      tmp.onload = () => {
-        imgEl.src = next;
-        imgEl.alt = (v==='blank') ? 'Freedom Crate Classic (blank)' :
-          `Freedom Crate Classic – ${branch.options[branch.selectedIndex].text}`;
-        requestAnimationFrame(()=>imgEl.classList.remove('is-loading'));
-      };
-      tmp.src = next;
+    function calcTotal(){
+      const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
+      priceEl.textContent = fmt(base);
     }
-    function animatePrice(from,to,ms=200){
-      const t0 = performance.now();
-      const step = (t)=>{
-        const k = Math.min(1,(t-t0)/ms);
-        priceEl.textContent = fmt(from + (to-from)*k);
-        if(k<1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    }
-    function calcTotal(animate=true){
-      const target = BASE + (LATCH_PRICE[getLatch()]||0);
-      const current = Number(String(priceEl.textContent).replace(/[^0-9.]/g,'')) || BASE;
-      if (animate) animatePrice(current, target); else priceEl.textContent = fmt(target);
-    }
-    function saveState(){
-      try { localStorage.setItem(KEY, JSON.stringify({ branch: branch.value, latch: getLatch() })); } catch(_) {}
-    }
-    function restoreState(){
-      try{
-        const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(!s) return;
-        if (s.branch) branch.value = s.branch;
-        if (s.latch)  latchInputs.forEach(r=>r.checked = (r.value===s.latch));
-      }catch(_){}
-    }
-    function buildSkuName(){
-      const bVal = branch.value;
-      const bTxt = branch.options[branch.selectedIndex].text;
-      const lTxt = getLatch();
-      const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`;
-      const name = `Freedom Crate Classic — ${bTxt} • ${lTxt}`;
-      return { sku, name };
-    }
-    function addToCartSafe(sku, name, price, qty, meta){
-      if (typeof window.addToCart === 'function') return window.addToCart(sku, name, price, qty, meta);
-      console.warn('Cart not ready: addToCart() missing');
-    }
-    function buyNowSafe(sku, name, price, qty, meta){
-      if (typeof window.buyNow === 'function') return window.buyNow(sku, name, price, qty, meta);
-      console.warn('Cart not ready: buyNow() missing');
-    }
-
-    // Init + events
-    restoreState(); preload(); updateImage(); calcTotal(false);
-    branch.addEventListener('change', ()=>{ updateImage(); calcTotal(); saveState(); });
-    latchInputs.forEach(r => r.addEventListener('change', ()=>{ calcTotal(); saveState(); }));
-    addBtn.addEventListener('click', () => {
-      const { sku, name } = buildSkuName();
-      const price = Number(String(priceEl.textContent).replace(/[^0-9.]/g,'')) || BASE;
-      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
-    });
-    buyBtn.addEventListener('click', () => {
-      const { sku, name } = buildSkuName();
-      const price = Number(String(priceEl.textContent).replace(/[^0-9.]/g,'')) || BASE;
-      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
-    });
+    branch.addEventListener('change', calcTotal);
+    latchInputs.forEach(r => r.addEventListener('change', calcTotal));
+    calcTotal();
   })();
 
   // --- Rangemaster 400 (Featured Card) ---
@@ -308,58 +238,16 @@
     const pkgSel   = document.getElementById('rm400-package');
     const priceEl  = document.getElementById('rm400-price');
     const imgEl    = document.getElementById('rm400-image');
-    const addBtn   = document.getElementById('rm400-add');
-    const buyBtn   = document.getElementById('rm400-buy');
-    const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
-
-    const fmt  = (n) => '$' + Number(n).toFixed(2);
-
-    if (!pkgSel || !priceEl || !imgEl) return;
-
-    function getPkg(){ return pkgSel.options[pkgSel.selectedIndex]; }
-    function getHW(){ return hwInputs.find(x=>x.checked)?.value || 'Stainless'; }
+    const fmt      = (n) => '$' + Number(n).toFixed(2);
 
     function updateView(){
-      const pkg = getPkg();
+      const pkg = pkgSel.options[pkgSel.selectedIndex];
       priceEl.textContent = fmt(Number(pkg.dataset.price));
-      if (pkg.dataset.img){
-        const next = pkg.dataset.img;
-        const tmp = new Image();
-        tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
-        tmp.src = next;
-      }
+      imgEl.src = pkg.dataset.img;
+      imgEl.alt = pkg.text;
     }
-    function buildSkuName(){
-      const pkg = getPkg();
-      const hw  = getHW();
-      const code = (hw === 'Stainless' ? 'STN' : 'BLK');
-      return { sku: `${pkg.dataset.sku}-${code}`, name: `${pkg.text} • ${hw}`, price: Number(pkg.dataset.price) };
-    }
-    function addToCartSafe(sku, name, price, qty, meta){
-      if (typeof window.addToCart === 'function') return window.addToCart(sku, name, price, qty, meta);
-      console.warn('Cart not ready: addToCart() missing');
-    }
-    function buyNowSafe(sku, name, price, qty, meta){
-      if (typeof window.buyNow === 'function') return window.buyNow(sku, name, price, qty, meta);
-      console.warn('Cart not ready: buyNow() missing');
-    }
-
-    // init
-    updateView();
-    ["assets/img/rm400-top.jpg","assets/img/rm400-open.jpg","assets/img/rm400-armor-core.jpg","assets/img/rm400-battle-guard.jpg"]
-      .forEach(src => { const im = new Image(); im.src = src; });
-
-    // events
     pkgSel.addEventListener('change', updateView);
-    hwInputs.forEach(r => r.addEventListener('change', updateView));
-    addBtn.addEventListener('click', () => {
-      const { sku, name, price } = buildSkuName();
-      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
-    });
-    buyBtn.addEventListener('click', () => {
-      const { sku, name, price } = buildSkuName();
-      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
-    });
+    updateView();
   })();
   </script>
 
