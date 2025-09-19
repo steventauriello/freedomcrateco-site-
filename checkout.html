@@ -150,7 +150,22 @@
         const remove = document.createElement('button');
 remove.className = 'remove-btn';
 remove.type = 'button';
-remove.innerHTML = '🗑️'; // just an icon
+remove.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" 
+       width="16" height="16" fill="currentColor" aria-hidden="true">
+    <path d="M135.2 17.7C140.1 7.1 150.7 0 162.6 0h122.8c11.9 0 22.5 
+             7.1 27.4 17.7L320 32H432c8.8 0 16 7.2 16 16s-7.2 
+             16-16 16h-16l-21.2 372.6c-1.5 26.3-23.2 47.4-49.5 
+             47.4H102.7c-26.3 0-48-21.1-49.5-47.4L32 
+             64H16C7.2 64 0 56.8 0 48s7.2-16 16-16H128l7.2-14.3zM80 
+             64h288l20.3 356.3c.5 9.4-7 17.7-16.4 17.7H96.1c-9.4 
+             0-16.9-8.3-16.4-17.7L80 64zm96 80c8.8 0 16 7.2 
+             16 16v224c0 8.8-7.2 16-16 
+             16s-16-7.2-16-16V160c0-8.8 7.2-16 16-16zm96 
+             0c8.8 0 16 7.2 16 16v224c0 8.8-7.2 16-16 
+             16s-16-7.2-16-16V160c0-8.8 7.2-16 16-16z"/>
+  </svg>
+`;
 remove.setAttribute('aria-label', 'Remove item');
 
         row.appendChild(img);
