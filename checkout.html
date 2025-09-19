@@ -88,134 +88,180 @@
   <!-- PayPal Smart Buttons (replace with your live client-id when ready) -->
   <script src="https://www.paypal.com/sdk/js?client-id=Acgmdk8HBF7vwWZVVlNSWaSkUmiS_d8W9sPUYL3ChpldJtFOmboTxRro0ZyTxSGN8fH52gMsgcDMEDWU&currency=USD" defer></script>
   <script>
-  (function () {
-    const container = document.getElementById('cartContainer');
-    const subtotalEl = document.getElementById('subtotal');
-    const totalsBox  = document.getElementById('totals');
-    const actionsBox = document.getElementById('actions');
+/* checkout inline script — replaces the existing one entirely */
+(function () {
+  const container  = document.getElementById('cartContainer');
+  const subtotalEl = document.getElementById('subtotal');
+  const totalsBox  = document.getElementById('totals');
+  const actionsBox = document.getElementById('actions');
 
-    const fmt = (n) => '$' + (Number(n||0)).toFixed(2);
-    const escapeHtml = (s) => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const fmt = (n) => '$' + (Number(n || 0)).toFixed(2);
+  const escapeHtml = (s) => String(s).replace(/[&<>"']/g, m => (
+    {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]
+  ));
 
-    function render(){
-      const cart = readCart(); // from cart.js
+  function render() {
+    const cart = readCart(); // from cart.js
 
-      if (!cart.length){
-        container.innerHTML = '<div class="empty">Your cart is empty.</div>';
-        totalsBox.hidden = true;
-        actionsBox.hidden = true;
-        teardownPayPal();
-        return;
-      }
-
-      container.innerHTML = '';
-      cart.forEach((item) => {
-        const row = document.createElement('div');
-        row.className = 'cart-row';
-        row.dataset.sku = item.sku;
-
-        const img = document.createElement('img');
-        const src = (item.meta && item.meta.image) ? item.meta.image : (item.image || 'assets/img/blank.jpg');
-        img.src = src;
-        img.alt = item.name || 'Item';
-
-        const meta = document.createElement('div');
-        meta.innerHTML = `
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;">
-            <div>
-              <div style="font-weight:600">${escapeHtml(item.name || 'Item')}</div>
-              <div class="muted">SKU: ${escapeHtml(item.sku || '')}</div>
-            </div>
-            <div style="min-width:90px;text-align:right">${fmt(item.price || 0)}</div>
-          </div>
-          <div class="qty" style="margin-top:.5rem;">
-            <button class="btn" data-dec type="button" aria-label="Decrease quantity">–</button>
-            <span aria-live="polite">${item.qty || 1}</span>
-            <button class="btn" data-inc type="button" aria-label="Increase quantity">+</button>
-          </div>
-        `;
-
-        const remove = document.createElement('button');
-        remove.className = 'remove-btn';
-        remove.type = 'button';
-        remove.textContent = 'Remove';
-
-        row.appendChild(img);
-        row.appendChild(meta);
-        row.appendChild(remove);
-        container.appendChild(row);
-
-        // wire qty / remove using SKU (stable id)
-        meta.querySelector('[data-inc]').addEventListener('click', () => {
-          const current = readCart().find(i => i.sku === item.sku);
-          const nextQty = (current?.qty || 1) + 1;
-          setQty(item.sku, nextQty);
-        });
-        meta.querySelector('[data-dec]').addEventListener('click', () => {
-          const current = readCart().find(i => i.sku === item.sku);
-          const nextQty = Math.max(1, (current?.qty || 1) - 1);
-          setQty(item.sku, nextQty);
-        });
-        remove.addEventListener('click', () => {
-          removeItem(item.sku);
-        });
-      });
-
-      subtotalEl.textContent = fmt(cartTotal(readCart()));
-      totalsBox.hidden = false;
-      actionsBox.hidden = false;
-      setupPayPal();
-    }
-
-    // --- PayPal buttons lifecycle ---
-    let paypalButtonsInstance = null;
-
-    function teardownPayPal(){
-      if (paypalButtonsInstance && paypalButtonsInstance.isEligible && paypalButtonsInstance.isEligible()) {
-        try { paypalButtonsInstance.close(); } catch(_){}
-      }
-      const holder = document.getElementById('paypal-buttons');
-      if (holder) holder.innerHTML = '';
-      paypalButtonsInstance = null;
-    }
-
-    function setupPayPal(){
-      if (!window.paypal || !paypal.Buttons){ setTimeout(setupPayPal, 100); return; }
+    if (!cart.length){
+      container.innerHTML = '<div class="empty">Your cart is empty.</div>';
+      totalsBox.hidden = true;
+      actionsBox.hidden = true;
       teardownPayPal();
-
-      paypalButtonsInstance = paypal.Buttons({
-        style: { layout: 'vertical', shape: 'rect', label: 'paypal' },
-        createOrder: (data, actions) => {
-          const total = cartTotal(readCart());
-          if (total <= 0) return;
-          return actions.order.create({
-            purchase_units: [{ amount: { value: total.toFixed(2) } }]
-          });
-        },
-        onApprove: (data, actions) => {
-          return actions.order.capture().then(() => {
-            clearCart(); // use API so badge & events stay in sync
-            window.location.href = 'order-success.html?orderId=' + encodeURIComponent(data.orderID || '');
-          });
-        },
-        onError: (err) => {
-          console.error('PayPal error', err);
-          alert('There was an issue with PayPal. Please try again.');
-        }
-      });
-
-      if (paypalButtonsInstance.isEligible()){
-        paypalButtonsInstance.render('#paypal-buttons');
-      }
+      return;
     }
 
-    // initial render + sync
-    document.addEventListener('DOMContentLoaded', render);
-    // Re-render when the cart changes (same-tab updates)
-    window.addEventListener('cart:updated', render);
-    // Cross-tab updates also dispatch 'storage' from cart.js; re-render anyway:
-    window.addEventListener('storage', render);
-  })();
-  </script>
+    container.innerHTML = '';
+    cart.forEach((item) => {
+      const row = document.createElement('div');
+      row.className = 'cart-row';
+      row.dataset.sku = item.sku;
+
+      const img = document.createElement('img');
+      const src = (item.meta && item.meta.image) ? item.meta.image : (item.image || 'assets/img/blank.jpg');
+      img.src = src;
+      img.alt = item.name || 'Item';
+
+      const meta = document.createElement('div');
+      meta.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;">
+          <div>
+            <div style="font-weight:600">${escapeHtml(item.name || 'Item')}</div>
+            <div class="muted">SKU: ${escapeHtml(item.sku || 'SKU-' + (item.id || 'UNKNOWN'))}</div>
+          </div>
+          <div style="min-width:90px;text-align:right">${fmt(item.price || 0)}</div>
+        </div>
+        <div class="qty" style="margin-top:.5rem;">
+          <button class="btn" data-dec type="button" aria-label="Decrease quantity">–</button>
+          <span aria-live="polite">${item.qty || 1}</span>
+          <button class="btn" data-inc type="button" aria-label="Increase quantity">+</button>
+        </div>
+      `;
+
+      const remove = document.createElement('button');
+      remove.className = 'remove-btn';
+      remove.type = 'button';
+      remove.textContent = 'Remove';
+
+      row.appendChild(img);
+      row.appendChild(meta);
+      row.appendChild(remove);
+      container.appendChild(row);
+
+      // qty controls / remove
+      meta.querySelector('[data-inc]').addEventListener('click', () => {
+        const current = readCart().find(i => i.sku === item.sku);
+        const nextQty = (current?.qty || 1) + 1;
+        setQty(item.sku, nextQty);
+      });
+      meta.querySelector('[data-dec]').addEventListener('click', () => {
+        const current = readCart().find(i => i.sku === item.sku);
+        const nextQty = Math.max(1, (current?.qty || 1) - 1);
+        setQty(item.sku, nextQty);
+      });
+      remove.addEventListener('click', () => {
+        removeItem(item.sku);
+      });
+    });
+
+    subtotalEl.textContent = fmt(cartTotal(readCart()));
+    totalsBox.hidden = false;
+    actionsBox.hidden = false;
+    setupPayPal();
+  }
+
+  // ---------- PayPal ----------
+  let paypalButtonsInstance = null;
+
+  function teardownPayPal(){
+    if (paypalButtonsInstance && paypalButtonsInstance.isEligible && paypalButtonsInstance.isEligible()) {
+      try { paypalButtonsInstance.close(); } catch(_) {}
+    }
+    const holder = document.getElementById('paypal-buttons');
+    if (holder) holder.innerHTML = '';
+    paypalButtonsInstance = null;
+  }
+
+  // Build purchase unit with line items + SKUs so they appear in PayPal
+  function buildPayPalPurchaseUnit() {
+    const cart = readCart(); // [{ name, sku, price, qty, ... }]
+
+    const items = cart.map(i => {
+      const name = i.name || 'Item';
+      const sku  = i.sku || ('SKU-' + (i.id || name.replace(/\s+/g,'-').slice(0,20).toUpperCase()));
+      const qty  = String(i.qty || 1);
+      const unit = Number(i.price || 0).toFixed(2);
+
+      return {
+        name,
+        sku,
+        quantity: qty,
+        unit_amount: { currency_code: 'USD', value: unit }
+      };
+    });
+
+    const itemTotal = items
+      .reduce((sum, it) => sum + (Number(it.unit_amount.value) * Number(it.quantity)), 0)
+      .toFixed(2);
+
+    // If you add tax/shipping later, include them in breakdown and adjust value.
+    return {
+      description: 'Freedom Crate Co. order',
+      amount: {
+        currency_code: 'USD',
+        value: itemTotal,
+        breakdown: {
+          item_total: { currency_code: 'USD', value: itemTotal }
+          // tax_total: { currency_code: 'USD', value: '0.00' },
+          // shipping:  { currency_code: 'USD', value: '0.00' },
+          // discount:  { currency_code: 'USD', value: '0.00' }
+        }
+      },
+      items
+    };
+  }
+
+  function setupPayPal(){
+    if (!window.paypal || !paypal.Buttons){ setTimeout(setupPayPal, 100); return; }
+    teardownPayPal();
+
+    paypalButtonsInstance = paypal.Buttons({
+      style: { layout: 'vertical', shape: 'rect', label: 'paypal' },
+
+      // IMPORTANT: send items[] with name + sku so PayPal shows what was bought
+      createOrder: (data, actions) => {
+        const unit = buildPayPalPurchaseUnit();
+        if (Number(unit.amount.value) <= 0) return;
+        return actions.order.create({
+          purchase_units: [ unit ],
+          // optional context
+          // application_context: { shipping_preference: 'GET_FROM_FILE' }
+        });
+      },
+
+      onApprove: (data, actions) => {
+        return actions.order.capture().then(() => {
+          clearCart();
+          window.location.href = 'order-success.html?orderId=' + encodeURIComponent(data.orderID || '');
+        });
+      },
+
+      onError: (err) => {
+        console.error('PayPal error', err);
+        alert('There was an issue with PayPal. Please try again.');
+      }
+    });
+
+    if (paypalButtonsInstance.isEligible()){
+      paypalButtonsInstance.render('#paypal-buttons');
+    }
+  }
+
+  // initial render + sync
+  document.addEventListener('DOMContentLoaded', render);
+  window.addEventListener('cart:updated', render);
+  window.addEventListener('storage', render);
+})();
+</script>
 </body>
 </html>
