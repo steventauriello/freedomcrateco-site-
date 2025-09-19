@@ -353,6 +353,22 @@ textarea { min-height: 140px; resize: vertical; }
 .product-detail .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
 .product-detail .btn.ghost { background: transparent; border: 1px solid var(--brand); }
 
+/* === Product description lists (NEW) === */
+.product-description ul,
+.product-description ol {
+  margin: 0.75rem 0 0.5rem 1.25rem;
+  padding: 0;
+}
+.product-description li {
+  margin: 0.25rem 0;
+  line-height: 1.5;
+}
+.product-description strong {
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 0.25rem;
+}
+
 /* === Cart qty controls === */
 .qty-cell {
   display: inline-flex;
