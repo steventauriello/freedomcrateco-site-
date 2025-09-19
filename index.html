@@ -200,16 +200,16 @@
   <script src="assets/js/catalog.js" defer></script>
 
   <!-- Page-scoped featured card logic -->
-  <script>
-/* --- Freedom Crate Classic: price + image swap using YOUR filenames --- */
+<script>
+/* --- Freedom Crate Classic: price + image swap + Add/Buy --- */
 (function(){
-  // Map dropdown values -> your actual image files (exact case + spaces)
+  // Use your actual filenames (case & spaces matter)
   const IMG = {
     blank:      "assets/img/blank.jpg",
     army:       "assets/img/army.jpg",
-    marines:    "assets/img/marines.jpg",     // <-- change to "Marine.jpg" if that's the file you have
+    marines:    "assets/img/marines.jpg",     // change to "Marine.jpg" if needed
     navy:       "assets/img/navy.jpg",
-    airforce:   "assets/img/airforce.jpg",   // <-- update if your Air Force file is named differently
+    airforce:   "assets/img/airforce.jpg",
     coastguard: "assets/img/coastguard.jpg"
   };
 
@@ -220,10 +220,14 @@
   const imgEl   = document.getElementById('sb-image');
   const branch  = document.getElementById('sb-branch');
   const priceEl = document.getElementById('sb-price');
+  const addBtn  = document.getElementById('sb-add');
+  const buyBtn  = document.getElementById('sb-buy');
   const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
-  const fmt = n => '$' + Number(n).toFixed(2);
 
-  // Preload so swaps feel instant
+  const fmt  = n => '$' + Number(n).toFixed(2);
+  const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+
+  // Preload images for snappy swaps
   Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; });
 
   function updateImage(){
@@ -243,19 +247,118 @@
     tmp.src = src;
   }
 
+  function getLatch(){ return latchInputs.find(x => x.checked)?.value || 'Stainless'; }
+
   function calcTotal(){
     const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
-    const latchVal = latchInputs.find(x => x.checked)?.value || 'Stainless';
-    const total = base + (LATCH_PRICE[latchVal] || 0);
+    const total = base + (LATCH_PRICE[getLatch()] || 0);
     priceEl.textContent = fmt(total);
   }
 
+  function buildSkuName(){
+    const bVal = branch.value;                          // blank|army|marines|navy|airforce|coastguard
+    const lTxt = getLatch();                            // Stainless|Black
+    const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`; // e.g., classic-army-stainless
+    const name = `Freedom Crate Classic — ${branch.options[branch.selectedIndex].text} • ${lTxt}`;
+    const price = Number(priceEl.textContent.replace(/[^0-9.]/g,'')) || 0;
+    return { sku, name, price };
+  }
+
+  const addToCartSafe = (sku, name, price, qty, meta) =>
+    (typeof window.addToCart === 'function')
+      ? window.addToCart(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
+
+  const buyNowSafe = (sku, name, price, qty, meta) =>
+    (typeof window.buyNow === 'function')
+      ? window.buyNow(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
+
+  // Events
   branch.addEventListener('change', () => { updateImage(); calcTotal(); });
   latchInputs.forEach(r => r.addEventListener('change', calcTotal));
+
+  addBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuName();
+    addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+  });
+
+  buyBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuName();
+    buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+  });
 
   // Initial render
   updateImage();
   calcTotal();
+})();
+
+/* --- Rangemaster 400: image/price swap + Add/Buy --- */
+(function(){
+  const pkgSel   = document.getElementById('rm400-package');
+  const priceEl  = document.getElementById('rm400-price');
+  const imgEl    = document.getElementById('rm400-image');
+  const addBtn   = document.getElementById('rm400-add');
+  const buyBtn   = document.getElementById('rm400-buy');
+  const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
+
+  if (!pkgSel || !priceEl || !imgEl) return;
+
+  const fmt = n => '$' + Number(n).toFixed(2);
+  const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
+  const getHW  = () => hwInputs.find(x=>x.checked)?.value || 'Stainless';
+
+  function updateView(){
+    const pkg = getPkg();
+    priceEl.textContent = fmt(Number(pkg.dataset.price));
+    if (pkg.dataset.img){
+      const next = pkg.dataset.img;
+      const tmp = new Image();
+      tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
+      tmp.src = next;
+    }
+  }
+
+  function buildSkuName(){
+    const pkg = getPkg();
+    const hw  = getHW();
+    const code = (hw === 'Stainless' ? 'STN' : 'BLK');
+    const sku  = `${pkg.dataset.sku}-${code}`; // e.g., RM400-ARMOR-STN
+    const name = `${pkg.text} • ${hw}`;
+    const price = Number(pkg.dataset.price) || 0;
+    return { sku, name, price };
+  }
+
+  const addToCartSafe = (sku, name, price, qty, meta) =>
+    (typeof window.addToCart === 'function')
+      ? window.addToCart(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
+
+  const buyNowSafe = (sku, name, price, qty, meta) =>
+    (typeof window.buyNow === 'function')
+      ? window.buyNow(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
+
+  // Preload the possible images so swaps are instant
+  ["assets/img/rm400-top.jpg","assets/img/rm400-open.jpg","assets/img/rm400-armor-core.jpg","assets/img/rm400-battle-guard.jpg"]
+    .forEach(src => { const im = new Image(); im.src = src; });
+
+  // Events
+  pkgSel.addEventListener('change', updateView);
+  hwInputs.forEach(r => r.addEventListener('change', updateView));
+
+  addBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuName();
+    addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+  });
+
+  buyBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuName();
+    buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+  });
+
+  // Init
+  updateView();
 })();
 </script>
 
