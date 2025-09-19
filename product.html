@@ -67,7 +67,7 @@
     // -------- Helpers --------
     const ensurePath = (src) => {
       const s = String(src || '').trim();
-      if (!s) return 'assets/img/blank.jpg';
+      if (!s) return 'assets/img/fc-blank-front.jpg';
       if (/^https?:\/\//i.test(s)) return s;
       if (s.startsWith('assets/')) return s;
       return 'assets/img/' + s.replace(/^\/+/, '');
