@@ -162,6 +162,31 @@ a { color: var(--link); text-decoration: none; }
 .btn.sm { padding: 6px 10px; border-radius: 10px; }
 .btn.danger { background: var(--danger); color: #210000; }
 .btn:hover { background: #27ae60; }
+/* === Cart Remove Button === */
+.cart-row {
+  position: relative; /* so the icon can sit in the corner */
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #fff;              /* white icon/text */
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0.7;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+
+.remove-btn:hover {
+  opacity: 1;
+}
+
+.remove-btn .label {
+  font-size: 0.7rem;
+  margin-left: 4px;
+}
 
 /* === Hero Section (generic) === */
 .hero { padding: 28px 20px; border-bottom: 1px solid var(--border); }
