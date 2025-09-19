@@ -148,9 +148,10 @@
         `;
 
         const remove = document.createElement('button');
-        remove.className = 'remove-btn';
-        remove.type = 'button';
-        remove.textContent = 'Remove';
+remove.className = 'remove-btn';
+remove.type = 'button';
+remove.innerHTML = '🗑️'; // just an icon
+remove.setAttribute('aria-label', 'Remove item');
 
         row.appendChild(img);
         row.appendChild(meta);
