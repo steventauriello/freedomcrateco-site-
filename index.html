@@ -201,55 +201,63 @@
 
   <!-- Page-scoped featured card logic -->
   <script>
-  // --- Freedom Crate Classic (Branch Collection) ---
-  (function(){
-    const IMG = {
-      blank: "assets/img/blank.jpg",
-      army: "assets/img/army.jpg",
-      marines: "assets/img/marines.jpg",
-      navy: "assets/img/navy.jpg",
-      airforce: "assets/img/airforce.jpg",
-      coastguard: "assets/img/coastguard.jpg"
+/* --- Freedom Crate Classic: price + image swap using YOUR filenames --- */
+(function(){
+  // Map dropdown values -> your actual image files (exact case + spaces)
+  const IMG = {
+    blank:      "assets/img/blank.jpg",
+    army:       "assets/img/Army.jpg",
+    marines:    "assets/img/Marines.jpg",     // <-- change to "Marine.jpg" if that's the file you have
+    navy:       "assets/img/Navy.jpg",
+    airforce:   "assets/img/Air Force.jpg",   // <-- update if your Air Force file is named differently
+    coastguard: "assets/img/Coast Guard.jpg"
+  };
+
+  const BRANCH_PRICE = 95.00;   // with stencil
+  const BLANK_PRICE  = 89.99;   // no stencil
+  const LATCH_PRICE  = { Stainless: 0, Black: 0 };
+
+  const imgEl   = document.getElementById('sb-image');
+  const branch  = document.getElementById('sb-branch');
+  const priceEl = document.getElementById('sb-price');
+  const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
+  const fmt = n => '$' + Number(n).toFixed(2);
+
+  // Preload so swaps feel instant
+  Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; });
+
+  function updateImage(){
+    const val = branch.value;
+    const src = IMG[val] || IMG.blank;
+    const label = branch.options[branch.selectedIndex]?.text || 'Blank';
+
+    imgEl.classList.add('is-loading');
+    const tmp = new Image();
+    tmp.onload = () => {
+      imgEl.src = src;
+      imgEl.alt = (val === 'blank')
+        ? 'Freedom Crate Classic (no stencil)'
+        : `Freedom Crate Classic — ${label}`;
+      requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
     };
-    const BRANCH_PRICE = 95.00;
-    const BLANK_PRICE  = 89.99;
-    const LATCH_PRICE  = { Stainless: 0, Black: 0 };
+    tmp.src = src;
+  }
 
-    const imgEl   = document.getElementById('sb-image');
-    const branch  = document.getElementById('sb-branch');
-    const priceEl = document.getElementById('sb-price');
-    const addBtn  = document.getElementById('sb-add');
-    const buyBtn  = document.getElementById('sb-buy');
-    const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
+  function calcTotal(){
+    const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
+    const latchVal = latchInputs.find(x => x.checked)?.value || 'Stainless';
+    const total = base + (LATCH_PRICE[latchVal] || 0);
+    priceEl.textContent = fmt(total);
+  }
 
-    const fmt = (n) => '$' + Number(n).toFixed(2);
+  branch.addEventListener('change', () => { updateImage(); calcTotal(); });
+  latchInputs.forEach(r => r.addEventListener('change', calcTotal));
 
-    function calcTotal(){
-      const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
-      priceEl.textContent = fmt(base);
-    }
-    branch.addEventListener('change', calcTotal);
-    latchInputs.forEach(r => r.addEventListener('change', calcTotal));
-    calcTotal();
-  })();
-
-  // --- Rangemaster 400 (Featured Card) ---
-  (function(){
-    const pkgSel   = document.getElementById('rm400-package');
-    const priceEl  = document.getElementById('rm400-price');
-    const imgEl    = document.getElementById('rm400-image');
-    const fmt      = (n) => '$' + Number(n).toFixed(2);
-
-    function updateView(){
-      const pkg = pkgSel.options[pkgSel.selectedIndex];
-      priceEl.textContent = fmt(Number(pkg.dataset.price));
-      imgEl.src = pkg.dataset.img;
-      imgEl.alt = pkg.text;
-    }
-    pkgSel.addEventListener('change', updateView);
-    updateView();
-  })();
-  </script>
+  // Initial render
+  updateImage();
+  calcTotal();
+})();
+</script>
 
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 </body>
