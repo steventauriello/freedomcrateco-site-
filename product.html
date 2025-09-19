@@ -33,7 +33,8 @@
     <!-- Info -->
     <h1 id="pd-title">Loading…</h1>
     <p class="muted" id="pd-sku"></p>
-    <p id="pd-desc" class="muted"></p>
+    <!-- Allow real HTML lists in description -->
+    <div id="pd-desc" class="muted product-description"></div>
 
     <div class="price-row">
       <div class="price" id="pd-price">$0.00</div>
@@ -56,14 +57,14 @@
   <!-- Shared libs (order matters) -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
-   <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
   <script src="assets/js/inventory.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
 
-  <!-- Generic product loader (single script) -->
+  <!-- Product loader -->
   <script>
   (async function () {
-    // helpers
+    // -------- Helpers --------
     const ensurePath = (src) => {
       const s = String(src || '').trim();
       if (!s) return 'assets/img/blank.jpg';
@@ -71,6 +72,7 @@
       if (s.startsWith('assets/')) return s;
       return 'assets/img/' + s.replace(/^\/+/, '');
     };
+
     const toImgArray = (images) => {
       if (Array.isArray(images)) return images.map(ensurePath);
       if (!images) return [];
@@ -81,20 +83,39 @@
         .map(ensurePath);
     };
 
-    // sku from URL
+    // Minimal whitelist sanitizer for product descriptions
+    function allowSafeHTML(str = '') {
+      const div = document.createElement('div');
+      div.innerHTML = str;
+      const allowed = new Set(['BR','STRONG','EM','UL','OL','LI']);
+      div.querySelectorAll('*').forEach(el => {
+        if (!allowed.has(el.tagName)) {
+          // Replace unsupported tags with text-only spans
+          const span = document.createElement('span');
+          span.textContent = el.textContent;
+          el.replaceWith(span);
+        } else {
+          // Strip all attributes on allowed tags
+          [...el.attributes].forEach(a => el.removeAttribute(a.name));
+        }
+      });
+      return div.innerHTML;
+    }
+
+    // -------- Get SKU from URL --------
     const params = new URLSearchParams(location.search);
     const sku = params.get('sku');
+    if (!sku) { location.href = 'index.html'; return; }
 
-    // load products from data.js
-    // wait until data.js has attached FC.loadProducts
-while (!window.FC || typeof window.FC.loadProducts !== 'function') {
-  await new Promise(r => setTimeout(r, 10));
-}
-const all = await window.FC.loadProducts();
-const P = all.find(p => String(p.sku) === String(sku));
+    // -------- Load product data (wait for data.js) --------
+    while (!window.FC || typeof window.FC.loadProducts !== 'function') {
+      await new Promise(r => setTimeout(r, 10));
+    }
+    const all = await window.FC.loadProducts();
+    const P = all.find(p => String(p.sku) === String(sku));
     if (!P) { location.href = 'index.html'; return; }
 
-    // DOM
+    // -------- DOM refs --------
     const hero    = document.getElementById('pd-hero');
     const thumbs  = document.getElementById('pd-thumbs');
     const titleEl = document.getElementById('pd-title');
@@ -105,15 +126,19 @@ const P = all.find(p => String(p.sku) === String(sku));
     const buyBtn  = document.getElementById('pd-buy');
     const noteEl  = document.getElementById('pd-note');
 
-    // data -> UI
+    // -------- Data -> UI --------
     titleEl.textContent = P.title || P.sku;
     document.title = (P.title || P.sku) + ' • Freedom Crate Co.';
     skuEl.textContent = 'SKU: ' + P.sku;
-    descEl.textContent = P.description || '';
+
+    // Render description with safe HTML (supports <ul>,<li>,<br>,<strong>,<em>)
+    descEl.innerHTML = allowSafeHTML(P.description || '');
+
+    // Price
     priceEl.textContent = '$' + Number(P.price || 0).toFixed(2);
     if (P.note) noteEl.textContent = P.note;
 
-    // images
+    // -------- Images --------
     const imgs = toImgArray(P.images);
     if (!imgs.length) imgs.push(ensurePath(P.image_url));
     const setHero = (src, alt) => { hero.src = src; hero.alt = alt || P.title; };
@@ -127,28 +152,29 @@ const P = all.find(p => String(p.sku) === String(sku));
       thumbs.appendChild(t);
     });
 
-    // lightbox
+    // -------- Lightbox --------
     hero.style.cursor = 'zoom-in';
     hero.addEventListener('click', () => {
       const lb = document.createElement('div');
       lb.className = 'lightbox open';
-      lb.innerHTML = '<img src="'+hero.src+'" alt="'+hero.alt+'"><div class="close">×</div>';
+      lb.innerHTML = '<img src="' + hero.src + '" alt="' + hero.alt + '"><div class="close">×</div>';
       lb.querySelector('.close').onclick = () => lb.remove();
-      lb.onclick = (e)=>{ if(e.target===lb) lb.remove(); };
+      lb.onclick = (e) => { if (e.target === lb) lb.remove(); };
       document.body.appendChild(lb);
     });
 
-    // cart helpers
+    // -------- Cart helpers --------
     const addToCartSafe = (sku, name, price, qty, meta) =>
       (typeof window.addToCart === 'function')
         ? window.addToCart(sku, name, price, qty, meta)
         : console.warn('Cart not ready');
+
     const buyNowSafe = (sku, name, price, qty, meta) =>
       (typeof window.buyNow === 'function')
         ? window.buyNow(sku, name, price, qty, meta)
         : console.warn('Cart not ready');
 
-    const meta = { image: imgs[0] };
+    const meta = { image: hero.src };
     addBtn.addEventListener('click', () => addToCartSafe(P.sku, P.title, Number(P.price||0), 1, meta));
     buyBtn.addEventListener('click', () => buyNowSafe(P.sku, P.title, Number(P.price||0), 1, meta));
   })();
