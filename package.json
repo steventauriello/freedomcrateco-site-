@@ -1,0 +1,7 @@
+{
+  "name": "freedomcrateco",
+  "private": true,
+  "dependencies": {
+    "stripe": "^16.6.0"
+  }
+}
