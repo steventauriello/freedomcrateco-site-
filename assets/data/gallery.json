@@ -6,6 +6,12 @@
     "tags": ["Customer", "Army"]
   },
   {
+    "src": "assets/img/eric-review.jpg",
+    "alt": "Army box on Chris' Humvee",
+    "caption": "Army Box + Humvee = perfect combo",
+    "tags": ["Customer",]
+  },
+  {
     "src": "assets/img/chris-humvee-2.jpg",
     "alt": "Army box on Chris' Humvee",
     "caption": "Freedom Crate Riding Shotgun",
