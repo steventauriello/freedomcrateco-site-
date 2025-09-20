@@ -29,17 +29,34 @@ export async function handler(event) {
     }
 
     // Build Stripe line items (amounts in cents)
-    const line_items = items.map(i => ({
-      price_data: {
-        currency: 'usd',
-        unit_amount: Math.round(Number(i.price || 0) * 100),
-        product_data: {
-          name: String(i.name || 'Item'),
-          metadata: { sku: String(i.sku || '') }
-        }
-      },
-      quantity: Number(i.qty || 1)
-    }));
+    const toCents = (v) => {
+      const n = Number(String(v ?? '').replace(/[^0-9.]/g, '')); // strip $ and text
+      return Math.max(0, Math.round(n * 100));
+    };
+
+    const line_items = items.map(i => {
+      const cents = Number.isFinite(i.unit_amount)
+        ? Number(i.unit_amount)            // already integer cents
+        : toCents(i.price);                // derive from price
+
+      const qty = Math.max(1, parseInt(i.qty ?? i.quantity ?? 1, 10));
+
+      return {
+        price_data: {
+          currency: 'usd',
+          unit_amount: cents,
+          product_data: {
+            name: String(i.name || 'Item'),
+            metadata: { sku: String(i.sku || '') }
+          }
+        },
+        quantity: qty
+      };
+    });
+
+    if (line_items.every(li => (li.price_data.unit_amount || 0) === 0)) {
+      return json(400, { error: 'All item amounts are 0 cents. Check item prices.' });
+    }
 
     // Derive site origin for redirects (works on Netlify)
     const origin =
@@ -50,12 +67,12 @@ export async function handler(event) {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items,
-      payment_method_types: ['card', 'link'], // Apple Pay / Google Pay are auto-enabled on Checkout
+      payment_method_types: ['card', 'link'], // Apple Pay / Google Pay auto via Checkout
       shipping_address_collection: { allowed_countries: ['US'] },
       allow_promotion_codes: true,
       success_url: `${origin}/order-success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/checkout.html`,
-      metadata: { site: 'freedomcrateco' }
+      metadata: { site: 'freedomcrateco', skus: items.map(i=>i.sku).filter(Boolean).join(',') }
     });
 
     return json(200, { url: session.url });
