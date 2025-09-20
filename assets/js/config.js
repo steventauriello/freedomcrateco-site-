@@ -4,7 +4,11 @@
 window.FC_CONFIG = {
   // Optional: use a published Google Sheet CSV for products instead of local files.
   // Leave empty to keep using your local products.json / products.csv.
-  SHEET_CSV_URL: "" // e.g. "https://docs.google.com/spreadsheets/d/e/.../pub?output=csv"
+  SHEET_CSV_URL: "", // e.g. "https://docs.google.com/spreadsheets/d/e/.../pub?output=csv"
+
+  // 🔑 Stripe (FULL Checkout) — add your TEST publishable key here
+  // Looks like: pk_test_****************
+  STRIPE_PUBLISHABLE_KEY: "pk_test_REPLACE_ME"
 };
 
 // ================================
