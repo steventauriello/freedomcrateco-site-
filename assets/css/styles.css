@@ -552,3 +552,14 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   width: 100%;
   height: auto;
 }
+/* --- Fix: hero showing twice (background + img) --- */
+.hero-banner{
+  background: none !important;   /* kill old background-image */
+  height: auto !important;       /* let the <img> set the height */
+  padding: 0 !important;
+}
+.hero-banner img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
