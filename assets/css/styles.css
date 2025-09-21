@@ -315,7 +315,7 @@ textarea { min-height: 140px; resize: vertical; }
 
 /* === Hero Banner (Homepage) === */
 .hero-banner {
-  background: url("../img/banner.png") no-repeat center center/cover;
+  background: url("../img/founders_banner.png") no-repeat center center/cover;
   background-position: 48% center;
   height: 300px;
   display: flex; align-items: center; justify-content: center;
