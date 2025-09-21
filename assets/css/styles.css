@@ -98,6 +98,23 @@ a { color: var(--link); text-decoration: none; }
   gap: .75rem;
   flex-wrap: wrap;
   justify-content: space-between;
+  /* === Tagline Centering === */
+.tagline {
+  text-align: center;
+  margin: 0.5rem auto;
+}
+
+/* === Full-width Banner === */
+.banner {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.banner img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 .nav a {
   margin-left: 20px;
