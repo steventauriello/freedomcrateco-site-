@@ -561,3 +561,18 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 }
 /* No background-image on .hero-banner — prevents double layer */
 .hero-banner { background: none !important; }
+/* === Mobile fix: keep trash can bottom-right === */
+@media (max-width: 600px) {
+  .cart-row {
+    position: relative;
+    padding-bottom: 2.5rem; /* make room for the trash can */
+  }
+
+  .cart-row .remove-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    margin-top: 0;   /* reset any push from earlier */
+    justify-content: flex-end;
+  }
+}
