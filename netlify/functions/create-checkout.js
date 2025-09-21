@@ -42,16 +42,20 @@ export async function handler(event) {
       const qty = Math.max(1, parseInt(i.qty ?? i.quantity ?? 1, 10));
 
       return {
-        price_data: {
-          currency: 'usd',
-          unit_amount: cents,
-          product_data: {
-            name: String(i.name || 'Item'),
-            metadata: { sku: String(i.sku || '') }
-          }
-        },
-        quantity: qty
-      };
+  price_data: {
+    currency: 'usd',
+    unit_amount: cents,
+    product_data: {
+      // Append SKU to the name so it shows on receipts/emails
+      name: String(i.name || 'Item') + (i.sku ? ` (SKU: ${i.sku})` : ''),
+      // Optional: description sometimes shows on receipts too
+      description: i.sku ? `SKU: ${i.sku}` : undefined,
+      // Keep metadata for internal use
+      metadata: { sku: String(i.sku || '') }
+    }
+  },
+  quantity: qty
+};
     });
 
     if (line_items.every(li => (li.price_data.unit_amount || 0) === 0)) {
