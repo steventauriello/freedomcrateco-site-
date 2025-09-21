@@ -56,6 +56,23 @@
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
   <script>
+  // Clear the cart when arriving from Stripe (session_id) or PayPal (orderId)
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(location.search);
+    const fromStripe = params.has('session_id');
+    const fromPayPal = params.has('orderId');
+
+    if (fromStripe || fromPayPal) {
+      try {
+        clearCart();                                // from assets/js/cart.js
+        window.dispatchEvent(new Event('cart:updated')); // updates header badge
+      } catch (e) {
+        console.warn('Cart clear failed:', e);
+      }
+    }
+  });
+</script>
+  <script>
     // Reveal PayPal order id if provided as ?orderId=... in the URL
     (function(){
       const params = new URLSearchParams(location.search);
