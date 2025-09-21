@@ -525,3 +525,34 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   border-radius: 0 !important; box-shadow: none !important;
 }
 #cartContainer .remove-btn svg { display: block; }
+/* === Homepage tagline centering === */
+.site-title-strip,
+.site-title-strip p,
+.site-title-strip .slogan,
+.tagline {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* === Full-width banner === */
+.banner,
+.hero-banner,
+.full-bleed {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  width: 100vw;
+  max-width: 100vw;
+  padding: 0;
+}
+
+.banner img,
+.hero-banner img,
+.full-bleed img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
