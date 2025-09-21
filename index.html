@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="en">
 <head>
   <!-- Store JSON-LD (kept) -->
   <script type="application/ld+json">
@@ -42,23 +44,23 @@
   <meta name="author" content="Freedom Crate Co." />
   <link rel="canonical" href="https://freedomcrateco.com/" />
 
-   <!-- Open Graph -->
-<meta property="og:title" content="Freedom Crate Co. – Handcrafted Ammo & Range Boxes" />
-<meta property="og:description" content="Hand-built ammo and range boxes with lockable hardware and custom stencils. Free shipping." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://freedomcrateco.com/" />
-<meta property="og:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:site_name" content="Freedom Crate Co." />
-<meta property="og:locale" content="en_US" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Freedom Crate Co. – Handcrafted Ammo & Range Boxes" />
+  <meta property="og:description" content="Hand-built ammo and range boxes with lockable hardware and custom stencils. Free shipping." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freedomcrateco.com/" />
+  <meta property="og:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Freedom Crate Co." />
+  <meta property="og:locale" content="en_US" />
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Freedom Crate Co. – Handcrafted Ammo & Range Boxes" />
-<meta name="twitter:description" content="Hand-built ammo and range boxes with lockable hardware and custom stencils. Free shipping." />
-<meta name="twitter:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
-<meta name="twitter:image:alt" content="Freedom Crate Co. founders-themed banner with the slogan ‘Made for the people. By the people.’" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Freedom Crate Co. – Handcrafted Ammo & Range Boxes" />
+  <meta name="twitter:description" content="Hand-built ammo and range boxes with lockable hardware and custom stencils. Free shipping." />
+  <meta name="twitter:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
+  <meta name="twitter:image:alt" content="Freedom Crate Co. founders-themed banner with the slogan ‘Made for the people. By the people.’" />
   
   <!-- Google Font: Black Ops One (stencil look) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -116,11 +118,14 @@
     <section class="featured-wrap" aria-label="Freedom Crate Classic">
       <div class="featured-card" id="classic-box">
         <div class="fc-media">
-          <img id="sb-image"
-               src="assets/img/blank.jpg"
-               alt="Freedom Crate Classic live preview"
-               loading="lazy" decoding="async"
-               width="1200" height="800">
+          <!-- ✅ NEW: wrap image with link to Branch Collection details page -->
+          <a href="branch-collection.html" aria-label="View photos & details for the Branch Collection">
+            <img id="sb-image"
+                 src="assets/img/blank.jpg"
+                 alt="Freedom Crate Classic live preview"
+                 loading="lazy" decoding="async"
+                 width="1200" height="800">
+          </a>
         </div>
 
         <div class="fc-controls">
@@ -170,11 +175,14 @@
     <section class="featured-wrap" aria-label="Rangemaster 400 Options">
       <div class="featured-card" id="rm400-card">
         <div class="fc-media">
-          <img id="rm400-image"
-               src="assets/img/rm400-top.jpg"
-               alt="Rangemaster 400 — Closed"
-               loading="lazy" decoding="async"
-               width="1200" height="800">
+          <!-- ✅ NEW: wrap image with link to existing RM400 product detail page -->
+          <a href="product.html?sku=FC-RM-400" aria-label="View photos & details for Rangemaster 400">
+            <img id="rm400-image"
+                 src="assets/img/rm400-top.jpg"
+                 alt="Rangemaster 400 — Closed"
+                 loading="lazy" decoding="async"
+                 width="1200" height="800">
+          </a>
         </div>
 
         <div class="fc-controls">
@@ -263,7 +271,7 @@
     };
 
     const BRANCH_PRICE = 95.00;   // with stencil
-    const BLANK_PRICE  = 89.99;   // no stencil
+    the BLANK_PRICE  = 89.99;   // no stencil
     const LATCH_PRICE  = { Stainless: 0, Black: 0 };
 
     const imgEl   = document.getElementById('sb-image');
