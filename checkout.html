@@ -122,14 +122,36 @@
       <p>Custom orders are final sale — no returns or exchanges.</p>
     </div>
 
-    <div id="actions" hidden>
-      <div id="paypal-buttons"></div>
-      <!-- Stripe Button -->
-      <button id="stripe-pay" class="stripe-btn">
-        Pay with Card (Secure – Powered by Stripe) 🔒
-      </button>
-      <small class="stripe-trust">Payments processed securely by Stripe</small>
+   <div id="actions" hidden>
+  <div id="paypal-buttons"></div>
+
+  <!-- Modern Stripe button -->
+  <div class="stripe-wrap">
+    <button id="stripe-pay" class="btn-stripe" type="button" aria-label="Pay with card — powered by Stripe">
+      <span class="stripe-ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+          <line x1="2" y1="9" x2="22" y2="9"></line>
+        </svg>
+      </span>
+      <span class="stripe-text">Pay with Card</span>
+      <span class="stripe-secure" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        Secure
+      </span>
+    </button>
+
+    <div class="stripe-badge" aria-label="Payments processed securely by Stripe">
+      <span>Powered by</span>
+      <strong class="stripe-word">Stripe</strong>
     </div>
+  </div>
+</div>
 
     <p class="muted">US Veteran-inspired • Florida-built</p>
     <p class="muted">Rugged, practical, and made to be used.</p>
