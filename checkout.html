@@ -8,81 +8,77 @@
   <link rel="canonical" href="https://freedomcrateco.com/checkout.html">
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    .cart-wrap{max-width:900px;margin:2rem auto}
-    .cart-card{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;background:rgba(255,255,255,.02)}
-    .cart-row{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1rem 0;border-top:1px solid rgba(255,255,255,.06)}
-    .cart-row:first-child{border-top:0;padding-top:0}
-    .cart-row img{width:84px;height:84px;object-fit:cover;border-radius:8px}
-    .qty{display:flex;align-items:center;gap:.5rem}
-    .qty button{width:36px;height:36px;border-radius:8px}
-    .remove-btn{background:#e85b5b;border:none;color:#fff;padding:.5rem .9rem;border-radius:8px;cursor:pointer}
-    .totals{display:flex;justify-content:flex-end;gap:2rem;margin:1rem 0 1.25rem}
-    .totals div { min-width:200px; display:flex; justify-content:flex-end; gap:.75rem; }
-    .totals div strong, .totals div > span:first-child { flex:0 0 auto; text-align:right; }
-    @media (max-width:480px){ .totals div { min-width:140px; } }
-    #paypal-buttons{margin-top:1rem}
-    .empty{padding:2.5rem;text-align:center;color:rgba(255,255,255,.7);border:1px dashed rgba(255,255,255,.2);border-radius:10px}
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;border-radius:.25rem}
+  .cart-wrap{max-width:900px;margin:2rem auto}
+  .cart-card{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;background:rgba(255,255,255,.02)}
+  .cart-row{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1rem 0;border-top:1px solid rgba(255,255,255,.06)}
+  .cart-row:first-child{border-top:0;padding-top:0}
+  .cart-row img{width:84px;height:84px;object-fit:cover;border-radius:8px}
+  .qty{display:flex;align-items:center;gap:.5rem}
+  .qty button{width:36px;height:36px;border-radius:8px}
+  .remove-btn{background:#e85b5b;border:none;color:#fff;padding:.5rem .9rem;border-radius:8px;cursor:pointer}
+  .totals{display:flex;justify-content:flex-end;gap:2rem;margin:1rem 0 1.25rem}
+  .totals div { min-width:200px; display:flex; justify-content:flex-end; gap:.75rem; }
+  .totals div strong, .totals div > span:first-child { flex:0 0 auto; text-align:right; }
+  @media (max-width:480px){ .totals div { min-width:140px; } }
+  #paypal-buttons{margin-top:1rem}
+  .empty{padding:2.5rem;text-align:center;color:rgba(255,255,255,.7);border:1px dashed rgba(255,255,255,.2);border-radius:10px}
+  .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;border-radius:.25rem}
 
-    /* 📱 Mobile layout */
-    @media (max-width:600px) {
-      .cart-row {
-        grid-template-columns: auto 1fr;
-        grid-template-areas:
-          "img meta"
-          "remove remove";
-        gap: 0.5rem;
-      }
-      .cart-row img { grid-area: img; }
-      .cart-row div { grid-area: meta; }
-      .cart-row .remove-btn {
-        grid-area: remove;
-        justify-self: center;
-        margin-top: 0.6rem;
-        padding: .6rem 1rem;
-        border-radius: 999px;
-      }
+  /* 📱 Mobile layout */
+  @media (max-width:600px) {
+    .cart-row {
+      grid-template-columns: auto 1fr;
+      grid-template-areas:
+        "img meta"
+        "remove remove";
+      gap: 0.5rem;
     }
+    .cart-row img { grid-area: img; }
+    .cart-row div { grid-area: meta; }
+    .cart-row .remove-btn {
+      grid-area: remove;
+      justify-self: center;
+      margin-top: 0.6rem;
+      padding: .6rem 1rem;
+      border-radius: 999px;
+    }
+  }
 
-    /* Stripe button */
-    .stripe-btn {
-      background: #635bff;
-      color: #fff;
-      font-weight: 600;
-      padding: 14px 20px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      width: 100%;
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .stripe-btn:hover {
-      background: #5548c8;
-    }
-    .stripe-trust {
-      display: block;
-      text-align: center;
-      margin-top: 0.5rem;
-      font-size: 0.85rem;
-      color: #888;
-    }
-    /* Make PayPal and Stripe exactly the same width */
-#actions{
-  max-width: 400px;     /* match PayPal’s visual max width */
-  margin: 0 auto;       /* center the whole block */
-}
+  /* === Stripe button === */
+  .stripe-btn {
+    background: #635bff;
+    color: #fff;
+    font-weight: 600;
+    padding: 14px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;          /* will be contained by #actions width */
+    text-align: center;
+    margin-top: 1rem;
+  }
+  .stripe-btn:hover {
+    background: #5548c8;
+  }
+  .stripe-trust {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #888;
+  }
 
-/* Ensure both fill that width */
-#paypal-buttons,
-.stripe-btn{
-  width: 100%;
-}
-
-/* keep your existing Stripe look; only width is controlled */
-  </style>
+  /* === Stripe width to match PayPal === */
+  #actions {
+    max-width: 400px;   /* same as PayPal’s visual width */
+    margin: 0 auto;     /* center container */
+  }
+  .stripe-btn {
+    width: 100%;        /* button fills container */
+  }
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
