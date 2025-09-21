@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Branch Collection – Freedom Crate Co.</title>
+  <meta name="description" content="Freedom Crate Co. Branch Collection – handcrafted ammo boxes honoring the U.S. Army, Marines, Navy, Air Force, and Coast Guard." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    .product-page { max-width: 900px; margin: 2rem auto; padding: 1rem; }
+    .gallery { display: flex; gap: 1rem; flex-direction: column; }
+    .gallery-main img { width: 100%; border-radius: 12px; cursor: pointer; }
+    .gallery-thumbs { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .gallery-thumbs img { width: 120px; border-radius: 8px; cursor: pointer; opacity: 0.9; transition: opacity 0.2s; }
+    .gallery-thumbs img:hover { opacity: 1; }
+
+    /* lightbox overlay */
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 9999; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90%; max-height: 90%; border-radius: 12px; }
+    .lightbox .close { position: absolute; top: 20px; right: 30px; font-size: 2rem; background: none; border: none; color: #fff; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. Logo">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Custom Orders</a>
+      <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
+    </nav>
+  </header>
+
+  <main class="product-page">
+    <h1>Freedom Crate Classic Branch Collection</h1>
+    <p>Handcrafted wooden ammo boxes honoring every branch of the U.S. Armed Forces. Built tough, stenciled with pride, and customizable with hardware options.</p>
+
+    <!-- Gallery -->
+    <div class="gallery">
+      <div class="gallery-main">
+        <img id="mainImg" src="assets/img/branch-main.jpg" alt="Branch Collection Ammo Box">
+      </div>
+      <div class="gallery-thumbs" id="thumbs">
+        <img src="assets/img/branch-army.jpg" alt="Army Crate">
+        <img src="assets/img/branch-marines.jpg" alt="Marines Crate">
+        <img src="assets/img/branch-navy.jpg" alt="Navy Crate">
+        <img src="assets/img/branch-airforce.jpg" alt="Air Force Crate">
+        <img src="assets/img/branch-coastguard.jpg" alt="Coast Guard Crate">
+      </div>
+    </div>
+
+    <!-- Options -->
+    <section style="margin-top:2rem;">
+      <label for="branch">Choose Branch:</label>
+      <select id="branch">
+        <option value="classic-army">Army</option>
+        <option value="classic-marines">Marines</option>
+        <option value="classic-navy">Navy</option>
+        <option value="classic-airforce">Air Force</option>
+        <option value="classic-coastguard">Coast Guard</option>
+        <option value="classic-blank">Blank (no insignia)</option>
+      </select>
+
+      <label for="hardware" style="margin-left:1rem;">Choose Hardware:</label>
+      <select id="hardware">
+        <option value="stainless">Stainless</option>
+        <option value="black">Black</option>
+      </select>
+
+      <button id="addToCart" class="btn" style="margin-left:1rem;">Add to Cart</button>
+    </section>
+  </main>
+
+  <!-- Lightbox overlay -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="close" aria-label="Close" id="lbClose">×</button>
+    <img id="lbImg" alt="">
+  </div>
+
+  <script src="assets/js/util.js" defer></script>
+  <script src="assets/js/cart.js" defer></script>
+
+  <script>
+  (function(){
+    const mainImg = document.getElementById('mainImg');
+    const thumbs  = document.getElementById('thumbs');
+    const lb      = document.getElementById('lightbox');
+    const lbImg   = document.getElementById('lbImg');
+    const lbClose = document.getElementById('lbClose');
+
+    function openLB(src, alt){
+      lbImg.src = src; lbImg.alt = alt || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+    }
+    function closeLB(){
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden','true');
+      lbImg.src = '';
+    }
+
+    mainImg.addEventListener('click', () => openLB(mainImg.src, mainImg.alt));
+    thumbs.addEventListener('click', e => {
+      const t = e.target.closest('img'); if (!t) return;
+      mainImg.src = t.src;
+      mainImg.alt = t.alt;
+    });
+    thumbs.addEventListener('dblclick', e => {
+      const t = e.target.closest('img'); if (!t) return;
+      openLB(t.src, t.alt);
+    });
+
+    lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
+    lbClose.addEventListener('click', closeLB);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+
+    // Add to cart logic
+    const addBtn = document.getElementById('addToCart');
+    addBtn.addEventListener('click', () => {
+      const branch = document.getElementById('branch').value;
+      const hw     = document.getElementById('hardware').value;
+      const sku = branch + '-' + hw;
+      addItem({
+        sku,
+        name: 'Freedom Crate – ' + branch.replace('classic-','').toUpperCase(),
+        price: 95.00,
+        qty: 1,
+        image: mainImg.src
+      });
+      alert('Added to cart!');
+    });
+  })();
+  </script>
+</body>
+</html>
