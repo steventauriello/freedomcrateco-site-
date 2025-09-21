@@ -299,18 +299,6 @@ input, select, textarea {
 input::placeholder, textarea::placeholder { color: #999; font-size: 14px; }
 textarea { min-height: 140px; resize: vertical; }
 
-/* === Hero Banner (Homepage) === */
-.hero-banner {
-  background: url("../img/founders_banner.png") no-repeat center center/cover;
-  background-position: 48% center;
-  height: 300px;
-  display: flex; align-items: center; justify-content: center;
-  text-align: center; color: #fff;
-}
-.hero-banner .hero-content { background: rgba(0, 0, 0, 0.5); padding: 20px 40px; border-radius: 8px; }
-.hero-banner h1 { font-size: 2.5rem; margin: 0; }
-.hero-banner p { font-size: 1.2rem; margin-top: 10px; }
-
 /* === Title Strip === */
 .site-title-strip { text-align: center; margin: 20px auto; }
 .site-title-strip h1 {
@@ -525,6 +513,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   border-radius: 0 !important; box-shadow: none !important;
 }
 #cartContainer .remove-btn svg { display: block; }
+
 /* === Homepage tagline centering === */
 .site-title-strip,
 .site-title-strip p,
@@ -535,7 +524,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   margin-right: auto;
 }
 
-/* === Full-width banner === */
+/* === Full-width banner (image element only) === */
 .banner,
 .hero-banner,
 .full-bleed {
@@ -544,7 +533,6 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   margin: 0;
   padding: 0;
 }
-
 .banner img,
 .hero-banner img,
 .full-bleed img {
@@ -552,14 +540,5 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   width: 100%;
   height: auto;
 }
-/* --- Fix: hero showing twice (background + img) --- */
-.hero-banner{
-  background: none !important;   /* kill old background-image */
-  height: auto !important;       /* let the <img> set the height */
-  padding: 0 !important;
-}
-.hero-banner img{
-  display: block;
-  width: 100%;
-  height: auto;
-}
+/* No background-image on .hero-banner — prevents double layer */
+.hero-banner { background: none !important; }
