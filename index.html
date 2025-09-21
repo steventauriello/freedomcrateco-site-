@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-DNNL0065X9'); /* GA4 Measurement ID */
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-DNNL0065X9'); /* GA4 Measurement ID */
+  </script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Freedom Crate Co. – Handcrafted Ammo & Range Boxes</title>
@@ -48,35 +49,34 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- Header -->
- <header class="site-header">
-  <a class="brand" href="index.html">
-    <img src="assets/img/logo.png" alt="Freedom Crate Co. Logo">
-  </a>
-  <nav class="nav" aria-label="Primary">
-    <a href="index.html" aria-current="page">Shop</a>
-    <a href="about.html">About</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="reviews.html">Reviews</a>
-    <a href="contact.html">Custom Orders</a>
-    <a href="checkout.html" class="cart-link">Cart (0)</a>
-  </nav>
-</header>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. Logo">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" aria-current="page">Shop</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Custom Orders</a>
+      <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
+    </nav>
+  </header>
 
-<!-- Full-width banner OUTSIDE of .container -->
-<section class="hero-banner" aria-label="Homepage banner">
-  <img src="assets/img/founders_banner.png" alt="We Hold These Truths">
-</section>
+  <!-- Full-width banner OUTSIDE of .container -->
+  <section class="hero-banner" aria-label="Homepage banner">
+    <img src="assets/img/founders_banner.png" alt="We Hold These Truths">
+  </section>
 
-<main class="container" id="main">
-  <!-- Title strip under banner -->
-  <div class="site-title-strip" role="region" aria-label="Site title">
-    <h1>Freedom Crate Co.</h1>
-    <p>Handcrafted Ammo &amp; Range Boxes</p>
-    <p class="slogan">Made For The People By The People</p>
-  </div>
+  <main class="container" id="main">
+    <!-- Title strip under banner -->
+    <div class="site-title-strip" role="region" aria-label="Site title">
+      <h1>Freedom Crate Co.</h1>
+      <p>Handcrafted Ammo &amp; Range Boxes</p>
+      <p class="slogan">Made For The People By The People</p>
+    </div>
 
-    <section class="hero-banner" aria-label="Hero"></section>
-        <!-- ========================= -->
+    <!-- ========================= -->
     <!-- Featured: Freedom Crate Classic -->
     <!-- ========================= -->
     <section class="featured-wrap" aria-label="Freedom Crate Classic">
@@ -94,15 +94,15 @@
           <div class="branch-label">Branch Collection</div>
           <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
 
-         <label for="sb-branch">Branch stencil</label>
-<select id="sb-branch" aria-describedby="sb-branch-help">
-  <option value="blank">Blank (no stencil)</option>
-  <option value="army">U.S. Army</option>
-  <option value="marines" selected>U.S. Marine Corps</option>
-  <option value="navy">U.S. Navy</option>
-  <option value="airforce">U.S. Air Force</option>
-  <option value="coastguard">U.S. Coast Guard</option>
-</select>
+          <label for="sb-branch">Branch stencil</label>
+          <select id="sb-branch" aria-describedby="sb-branch-help">
+            <option value="blank">Blank (no stencil)</option>
+            <option value="army">U.S. Army</option>
+            <option value="marines" selected>U.S. Marine Corps</option>
+            <option value="navy">U.S. Navy</option>
+            <option value="airforce">U.S. Air Force</option>
+            <option value="coastguard">U.S. Coast Guard</option>
+          </select>
           <p id="sb-branch-help" class="sr-only" aria-hidden="true"></p>
 
           <label>Hardware (both lockable)</label>
@@ -129,7 +129,8 @@
         </div>
       </div>
     </section>
-        <!-- ========================= -->
+
+    <!-- ========================= -->
     <!-- Featured: Rangemaster 400 -->
     <!-- ========================= -->
     <section class="featured-wrap" aria-label="Rangemaster 400 Options">
@@ -204,7 +205,8 @@
       <p class="muted">Rugged, practical, and made to be used.</p>
     </div>
   </footer>
-    <!-- Scripts (order matters) -->
+
+  <!-- Scripts (order matters) -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/inventory.js" defer></script>
@@ -212,168 +214,168 @@
   <script src="assets/js/cart.js" defer></script>
   <script src="assets/js/catalog.js" defer></script>
 
-  <!-- Page-scoped featured card logic -->
-<script>
-/* --- Freedom Crate Classic: price + image swap + Add/Buy --- */
-(function(){
-  // Use your actual filenames (case & spaces matter)
-  const IMG = {
-    blank:      "assets/img/fc-blank-front.jpeg",
-    army:       "assets/img/army.jpg",
-    marines:    "assets/img/marines.jpg",     // change to "Marine.jpg" if needed
-    navy:       "assets/img/navy.jpg",
-    airforce:   "assets/img/airforce.jpg",
-    coastguard: "assets/img/coastguard.jpg"
-  };
-
-  const BRANCH_PRICE = 95.00;   // with stencil
-  const BLANK_PRICE  = 89.99;   // no stencil
-  const LATCH_PRICE  = { Stainless: 0, Black: 0 };
-
-  const imgEl   = document.getElementById('sb-image');
-  const branch  = document.getElementById('sb-branch');
-  const priceEl = document.getElementById('sb-price');
-  const addBtn  = document.getElementById('sb-add');
-  const buyBtn  = document.getElementById('sb-buy');
-  const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
-
-  const fmt  = n => '$' + Number(n).toFixed(2);
-  const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-
-  // Preload images for snappy swaps
-  Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; });
-
-  function updateImage(){
-    const val = branch.value;
-    const src = IMG[val] || IMG.blank;
-    const label = branch.options[branch.selectedIndex]?.text || 'Blank';
-
-    imgEl.classList.add('is-loading');
-    const tmp = new Image();
-    tmp.onload = () => {
-      imgEl.src = src;
-      imgEl.alt = (val === 'blank')
-        ? 'Freedom Crate Classic (no stencil)'
-        : `Freedom Crate Classic — ${label}`;
-      requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
+  <!-- Page-scoped featured card logic (FULL) -->
+  <script>
+  /* --- Freedom Crate Classic: price + image swap + Add/Buy --- */
+  (function(){
+    // Use your actual filenames (case & spaces matter)
+    const IMG = {
+      blank:      "assets/img/fc-blank-front.jpeg",
+      army:       "assets/img/army.jpg",
+      marines:    "assets/img/marines.jpg",     // change to "Marine.jpg" if needed
+      navy:       "assets/img/navy.jpg",
+      airforce:   "assets/img/airforce.jpg",
+      coastguard: "assets/img/coastguard.jpg"
     };
-    tmp.src = src;
-  }
 
-  function getLatch(){ return latchInputs.find(x => x.checked)?.value || 'Stainless'; }
+    const BRANCH_PRICE = 95.00;   // with stencil
+    const BLANK_PRICE  = 89.99;   // no stencil
+    const LATCH_PRICE  = { Stainless: 0, Black: 0 };
 
-  function calcTotal(){
-    const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
-    const total = base + (LATCH_PRICE[getLatch()] || 0);
-    priceEl.textContent = fmt(total);
-  }
+    const imgEl   = document.getElementById('sb-image');
+    const branch  = document.getElementById('sb-branch');
+    const priceEl = document.getElementById('sb-price');
+    const addBtn  = document.getElementById('sb-add');
+    const buyBtn  = document.getElementById('sb-buy');
+    const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
 
-  function buildSkuName(){
-    const bVal = branch.value;                          // blank|army|marines|navy|airforce|coastguard
-    const lTxt = getLatch();                            // Stainless|Black
-    const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`; // e.g., classic-army-stainless
-    const name = `Freedom Crate Classic — ${branch.options[branch.selectedIndex].text} • ${lTxt}`;
-    const price = Number(priceEl.textContent.replace(/[^0-9.]/g,'')) || 0;
-    return { sku, name, price };
-  }
+    const fmt  = n => '$' + Number(n).toFixed(2);
+    const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 
-  const addToCartSafe = (sku, name, price, qty, meta) =>
-    (typeof window.addToCart === 'function')
-      ? window.addToCart(sku, name, price, qty, meta)
-      : console.warn('Cart not ready');
+    // Preload images for snappy swaps
+    Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; });
 
-  const buyNowSafe = (sku, name, price, qty, meta) =>
-    (typeof window.buyNow === 'function')
-      ? window.buyNow(sku, name, price, qty, meta)
-      : console.warn('Cart not ready');
+    function updateImage(){
+      const val = branch.value;
+      const src = IMG[val] || IMG.blank;
+      const label = branch.options[branch.selectedIndex]?.text || 'Blank';
 
-  // Events
-  branch.addEventListener('change', () => { updateImage(); calcTotal(); });
-  latchInputs.forEach(r => r.addEventListener('change', calcTotal));
-
-  addBtn.addEventListener('click', () => {
-    const { sku, name, price } = buildSkuName();
-    addToCartSafe(sku, name, price, 1, { image: imgEl.src });
-  });
-
-  buyBtn.addEventListener('click', () => {
-    const { sku, name, price } = buildSkuName();
-    buyNowSafe(sku, name, price, 1, { image: imgEl.src });
-  });
-
-  // Initial render
-  updateImage();
-  calcTotal();
-})();
-
-/* --- Rangemaster 400: image/price swap + Add/Buy --- */
-(function(){
-  const pkgSel   = document.getElementById('rm400-package');
-  const priceEl  = document.getElementById('rm400-price');
-  const imgEl    = document.getElementById('rm400-image');
-  const addBtn   = document.getElementById('rm400-add');
-  const buyBtn   = document.getElementById('rm400-buy');
-  const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
-
-  if (!pkgSel || !priceEl || !imgEl) return;
-
-  const fmt = n => '$' + Number(n).toFixed(2);
-  const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
-  const getHW  = () => hwInputs.find(x=>x.checked)?.value || 'Stainless';
-
-  function updateView(){
-    const pkg = getPkg();
-    priceEl.textContent = fmt(Number(pkg.dataset.price));
-    if (pkg.dataset.img){
-      const next = pkg.dataset.img;
+      imgEl.classList.add('is-loading');
       const tmp = new Image();
-      tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
-      tmp.src = next;
+      tmp.onload = () => {
+        imgEl.src = src;
+        imgEl.alt = (val === 'blank')
+          ? 'Freedom Crate Classic (no stencil)'
+          : `Freedom Crate Classic — ${label}`;
+        requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
+      };
+      tmp.src = src;
     }
-  }
 
-  function buildSkuName(){
-    const pkg = getPkg();
-    const hw  = getHW();
-    const code = (hw === 'Stainless' ? 'STN' : 'BLK');
-    const sku  = `${pkg.dataset.sku}-${code}`; // e.g., RM400-ARMOR-STN
-    const name = `${pkg.text} • ${hw}`;
-    const price = Number(pkg.dataset.price) || 0;
-    return { sku, name, price };
-  }
+    function getLatch(){ return latchInputs.find(x => x.checked)?.value || 'Stainless'; }
 
-  const addToCartSafe = (sku, name, price, qty, meta) =>
-    (typeof window.addToCart === 'function')
-      ? window.addToCart(sku, name, price, qty, meta)
-      : console.warn('Cart not ready');
+    function calcTotal(){
+      const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
+      const total = base + (LATCH_PRICE[getLatch()] || 0);
+      priceEl.textContent = fmt(total);
+    }
 
-  const buyNowSafe = (sku, name, price, qty, meta) =>
-    (typeof window.buyNow === 'function')
-      ? window.buyNow(sku, name, price, qty, meta)
-      : console.warn('Cart not ready');
+    function buildSkuName(){
+      const bVal = branch.value;                          // blank|army|marines|navy|airforce|coastguard
+      const lTxt = getLatch();                            // Stainless|Black
+      const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`; // e.g., classic-army-stainless
+      const name = `Freedom Crate Classic — ${branch.options[branch.selectedIndex].text} • ${lTxt}`;
+      const price = Number(priceEl.textContent.replace(/[^0-9.]/g,'')) || 0;
+      return { sku, name, price };
+    }
 
-  // Preload the possible images so swaps are instant
-  ["assets/img/rm400-top.jpg","assets/img/rm400-open.jpg","assets/img/rm400-armor-core.jpg","assets/img/rm400-battle-guard.jpg"]
-    .forEach(src => { const im = new Image(); im.src = src; });
+    const addToCartSafe = (sku, name, price, qty, meta) =>
+      (typeof window.addToCart === 'function')
+        ? window.addToCart(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
 
-  // Events
-  pkgSel.addEventListener('change', updateView);
-  hwInputs.forEach(r => r.addEventListener('change', updateView));
+    const buyNowSafe = (sku, name, price, qty, meta) =>
+      (typeof window.buyNow === 'function')
+        ? window.buyNow(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
 
-  addBtn.addEventListener('click', () => {
-    const { sku, name, price } = buildSkuName();
-    addToCartSafe(sku, name, price, 1, { image: imgEl.src });
-  });
+    // Events
+    branch.addEventListener('change', () => { updateImage(); calcTotal(); });
+    latchInputs.forEach(r => r.addEventListener('change', calcTotal));
 
-  buyBtn.addEventListener('click', () => {
-    const { sku, name, price } = buildSkuName();
-    buyNowSafe(sku, name, price, 1, { image: imgEl.src });
-  });
+    addBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuName();
+      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+    });
 
-  // Init
-  updateView();
-})();
-</script>
+    buyBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuName();
+      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+    });
+
+    // Initial render
+    updateImage();
+    calcTotal();
+  })();
+
+  /* --- Rangemaster 400: image/price swap + Add/Buy --- */
+  (function(){
+    const pkgSel   = document.getElementById('rm400-package');
+    const priceEl  = document.getElementById('rm400-price');
+    const imgEl    = document.getElementById('rm400-image');
+    const addBtn   = document.getElementById('rm400-add');
+    const buyBtn   = document.getElementById('rm400-buy');
+    const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
+
+    if (!pkgSel || !priceEl || !imgEl) return;
+
+    const fmt = n => '$' + Number(n).toFixed(2);
+    const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
+    const getHW  = () => hwInputs.find(x=>x.checked)?.value || 'Stainless';
+
+    function updateView(){
+      const pkg = getPkg();
+      priceEl.textContent = fmt(Number(pkg.dataset.price));
+      if (pkg.dataset.img){
+        const next = pkg.dataset.img;
+        const tmp = new Image();
+        tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
+        tmp.src = next;
+      }
+    }
+
+    function buildSkuName(){
+      const pkg = getPkg();
+      const hw  = getHW();
+      const code = (hw === 'Stainless' ? 'STN' : 'BLK');
+      const sku  = `${pkg.dataset.sku}-${code}`; // e.g., RM400-ARMOR-STN
+      const name = `${pkg.text} • ${hw}`;
+      const price = Number(pkg.dataset.price) || 0;
+      return { sku, name, price };
+    }
+
+    const addToCartSafe = (sku, name, price, qty, meta) =>
+      (typeof window.addToCart === 'function')
+        ? window.addToCart(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
+
+    const buyNowSafe = (sku, name, price, qty, meta) =>
+      (typeof window.buyNow === 'function')
+        ? window.buyNow(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
+
+    // Preload the possible images so swaps are instant
+    ["assets/img/rm400-top.jpg","assets/img/rm400-open.jpg","assets/img/rm400-armor-core.jpg","assets/img/rm400-battle-guard.jpg"]
+      .forEach(src => { const im = new Image(); im.src = src; });
+
+    // Events
+    pkgSel.addEventListener('change', updateView);
+    hwInputs.forEach(r => r.addEventListener('change', updateView));
+
+    addBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuName();
+      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+    });
+
+    buyBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuName();
+      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+    });
+
+    // Init
+    updateView();
+  })();
+  </script>
 
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 </body>
