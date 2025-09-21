@@ -69,6 +69,19 @@
       font-size: 0.85rem;
       color: #888;
     }
+    /* Make PayPal and Stripe exactly the same width */
+#actions{
+  max-width: 400px;     /* match PayPal’s visual max width */
+  margin: 0 auto;       /* center the whole block */
+}
+
+/* Ensure both fill that width */
+#paypal-buttons,
+.stripe-btn{
+  width: 100%;
+}
+
+/* keep your existing Stripe look; only width is controlled */
   </style>
 </head>
 <body>
