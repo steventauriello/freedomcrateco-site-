@@ -7,7 +7,6 @@
   <meta name="description" content="Review your cart, update quantities, and checkout securely. Free shipping on all handcrafted ammo & range boxes." />
   <link rel="canonical" href="https://freedomcrateco.com/checkout.html">
   <link rel="stylesheet" href="assets/css/styles.css" />
-
   <style>
     .cart-wrap{max-width:900px;margin:2rem auto}
     .cart-card{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;background:rgba(255,255,255,.02)}
@@ -18,22 +17,57 @@
     .qty button{width:36px;height:36px;border-radius:8px}
     .remove-btn{background:#e85b5b;border:none;color:#fff;padding:.5rem .9rem;border-radius:8px;cursor:pointer}
     .totals{display:flex;justify-content:flex-end;gap:2rem;margin:1rem 0 1.25rem}
-    .totals div{min-width:200px;display:flex;justify-content:flex-end;gap:.75rem}
-    .totals div strong,.totals div>span:first-child{flex:0 0 auto;text-align:right}
-    @media (max-width:480px){.totals div{min-width:140px}}
+    .totals div { min-width:200px; display:flex; justify-content:flex-end; gap:.75rem; }
+    .totals div strong, .totals div > span:first-child { flex:0 0 auto; text-align:right; }
+    @media (max-width:480px){ .totals div { min-width:140px; } }
     #paypal-buttons{margin-top:1rem}
     .empty{padding:2.5rem;text-align:center;color:rgba(255,255,255,.7);border:1px dashed rgba(255,255,255,.2);border-radius:10px}
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;border-radius:.25rem}
 
-    /* 📱 Mobile: stack, center Remove */
-    @media (max-width:600px){
-      .cart-row{grid-template-columns:auto 1fr;grid-template-areas:
-        "img meta"
-        "remove remove";gap:.5rem}
-      .cart-row img{grid-area:img}
-      .cart-row div{grid-area:meta}
-      .cart-row .remove-btn{grid-area:remove;justify-self:center;margin-top:.6rem;padding:.6rem 1rem;border-radius:999px}
+    /* 📱 Mobile layout */
+    @media (max-width:600px) {
+      .cart-row {
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+          "img meta"
+          "remove remove";
+        gap: 0.5rem;
+      }
+      .cart-row img { grid-area: img; }
+      .cart-row div { grid-area: meta; }
+      .cart-row .remove-btn {
+        grid-area: remove;
+        justify-self: center;
+        margin-top: 0.6rem;
+        padding: .6rem 1rem;
+        border-radius: 999px;
+      }
+    }
+
+    /* Stripe button */
+    .stripe-btn {
+      background: #635bff;
+      color: #fff;
+      font-weight: 600;
+      padding: 14px 20px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .stripe-btn:hover {
+      background: #5548c8;
+    }
+    .stripe-trust {
+      display: block;
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #888;
     }
   </style>
 </head>
@@ -42,7 +76,7 @@
 
   <header class="site-header">
     <a class="brand" href="index.html">
-      <img src="assets/img/logo.png" alt="Freedom Crate Co. Logo" height="60" width="60">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. Logo">
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="index.html">Shop</a>
@@ -50,7 +84,9 @@
       <a href="gallery.html">Gallery</a>
       <a href="reviews.html">Reviews</a>
       <a href="contact.html">Custom Orders</a>
-      <a href="checkout.html" class="cart-link" aria-current="page">Cart (<span id="cartCount">0</span>)</a>
+      <a href="checkout.html" class="cart-link" aria-current="page">
+        Cart (<span id="cartCount">0</span>)
+      </a>
     </nav>
   </header>
 
@@ -69,21 +105,20 @@
       <p>Custom orders are final sale — no returns or exchanges.</p>
     </div>
 
-    <!-- Actions -->
     <div id="actions" hidden>
       <div id="paypal-buttons"></div>
-
-      <!-- Stripe (full Checkout via Netlify function) -->
-      <button id="stripe-pay" class="btn ghost" type="button" style="margin-top:1rem;">
-        Pay with Card (Stripe)
+      <!-- Stripe Button -->
+      <button id="stripe-pay" class="stripe-btn">
+        Pay with Card (Secure – Powered by Stripe) 🔒
       </button>
+      <small class="stripe-trust">Payments processed securely by Stripe</small>
     </div>
 
     <p class="muted">US Veteran-inspired • Florida-built</p>
     <p class="muted">Rugged, practical, and made to be used.</p>
   </main>
 
-  <!-- Core helpers (order matters) -->
+  <!-- Core site helpers -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
@@ -145,7 +180,6 @@
         const remove = document.createElement('button');
         remove.className = 'remove-btn';
         remove.type = 'button';
-        remove.setAttribute('aria-label','Remove item');
         remove.textContent = 'Remove';
 
         row.appendChild(img);
@@ -153,7 +187,6 @@
         row.appendChild(remove);
         container.appendChild(row);
 
-        // qty controls / remove
         meta.querySelector('[data-inc]').addEventListener('click', () => {
           const current = readCart().find(i => i.sku === item.sku);
           setQty(item.sku, (current?.qty || 1) + 1);
@@ -190,12 +223,25 @@
         const sku  = i.sku || ('SKU-' + (i.id || name.replace(/\s+/g,'-').slice(0,20).toUpperCase()));
         const qty  = String(i.qty || 1);
         const unit = Number(i.price || 0).toFixed(2);
-        return { name, sku, quantity: qty, unit_amount: { currency_code: 'USD', value: unit } };
+        return {
+          name,
+          sku,
+          quantity: qty,
+          unit_amount: { currency_code: 'USD', value: unit }
+        };
       });
+
       const itemTotal = items.reduce((sum, it) => sum + (Number(it.unit_amount.value) * Number(it.quantity)), 0).toFixed(2);
+
       return {
         description: 'Freedom Crate Co. order',
-        amount: { currency_code: 'USD', value: itemTotal, breakdown: { item_total: { currency_code: 'USD', value: itemTotal } } },
+        amount: {
+          currency_code: 'USD',
+          value: itemTotal,
+          breakdown: {
+            item_total: { currency_code: 'USD', value: itemTotal }
+          }
+        },
         items
       };
     }
@@ -211,7 +257,10 @@
           if (Number(unit.amount.value) <= 0) return;
           return actions.order.create({
             purchase_units: [ unit ],
-            application_context: { brand_name: 'Freedom Crate Co.', user_action: 'PAY_NOW' }
+            application_context: {
+              brand_name: 'Freedom Crate Co.',
+              user_action: 'PAY_NOW'
+            }
           });
         },
         onApprove: (data, actions) => {
@@ -231,39 +280,26 @@
       }
     }
 
-    // ---------- Stripe (full Checkout via Netlify function) ----------
-    async function startStripeCheckout(){
-      const cart = readCart();
-      if (!cart?.length){ alert('Cart is empty'); return; }
-      try{
-        stripeBtn.disabled = true;
+    // ---------- Stripe redirect ----------
+    stripeBtn?.addEventListener('click', async () => {
+      try {
         const res = await fetch('/.netlify/functions/create-checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            items: cart.map(i => ({
-              name: i.name,
-              sku: i.sku,
-              quantity: i.qty || 1,
-              // Stripe needs integer cents:
-              unit_amount: Math.round(Number(i.price || 0) * 100)
-            }))
-          })
+          body: JSON.stringify({ items: readCart() })
         });
         const data = await res.json();
-        if (!res.ok || !data.url) throw new Error(data.error || 'Checkout error');
-        window.location.href = data.url; // sends to checkout.stripe.com
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert('Stripe checkout failed. Please try again.');
+        }
       } catch (err) {
-        console.error(err);
-        alert('Could not start Stripe Checkout.');
-      } finally {
-        stripeBtn.disabled = false;
+        console.error('Stripe error', err);
+        alert('Stripe checkout failed.');
       }
-    }
+    });
 
-    stripeBtn?.addEventListener('click', startStripeCheckout);
-
-    // Render on load / updates
     document.addEventListener('DOMContentLoaded', render);
     window.addEventListener('cart:updated', render);
     window.addEventListener('storage', render);
