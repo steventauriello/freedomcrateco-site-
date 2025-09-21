@@ -576,3 +576,43 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
     justify-content: flex-end;
   }
 }
+/* === Stripe Button (professional style) === */
+#stripe-pay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #635bff, #5146d8);
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 420px;
+  margin: 0.5rem auto;
+  transition: background 0.25s ease, transform 0.1s ease;
+}
+
+#stripe-pay:hover {
+  background: linear-gradient(135deg, #5146d8, #3c32b8);
+}
+
+#stripe-pay:active {
+  transform: scale(0.98);
+}
+
+.stripe-trust {
+  display: block;
+  margin-top: 6px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.stripe-trust .stripe-word {
+  color: #635bff;
+  font-weight: 700;
+}
