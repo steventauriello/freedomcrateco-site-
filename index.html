@@ -256,169 +256,170 @@
   <script src="assets/js/cart.js" defer></script>
   <script src="assets/js/catalog.js" defer></script>
 
-  <!-- Page-scoped featured card logic (FULL) -->
-  <script>
-  /* --- Freedom Crate Classic: price + image swap + Add/Buy --- */
-  (function(){
-    // Use your actual filenames (case & spaces matter)
-    const IMG = {
-      blank:      "assets/img/fc-blank-front.jpeg",
-      army:       "assets/img/army.jpg",
-      marines:    "assets/img/marines.jpg",     // change to "Marine.jpg" if needed
-      navy:       "assets/img/navy.jpg",
-      airforce:   "assets/img/airforce.jpg",
-      coastguard: "assets/img/coastguard.jpg"
+ <!-- Page-scoped featured card logic (FIXED) -->
+<script>
+/* --- Freedom Crate Classic: price + image swap + Add/Buy --- */
+(function(){
+  // Use your actual filenames (case & spaces matter)
+  const IMG = {
+    blank:      "assets/img/blank.jpg",
+    army:       "assets/img/Army.jpg",
+    marines:    "assets/img/Marines.jpg",     // change to "Marine.jpg" if that's your file
+    navy:       "assets/img/Navy.jpg",
+    airforce:   "assets/img/Air Force.jpg",
+    coastguard: "assets/img/Coast Guard.jpg"
+  };
+
+  const BRANCH_PRICE = 95.00;   // with stencil
+  const BLANK_PRICE  = 89.99;   // no stencil  ✅ (fixed)
+
+  // If you ever add latch upcharges, set them here
+  const LATCH_PRICE  = { Stainless: 0, Black: 0 };
+
+  const imgEl   = document.getElementById('sb-image');
+  const branch  = document.getElementById('sb-branch');
+  const priceEl = document.getElementById('sb-price');
+  const addBtn  = document.getElementById('sb-add');
+  const buyBtn  = document.getElementById('sb-buy');
+  const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
+
+  const fmt  = n => '$' + Number(n).toFixed(2);
+  const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+
+  // Preload images for snappy swaps
+  Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; });
+
+  function updateImage(){
+    const val = branch.value;
+    const src = IMG[val] || IMG.blank;
+    const label = branch.options[branch.selectedIndex]?.text || 'Blank';
+
+    imgEl.classList.add('is-loading');
+    const tmp = new Image();
+    tmp.onload = () => {
+      imgEl.src = src;
+      imgEl.alt = (val === 'blank')
+        ? 'Freedom Crate Classic (no stencil)'
+        : `Freedom Crate Classic — ${label}`;
+      requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
     };
+    tmp.src = src;
+  }
 
-    const BRANCH_PRICE = 95.00;   // with stencil
-    the BLANK_PRICE  = 89.99;   // no stencil
-    const LATCH_PRICE  = { Stainless: 0, Black: 0 };
+  function getLatch(){ return latchInputs.find(x => x.checked)?.value || 'Stainless'; }
 
-    const imgEl   = document.getElementById('sb-image');
-    const branch  = document.getElementById('sb-branch');
-    const priceEl = document.getElementById('sb-price');
-    const addBtn  = document.getElementById('sb-add');
-    const buyBtn  = document.getElementById('sb-buy');
-    const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
+  function calcTotal(){
+    const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
+    const total = base + (LATCH_PRICE[getLatch()] || 0);
+    priceEl.textContent = fmt(total);
+  }
 
-    const fmt  = n => '$' + Number(n).toFixed(2);
-    const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  function buildSkuName(){
+    const bVal = branch.value;                          // blank|army|marines|navy|airforce|coastguard
+    const lTxt = getLatch();                            // Stainless|Black
+    const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`; // e.g., classic-army-stainless
+    const name = `Freedom Crate Classic — ${branch.options[branch.selectedIndex].text} • ${lTxt}`;
+    const price = Number(priceEl.textContent.replace(/[^0-9.]/g,'')) || 0;
+    return { sku, name, price };
+  }
 
-    // Preload images for snappy swaps
-    Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; });
+  const addToCartSafe = (sku, name, price, qty, meta) =>
+    (typeof window.addToCart === 'function')
+      ? window.addToCart(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
 
-    function updateImage(){
-      const val = branch.value;
-      const src = IMG[val] || IMG.blank;
-      const label = branch.options[branch.selectedIndex]?.text || 'Blank';
+  const buyNowSafe = (sku, name, price, qty, meta) =>
+    (typeof window.buyNow === 'function')
+      ? window.buyNow(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
 
-      imgEl.classList.add('is-loading');
+  // Events
+  branch.addEventListener('change', () => { updateImage(); calcTotal(); });
+  latchInputs.forEach(r => r.addEventListener('change', calcTotal));
+
+  addBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuName();
+    addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+  });
+
+  buyBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuName();
+    buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+  });
+
+  // Initial render (respects your default "selected" option)
+  updateImage();
+  calcTotal();
+})();
+
+/* --- Rangemaster 400: image/price swap + Add/Buy --- */
+(function(){
+  const pkgSel   = document.getElementById('rm400-package');
+  const priceEl  = document.getElementById('rm400-price');
+  const imgEl    = document.getElementById('rm400-image');
+  const addBtn   = document.getElementById('rm400-add');
+  const buyBtn   = document.getElementById('rm400-buy');
+  const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
+
+  if (!pkgSel || !priceEl || !imgEl) return;
+
+  const fmt = n => '$' + Number(n).toFixed(2);
+  const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
+  const getHW  = () => hwInputs.find(x=>x.checked)?.value || 'Stainless';
+
+  function updateView(){
+    const pkg = getPkg();
+    priceEl.textContent = fmt(Number(pkg.dataset.price));
+    if (pkg.dataset.img){
+      const next = pkg.dataset.img;
       const tmp = new Image();
-      tmp.onload = () => {
-        imgEl.src = src;
-        imgEl.alt = (val === 'blank')
-          ? 'Freedom Crate Classic (no stencil)'
-          : `Freedom Crate Classic — ${label}`;
-        requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
-      };
-      tmp.src = src;
+      tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
+      tmp.src = next;
     }
+  }
 
-    function getLatch(){ return latchInputs.find(x => x.checked)?.value || 'Stainless'; }
+  function buildSkuName(){
+    const pkg = getPkg();
+    const hw  = getHW();
+    const code = (hw === 'Stainless' ? 'STN' : 'BLK');
+    const sku  = `${pkg.dataset.sku}-${code}`; // e.g., RM400-ARMOR-STN
+    const name = `${pkg.text} • ${hw}`;
+    const price = Number(pkg.dataset.price) || 0;
+    return { sku, name, price };
+  }
 
-    function calcTotal(){
-      const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
-      const total = base + (LATCH_PRICE[getLatch()] || 0);
-      priceEl.textContent = fmt(total);
-    }
+  const addToCartSafe = (sku, name, price, qty, meta) =>
+    (typeof window.addToCart === 'function')
+      ? window.addToCart(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
 
-    function buildSkuName(){
-      const bVal = branch.value;                          // blank|army|marines|navy|airforce|coastguard
-      const lTxt = getLatch();                            // Stainless|Black
-      const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`; // e.g., classic-army-stainless
-      const name = `Freedom Crate Classic — ${branch.options[branch.selectedIndex].text} • ${lTxt}`;
-      const price = Number(priceEl.textContent.replace(/[^0-9.]/g,'')) || 0;
-      return { sku, name, price };
-    }
+  const buyNowSafe = (sku, name, price, qty, meta) =>
+    (typeof window.buyNow === 'function')
+      ? window.buyNow(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
 
-    const addToCartSafe = (sku, name, price, qty, meta) =>
-      (typeof window.addToCart === 'function')
-        ? window.addToCart(sku, name, price, qty, meta)
-        : console.warn('Cart not ready');
+  // Preload images
+  ["assets/img/rm400-top.jpg","assets/img/rm400-open.jpg","assets/img/rm400-armor-core.jpg","assets/img/rm400-battle-guard.jpg"]
+    .forEach(src => { const im = new Image(); im.src = src; });
 
-    const buyNowSafe = (sku, name, price, qty, meta) =>
-      (typeof window.buyNow === 'function')
-        ? window.buyNow(sku, name, price, qty, meta)
-        : console.warn('Cart not ready');
+  // Events
+  pkgSel.addEventListener('change', updateView);
+  hwInputs.forEach(r => r.addEventListener('change', updateView));
 
-    // Events
-    branch.addEventListener('change', () => { updateImage(); calcTotal(); });
-    latchInputs.forEach(r => r.addEventListener('change', calcTotal));
+  addBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuName();
+    addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+  });
 
-    addBtn.addEventListener('click', () => {
-      const { sku, name, price } = buildSkuName();
-      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
-    });
+  buyBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuName();
+    buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+  });
 
-    buyBtn.addEventListener('click', () => {
-      const { sku, name, price } = buildSkuName();
-      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
-    });
-
-    // Initial render
-    updateImage();
-    calcTotal();
-  })();
-
-  /* --- Rangemaster 400: image/price swap + Add/Buy --- */
-  (function(){
-    const pkgSel   = document.getElementById('rm400-package');
-    const priceEl  = document.getElementById('rm400-price');
-    const imgEl    = document.getElementById('rm400-image');
-    const addBtn   = document.getElementById('rm400-add');
-    const buyBtn   = document.getElementById('rm400-buy');
-    const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
-
-    if (!pkgSel || !priceEl || !imgEl) return;
-
-    const fmt = n => '$' + Number(n).toFixed(2);
-    const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
-    const getHW  = () => hwInputs.find(x=>x.checked)?.value || 'Stainless';
-
-    function updateView(){
-      const pkg = getPkg();
-      priceEl.textContent = fmt(Number(pkg.dataset.price));
-      if (pkg.dataset.img){
-        const next = pkg.dataset.img;
-        const tmp = new Image();
-        tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
-        tmp.src = next;
-      }
-    }
-
-    function buildSkuName(){
-      const pkg = getPkg();
-      const hw  = getHW();
-      const code = (hw === 'Stainless' ? 'STN' : 'BLK');
-      const sku  = `${pkg.dataset.sku}-${code}`; // e.g., RM400-ARMOR-STN
-      const name = `${pkg.text} • ${hw}`;
-      const price = Number(pkg.dataset.price) || 0;
-      return { sku, name, price };
-    }
-
-    const addToCartSafe = (sku, name, price, qty, meta) =>
-      (typeof window.addToCart === 'function')
-        ? window.addToCart(sku, name, price, qty, meta)
-        : console.warn('Cart not ready');
-
-    const buyNowSafe = (sku, name, price, qty, meta) =>
-      (typeof window.buyNow === 'function')
-        ? window.buyNow(sku, name, price, qty, meta)
-        : console.warn('Cart not ready');
-
-    // Preload the possible images so swaps are instant
-    ["assets/img/rm400-top.jpg","assets/img/rm400-open.jpg","assets/img/rm400-armor-core.jpg","assets/img/rm400-battle-guard.jpg"]
-      .forEach(src => { const im = new Image(); im.src = src; });
-
-    // Events
-    pkgSel.addEventListener('change', updateView);
-    hwInputs.forEach(r => r.addEventListener('change', updateView));
-
-    addBtn.addEventListener('click', () => {
-      const { sku, name, price } = buildSkuName();
-      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
-    });
-
-    buyBtn.addEventListener('click', () => {
-      const { sku, name, price } = buildSkuName();
-      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
-    });
-
-    // Init
-    updateView();
-  })();
-  </script>
-
+  // Init
+  updateView();
+})();
+</script>
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
