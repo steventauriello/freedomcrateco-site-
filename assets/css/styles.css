@@ -167,10 +167,29 @@ a { color: var(--link); text-decoration: none; }
 /* === Cart Remove Button === */
 .cart-row { position: relative; }
 .remove-btn {
-  background: none; border: none; color: #fff;
-  font-size: 1rem; cursor: pointer; opacity: 1;
-  position: absolute; bottom: 8px; right: 8px;
+  background: none;
+  border: 0;
+  color: #fff;
+  padding: 0;
+  cursor: pointer;
+  opacity: .8;
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
 }
+/* Mobile adjustment for trash icon */
+@media (max-width:600px) {
+  .cart-row .remove-btn {
+    position: static;       /* don’t absolutely position */
+    margin-top: 0.5rem;
+    justify-content: center;
+  }
+}
+
+.remove-btn:hover { opacity: 1; }
+.remove-btn svg { width: 18px; height: 18px; display: block; }
 .remove-btn:hover { opacity: 1; }
 .remove-btn .label { font-size: 0.7rem; margin-left: 4px; }
 
