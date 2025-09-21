@@ -7,10 +7,26 @@
     <lastmod>2025-09-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+
+    <!-- Army Edition -->
     <image:image>
       <image:loc>https://freedomcrateco.com/assets/img/army.jpg</image:loc>
       <image:title>Freedom Crate Co. — Army Edition Handcrafted Ammo Box</image:title>
       <image:caption>Handcrafted wooden ammo box with U.S. Army stencil, built in Florida by Freedom Crate Co.</image:caption>
+    </image:image>
+
+    <!-- 9mm Box -->
+    <image:image>
+      <image:loc>https://freedomcrateco.com/assets/img/9mm-box.JPG</image:loc>
+      <image:title>Freedom Crate Co. — 9mm Edition Wooden Ammo Box</image:title>
+      <image:caption>Compact 9mm ammo storage box, handcrafted in Florida with rugged wood and precision stenciling.</image:caption>
+    </image:image>
+
+    <!-- 5.56 Box -->
+    <image:image>
+      <image:loc>https://freedomcrateco.com/assets/img/556-box.JPG</image:loc>
+      <image:title>Freedom Crate Co. — 5.56 NATO Edition Wooden Ammo Box</image:title>
+      <image:caption>Durable wooden ammo box designed for 5.56 NATO, built tough for range and storage use.</image:caption>
     </image:image>
   </url>
 
