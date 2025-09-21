@@ -5,27 +5,38 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Order Successful – Freedom Crate Co.</title>
   <meta name="description" content="Handcrafted wooden ammo boxes and range crates by Freedom Crate Co. Veteran-inspired, durable storage with free shipping." />
-  <link rel="canonical" href="https://freedomcrateco.com/order-success.html">
+  <link rel="canonical" href="https://freedomcrateco.com/order-success.html" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+
   <style>
     .success-wrap{max-width:700px;margin:3rem auto;text-align:center}
     .success-wrap h1{font-size:2rem;margin-bottom:1rem}
     .success-wrap p{margin:.75rem 0}
-    .btn-primary{display:inline-block;margin-top:2rem;background:#28a745;color:#fff;padding:.75rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:600}
+    .btn-primary{
+      display:inline-block;margin-top:2rem;background:#28a745;color:#fff;
+      padding:.75rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:600
+    }
     .order-line{margin-top:1rem;opacity:.9}
-    .order-id{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
-      display:inline-block;padding:.25rem .5rem;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
-    .copy-btn{margin-left:.5rem;border:1px solid rgba(255,255,255,.25);background:transparent;color:inherit;border-radius:6px;padding:.25rem .5rem;cursor:pointer}
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DNNL0065X9');
-</script>
+    .order-id{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      display:inline-block;padding:.25rem .5rem;border-radius:6px;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)
+    }
+    .copy-btn{
+      margin-left:.5rem;border:1px solid rgba(255,255,255,.25);
+      background:transparent;color:inherit;border-radius:6px;
+      padding:.25rem .5rem;cursor:pointer
+    }
   </style>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-DNNL0065X9'); // GA4 Measurement ID
+  </script>
 </head>
 <body>
   <header class="site-header">
@@ -46,7 +57,7 @@
     <p>Your order has been received and is now being processed.</p>
     <p>We’ll email you shortly with your order details and tracking information.</p>
 
-    <!-- Order ID gets revealed here if present -->
+    <!-- Order ID gets revealed here if present (for PayPal flow) -->
     <p class="order-line" id="orderLine" hidden>
       Your PayPal Order ID:
       <span class="order-id" id="orderId"></span>
@@ -62,33 +73,39 @@
 
   <footer class="site-footer"></footer>
 
+  <!-- Core helpers -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
-  <script>
-  // Clear the cart when arriving from Stripe (session_id) or PayPal (orderId)
-  document.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(location.search);
-    const fromStripe = params.has('session_id');
-    const fromPayPal = params.has('orderId');
 
-    if (fromStripe || fromPayPal) {
-      try {
-        clearCart();                                // from assets/js/cart.js
-        window.dispatchEvent(new Event('cart:updated')); // updates header badge
-      } catch (e) {
-        console.warn('Cart clear failed:', e);
-      }
-    }
-  });
-</script>
+  <!-- Clear cart after successful payment (Stripe ?session_id=... or PayPal ?orderId=...) -->
   <script>
-    // Reveal PayPal order id if provided as ?orderId=... in the URL
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(location.search);
+      const fromStripe = params.has('session_id');
+      const fromPayPal = params.has('orderId');
+
+      if (fromStripe || fromPayPal) {
+        try {
+          clearCart(); // from assets/js/cart.js
+          window.dispatchEvent(new Event('cart:updated')); // refresh header badge
+        } catch (e) {
+          console.warn('Cart clear failed:', e);
+        }
+      }
+    });
+  </script>
+
+  <!-- Show PayPal order id and copy helper -->
+  <script>
     (function(){
       const params = new URLSearchParams(location.search);
       const id = params.get('orderId');
       if (!id) return;
-      document.getElementById('orderId').textContent = id;
-      document.getElementById('orderLine').hidden = false;
+
+      const idEl = document.getElementById('orderId');
+      const line = document.getElementById('orderLine');
+      idEl.textContent = id;
+      line.hidden = false;
 
       const copyBtn = document.getElementById('copyBtn');
       const msg = document.getElementById('copiedMsg');
@@ -96,9 +113,8 @@
         try {
           await navigator.clipboard.writeText(id);
           msg.style.display = 'inline';
-          setTimeout(()=> msg.style.display = 'none', 1200);
-        } catch(e){
-          // fallback: select and copy via prompt
+          setTimeout(() => (msg.style.display = 'none'), 1200);
+        } catch {
           window.prompt('Copy this Order ID:', id);
         }
       });
