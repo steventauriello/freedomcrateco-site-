@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
   <url>
     <loc>https://freedomcrateco.com/</loc>
     <lastmod>2025-09-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://freedomcrateco.com/assets/img/army.jpg</image:loc>
+      <image:title>Freedom Crate Co. — Army Edition Handcrafted Ammo Box</image:title>
+      <image:caption>Handcrafted wooden ammo box with U.S. Army stencil, built in Florida by Freedom Crate Co.</image:caption>
+    </image:image>
   </url>
 
   <url>
@@ -35,7 +42,6 @@
     <priority>0.5</priority>
   </url>
 
-  <!-- Add product/collection pages that should rank -->
   <url>
     <loc>https://freedomcrateco.com/product.html</loc>
     <lastmod>2025-09-21</lastmod>
