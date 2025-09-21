@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /checkout.html
+Disallow: /order-success.html
+Disallow: /thanks.html
+Allow: /
+
+Sitemap: https://freedomcrateco.com/sitemap.xml
