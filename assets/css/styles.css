@@ -616,3 +616,11 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   color: #635bff;
   font-weight: 700;
 }
+/* Feature card link styling */
+.feature-link {
+  color: inherit;
+  text-decoration: none;
+}
+.feature-link:hover {
+  text-decoration: underline;
+}
