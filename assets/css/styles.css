@@ -646,3 +646,18 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 #classic-box .fc-controls * {
   pointer-events: auto;     /* ensure controls capture their own taps */
 }
+.more-details {
+  text-align: right;        /* pushes link to the right side */
+  margin-top: 0.5rem;       /* little breathing room above */
+  font-size: 0.9rem;        /* slightly smaller than body text */
+}
+
+.more-details a {
+  color: #4CAF50;           /* match your green button style */
+  text-decoration: none;    /* remove underline */
+  font-weight: 600;         /* make it stand out */
+}
+
+.more-details a:hover {
+  text-decoration: underline; /* subtle hover effect */
+}
