@@ -273,5 +273,60 @@
       if (e.key === 'Escape' && dialog.open) dialog.close();
     });
   </script>
+  <!-- Gallery SEO helper: lazyload, alt fallbacks, image JSON-LD -->
+<script>
+(function () {
+  // 1) Find likely gallery images (tweak selector if your gallery uses a wrapper class)
+  const imgs = Array.from(document.querySelectorAll('main img, .gallery img, .grid img, .photos img'));
+
+  // 2) Perf + a11y: ensure lazy + decoding and alt fallback
+  imgs.forEach(img => {
+    if (!img.hasAttribute('loading'))  img.setAttribute('loading', 'lazy');
+    if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+    if (!img.alt || !img.alt.trim()) {
+      // Build a readable alt from filename and surrounding text
+      const src = (img.currentSrc || img.src || '').split('/').pop().replace(/\.(jpe?g|png|webp|avif)$/i,'');
+      const pretty = src.replace(/[-_]+/g,' ').replace(/\b(us|usa)\b/gi,'US').trim();
+      img.alt = (img.closest('[data-alt]')?.dataset.alt) || (pretty ? `Wooden ammo box – ${pretty}` : 'Wooden ammo box by Freedom Crate Co.');
+    }
+  });
+
+  // 3) Structured data for images (first 20)
+  const galleryItems = imgs.slice(0, 20).map(img => ({
+    "@type": "ImageObject",
+    "contentUrl": img.currentSrc || img.src,
+    "url": img.currentSrc || img.src,
+    "caption": img.alt || "Freedom Crate Co. wooden ammo box",
+    "creditText": "Freedom Crate Co."
+  }));
+
+  if (galleryItems.length) {
+    const ld = {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "Freedom Crate Co. Wooden Ammo Box Gallery",
+      "url": location.href,
+      "image": galleryItems
+    };
+    const s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify(ld);
+    document.head.appendChild(s);
+  }
+
+  // 4) Optional: internal links block (keeps users + bots moving)
+  const main = document.querySelector('main') || document.body;
+  const block = document.createElement('div');
+  block.style.margin = '2rem 0 0';
+  block.style.textAlign = 'center';
+  block.innerHTML = `
+    <nav aria-label="Related">
+      <a href="index.html#classic-box">Freedom Crate Classic</a> ·
+      <a href="product.html?sku=FC-RM-400">Rangemaster 400</a> ·
+      <a href="contact.html">Request a Custom Order</a>
+    </nav>`;
+  main.appendChild(block);
+})();
+</script>
 </body>
 </html>
