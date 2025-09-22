@@ -624,3 +624,25 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 .feature-link:hover {
   text-decoration: underline;
 }
+/* Tighten the tap target for the Branch dropdown on the featured card */
+#classic-box .fc-controls label[for="sb-branch"] {
+  display: inline;          /* stop the label from spanning the full row */
+  padding: 0;               /* remove any extra hit area */
+  margin: 0 .35rem 0 0;     /* tiny gap before the select */
+  cursor: default;
+}
+
+#classic-box #sb-branch {
+  display: inline-block;
+  min-width: 220px;         /* keeps it readable without being huge */
+  max-width: 100%;
+}
+
+/* Make sure nothing outside the select/label triggers it */
+#classic-box .fc-controls {
+  position: relative;
+  z-index: 3;               /* stays above any overlay links */
+}
+#classic-box .fc-controls * {
+  pointer-events: auto;     /* ensure controls capture their own taps */
+}
