@@ -8,17 +8,34 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
     .product-page { max-width: 900px; margin: 2rem auto; padding: 1rem; }
-    .gallery { display: flex; gap: 1rem; flex-direction: column; }
+    .gallery { display: grid; grid-template-columns: 1fr auto; gap: 1rem; }
     .gallery-main img { width: 100%; border-radius: 12px; cursor: pointer; }
-    .gallery-thumbs { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-    .gallery-thumbs img { width: 120px; border-radius: 8px; cursor: pointer; opacity: 0.9; transition: opacity 0.2s; }
+    .gallery-thumbs { display: flex; flex-direction: column; gap: .75rem; }
+    .gallery-thumbs img {
+      width: 120px; border-radius: 8px; cursor: pointer; opacity: .9; transition: opacity .2s;
+      border: 2px solid transparent;
+    }
     .gallery-thumbs img:hover { opacity: 1; }
+    .gallery-thumbs img.active { border-color: rgba(255,255,255,.35); }
 
-    /* lightbox overlay */
-    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 9999; }
+    /* Lightbox */
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.9); display: none; align-items: center; justify-content: center; z-index: 9999; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 90%; max-height: 90%; border-radius: 12px; }
     .lightbox .close { position: absolute; top: 20px; right: 30px; font-size: 2rem; background: none; border: none; color: #fff; cursor: pointer; }
+
+    /* Details / CTA */
+    .bc-details { margin-top: 1.25rem; }
+    .bc-details h2 { margin: 0 0 .25rem; }
+    .bc-bullets, .bc-specs ul { margin: .5rem 0 1rem 1.2rem; }
+    .bc-bullets li, .bc-specs li { margin: .25rem 0; }
+    .bc-cta { display:flex; align-items:center; gap:1rem; margin-top:.5rem; }
+    .bc-cta small { display:block; }
+    @media (max-width: 780px){
+      .gallery { grid-template-columns: 1fr; }
+      .gallery-thumbs { flex-direction: row; flex-wrap: wrap; }
+      .bc-cta { flex-wrap: wrap; gap:.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -37,103 +54,134 @@
   </header>
 
   <main class="product-page">
-    <h1>Freedom Crate Classic Branch Collection</h1>
-    <p>Handcrafted wooden ammo boxes honoring every branch of the U.S. Armed Forces. Built tough, stenciled with pride, and customizable with hardware options.</p>
+    <h1>Freedom Crate Classic — Branch Collection</h1>
+    <p class="muted">Handcrafted wooden ammo/range boxes honoring every branch of the U.S. Armed Forces. Built tough, stenciled with pride, and finished in service green.</p>
 
     <!-- Gallery -->
     <div class="gallery">
       <div class="gallery-main">
-        <img id="mainImg" src="assets/img/founders-hero-collage.jpg" alt="Branch Collection Ammo Box">
+        <!-- Set initial branch in alt for detection -->
+        <img id="bc-hero" src="assets/img/airforce.jpg" alt="airforce crate – Freedom Crate Classic">
       </div>
+
       <div class="gallery-thumbs" id="thumbs">
-        <img src="assets/img/army.jpg" alt="Army Crate">
-        <img src="assets/img/marines.jpg" alt="Marines Crate">
-        <img src="assets/img/navy.jpg" alt="Navy Crate">
-        <img src="assets/img/airforce.jpg" alt="Air Force Crate">
-        <img src="assets/img/coastguard.jpg" alt="Coast Guard Crate">
+        <img src="assets/img/army.jpg"       alt="army crate"       data-branch="army">
+        <img src="assets/img/marines.jpg"    alt="marines crate"    data-branch="marines">
+        <img src="assets/img/navy.jpg"       alt="navy crate"       data-branch="navy">
+        <img src="assets/img/airforce.jpg"   alt="airforce crate"   data-branch="airforce" class="active">
+        <img src="assets/img/coastguard.jpg" alt="coastguard crate" data-branch="coastguard">
       </div>
     </div>
 
-    <!-- Options -->
-    <section style="margin-top:2rem;">
-      <label for="branch">Choose Branch:</label>
-      <select id="branch">
-        <option value="classic-army">Army</option>
-        <option value="classic-marines">Marines</option>
-        <option value="classic-navy">Navy</option>
-        <option value="classic-airforce">Air Force</option>
-        <option value="classic-coastguard">Coast Guard</option>
-        <option value="classic-blank">Blank (no insignia)</option>
-      </select>
+    <!-- Details / CTA -->
+    <div class="bc-details">
+      <h2>Details</h2>
+      <ul class="bc-bullets">
+        <li>Solid wood construction, glued &amp; screwed</li>
+        <li>Lockable stainless toggle latches (default)</li>
+        <li>Reinforced lid rails and wide carry webbing</li>
+        <li>Free shipping — ships fast from Florida</li>
+      </ul>
 
-      <label for="hardware" style="margin-left:1rem;">Choose Hardware:</label>
-      <select id="hardware">
-        <option value="stainless">Stainless</option>
-        <option value="black">Black</option>
-      </select>
+      <div class="bc-specs">
+        <h3>Specs</h3>
+        <ul>
+          <li>Exterior: ~<strong>18″ × 10″ × 9″</strong> (handmade, slight variance)</li>
+          <li>Interior: ~<strong>16.5″ × 8.5″ × 7.5″</strong></li>
+          <li>Finish: Service green with crisp branch stencil</li>
+          <li>Hardware: Stainless latches (Black available from main Shop card)</li>
+        </ul>
+      </div>
 
-      <button id="addToCart" class="btn" style="margin-left:1rem;">Add to Cart</button>
-    </section>
+      <div class="bc-cta">
+        <strong>Total: <span id="bc-price">$95.00</span></strong>
+        <button id="bc-add" class="btn">Add to Cart</button>
+        <small class="muted">Price shown for stenciled branch. “Blank” is $89.99 (available on main Shop card).</small>
+      </div>
+    </div>
   </main>
 
-  <!-- Lightbox overlay -->
+  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <button class="close" aria-label="Close" id="lbClose">×</button>
     <img id="lbImg" alt="">
   </div>
 
+  <!-- Core helpers (your existing files) -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
 
   <script>
   (function(){
-    const mainImg = document.getElementById('mainImg');
-    const thumbs  = document.getElementById('thumbs');
-    const lb      = document.getElementById('lightbox');
-    const lbImg   = document.getElementById('lbImg');
-    const lbClose = document.getElementById('lbClose');
+    // --- Gallery + Lightbox
+    const hero   = document.getElementById('bc-hero');
+    const thumbs = document.getElementById('thumbs');
+    const lb     = document.getElementById('lightbox');
+    const lbImg  = document.getElementById('lbImg');
+    const lbClose= document.getElementById('lbClose');
 
-    function openLB(src, alt){
-      lbImg.src = src; lbImg.alt = alt || '';
-      lb.classList.add('open');
-      lb.setAttribute('aria-hidden','false');
-    }
-    function closeLB(){
-      lb.classList.remove('open');
-      lb.setAttribute('aria-hidden','true');
-      lbImg.src = '';
-    }
+    function openLB(src, alt){ lbImg.src = src; lbImg.alt = alt||''; lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); }
+    function closeLB(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.src=''; }
 
-    mainImg.addEventListener('click', () => openLB(mainImg.src, mainImg.alt));
+    hero.addEventListener('click', () => openLB(hero.src, hero.alt));
     thumbs.addEventListener('click', e => {
       const t = e.target.closest('img'); if (!t) return;
-      mainImg.src = t.src;
-      mainImg.alt = t.alt;
+      hero.src = t.src; hero.alt = (t.getAttribute('data-branch')||'') + ' crate – Freedom Crate Classic';
+      // set active
+      thumbs.querySelectorAll('img').forEach(i => i.classList.remove('active'));
+      t.classList.add('active');
+      updateBranchFromHero();
     });
-    thumbs.addEventListener('dblclick', e => {
-      const t = e.target.closest('img'); if (!t) return;
-      openLB(t.src, t.alt);
-    });
-
     lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
     lbClose.addEventListener('click', closeLB);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
 
-    // Add to cart logic
-    const addBtn = document.getElementById('addToCart');
+    // --- Cart wiring (no dropdowns)
+    const PRICES = { blank:89.99, army:95.00, marines:95.00, navy:95.00, airforce:95.00, coastguard:95.00 };
+    const SKUS   = {
+      blank:'classic-blank-stainless',
+      army:'classic-army-stainless',
+      marines:'classic-marines-stainless',
+      navy:'classic-navy-stainless',
+      airforce:'classic-airforce-stainless',
+      coastguard:'classic-coastguard-stainless'
+    };
+
+    const priceEl = document.getElementById('bc-price');
+    const addBtn  = document.getElementById('bc-add');
+    let currentBranch = 'airforce';
+
+    function inferBranchFromAlt() {
+      const alt = (hero.alt||'').toLowerCase();
+      for (const k of Object.keys(PRICES)) if (alt.includes(k)) return k;
+      const src = (hero.src||'').toLowerCase();
+      for (const k of Object.keys(PRICES)) if (src.includes(k)) return k;
+      // fall back to active thumb
+      const active = thumbs.querySelector('img.active')?.getAttribute('data-branch');
+      return active || currentBranch;
+    }
+    function renderPrice(){ priceEl.textContent = '$'+(PRICES[currentBranch]||95).toFixed(2); }
+    function updateBranchFromHero(){ currentBranch = inferBranchFromAlt(); renderPrice(); }
+
     addBtn.addEventListener('click', () => {
-      const branch = document.getElementById('branch').value;
-      const hw     = document.getElementById('hardware').value;
-      const sku = branch + '-' + hw;
-      addItem({
-        sku,
-        name: 'Freedom Crate – ' + branch.replace('classic-','').toUpperCase(),
-        price: 95.00,
-        qty: 1,
-        image: mainImg.src
-      });
-      alert('Added to cart!');
+      const branch = currentBranch;
+      const sku  = SKUS[branch] || SKUS.marines;
+      const name = 'Freedom Crate Classic — ' + (branch==='blank' ? 'Blank' :
+                   branch.charAt(0).toUpperCase()+branch.slice(1)) + ' • Stainless';
+      const price= PRICES[branch] || 95.00;
+
+      if (typeof window.addToCart === 'function') {
+        window.addToCart(sku, name, price, 1, { image: hero.src });
+      } else if (typeof window.addItem === 'function') {
+        // fallback in case older helper name is present
+        window.addItem({ sku, name, price, qty:1, image: hero.src });
+      } else {
+        alert('Cart is not ready.');
+      }
     });
+
+    // initial render
+    updateBranchFromHero();
   })();
   </script>
 </body>
