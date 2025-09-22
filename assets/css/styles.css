@@ -661,3 +661,25 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 .more-details a:hover {
   text-decoration: underline; /* subtle hover effect */
 }
+/* Ensure the product card acts as a positioning context */
+.featured-card {
+  position: relative;
+}
+
+/* Stick "More details" link to bottom right */
+.more-details {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 1rem;
+  font-size: 0.9rem;
+}
+
+.more-details a {
+  color: #4CAF50;       /* adjust to match your theme */
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.more-details a:hover {
+  text-decoration: underline;
+}
