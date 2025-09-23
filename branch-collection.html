@@ -31,10 +31,27 @@
     .bc-bullets li, .bc-specs li { margin: .25rem 0; }
     .bc-cta { display:flex; align-items:center; gap:1rem; margin-top:.5rem; }
     .bc-cta small { display:block; }
+
+    /* Bottom description photo strip (new) */
+    .desc-photos { margin-top: 1rem; }
+    .desc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+    }
+    .desc-thumb { padding: 0; border: 0; background: transparent; cursor: zoom-in; display: block; }
+    .desc-thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.15);
+      transition: transform .15s ease;
+    }
+    .desc-thumb img:hover { transform: scale(1.02); }
+
     @media (max-width: 780px){
       .gallery { grid-template-columns: 1fr; }
       .gallery-thumbs { flex-direction: row; flex-wrap: wrap; }
       .bc-cta { flex-wrap: wrap; gap:.5rem; }
+      .desc-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
     }
   </style>
 </head>
@@ -64,49 +81,73 @@
         <img id="bc-hero" src="assets/img/airforce.jpg" alt="airforce crate – Freedom Crate Classic">
       </div>
 
-     <div class="gallery-thumbs" id="thumbs">
-  <img src="assets/img/army.jpg"       alt="Army Crate"        data-branch="army">
-  <img src="assets/img/marines.jpg"    alt="Marines Crate"     data-branch="marines">
-  <img src="assets/img/navy.jpg"       alt="Navy Crate"        data-branch="navy">
-  <img src="assets/img/airforce.jpg"   alt="Air Force Crate"   data-branch="airforce">
-  <img src="assets/img/coastguard.jpg" alt="Coast Guard Crate" data-branch="coastguard">
-  <img src="assets/img/branch-collection-blank.JPG" alt="Blank Crate (No Stencil)" data-branch="blank">
-</div>
+      <div class="gallery-thumbs" id="thumbs">
+        <img src="assets/img/army.jpg"       alt="Army Crate"        data-branch="army">
+        <img src="assets/img/marines.jpg"    alt="Marines Crate"     data-branch="marines">
+        <img src="assets/img/navy.jpg"       alt="Navy Crate"        data-branch="navy">
+        <img src="assets/img/airforce.jpg"   alt="Air Force Crate"   data-branch="airforce">
+        <img src="assets/img/coastguard.jpg" alt="Coast Guard Crate" data-branch="coastguard">
+        <img src="assets/img/branch-collection-blank.JPG" alt="Blank Crate (No Stencil)" data-branch="blank">
+      </div>
     </div>
 
-    <!-- Details / Specs -->
-  <div class="bc-details">
-    <h2>Specifications</h2>
-    <ul>
-      <li><strong>Interior Dimensions:</strong> 11″ W × 8¼″ L × 5½″ D</li>
-      <li><strong>Exterior Dimensions:</strong> 14″ W × 9½″ L × 7″ H</li>
-      <li><strong>Construction:</strong> 23/32″ exterior-grade plywood (approx. ¾″) for ultra durability</li>
-      <li><strong>Bottom Panel:</strong> ¼″ sanded plywood</li>
-      <li><strong>Lid:</strong> Reinforced ¾″ solid pine tongue-and-groove boards</li>
-      <li><strong>Paint:</strong> Ultra-flat OD Green (olive drab camouflage)</li>
-      <li><strong>Hardware:</strong> Dual stainless steel lockable toggle latches</li>
-      <li><strong>Hinges:</strong> 1½″ stainless steel rear hinges</li>
-      <li><strong>Handles:</strong> Heavy-duty nylon webbing, integrated into reinforced legs</li>
-      <li><strong>Branches Available:</strong> U.S. Army, U.S. Marine Corps, U.S. Navy, U.S. Air Force, U.S. Coast Guard, or Blank (no stencil)</li>
-    </ul>
-
-    <h2>Details</h2>
-    <ul>
-      <li>Reinforced lid rails for added strength and long-term durability</li>
-      <li>Raised legs allow boxes to be stackable without damaging lids</li>
-      <li>Leg design houses the nylon webbing handles internally, preventing wiggle or break-free issues</li>
-      <li>Handles tested to withstand well over 300 lbs — nearly fail-safe under normal use</li>
-      <li>Every box is stenciled with pride (or left blank for a clean, no-insignia look)</li>
-      <li>Future premium line will offer hardwood maple plywood upgrades</li>
-      <li>Free shipping — some orders may ship in two packages (both tracking numbers provided)</li>
-    </ul>
-  </div>
-
-      <div class="bc-cta">
-        <strong>Total: <span id="bc-price">$95.00</span></strong>
-        <button id="bc-add" class="btn">Add to Cart</button>
-        <small class="muted">Price shown for stenciled branch. “Blank” is $89.99 (available on main Shop card).</small>
+    <!-- ===== Bottom Description Photos (new; click-to-zoom only) ===== -->
+    <section class="desc-photos" aria-label="More photos of the Freedom Crate Classic">
+      <div class="desc-grid">
+        <!-- Using your existing branch images as placeholders; replace anytime -->
+        <button class="desc-thumb" data-full="assets/img/army.jpg" aria-label="Army crate, large">
+          <img loading="lazy" src="assets/img/army.jpg" alt="Army crate detail">
+        </button>
+        <button class="desc-thumb" data-full="assets/img/marines.jpg" aria-label="Marines crate, large">
+          <img loading="lazy" src="assets/img/marines.jpg" alt="Marines crate detail">
+        </button>
+        <button class="desc-thumb" data-full="assets/img/navy.jpg" aria-label="Navy crate, large">
+          <img loading="lazy" src="assets/img/navy.jpg" alt="Navy crate detail">
+        </button>
+        <button class="desc-thumb" data-full="assets/img/airforce.jpg" aria-label="Air Force crate, large">
+          <img loading="lazy" src="assets/img/airforce.jpg" alt="Air Force crate detail">
+        </button>
+        <button class="desc-thumb" data-full="assets/img/coastguard.jpg" aria-label="Coast Guard crate, large">
+          <img loading="lazy" src="assets/img/coastguard.jpg" alt="Coast Guard crate detail">
+        </button>
+        <button class="desc-thumb" data-full="assets/img/branch-collection-blank.JPG" aria-label="Blank crate, large">
+          <img loading="lazy" src="assets/img/branch-collection-blank.JPG" alt="Blank crate detail">
+        </button>
       </div>
+    </section>
+
+    <!-- Details / Specs -->
+    <div class="bc-details">
+      <h2>Specifications</h2>
+      <ul>
+        <li><strong>Interior Dimensions:</strong> 11″ W × 8¼″ L × 5½″ D</li>
+        <li><strong>Exterior Dimensions:</strong> 14″ W × 9½″ L × 7″ H</li>
+        <li><strong>Construction:</strong> 23/32″ exterior-grade plywood (approx. ¾″) for ultra durability</li>
+        <li><strong>Bottom Panel:</strong> ¼″ sanded plywood</li>
+        <li><strong>Lid:</strong> Reinforced ¾″ solid pine tongue-and-groove boards</li>
+        <li><strong>Paint:</strong> Ultra-flat OD Green (olive drab camouflage)</li>
+        <li><strong>Hardware:</strong> Dual stainless steel lockable toggle latches</li>
+        <li><strong>Hinges:</strong> 1½″ stainless steel rear hinges</li>
+        <li><strong>Handles:</strong> Heavy-duty nylon webbing, integrated into reinforced legs</li>
+        <li><strong>Branches Available:</strong> U.S. Army, U.S. Marine Corps, U.S. Navy, U.S. Air Force, U.S. Coast Guard, or Blank (no stencil)</li>
+      </ul>
+
+      <h2>Details</h2>
+      <ul>
+        <li>Reinforced lid rails for added strength and long-term durability</li>
+        <li>Raised legs allow boxes to be stackable without damaging lids</li>
+        <li>Leg design houses the nylon webbing handles internally, preventing wiggle or break-free issues</li>
+        <li>Handles tested to withstand well over 300 lbs — nearly fail-safe under normal use</li>
+        <li>Every box is stenciled with pride (or left blank for a clean, no-insignia look)</li>
+        <li>Future premium line will offer hardwood maple plywood upgrades</li>
+        <li>Free shipping — some orders may ship in two packages (both tracking numbers provided)</li>
+      </ul>
+    </div>
+
+    <div class="bc-cta">
+      <strong>Total: <span id="bc-price">$95.00</span></strong>
+      <button id="bc-add" class="btn">Add to Cart</button>
+      <small class="muted">Price shown for stenciled branch. “Blank” is $89.99 (available on main Shop card).</small>
     </div>
   </main>
 
@@ -122,7 +163,7 @@
 
   <script>
   (function(){
-    // --- Gallery + Lightbox
+    // --- Gallery + Lightbox (existing behavior)
     const hero   = document.getElementById('bc-hero');
     const thumbs = document.getElementById('thumbs');
     const lb     = document.getElementById('lightbox');
@@ -145,7 +186,7 @@
     lbClose.addEventListener('click', closeLB);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
 
-    // --- Cart wiring (no dropdowns)
+    // --- Cart wiring (unchanged; no pricing tied to bottom photos)
     const PRICES = { blank:89.99, army:95.00, marines:95.00, navy:95.00, airforce:95.00, coastguard:95.00 };
     const SKUS   = {
       blank:'classic-blank-stainless',
@@ -165,7 +206,6 @@
       for (const k of Object.keys(PRICES)) if (alt.includes(k)) return k;
       const src = (hero.src||'').toLowerCase();
       for (const k of Object.keys(PRICES)) if (src.includes(k)) return k;
-      // fall back to active thumb
       const active = thumbs.querySelector('img.active')?.getAttribute('data-branch');
       return active || currentBranch;
     }
@@ -182,7 +222,6 @@
       if (typeof window.addToCart === 'function') {
         window.addToCart(sku, name, price, 1, { image: hero.src });
       } else if (typeof window.addItem === 'function') {
-        // fallback in case older helper name is present
         window.addItem({ sku, name, price, qty:1, image: hero.src });
       } else {
         alert('Cart is not ready.');
@@ -191,6 +230,15 @@
 
     // initial render
     updateBranchFromHero();
+
+    // --- Wire bottom description photos to reuse the SAME lightbox (new)
+    document.querySelector('.desc-photos')?.addEventListener('click', (e) => {
+      const btn = e.target.closest('.desc-thumb');
+      if(!btn) return;
+      const full = btn.getAttribute('data-full');
+      const alt  = btn.querySelector('img')?.getAttribute('alt') || '';
+      openLB(full, alt);
+    });
   })();
   </script>
 </body>
