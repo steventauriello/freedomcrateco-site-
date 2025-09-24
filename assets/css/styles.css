@@ -689,3 +689,9 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 }
 
 .more-details a:hover { text-decoration: underline; }
+/* Put the mini price guide under the total on feature cards */
+.featured-card .fc-row > small.fc-note {
+  display: block;
+  margin-top: .25rem;
+  opacity: .9;               /* optional: slightly muted */
+}
