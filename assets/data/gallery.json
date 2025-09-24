@@ -3,31 +3,31 @@
     "src": "assets/img/chris-humvee-1.jpg",
     "alt": "Army box on Chris' Humvee",
     "caption": "Army Box + Humvee = perfect combo",
-    "tags": ["Customer", "Army"]
+    "tags": ["Customer", "Army", "Shop/Studio"]
   },
   {
     "src": "assets/img/eric-review.jpg",
     "alt": "Eric's Bullet Box",
     "caption": "Fun Build Great Idea By Eric",
-    "tags": ["Customer"]
+    "tags": ["Customer", "Shop/Studio"]
   },
   {
     "src": "assets/img/chris-humvee-2.jpg",
     "alt": "Army box on Chris' Humvee",
     "caption": "Freedom Crate Riding Shotgun",
-    "tags": ["Customer", "Army"]
+    "tags": ["Customer", "Army", "Shop/Studio"]
   },
   {
     "src": "assets/img/Rich-review-2.jpg",
     "alt": "Custom Crate Build For Rich",
     "caption": "A Honer To Build These For Two WW2 Heroes",
-    "tags": ["Customer", "Army"]
+    "tags": ["Customer", "Army", "Shop/Studio"]
   },
   {
     "src": "assets/img/rm400-top.jpg",
     "alt": "RangeMaster 400 lid and hardware detail",
     "caption": "Lid & hardware detail",
-    "tags": ["Detail"]
+    "tags": ["Detail", "Shop/Studio"]
   },
   {
     "src": "assets/img/556-box.JPG",
@@ -159,19 +159,19 @@
     "src": "assets/img/heavy-ordnance-front.JPG",
     "alt": "Heavy Ordnance Box Front",
     "caption": "Heavy Ordnance Ammo Box Front View",
-    "tags": ["One-of-One"]
+    "tags": ["One-of-One", "Shop/Studio"]
   },
   {
     "src": "assets/img/heavy-ordnance-side.JPG",
     "alt": "Heavy Ordnance Box Side",
     "caption": "Heavy Ordnance Ammo Box Side View",
-    "tags": ["One-of-One"]
+    "tags": ["One-of-One", "Shop/Studio"]
   },
   {
     "src": "assets/img/heavy-ordnance-top.JPG",
     "alt": "Heavy Ordnance Box Top",
     "caption": "Heavy Ordnance Ammo Box XL Capacity",
-    "tags": ["One-of-One"]
+    "tags": ["One-of-One", "Shop/Studio"]
   },
   {
     "src": "assets/img/slide-top-lid-open.JPG",
@@ -190,5 +190,29 @@
     "alt": "Slide Top Lid",
     "caption": "Slide Top Lid Ammo Box",
     "tags": ["Shop/Studio"]
+  },
+  {
+    "src": "assets/img/fc-classic-black-hardware.JPG",
+    "alt": "Freedom Crate Classic with Black Hardware",
+    "caption": "Classic build upgraded with black hardware",
+    "tags": ["One-of-One", "Detail", "Shop/Studio"]
+  },
+  {
+    "src": "assets/img/freedom-crate-brand.JPG",
+    "alt": "Freedom Crate Branding",
+    "caption": "Official Freedom Crate branding shot",
+    "tags": ["Shop/Studio", "Brand"]
+  },
+  {
+    "src": "assets/img/freedom-crate-classic-side-view.JPG",
+    "alt": "Freedom Crate Classic Side View",
+    "caption": "Freedom Crate Classic • Side profile view",
+    "tags": ["One-of-One", "Customer", "Shop/Studio"]
+  },
+  {
+    "src": "assets/img/freedom-crate-slide-top.JPG",
+    "alt": "Freedom Crate Slide Top",
+    "caption": "Slide-top ammo crate build",
+    "tags": ["One-of-One", "Shop/Studio"]
   }
 ]
