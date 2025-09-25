@@ -852,3 +852,41 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
     color: var(--text);      /* show short label */
   }
 }
+/* === Mobile (<=640px): keep 5 links on one row + show "Custom" === */
+@media (max-width: 640px){
+  /* tighter spacing so 5 items fit */
+  .site-header .nav{
+    justify-content: center;
+    gap: .1rem .2rem;
+  }
+  .nav a{
+    padding: 6px 3px;
+    font-size: .90rem;
+  }
+  /* separators between links (skip Cart) */
+  .nav a:not(.cart-link) + a:not(.cart-link)::before{
+    content: "|";
+    opacity: .45;
+    margin: 0 .18rem;
+  }
+
+  /* VISUAL rename "Custom Orders" -> "Custom" (no HTML change) */
+  .nav a[href="contact.html"]{
+    color: transparent !important;      /* hide original text */
+    white-space: nowrap;                 /* prevent wrap just in case */
+  }
+  .nav a[href="contact.html"]::after{
+    content: "Custom";
+    color: var(--text);
+    display: inline-block;
+  }
+
+  /* keep the first 5 links together; put Cart on the next line */
+  .nav a:not(.cart-link){ white-space: nowrap; }
+  .nav .cart-link{
+    flex: 1 0 100%;
+    order: 99;
+    text-align: right;
+    padding-right: 2px;
+  }
+}
