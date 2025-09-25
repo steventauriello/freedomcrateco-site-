@@ -789,3 +789,27 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
     color: #fff; /* keeps it visible on dark header */
   }
 }
+/* === Mobile nav: wrap links + keep Cart visible === */
+@media (max-width: 640px){
+  .site-header .nav{
+    flex-wrap: wrap;              /* allow wrapping instead of horizontal scroll */
+    justify-content: flex-start;  /* normal flow */
+    gap: .25rem .5rem;            /* tighter spacing */
+    overflow-x: visible;          /* ensure no sideways scroll */
+  }
+
+  .nav a{
+    white-space: normal;          /* allow link text to wrap if needed */
+    margin: 0;                    /* remove big left margin */
+    padding: 8px 6px;             /* slightly tighter padding */
+    font-size: 1rem;              /* optional: a hair smaller on phones */
+  }
+
+  .nav .cart-link{
+    margin-left: 0;               /* don’t push it off-screen */
+    order: 99;                    /* keep it after the other links */
+    flex: 1 0 100%;               /* take a full row */
+    text-align: right;            /* align to the right so it’s easy to spot */
+    padding-right: 2px;           /* tiny breathing room */
+  }
+}
