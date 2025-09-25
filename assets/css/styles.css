@@ -774,6 +774,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   .shipping-banner .label-desktop{ display:none; }
   .shipping-banner .label-mobile{ display:inline; }
 }
+
 /* === Mobile simplification for shipping banner === */
 @media (max-width: 600px){
   .shipping-banner {
@@ -789,6 +790,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
     color: #fff; /* keeps it visible on dark header */
   }
 }
+
 /* === Mobile nav: wrap links + keep Cart visible === */
 @media (max-width: 640px){
   .site-header .nav{
@@ -806,10 +808,18 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   }
 
   .nav .cart-link{
-    margin-left: 0;               /* don’t push it off-screen */
-    order: 99;                    /* keep it after the other links */
-    flex: 1 0 100%;               /* take a full row */
-    text-align: right;            /* align to the right so it’s easy to spot */
-    padding-right: 2px;           /* tiny breathing room */
+    margin-left: 0;
+    order: 99;                    /* force Cart to bottom */
+    flex: 1 0 100%;               /* span full width */
+    text-align: right;            /* align right edge */
+    padding-right: 2px;
+  }
+
+  /* tweak shipping banner so it aligns neatly on its own line */
+  .shipping-banner{
+    order: 100;                   /* always after Cart */
+    flex: 1 0 100%;               /* span full width */
+    text-align: right;
+    margin-top: .25rem;
   }
 }
