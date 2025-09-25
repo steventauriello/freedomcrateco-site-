@@ -6,15 +6,12 @@
   <title>Branch Collection – Freedom Crate Co.</title>
   <meta name="description" content="Freedom Crate Co. Branch Collection – handcrafted ammo boxes honoring the U.S. Army, Marines, Navy, Air Force, and Coast Guard." />
 
-  <!-- ✅ Add these two lines -->
   <link rel="canonical" href="https://freedomcrateco.com/branch-collection.html" />
   <meta name="robots" content="index,follow,max-image-preview:large">
 
   <link rel="stylesheet" href="assets/css/styles.css" />
+
   <style>
-    /* (rest of your styles)… */
-  </style>
-</head>
     .product-page { max-width: 900px; margin: 2rem auto; padding: 1rem; }
 
     /* Gallery: single column (right-side branch thumbs removed) */
@@ -38,11 +35,7 @@
 
     /* Bottom description photo strip */
     .desc-photos { margin-top: 1rem; }
-    .desc-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 10px;
-    }
+    .desc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
     .desc-thumb { padding: 0; border: 0; background: transparent; cursor: zoom-in; display: block; }
     .desc-thumb img {
       width: 100%; height: 100%; object-fit: cover;
@@ -72,7 +65,7 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="/"ind">
+    <a class="brand" href="/">
       <img src="assets/img/logo.png" alt="Freedom Crate Co. Logo">
     </a>
     <nav class="nav" aria-label="Primary">
@@ -98,58 +91,35 @@
       </div>
     </div>
 
-   <!-- Bottom Description Photos (click-to-zoom only) -->
-<section class="desc-photos" aria-label="More photos of the Freedom Crate Classic">
-  <div class="desc-grid">
-    <button class="desc-thumb"
-            data-full="assets/img/branch-collection-side-stack.jpg"
-            aria-label="Freedom Crate Classic side stacked view, large">
-      <img loading="lazy"
-           src="assets/img/branch-collection-side-stack.jpg"
-           alt="Freedom Crate Classic side stacked view detail">
-    </button>
+    <!-- Bottom Description Photos (click-to-zoom only) -->
+    <section class="desc-photos" aria-label="More photos of the Freedom Crate Classic">
+      <div class="desc-grid">
+        <button class="desc-thumb" data-full="assets/img/branch-collection-side-stack.jpg" aria-label="Freedom Crate Classic side stacked view, large">
+          <img loading="lazy" src="assets/img/branch-collection-side-stack.jpg" alt="Freedom Crate Classic side stacked view detail">
+        </button>
 
-    <button class="desc-thumb"
-            data-full="assets/img/fc-blank-back.jpg"
-            aria-label="Freedom Crate Classic blank crate back view, large">
-      <img loading="lazy"
-           src="assets/img/fc-blank-back.jpg"
-           alt="Freedom Crate Classic blank crate back view detail">
-    </button>
+        <button class="desc-thumb" data-full="assets/img/fc-blank-back.jpg" aria-label="Freedom Crate Classic blank crate back view, large">
+          <img loading="lazy" src="assets/img/fc-blank-back.jpg" alt="Freedom Crate Classic blank crate back view detail">
+        </button>
 
-    <button class="desc-thumb"
-            data-full="assets/img/freedom-crate-classic-top.jpg"
-            aria-label="Freedom Crate Classic top view, large">
-      <img loading="lazy"
-           src="assets/img/freedom-crate-classic-top.jpg"
-           alt="Freedom Crate Classic top view detail">
-    </button>
+        <button class="desc-thumb" data-full="assets/img/freedom-crate-classic-top.jpg" aria-label="Freedom Crate Classic top view, large">
+          <img loading="lazy" src="assets/img/freedom-crate-classic-top.jpg" alt="Freedom Crate Classic top view detail">
+        </button>
 
-    <button class="desc-thumb"
-            data-full="assets/img/freedom-crate-open-lid.jpg"
-            aria-label="Freedom Crate Classic open lid view, large">
-      <img loading="lazy"
-           src="assets/img/freedom-crate-open-lid.jpg"
-           alt="Freedom Crate Classic open lid view detail">
-    </button>
+        <button class="desc-thumb" data-full="assets/img/freedom-crate-open-lid.jpg" aria-label="Freedom Crate Classic open lid view, large">
+          <img loading="lazy" src="assets/img/freedom-crate-open-lid.jpg" alt="Freedom Crate Classic open lid view detail">
+        </button>
 
-    <button class="desc-thumb"
-            data-full="assets/img/fc-black-toggle-hardware.jpg"
-            aria-label="Freedom Crate Classic stainless hinge detail, large">
-      <img loading="lazy"
-           src="assets/img/fc-black-toggle-hardware.jpg"
-           alt="Freedom Crate Classic stainless hinge detail">
-    </button>
+        <button class="desc-thumb" data-full="assets/img/fc-black-toggle-hardware.jpg" aria-label="Freedom Crate Classic stainless hinge detail, large">
+          <img loading="lazy" src="assets/img/fc-black-toggle-hardware.jpg" alt="Freedom Crate Classic stainless hinge detail">
+        </button>
 
-    <button class="desc-thumb"
-            data-full="assets/img/fc-blank-angle.jpg"
-            aria-label="Freedom Crate Classic blank crate angle view, large">
-      <img loading="lazy"
-           src="assets/img/fc-blank-angle.jpg"
-           alt="Freedom Crate Classic blank crate angle view">
-    </button>
-  </div>
-</section>
+        <button class="desc-thumb" data-full="assets/img/fc-blank-angle.jpg" aria-label="Freedom Crate Classic blank crate angle view, large">
+          <img loading="lazy" src="assets/img/fc-blank-angle.jpg" alt="Freedom Crate Classic blank crate angle view">
+        </button>
+      </div>
+    </section>
+
     <!-- Details / Specs -->
     <div class="bc-details">
       <h2>Specifications</h2>
@@ -212,7 +182,7 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
 
     // --- Cart wiring (unchanged; gallery no longer affects price)
-  const PRICES = { blank:74.99, army:79.99, marines:79.99, navy:79.99, airforce:79.99, coastguard:79.99 };
+    const PRICES = { blank:74.99, army:79.99, marines:79.99, navy:79.99, airforce:79.99, coastguard:79.99 };
     const SKUS   = {
       blank:'classic-blank-stainless',
       army:'classic-army-stainless',
