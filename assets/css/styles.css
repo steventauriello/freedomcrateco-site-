@@ -806,3 +806,8 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   .site-header{ align-items:flex-start; }
   .site-header .nav{ gap:.5rem; }
 }
+/* Fix: show only the short shipping label on mobile */
+@media (max-width: 640px){
+  .shipping-banner .label-desktop { display: none !important; }
+  .shipping-banner .label-mobile  { display: inline !important; }
+}
