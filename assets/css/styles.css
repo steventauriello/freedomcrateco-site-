@@ -789,7 +789,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
     align-items: center;
     gap: .45rem;
     flex: 0 1 auto;
-    white-space: nowrap;           /* prevent wrap between them */
+    white-space: nowrap;           /* keep each item on one line */
   }
 
   .nav .cart-link{
@@ -815,7 +815,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   }
 }
 
-/* Tablet helper (<=900px): keep spacing sane without changing layout */
+/* ===== Tablet helper (<=900px): keep spacing sane without changing layout ===== */
 @media (max-width: 900px){
   .site-header{ align-items: flex-start; }
   .site-header .nav{ gap: .5rem; }
