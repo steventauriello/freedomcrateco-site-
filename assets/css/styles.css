@@ -751,19 +751,19 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 .shipping-banner .flag{ font-size:1.05rem; }
 .shipping-banner .label-mobile{ display:none; }  /* short copy hidden by default */
 
-/* Tablet & down: nav becomes a single-row scroller; banner drops below it */
+/* Tablet & down: nav can scroll horizontally if needed */
 @media (max-width: 900px){
   .site-header{ align-items:flex-start; }
   .site-header .nav{
     width:100%;
-    flex-wrap:nowrap;       /* keep one row */
-    overflow-x:auto;        /* scroll horizontally if needed */
+    flex-wrap:nowrap;
+    overflow-x:auto;
     -webkit-overflow-scrolling: touch;
-    gap: .5rem;
+    gap:.5rem;
   }
   .nav a{ margin-left:0; }
   .shipping-banner{
-    margin: .5rem 0 0 auto; /* below nav, right-aligned */
+    margin:.5rem 0 0 auto;
     font-size:.95rem;
     white-space:normal;
   }
@@ -778,48 +778,64 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 /* === Mobile simplification for shipping banner === */
 @media (max-width: 600px){
   .shipping-banner {
-    background: none !important;
-    border: none !important;
-    padding: 0 !important;
+    background:none !important;
+    border:none !important;
+    padding:0 !important;
   }
-  .shipping-banner .flag {
-    font-size: 1.1rem;
-  }
+  .shipping-banner .flag { font-size:1.1rem; }
   .shipping-banner span {
-    font-weight: 600;
-    color: #fff; /* keeps it visible on dark header */
+    font-weight:600;
+    color:#fff;
   }
 }
 
-/* === Mobile nav: wrap links + keep Cart visible === */
+/* === Mobile nav: top row = all links, bottom row = Cart + Shipping === */
 @media (max-width: 640px){
   .site-header .nav{
-    flex-wrap: wrap;              /* allow wrapping instead of horizontal scroll */
-    justify-content: flex-start;  /* normal flow */
-    gap: .25rem .5rem;            /* tighter spacing */
-    overflow-x: visible;          /* ensure no sideways scroll */
+    flex-wrap:wrap;               /* two rows */
+    justify-content:center;       /* center first row links */
+    gap:.15rem .35rem;
+    overflow-x:visible;
   }
 
+  /* Top row: all links except Cart */
   .nav a{
-    white-space: normal;          /* allow link text to wrap if needed */
-    margin: 0;                    /* remove big left margin */
-    padding: 8px 6px;             /* slightly tighter padding */
-    font-size: 1rem;              /* optional: a hair smaller on phones */
+    flex:0 0 auto;
+    margin:0;
+    padding:6px 4px;
+    font-size:.95rem;
+    white-space:nowrap;
   }
 
-  .nav .cart-link{
-    margin-left: 0;
-    order: 99;                    /* force Cart to bottom */
-    flex: 1 0 100%;               /* span full width */
-    text-align: right;            /* align right edge */
-    padding-right: 2px;
+  /* Add separators between links (skip Cart) */
+  .nav a:not(.cart-link) + a:not(.cart-link)::before{
+    content:"|";
+    opacity:.45;
+    display:inline-block;
+    margin:0 .25rem;
   }
 
-  /* tweak shipping banner so it aligns neatly on its own line */
+  /* Second row: Cart + Shipping side by side */
+  .nav .cart-link,
   .shipping-banner{
-    order: 100;                   /* always after Cart */
-    flex: 1 0 100%;               /* span full width */
-    text-align: right;
-    margin-top: .25rem;
+    flex:0 0 auto;
+    order:99;
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
   }
+  .nav .cart-link{
+    margin-left:auto;
+    text-align:right;
+    padding-right:2px;
+  }
+  .shipping-banner{
+    margin-left:.5rem;   /* gap after Cart */
+  }
+}
+
+/* Extra-small phones: shrink text further if needed */
+@media (max-width: 400px){
+  .nav a{ font-size:.9rem; padding:6px 3px; }
+  .shipping-banner{ font-size:.9rem; }
 }
