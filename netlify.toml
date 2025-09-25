@@ -4,3 +4,12 @@
 
 [functions]
   node_bundler = "esbuild"
+  [[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/product.html"
+  to = "/"
+  status = 301
