@@ -696,7 +696,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   opacity: .9;               /* optional: slightly muted */
 }
 
-/* === Header layout (desktop: brand | nav | banner; mobile: stacked) === */
+/* === Header layout (desktop: brand | nav | banner; mobile tweaks below) === */
 .site-header{
   position: sticky;
   top: 0;
@@ -707,31 +707,32 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   padding: 12px 20px;
   background: linear-gradient(180deg,#0f0f12,rgba(15,15,18,.9));
   border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;                 /* allow wrapping instead of overlap */
+  flex-wrap: wrap;                 /* prevents overlap if space is tight */
   justify-content: space-between;
 }
 
-/* keep */
-.site-header .brand { display:flex; align-items:center; gap:12px; color:#fff; }
+/* brand */
+.site-header .brand{ display:flex; align-items:center; gap:12px; color:#fff; }
 .site-header .brand img{ width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid #fff; }
 
-/* nav grows in the middle; can wrap on desktop if needed */
+/* nav (desktop) */
 .site-header .nav{
-  display:flex;
-  align-items:center;
-  gap:.75rem;
-  flex:1 1 auto;                   /* use remaining space between brand and banner */
-  min-width:0;                     /* allow shrinking */
-  flex-wrap: wrap;                 /* desktop may wrap to 2 lines instead of overlap */
+  display:flex; align-items:center; gap:.75rem;
+  flex:1 1 auto; min-width:0;      /* use remaining space between brand and banner */
+  flex-wrap: wrap;                  /* allow wrap on desktop instead of overlap */
 }
 .nav a{
-  margin-left:20px; color:var(--text);
-  padding:8px 10px; border-radius:8px; font-weight:600; white-space:nowrap;
+  margin-left:20px;
+  color:var(--text);
+  padding:8px 10px;
+  border-radius:8px;
+  font-weight:600;
+  white-space:nowrap;
 }
 .nav .cart-link{ margin-left:auto; order:99; }
 .nav a:hover, .nav a.active, .nav a[aria-current="page"]{ background:#1a1d26; color:var(--brand); }
 
-/* --- Shipping banner as a normal flex item (no absolute positioning) --- */
+/* shipping banner (desktop look) */
 .shipping-banner{
   flex:0 0 auto;
   display:flex; align-items:center; gap:.4rem;
@@ -740,153 +741,68 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   background:rgba(255,255,255,.08);
   border:1px solid rgba(255,255,255,.15);
   border-radius:.5rem;
-  margin-left:auto;                /* sits at far right on wide screens */
+  margin-left:auto;                /* far-right on wide screens */
 }
 .shipping-banner .flag{ font-size:1.05rem; }
-.shipping-banner .label-mobile{ display:none; }  /* short copy hidden by default */
+.shipping-banner .label-mobile{ display:none; }
 
-/* Tablet & down: nav can scroll horizontally if needed */
-@media (max-width: 900px){
-  .site-header{ align-items:flex-start; }
-  .site-header .nav{
-    width:100%;
-    flex-wrap:nowrap;
-    overflow-x:auto;
-    -webkit-overflow-scrolling: touch;
-    gap:.5rem;
-  }
-  .nav a{ margin-left:0; }
-  .shipping-banner{
-    margin:.5rem 0 0 auto;
-    font-size:.95rem;
-    white-space:normal;
-  }
-}
-
-/* Small phones: switch to shorter message */
-@media (max-width: 520px){
-  .shipping-banner .label-desktop{ display:none; }
-  .shipping-banner .label-mobile{ display:inline; }
-}
-
-/* === Mobile simplification for shipping banner === */
-@media (max-width: 600px){
-  .shipping-banner { background:none !important; border:none !important; padding:0 !important; }
-  .shipping-banner .flag { font-size:1.1rem; }
-  .shipping-banner span { font-weight:600; color:#fff; }
-}
-
-/* === Mobile nav: top row = all links (with separators), bottom row = Cart + Shipping === */
+/* ===== MOBILE (<=640px) — 2-row layout, desktop untouched ===== */
 @media (max-width: 640px){
-  .site-header .nav{
-    width:100%;
-    flex-wrap:wrap;                /* two rows */
-    justify-content:center;        /* center the top row */
-    gap:.15rem .35rem;
-    overflow-x:visible;
-  }
+  /* let all header children share one flex context */
+  .site-header{ flex-wrap: wrap; }
+  .site-header .nav{ display: contents; } /* each link becomes a direct flex child */
 
-  /* Top row: all links except Cart */
+  /* Top row: 4 links centered */
+  .nav a[href="index.html"]   { order:10; }
+  .nav a[href="about.html"]   { order:11; }
+  .nav a[href="gallery.html"] { order:12; }
+  .nav a[href="reviews.html"] { order:13; }
+
   .nav a{
-    flex:0 0 auto;
     margin:0;
     padding:6px 4px;
     font-size:.95rem;
     white-space:nowrap;
   }
-
-  /* Add separators between top-row links (skip Cart) */
-  .nav a:not(.cart-link) + a:not(.cart-link)::before{
+  /* separators between the first-row links */
+  .nav a[href="about.html"]::before,
+  .nav a[href="gallery.html"]::before,
+  .nav a[href="reviews.html"]::before{
     content:"|";
     opacity:.45;
-    display:inline-block;
-    margin:0 .25rem;
+    margin:0 .22rem;
   }
 
-  /* Second row: Cart + Shipping side by side, right-aligned */
-  .nav .cart-link,
-  .shipping-banner{
-    flex:0 0 auto;
-    order:99;
-    display:inline-flex;
-    align-items:center;
-    gap:.4rem;
-  }
+  /* Second row (left): Cart then Shipping */
   .nav .cart-link{
-    margin-left:auto;
-    text-align:right;
+    order:20;
+    margin-right:.5rem;
     padding-right:2px;
   }
-  .shipping-banner{ margin-left:.5rem; }
+  .shipping-banner{
+    order:21;
+    margin-right:auto;             /* pushes Custom Orders to the far right */
+    background:none !important;
+    border:none !important;
+    padding:0 !important;
+    font-size:.95rem;
+  }
+  .shipping-banner .flag{ font-size:1.1rem; }
+  .shipping-banner .label-desktop{ display:inline; }
+  .shipping-banner .label-mobile{ display:inline; } /* safe either way on mobile */
+
+  /* Second row (right): Custom Orders */
+  .nav a[href="contact.html"]{ order:99; }
+
+  /* keep things tidy on very small phones */
+  @media (max-width: 400px){
+    .nav a{ font-size:.9rem; padding:6px 3px; }
+    .shipping-banner{ font-size:.9rem; }
+  }
 }
 
-/* Extra-small phones: nudge size down to help keep one line */
-@media (max-width: 400px){
-  .nav a{ font-size:.9rem; padding:6px 3px; }
-  .shipping-banner{ font-size:.9rem; }
-}
-/* === Mobile: force single-line nav + shorten "Custom Orders" label === */
-@media (max-width: 640px){
-  /* tighten spacing so five links fit */
-  .site-header .nav{
-    justify-content: center;
-    gap: .1rem .25rem;
-  }
-  .nav a{
-    padding: 6px 3px;
-    font-size: .95rem;
-  }
-  .nav a:not(.cart-link) + a:not(.cart-link)::before{
-    content: "|";
-    opacity: .45;
-    margin: 0 .2rem;
-  }
-
-  /* Render "Custom Orders" as "Custom" (visual only) */
-  .nav a[href="contact.html"]{
-    position: relative;
-    color: transparent;      /* hide original text visually */
-  }
-  .nav a[href="contact.html"]::after{
-    content: "Custom";
-    color: var(--text);      /* show short label */
-  }
-}
-/* === Mobile (<=640px): keep 5 links on one row + show "Custom" === */
-@media (max-width: 640px){
-  /* tighter spacing so 5 items fit */
-  .site-header .nav{
-    justify-content: center;
-    gap: .1rem .2rem;
-  }
-  .nav a{
-    padding: 6px 3px;
-    font-size: .90rem;
-  }
-  /* separators between links (skip Cart) */
-  .nav a:not(.cart-link) + a:not(.cart-link)::before{
-    content: "|";
-    opacity: .45;
-    margin: 0 .18rem;
-  }
-
-  /* VISUAL rename "Custom Orders" -> "Custom" (no HTML change) */
-  .nav a[href="contact.html"]{
-    color: transparent !important;      /* hide original text */
-    white-space: nowrap;                 /* prevent wrap just in case */
-  }
-  .nav a[href="contact.html"]::after{
-    content: "Custom";
-    color: var(--text);
-    display: inline-block;
-  }
-
-  /* keep the first 5 links together; put Cart on the next line */
-  .nav a:not(.cart-link){ white-space: nowrap; }
-  .nav .cart-link{
-    flex: 1 0 100%;
-    order: 99;
-    text-align: right;
-    padding-right: 2px;
-  }
+/* ===== Tablet helper (<=900px): allow horizontal scroll when needed without changing layout ===== */
+@media (max-width: 900px){
+  .site-header{ align-items:flex-start; }
+  .site-header .nav{ gap:.5rem; }
 }
