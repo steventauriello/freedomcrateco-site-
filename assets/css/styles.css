@@ -774,3 +774,18 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   .shipping-banner .label-desktop{ display:none; }
   .shipping-banner .label-mobile{ display:inline; }
 }
+/* === Mobile simplification for shipping banner === */
+@media (max-width: 600px){
+  .shipping-banner {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+  .shipping-banner .flag {
+    font-size: 1.1rem;
+  }
+  .shipping-banner span {
+    font-weight: 600;
+    color: #fff; /* keeps it visible on dark header */
+  }
+}
