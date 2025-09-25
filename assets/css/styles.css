@@ -825,3 +825,30 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   .nav a{ font-size:.9rem; padding:6px 3px; }
   .shipping-banner{ font-size:.9rem; }
 }
+/* === Mobile: force single-line nav + shorten "Custom Orders" label === */
+@media (max-width: 640px){
+  /* tighten spacing so five links fit */
+  .site-header .nav{
+    justify-content: center;
+    gap: .1rem .25rem;
+  }
+  .nav a{
+    padding: 6px 3px;
+    font-size: .95rem;
+  }
+  .nav a:not(.cart-link) + a:not(.cart-link)::before{
+    content: "|";
+    opacity: .45;
+    margin: 0 .2rem;
+  }
+
+  /* Render "Custom Orders" as "Custom" (visual only) */
+  .nav a[href="contact.html"]{
+    position: relative;
+    color: transparent;      /* hide original text visually */
+  }
+  .nav a[href="contact.html"]::after{
+    content: "Custom";
+    color: var(--text);      /* show short label */
+  }
+}
