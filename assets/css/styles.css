@@ -750,13 +750,14 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 @media (max-width: 640px){
   /* let all header children share one flex context */
   .site-header{ flex-wrap: wrap; }
-  .site-header .nav{ display: contents; } /* each link becomes a direct flex child */
+  .site-header .nav{ display: contents; }
 
-  /* Top row: 4 links centered */
+  /* Top row: 5 links centered */
   .nav a[href="index.html"]   { order:10; }
   .nav a[href="about.html"]   { order:11; }
   .nav a[href="gallery.html"] { order:12; }
   .nav a[href="reviews.html"] { order:13; }
+  .nav a[href="contact.html"] { order:14; }  /* Custom Orders now in top row */
 
   .nav a{
     margin:0;
@@ -764,50 +765,47 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
     font-size:.95rem;
     white-space:nowrap;
   }
-  /* separators between the first-row links */
+
+  /* separators between top-row links */
   .nav a[href="about.html"]::before,
   .nav a[href="gallery.html"]::before,
-  .nav a[href="reviews.html"]::before{
+  .nav a[href="reviews.html"]::before,
+  .nav a[href="contact.html"]::before{
     content:"|";
     opacity:.45;
     margin:0 .22rem;
   }
 
-  /* Second row (left): Cart then Shipping */
+  /* Second row: Cart (left), Shipping (right) */
   .nav .cart-link{
     order:20;
-    margin-right:.5rem;
-    padding-right:2px;
+    flex:1 0 50%;
+    text-align:left;
+    padding-left:2px;
   }
   .shipping-banner{
     order:21;
-    margin-right:auto;             /* pushes Custom Orders to the far right */
+    flex:1 0 50%;
+    justify-content:flex-end;
+    text-align:right;
     background:none !important;
     border:none !important;
     padding:0 !important;
     font-size:.95rem;
   }
   .shipping-banner .flag{ font-size:1.1rem; }
-  .shipping-banner .label-desktop{ display:inline; }
-  .shipping-banner .label-mobile{ display:inline; } /* safe either way on mobile */
+  .shipping-banner .label-desktop{ display:none !important; }
+  .shipping-banner .label-mobile { display:inline !important; }
 
-  /* Second row (right): Custom Orders */
-  .nav a[href="contact.html"]{ order:99; }
-
-  /* keep things tidy on very small phones */
+  /* very small phones */
   @media (max-width: 400px){
     .nav a{ font-size:.9rem; padding:6px 3px; }
     .shipping-banner{ font-size:.9rem; }
   }
 }
 
-/* ===== Tablet helper (<=900px): allow horizontal scroll when needed without changing layout ===== */
+/* ===== Tablet helper (<=900px) ===== */
 @media (max-width: 900px){
   .site-header{ align-items:flex-start; }
   .site-header .nav{ gap:.5rem; }
-}
-/* Fix: show only the short shipping label on mobile */
-@media (max-width: 640px){
-  .shipping-banner .label-desktop { display: none !important; }
-  .shipping-banner .label-mobile  { display: inline !important; }
 }
