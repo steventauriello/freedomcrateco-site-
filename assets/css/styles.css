@@ -746,9 +746,8 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 .shipping-banner .flag{ font-size:1.05rem; }
 .shipping-banner .label-mobile{ display:none; }
 
-/* ===== MOBILE (<=640px) — 2-row layout, desktop untouched ===== */
+/* ===== MOBILE (<=640px) — keep Cart + Shipping together ===== */
 @media (max-width: 640px){
-  /* let all header children share one flex context */
   .site-header{ flex-wrap: wrap; }
   .site-header .nav{ display: contents; }
 
@@ -757,7 +756,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   .nav a[href="about.html"]   { order:11; }
   .nav a[href="gallery.html"] { order:12; }
   .nav a[href="reviews.html"] { order:13; }
-  .nav a[href="contact.html"] { order:14; }  /* Custom Orders now in top row */
+  .nav a[href="contact.html"] { order:14; }
 
   .nav a{
     margin:0;
@@ -776,23 +775,28 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
     margin:0 .22rem;
   }
 
-  /* Second row: Cart (left), Shipping (right) */
-  .nav .cart-link{
-    order:20;
-    flex:1 0 50%;
-    text-align:left;
-    padding-left:2px;
-  }
+  /* Second row: treat Cart + Shipping as one group, right-aligned */
+  .nav .cart-link,
   .shipping-banner{
-    order:21;
-    flex:1 0 50%;
-    justify-content:flex-end;
-    text-align:right;
+    order:20;
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;                /* space between Cart and Free Shipping */
     background:none !important;
     border:none !important;
     padding:0 !important;
     font-size:.95rem;
   }
+
+  .nav .cart-link{
+    margin-left:auto;        /* pushes group to the right */
+    padding-right:0;
+  }
+
+  .shipping-banner{
+    margin-left:.5rem;       /* spacing between Cart and Shipping */
+  }
+
   .shipping-banner .flag{ font-size:1.1rem; }
   .shipping-banner .label-desktop{ display:none !important; }
   .shipping-banner .label-mobile { display:inline !important; }
