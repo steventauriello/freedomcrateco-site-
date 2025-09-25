@@ -95,16 +95,15 @@
         <!-- Classic-specific options -->
         <div id="classicOptions" hidden>
           <label for="branch"><strong>Branch stencil</strong></label>
-          <select id="branch" name="branch" disabled>
-            <option value="">Select branch…</option>
-            <option value="marines">U.S. Marine Corps</option>
-            <option value="army">U.S. Army</option>
-            <option value="navy">U.S. Navy</option>
-            <option value="airforce">U.S. Air Force</option>
-            <option value="coastguard">U.S. Coast Guard</option>
-            <option value="spaceforce">U.S. Space Force</option>
-            <option value="nationalguard">National Guard</option>
-          </select>
+<select id="branch" name="branch" disabled autocomplete="off">
+  <option value="blank" selected>Blank (no stencil)</option>
+  <option value="marines">U.S. Marine Corps</option>
+  <option value="army">U.S. Army</option>
+  <option value="navy">U.S. Navy</option>
+  <option value="airforce">U.S. Air Force</option>
+  <option value="coastguard">U.S. Coast Guard</option>
+  <option value="nationalguard">National Guard</option>
+</select>
 
           <label for="hardware"><strong>Hardware finish</strong></label>
           <select id="hardware" name="hardware" disabled>
