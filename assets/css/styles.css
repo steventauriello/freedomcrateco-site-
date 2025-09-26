@@ -282,6 +282,8 @@ a { color: var(--link); text-decoration: none; }
     padding-bottom: 6px;
   }
   .gallery .thumbs img{ width: 72px; }
+  /* Mobile: hide the header's shipping badge, keep the one under the title */
+.site-header .shipping-banner { display: none !important; }
 }
 
 .product .info h1 { margin: 0 0 10px; }
