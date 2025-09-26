@@ -35,8 +35,8 @@
   "FC-RB-1000": {
     "status": "active",
     "title": "Range Box 1000 (9mm)",
-    "price": 89.99,
-    "qty": 0,
+    "price": 1.00,
+    "qty": 1,
     "image_url": "assets/img/coming-soon.png",
     "images": [
       "assets/img/rm400.jpg",
