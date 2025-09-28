@@ -37,6 +37,8 @@
     <div id="pd-desc" class="muted product-description"></div>
 
     <div class="price-row">
+      <!-- ADDED: stock badge (shown only when qty == 0) -->
+      <span id="pd-stock" class="stock-badge" hidden>Out of stock</span>
       <div class="price" id="pd-price">$0.00</div>
       <div class="buy-row">
         <button class="btn" id="pd-add">Add to Cart</button>
@@ -90,12 +92,10 @@
       const allowed = new Set(['BR','STRONG','EM','UL','OL','LI']);
       div.querySelectorAll('*').forEach(el => {
         if (!allowed.has(el.tagName)) {
-          // Replace unsupported tags with text-only spans
           const span = document.createElement('span');
           span.textContent = el.textContent;
           el.replaceWith(span);
         } else {
-          // Strip all attributes on allowed tags
           [...el.attributes].forEach(a => el.removeAttribute(a.name));
         }
       });
@@ -125,6 +125,7 @@
     const addBtn  = document.getElementById('pd-add');
     const buyBtn  = document.getElementById('pd-buy');
     const noteEl  = document.getElementById('pd-note');
+    const stockEl = document.getElementById('pd-stock'); /* ADDED */
 
     // -------- Data -> UI --------
     titleEl.textContent = P.title || P.sku;
@@ -163,6 +164,19 @@
       document.body.appendChild(lb);
     });
 
+    // -------- Inventory badge (ONLY show when qty == 0) --------
+    let qty = Number(P.qty ?? 0);
+    if (qty <= 0) {
+      stockEl.textContent = 'Out of stock';
+      stockEl.hidden = false;      // show badge
+      addBtn.disabled = true;      // disable purchase buttons
+      buyBtn.disabled = true;
+    } else {
+      stockEl.hidden = true;       // hide badge for any qty > 0
+      addBtn.disabled = false;
+      buyBtn.disabled = false;
+    }
+
     // -------- Cart helpers --------
     const addToCartSafe = (sku, name, price, qty, meta) =>
       (typeof window.addToCart === 'function')
@@ -181,5 +195,11 @@
   </script>
 
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Optional quick style if you don't already have one:
+  <style>
+    .stock-badge{display:inline-block;margin-right:.5rem;padding:.3rem .55rem;border-radius:.5rem;font-weight:700;font-size:.85rem;background:#dc2626;color:#fff;}
+  </style>
+  -->
 </body>
 </html>
