@@ -822,3 +822,16 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   .site-header{ align-items: flex-start; }
   .site-header .nav{ gap: .5rem; }
 }
+/* Make in-stock qty just text */
+.product-card .stock-badge {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-weight: 600;
+}
+
+/* Hide any secondary "Out of stock" pill (ribbon already present) */
+.product-card[data-qty="0"] .stock-badge { display: none; }
