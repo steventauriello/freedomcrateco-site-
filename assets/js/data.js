@@ -12,9 +12,13 @@ window.FC = window.FC || {};
         ? json
         : Object.entries(json || {}).map(([sku, p]) => ({ ...p, sku }));
       normalizeProducts(arr);
-      window.PRODUCTS = arr;              // always an ARRAY
-      window.dispatchEvent(new Event('products:loaded'));  // <-- important
-      return arr;
+
+      // ✅ Filter to active only
+      const active = arr.filter(p => p.status === 'active');
+
+      window.PRODUCTS = active;
+      window.dispatchEvent(new Event('products:loaded'));
+      return active;
     } catch (e) {
       console.warn('products.json not found or invalid, trying CSV…', e);
     }
@@ -27,13 +31,17 @@ window.FC = window.FC || {};
       const map = csvToProducts(text);    // returns an object keyed by sku
       const arr = Object.values(map);
       normalizeProducts(arr);
-      window.PRODUCTS = arr;              // always an ARRAY
-      window.dispatchEvent(new Event('products:loaded'));  // <-- important
-      return arr;
+
+      // ✅ Filter to active only
+      const active = arr.filter(p => p.status === 'active');
+
+      window.PRODUCTS = active;
+      window.dispatchEvent(new Event('products:loaded'));
+      return active;
     } catch (e) {
       console.error('Failed to load products.csv', e);
       window.PRODUCTS = [];
-      window.dispatchEvent(new Event('products:loaded'));  // still fire so listeners run
+      window.dispatchEvent(new Event('products:loaded'));
       return [];
     }
   }
