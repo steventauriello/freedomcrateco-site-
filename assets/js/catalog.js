@@ -103,12 +103,12 @@
 
       // Stock row:
       // - Coming soon: nothing
-      // - In stock: plain text (no red pill)
+      // - In stock: plain text (no pill)
       // - Out of stock: nothing (ribbon already shows)
       const stockRow = isComing
         ? ''
         : (qty > 0
-            ? `<div class="stock-badge">${qty} left</div>`
+            ? `<div class="qty-text">${qty} left</div>`   /* <-- changed from stock-badge */
             : '');
 
       card.innerHTML = `
