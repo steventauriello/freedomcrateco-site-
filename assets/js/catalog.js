@@ -91,8 +91,9 @@
       const classes = ['card', 'product-card', 'no-title-overlay'];
       if (isComing) classes.push('coming-soon');
       card.className = classes.join(' ');
+      card.dataset.qty = qty; // useful for CSS hooks
 
-      // Image block
+      // Image block (keep only the ribbon for sold out)
       const imgBlock = `
         <a class="img" href="${escapeHtml(link)}" aria-label="${escapeHtml(title)}">
           ${soldOut ? `<div class="soldout">Sold Out</div>` : ''}
@@ -100,12 +101,15 @@
         </a>
       `;
 
-      // Stock row
+      // Stock row:
+      // - Coming soon: nothing
+      // - In stock: plain text (no red pill)
+      // - Out of stock: nothing (ribbon already shows)
       const stockRow = isComing
         ? ''
         : (qty > 0
-            ? `<div class="stock-badge stock-label">${qty} left</div>`
-            : `<div class="stock-badge muted">Out of stock</div>`);
+            ? `<div class="stock-badge">${qty} left</div>`
+            : '');
 
       card.innerHTML = `
         ${imgBlock}
