@@ -12,6 +12,18 @@
     "tags": ["Customer", "Shop/Studio"]
   },
   {
+    "src": "assets/img/fc-classic-example.jpg",
+    "alt": "Freedom Crate Custom Example",
+    "caption": "Add Custom Text Under Lid",
+    "tags": ["Customer", "Shop/Studio"]
+  },
+  {
+    "src": "assets/img/fc-classic-slide-top-front.jpg",
+    "alt": "The Original FC Classic",
+    "caption": "The Box That Started It All",
+    "tags": ["Customer", "Shop/Studio"]
+  },
+  {
     "src": "assets/img/chris-humvee-2.jpg",
     "alt": "Army box on Chris' Humvee",
     "caption": "Freedom Crate Riding Shotgun",
