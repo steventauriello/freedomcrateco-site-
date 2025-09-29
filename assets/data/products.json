@@ -20,7 +20,7 @@
     "title": "Rangemaster 300",
     "price": 49.99,
     "qty": 0,
-    "image_url": "assets/img/coming-soon.png",
+    "image_url": "assets/img/logo.png",
     "images": [
       "assets/img/rm400.jpg",
       "assets/img/rm400.jpg",
@@ -37,7 +37,7 @@
   "title": "Freedom Crate 1000",
   "price": 79.99,
   "qty": 0,
-  "image_url": "assets/img/coming-soon.jpg",
+  "image_url": "assets/img/logo.jpg",
   "images": [
     "assets/img/fc-1000-corner-brace.jpg",
     "assets/img/fc-1000-storage-capacity.jpg",
