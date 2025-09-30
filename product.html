@@ -3,7 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- Default (will be updated dynamically via JS for each SKU) -->
   <title>Product • Freedom Crate Co.</title>
+  <meta name="description" content="Freedom Crate Co. builds handcrafted wooden ammo crates, range boxes, and military-inspired storage boxes. Rugged, veteran-inspired, built to last." />
+  <meta name="keywords" content="wood military ammo box, wooden ammo boxes, handcrafted range boxes, Freedom Crate Co, veteran inspired storage" />
+  <meta name="author" content="Freedom Crate Co." />
+  <link rel="canonical" href="https://freedomcrateco.com/product.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="product" />
+  <meta property="og:title" content="Freedom Crate Co. – Handcrafted Ammo & Range Boxes" />
+  <meta property="og:description" content="Hand-built wooden ammo crates and range boxes with lockable hardware and military-inspired stencils. Free shipping." />
+  <meta property="og:url" content="https://freedomcrateco.com/product.html" />
+  <meta property="og:image" content="https://freedomcrateco.com/assets/img/logo.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Freedom Crate Co. – Handcrafted Ammo & Range Boxes" />
+  <meta name="twitter:description" content="Handcrafted wooden ammo and range boxes. Rugged, functional, veteran-inspired. Free shipping." />
+  <meta name="twitter:image" content="https://freedomcrateco.com/assets/img/logo.png" />
+
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
@@ -33,11 +53,9 @@
     <!-- Info -->
     <h1 id="pd-title">Loading…</h1>
     <p class="muted" id="pd-sku"></p>
-    <!-- Allow real HTML lists in description -->
     <div id="pd-desc" class="muted product-description"></div>
 
     <div class="price-row">
-      <!-- ADDED: stock badge (shown only when qty == 0) -->
       <span id="pd-stock" class="stock-badge" hidden>Out of stock</span>
       <div class="price" id="pd-price">$0.00</div>
       <div class="buy-row">
@@ -56,17 +74,16 @@
     </div>
   </footer>
 
-  <!-- Shared libs (order matters) -->
+  <!-- Shared libs -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/data.js" defer></script>
   <script src="assets/js/inventory.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
 
-  <!-- Product loader -->
+  <!-- Product loader with SEO injection -->
   <script>
   (async function () {
-    // -------- Helpers --------
     const ensurePath = (src) => {
       const s = String(src || '').trim();
       if (!s) return 'assets/img/blank.jpg';
@@ -78,14 +95,9 @@
     const toImgArray = (images) => {
       if (Array.isArray(images)) return images.map(ensurePath);
       if (!images) return [];
-      return String(images)
-        .split(/[|,]/)
-        .map(s => s.trim())
-        .filter(Boolean)
-        .map(ensurePath);
+      return String(images).split(/[|,]/).map(s => s.trim()).filter(Boolean).map(ensurePath);
     };
 
-    // Minimal whitelist sanitizer for product descriptions
     function allowSafeHTML(str = '') {
       const div = document.createElement('div');
       div.innerHTML = str;
@@ -102,12 +114,11 @@
       return div.innerHTML;
     }
 
-    // -------- Get SKU from URL --------
+    // SKU from URL
     const params = new URLSearchParams(location.search);
     const sku = params.get('sku');
     if (!sku) { location.href = 'index.html'; return; }
 
-    // -------- Load product data (wait for data.js) --------
     while (!window.FC || typeof window.FC.loadProducts !== 'function') {
       await new Promise(r => setTimeout(r, 10));
     }
@@ -115,7 +126,7 @@
     const P = all.find(p => String(p.sku) === String(sku));
     if (!P) { location.href = 'index.html'; return; }
 
-    // -------- DOM refs --------
+    // DOM refs
     const hero    = document.getElementById('pd-hero');
     const thumbs  = document.getElementById('pd-thumbs');
     const titleEl = document.getElementById('pd-title');
@@ -125,21 +136,17 @@
     const addBtn  = document.getElementById('pd-add');
     const buyBtn  = document.getElementById('pd-buy');
     const noteEl  = document.getElementById('pd-note');
-    const stockEl = document.getElementById('pd-stock'); /* ADDED */
+    const stockEl = document.getElementById('pd-stock');
 
-    // -------- Data -> UI --------
+    // Data -> UI
     titleEl.textContent = P.title || P.sku;
-    document.title = (P.title || P.sku) + ' • Freedom Crate Co.';
+    document.title = (P.title || P.sku) + " • Freedom Crate Co. | Wooden Military Ammo Box";
     skuEl.textContent = 'SKU: ' + P.sku;
-
-    // Render description with safe HTML (supports <ul>,<li>,<br>,<strong>,<em>)
     descEl.innerHTML = allowSafeHTML(P.description || '');
-
-    // Price
     priceEl.textContent = '$' + Number(P.price || 0).toFixed(2);
     if (P.note) noteEl.textContent = P.note;
 
-    // -------- Images --------
+    // Images
     const imgs = toImgArray(P.images);
     if (!imgs.length) imgs.push(ensurePath(P.image_url));
     const setHero = (src, alt) => { hero.src = src; hero.alt = alt || P.title; };
@@ -153,53 +160,48 @@
       thumbs.appendChild(t);
     });
 
-    // -------- Lightbox --------
-    hero.style.cursor = 'zoom-in';
-    hero.addEventListener('click', () => {
-      const lb = document.createElement('div');
-      lb.className = 'lightbox open';
-      lb.innerHTML = '<img src="' + hero.src + '" alt="' + hero.alt + '"><div class="close">×</div>';
-      lb.querySelector('.close').onclick = () => lb.remove();
-      lb.onclick = (e) => { if (e.target === lb) lb.remove(); };
-      document.body.appendChild(lb);
-    });
-
-    // -------- Inventory badge (ONLY show when qty == 0) --------
+    // Stock badge
     let qty = Number(P.qty ?? 0);
     if (qty <= 0) {
       stockEl.textContent = 'Out of stock';
-      stockEl.hidden = false;      // show badge
-      addBtn.disabled = true;      // disable purchase buttons
+      stockEl.hidden = false;
+      addBtn.disabled = true;
       buyBtn.disabled = true;
-    } else {
-      stockEl.hidden = true;       // hide badge for any qty > 0
-      addBtn.disabled = false;
-      buyBtn.disabled = false;
     }
 
-    // -------- Cart helpers --------
-    const addToCartSafe = (sku, name, price, qty, meta) =>
-      (typeof window.addToCart === 'function')
-        ? window.addToCart(sku, name, price, qty, meta)
-        : console.warn('Cart not ready');
+    // Inject SEO meta dynamically
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", (P.description || "Handcrafted wooden ammo box.") + " Buy now at Freedom Crate Co.");
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", P.title + " | Freedom Crate Co.");
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage && imgs[0]) ogImage.setAttribute("content", location.origin + "/" + imgs[0]);
 
-    const buyNowSafe = (sku, name, price, qty, meta) =>
-      (typeof window.buyNow === 'function')
-        ? window.buyNow(sku, name, price, qty, meta)
-        : console.warn('Cart not ready');
+    // Add JSON-LD Product schema
+    const ld = {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": P.title,
+      "sku": P.sku,
+      "image": imgs.map(src => location.origin + "/" + src),
+      "description": P.description || "Handcrafted wooden ammo box.",
+      "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
+      "offers": {
+        "@type": "Offer",
+        "price": Number(P.price || 0),
+        "priceCurrency": "USD",
+        "availability": qty > 0 ? "http://schema.org/InStock" : "http://schema.org/OutOfStock",
+        "url": location.href
+      }
+    };
+    const script = document.createElement('script');
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify(ld);
+    document.head.appendChild(script);
 
-    const meta = { image: hero.src };
-    addBtn.addEventListener('click', () => addToCartSafe(P.sku, P.title, Number(P.price||0), 1, meta));
-    buyBtn.addEventListener('click', () => buyNowSafe(P.sku, P.title, Number(P.price||0), 1, meta));
   })();
   </script>
 
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-
-  <!-- Optional quick style if you don't already have one:
-  <style>
-    .stock-badge{display:inline-block;margin-right:.5rem;padding:.3rem .55rem;border-radius:.5rem;font-weight:700;font-size:.85rem;background:#dc2626;color:#fff;}
-  </style>
-  -->
 </body>
 </html>
