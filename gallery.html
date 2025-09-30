@@ -6,7 +6,7 @@
 
   <!-- Primary SEO -->
   <title>Wooden Ammo Boxes Gallery | Freedom Crate Co. – Handcrafted Military-Style Range Boxes</title>
-  <meta name="description" content="Browse Freedom Crate Co.’s gallery of handcrafted wooden ammo & range boxes. OD-green finish, stainless latches, reinforced lids, custom U.S. military branch stencils. Free shipping." />
+  <meta name="description" content="Browse Freedom Crate Co.’s gallery of handcrafted wooden ammo boxes & range crates. OD-green finish, stainless latches, reinforced lids, and custom U.S. military branch stencils. Free shipping." />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <link rel="canonical" href="https://freedomcrateco.com/gallery.html" />
   <link rel="icon" href="/assets/img/favicon.ico">
@@ -14,11 +14,10 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Freedom Crate Co. Gallery – Wooden Ammo & Range Boxes" />
-  <meta property="og:description" content="See real builds: Army, Marines, Navy, Air Force, Coast Guard, and custom crates. Reinforced lids, lockable hardware, OD-green finish." />
+  <meta property="og:description" content="See Army, Marines, Navy, Air Force, Coast Guard, and custom ammo boxes. Reinforced lids, lockable hardware, OD-green finish." />
   <meta property="og:url" content="https://freedomcrateco.com/gallery.html" />
   <meta property="og:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Freedom Crate Co. handcrafted wooden ammo box gallery" />
   <meta property="og:site_name" content="Freedom Crate Co." />
 
   <!-- Twitter -->
@@ -26,7 +25,7 @@
   <meta name="twitter:title" content="Freedom Crate Co. Gallery – Wooden Ammo & Range Boxes" />
   <meta name="twitter:description" content="Handcrafted military-style ammo boxes with branch stencils, OD-green paint, stainless latches. Browse the gallery." />
   <meta name="twitter:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
-  <meta name="twitter:image:alt" content="Freedom Crate Co. founders-themed banner with the slogan ‘Made for the people. By the people.’" />
+  <meta name="twitter:image:alt" content="Freedom Crate Co. handcrafted wooden ammo box gallery" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
@@ -34,18 +33,17 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', 'G-DNNL0065X9'); /* GA4 Measurement ID */
+    gtag('config', 'G-DNNL0065X9');
   </script>
 
-  <!-- Help Google understand the page topic -->
+  <!-- JSON-LD: CollectionPage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Freedom Crate Co. Gallery",
     "url": "https://freedomcrateco.com/gallery.html",
-    "breadcrumb": "Gallery",
-    "description": "Photo gallery of Freedom Crate Co. handcrafted wooden ammo and range boxes.",
+    "description": "Photo gallery of handcrafted wooden ammo and range boxes.",
     "isPartOf": {
       "@type": "WebSite",
       "name": "Freedom Crate Co.",
@@ -74,7 +72,7 @@
   }
   </script>
 
-  <!-- JSON-LD: ImageGallery (static seed for Google Images) -->
+  <!-- JSON-LD: Seed ImageGallery -->
   <script id="image-gallery-ld" type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -104,27 +102,26 @@
   </script>
 
   <link rel="stylesheet" href="assets/css/styles.css" />
-
   <style>
     .hero-gallery{padding:2.5rem 1rem 1rem}
-    .grid {display:grid; gap:.75rem; grid-template-columns: repeat(2, 1fr);}
-    @media (min-width: 900px){ .grid{grid-template-columns: repeat(4, 1fr);} }
-    .grid figure{margin:0; border-radius:.5rem; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#111}
-    .grid img{width:100%; height:160px; object-fit:cover; display:block}
-    .grid figcaption{font-size:.85rem; padding:.5rem; opacity:.9}
-    .tagbar{display:flex; gap:.5rem; flex-wrap:wrap; margin:.5rem 0 1rem}
-    .tag{border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.06); border-radius:.35rem; padding:.25rem .5rem; cursor:pointer; color:#fff; transition:background .2s, outline .2s}
-    .tag[aria-pressed="true"]{background:rgba(255,255,255,.25); outline:2px solid rgba(255,255,255,.45); font-weight:bold}
-    .lightbox-backdrop{position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.8); z-index:9999}
+    .grid{display:grid;gap:.75rem;grid-template-columns:repeat(2,1fr);}
+    @media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr);}}
+    .grid figure{margin:0;border-radius:.5rem;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:#111}
+    .grid img{width:100%;height:160px;object-fit:cover;display:block}
+    .grid figcaption{font-size:.85rem;padding:.5rem;opacity:.9}
+    .tagbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1rem}
+    .tag{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);border-radius:.35rem;padding:.25rem .5rem;cursor:pointer;color:#fff;transition:background .2s,outline .2s}
+    .tag[aria-pressed="true"]{background:rgba(255,255,255,.25);outline:2px solid rgba(255,255,255,.45);font-weight:bold}
+    .lightbox-backdrop{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.8);z-index:9999}
     .lightbox-backdrop[open]{display:grid}
-    .lightbox-img{max-width:min(1200px,92vw); max-height:86vh; border-radius:.5rem}
-    .close-btn{position:absolute; top:1rem; right:1rem; background:#000; color:#fff; border:1px solid rgba(255,255,255,.25); padding:.35rem .6rem; border-radius:.35rem}
+    .lightbox-img{max-width:min(1200px,92vw);max-height:86vh;border-radius:.5rem}
+    .close-btn{position:absolute;top:1rem;right:1rem;background:#000;color:#fff;border:1px solid rgba(255,255,255,.25);padding:.35rem .6rem;border-radius:.35rem}
   </style>
 </head>
 <body>
 <header class="site-header">
   <a class="brand" href="index.html">
-    <img src="assets/img/logo.png" alt="Freedom Crate Co.">
+    <img src="assets/img/logo.png" alt="Freedom Crate Co. Logo">
   </a>
   <nav class="nav" aria-label="Primary">
     <a href="index.html">Shop</a>
@@ -145,12 +142,11 @@
       Browse customer photos and real builds below.
     </p>
 
-    <!-- FILTER BUTTONS (only these 3, in order) -->
+    <!-- FILTER BUTTONS -->
     <div class="tagbar" id="tagbar">
       <button class="tag" type="button" data-tag="Customer" aria-pressed="false">Customer</button>
       <button class="tag" type="button" data-tag="One-of-One" aria-pressed="false">One-of-One</button>
       <button class="tag" type="button" data-tag="Shop/Studio" aria-pressed="false">Shop/Studio</button>
-
     </div>
   </section>
 
@@ -174,21 +170,19 @@
 <script src="assets/js/util.js" defer></script>
 <script src="assets/js/config.js" defer></script>
 
-<!-- GALLERY ENGINE (unchanged) -->
+<!-- GALLERY ENGINE -->
 <script>
   const GRID   = document.getElementById('galleryGrid');
   const TAGS   = document.getElementById('tagbar');
   const dialog = document.getElementById('lightbox');
   const fullImg= document.getElementById('lightboxImg');
 
-  // Load data & render
   fetch('assets/data/gallery.json')
     .then(r => r.ok ? r.json() : [])
     .then(items => {
       if (!Array.isArray(items)) items = [];
-      render(items);      // draw everything
-      setupFilters();     // wire up the 3 buttons
-      // Optional deep link: gallery.html?tag=Customer
+      render(items);
+      setupFilters();
       const startTag = new URLSearchParams(location.search).get('tag');
       if (startTag) selectTag(startTag);
     })
@@ -197,13 +191,12 @@
   function render(items){
     GRID.innerHTML = items.map(it => `
       <figure data-tags="${(it.tags||[]).join('|')}">
-        <img src="${it.src}" alt="${it.alt||'Freedom Crate photo'}" loading="lazy" data-full="${it.src}">
+        <img src="${it.src}" alt="${it.alt||'Freedom Crate photo'}" loading="lazy" decoding="async" data-full="${it.src}">
         <figcaption>${it.caption||''}</figcaption>
       </figure>
     `).join('') || `<p>No photos yet. Check back soon.</p>`;
   }
 
-  // Use the 3 hard-coded buttons; show ALL by default
   function setupFilters(){
     TAGS.addEventListener('click', e => {
       if (!e.target.classList.contains('tag')) return;
@@ -213,19 +206,15 @@
   }
 
   function selectTag(tag){
-    // toggle button UI
     TAGS.querySelectorAll('.tag').forEach(b => b.setAttribute('aria-pressed','false'));
     const btn = TAGS.querySelector(`[data-tag="${CSS.escape(tag)}"]`);
     if (btn) btn.setAttribute('aria-pressed','true');
-
-    // filter figures
     [...GRID.children].forEach(fig => {
       const tags = (fig.dataset.tags || '').split('|').filter(Boolean);
       fig.style.display = tags.includes(tag) ? '' : 'none';
     });
   }
 
-  // Lightbox
   GRID.addEventListener('click', e => {
     const t = e.target;
     if (t && t.tagName==='IMG'){
@@ -242,31 +231,24 @@
   });
 </script>
 
-<!-- Gallery SEO helper: lazyload, alt fallbacks, image JSON-LD (skips if static LD exists) -->
+<!-- SEO helper -->
 <script>
 (function () {
-  const imgs = Array.from(document.querySelectorAll('main img, .gallery img, .grid img, .photos img'));
-
+  const imgs = Array.from(document.querySelectorAll('main img, .grid img'));
   imgs.forEach(img => {
-    if (!img.hasAttribute('loading'))  img.setAttribute('loading', 'lazy');
-    if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
     if (!img.alt || !img.alt.trim()) {
       const src = (img.currentSrc || img.src || '').split('/').pop().replace(/\.(jpe?g|png|webp|avif)$/i,'');
-      const pretty = src.replace(/[-_]+/g,' ').replace(/\b(us|usa)\b/gi,'US').trim();
-      img.alt = (img.closest('[data-alt]')?.dataset.alt) || (pretty ? `Wooden ammo box – ${pretty}` : 'Wooden ammo box by Freedom Crate Co.');
+      const pretty = src.replace(/[-_]+/g,' ').trim();
+      img.alt = pretty ? `Freedom Crate wooden ammo box – ${pretty}` : 'Freedom Crate Co. wooden ammo box';
     }
   });
 
-  // Only emit dynamic ImageGallery LD if a static one isn't already present
   if (!document.getElementById('image-gallery-ld')) {
     const galleryItems = imgs.slice(0, 20).map(img => ({
       "@type": "ImageObject",
       "contentUrl": img.currentSrc || img.src,
-      "url": img.currentSrc || img.src,
-      "caption": img.alt || "Freedom Crate Co. wooden ammo box",
-      "creditText": "Freedom Crate Co."
+      "caption": img.alt || "Freedom Crate Co. wooden ammo box"
     }));
-
     if (galleryItems.length) {
       const ld = {
         "@context": "https://schema.org",
@@ -282,7 +264,6 @@
     }
   }
 
-  // Small internal links block (helps crawl/UX)
   const main = document.querySelector('main') || document.body;
   const block = document.createElement('div');
   block.style.margin = '2rem 0 0';
