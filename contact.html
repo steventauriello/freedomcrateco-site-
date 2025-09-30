@@ -12,13 +12,13 @@
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Contact Freedom Crate Co. for questions or custom ammo crate orders. We build to order and ship free." />
+  <meta name="description" content="Custom wood ammo box orders and questions. Freedom Crate Co. builds handcrafted wooden military-style ammo crates. Additional stencil placements are +$10 each. Free US shipping." />
   <link rel="canonical" href="https://freedomcrateco.com/contact.html" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="icon" href="/assets/img/favicon.ico">
 
   <meta property="og:title" content="Contact & Custom Orders | Freedom Crate Co." />
-  <meta property="og:description" content="Ask a question or request a custom crate. Fast replies — built in Florida." />
+  <meta property="og:description" content="Ask a question or request a custom wood ammo crate. Additional stencils are +$10 each. Built in Florida. Free US shipping." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freedomcrateco.com/contact.html" />
   <meta property="og:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
@@ -28,11 +28,44 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Contact & Custom Orders | Freedom Crate Co." />
-  <meta name="twitter:description" content="Tell us what you need — we’ll build it." />
+  <meta name="twitter:description" content="Tell us what you need — we’ll build it. Additional stencils are +$10 each." />
   <meta name="twitter:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
   <meta name="twitter:image:alt" content="Freedom Crate Co. founders-themed banner with the slogan ‘Made for the people. By the people.’" />
 
-  <title>Custom Orders • Freedom Crate Co.</title>
+  <title>Custom Orders & Contact – Wooden Ammo Boxes | Freedom Crate Co.</title>
+
+  <!-- Structured data: ContactPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Custom Orders & Contact",
+    "url": "https://freedomcrateco.com/contact.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Freedom Crate Co.",
+      "url": "https://freedomcrateco.com/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Freedom Crate Co.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://freedomcrateco.com/assets/img/logo.png"
+      }
+    },
+    "about": "Custom wooden ammo box and range crate requests.",
+    "inLanguage": "en-US",
+    "potentialAction": {
+      "@type": "SubmitAction",
+      "target": "https://freedomcrateco.com/thanks.html",
+      "name": "Submit custom order request"
+    },
+    "areaServed": "US",
+    "contactOption": "TollFree"
+  }
+  </script>
+
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
@@ -53,6 +86,14 @@
   <main class="container" id="main">
     <h1>Request a Custom Order</h1>
     <p class="muted">Want a box personalized with your own stencils, colors, or hardware? Fill out the form below and we’ll get back to you.</p>
+
+    <!-- Small, upfront pricing note (non-breaking UI) -->
+    <aside class="notice" style="margin:.75rem 0 1.25rem;">
+      <strong>Quick pricing note:</strong>
+      Most customizations are quoted after we review your request. 
+      <span aria-label="Additional stencils pricing">Additional stencil placements are <strong>+$10 each</strong></span>.
+      We’ll send a full price breakdown and ETA for approval before we build anything. Free US shipping.
+    </aside>
 
     <!-- Netlify form -->
     <form
@@ -122,7 +163,7 @@
       <div class="full">
         <label for="details">Custom Details</label>
         <textarea id="details" name="details" rows="5"
-          placeholder="Describe your customization (stencils,name,rank,initials, dates etc.)"></textarea>
+          placeholder="Describe your customization (stencils, name, rank, initials, dates, colors, hardware, etc.). If you need multiple stencils, note how many (+$10/extra stencil)."></textarea>
       </div>
 
       <div class="actions">
