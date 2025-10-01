@@ -1085,3 +1085,25 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
   margin-top: .5rem;
 }
 .gallery .thumbs img { width: 84px; height: 84px; }
+/* === Desktop gallery fix: tighten width when thumbs are below === */
+@media (min-width: 641px) {
+  .gallery {
+    grid-template-columns: 1fr;   /* only one column (main image) */
+    max-width: 800px;             /* cap the width of the gallery */
+    margin: 0 auto;               /* center it */
+  }
+
+  .gallery .hero-wrap {
+    max-width: 100%;
+  }
+
+  .gallery .thumbs {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  .gallery .thumbs img {
+    width: 72px;
+    height: 72px;
+  }
+}
