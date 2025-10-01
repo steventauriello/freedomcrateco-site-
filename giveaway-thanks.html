@@ -4,8 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Veteran Giveaway Entry • Freedom Crate Co.</title>
-  <link rel="stylesheet" href="assets/css/styles.css" />
   <meta name="description" content="Thank you for entering the Freedom Crate Co. monthly veteran giveaway. Each month, we honor one U.S. veteran with a Branch Collection ammo box." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- Page-scoped overflow guard (mobile safety net, harmless on desktop) -->
+  <style>
+    #giveaway-thanks { overflow-x: clip; }
+    #giveaway-thanks img { max-width: 100%; height: auto; }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -20,7 +26,7 @@
     </nav>
   </header>
 
-  <main class="container">
+  <main class="container" id="giveaway-thanks">
     <section class="hero-about">
       <h1>Thank You for Entering!</h1>
       <p class="lede">Your entry for the Freedom Crate Co. monthly <strong>Veteran Giveaway</strong> has been received. Each month, we select one U.S. veteran to receive a handcrafted <strong>Branch Collection ammo box</strong>—built to honor their service.</p>
@@ -33,30 +39,34 @@
 
       <div class="gallery-grid">
         <figure>
-          <img src="assets/img/army.jpg" alt="Army Branch Collection ammo box">
+          <img src="assets/img/branch-collection-army.jpg" alt="Army Branch Collection ammo box">
           <figcaption>Army Edition</figcaption>
         </figure>
         <figure>
-          <img src="assets/img/navy.jpg" alt="Navy Branch Collection ammo box">
+          <img src="assets/img/branch-collection-navy.jpg" alt="Navy Branch Collection ammo box">
           <figcaption>Navy Edition</figcaption>
         </figure>
         <figure>
-          <img src="assets/img/marines.jpg" alt="Marines Branch Collection ammo box">
+          <img src="assets/img/branch-collection-marines.jpg" alt="Marines Branch Collection ammo box">
           <figcaption>Marines Edition</figcaption>
         </figure>
         <figure>
-          <img src="assets/img/airforce.jpg" alt="Air Force Branch Collection ammo box">
+          <img src="assets/img/branch-collection-airforce.jpg" alt="Air Force Branch Collection ammo box">
           <figcaption>Air Force Edition</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/branch-collection-coastguard.jpg" alt="Coast Guard Branch Collection ammo box">
+          <figcaption>Coast Guard Edition</figcaption>
         </figure>
       </div>
 
-      <p class="center"><a class="btn" href="shop.html">Shop the Branch Collection</a></p>
+      <p class="center"><a class="btn" href="branch-collection.html">Shop the Branch Collection</a></p>
     </section>
 
     <section class="about-card">
       <h2>Want One Now?</h2>
       <p>Can’t wait for the giveaway results? Order your Branch Collection box today and have one shipped free to your door.</p>
-      <p><a class="btn" href="shop.html">Order a Branch Collection Box →</a></p>
+      <p><a class="btn" href="branch-collection.html">Order a Branch Collection Box →</a></p>
     </section>
   </main>
 
