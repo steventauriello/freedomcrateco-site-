@@ -999,3 +999,33 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
 /* Undo earlier clipping that hid the overflow */
 .container,
 .giveaway-thanks .container { overflow-x: visible; }  /* don't clip off-screen content */
+/* Center gallery arrows vertically */
+.gallery {
+  position: relative; /* so arrows can position inside */
+}
+
+.gallery .nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* perfectly centers vertically */
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.gallery .nav-arrow.left {
+  left: 10px;
+}
+
+.gallery .nav-arrow.right {
+  right: 10px;
+}
