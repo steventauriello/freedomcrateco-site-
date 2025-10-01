@@ -829,3 +829,73 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   margin: 0 0 0.35rem;
   font-weight: 600;
 }
+/* ---------- Product gallery sizing (prevents zoom/crop) ---------- */
+
+/* Main gallery wrapper (name it to match your product page markup) */
+.product-gallery {
+  display: grid;
+  grid-template-columns: 1fr auto; /* main image + right-side thumbs */
+  gap: 1rem;
+  align-items: start;
+}
+
+/* Main image frame */
+.product-main {
+  /* If your HTML uses a div for the big image, keep this block */
+  position: relative;
+  width: 100%;
+  /* Choose an aspect you like for the big frame; 4/3 is friendly for product shots */
+  aspect-ratio: 4 / 3;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  overflow: hidden;            /* hides any overflow but we'll contain anyway */
+}
+
+/* If you use an <img> inside .product-main, this keeps the entire photo visible */
+.product-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;         /* <-- key: no cropping, no zooming */
+  display: block;
+}
+
+/* If instead you use background-image on the main frame, use these: */
+.product-main.is-bg {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;    /* <-- key: no cropping, no zooming */
+}
+
+/* Thumbnail rail on the right */
+.product-thumbs {
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* Thumb buttons/cards */
+.product-thumbs button,
+.product-thumbs a {
+  width: 84px;                 /* fixed, tidy thumb size */
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  background: #fff;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Make thumbs fill their square nicely without warping */
+.product-thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* thumbs can crop to look uniform */
+  display: block;
+}
+
+/* Active thumb state */
+.product-thumbs .is-active {
+  outline: 2px solid #222;
+  outline-offset: 2px;
+}
