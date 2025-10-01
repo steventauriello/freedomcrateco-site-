@@ -39,11 +39,14 @@
   "qty": 0,
   "image_url": "assets/img/logo.png",
   "images": [
-    "assets/img/fc-1000-corner-brace.jpg",
-    "assets/img/fc-1000-storage-capacity.jpg",
-    "assets/img/freedom-crate-1000-front.jpg",
+    "assets/img/freedom-crate-1000-front-closed.jpg",
+    "assets/img/freedom-crate-1000-steel-side-handle.jpg",
+    "assets/img/freedom-crate-1000-large-capacity.jpg",
     "assets/img/freedom-crate-1000-open.jpg",
-    "assets/img/freedom-crate-1000-side.jpg"
+    "assets/img/freedom-crate-1000-steel-toggle-latch.jpg",
+    "assets/img/freedom-crate-1000-stainless-hinge.jpg",
+    "assets/img/freedom-crate-1000-side-handle.jpg",
+    "assets/img/freedom-crate-1000-lifestyle.jpg"
   ],
   "tags": [
     "ammo",
