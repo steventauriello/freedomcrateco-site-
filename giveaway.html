@@ -45,7 +45,6 @@
     .give-img { width:100%; border-radius:.5rem; border:1px solid rgba(255,255,255,.08); display:block; }
     .disclaimer { font-size:.9rem; opacity:.85; }
     .legal small { display:block; opacity:.8; margin-top:.35rem; }
-    .success { display:none; padding:.75rem; border:1px solid #2ecc71; background: rgba(46, 204, 113, .08); border-radius:.5rem; margin:.75rem 0; }
     .hidden-hp { position: absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden; }
     .req { color:#ff6b6b; font-weight:700; margin-left:.2rem;}
   </style>
@@ -78,21 +77,21 @@
       <!-- Left: Form -->
       <article class="give-card">
         <h2>Enter a Veteran</h2>
-        <p class="disclaimer">You can nominate yourself or someone else. We select one veteran at random each month and feature their story (optional) on our socials/newsletter.</p>
+        <p class="disclaimer">You can nominate yourself or someone else. We select one veteran at random each month and may feature their story (optional) on our socials/newsletter.</p>
 
-        <div id="giveSuccess" class="success" role="status" aria-live="polite">
-          Thanks! Your entry was received. We’ll announce this month’s winner on our socials and by email.
-        </div>
-
-        <!-- OPTION A: Formspree/Netlify (uncomment action and method) -->
-        <!--
-        1) Formspree: replace ACTION with your endpoint, keep method="POST"
-        2) Netlify: add netlify attribute and name, keep method="POST"
-        -->
-        <form id="giveForm"
+        <!-- Netlify Form -->
+        <form name="veteran-giveaway"
               method="POST"
-              action=""  <!-- e.g., https://formspree.io/f/xxxxxxx OR leave blank for Google Form embed -->
-              data-form-type="native">
+              action="/giveaway-thanks.html"
+              data-netlify="true"
+              netlify-honeypot="hp">
+          <!-- Required for Netlify bots to register the form -->
+          <input type="hidden" name="form-name" value="veteran-giveaway">
+
+          <div class="hidden-hp" aria-hidden="true">
+            <label>Leave this field blank <input name="hp" /></label>
+          </div>
+
           <div class="form-grid">
             <div class="field">
               <label for="fullName">Veteran’s full name<span class="req">*</span></label>
@@ -125,16 +124,9 @@
               <label for="story">Short story (optional)</label>
               <textarea id="story" name="story" placeholder="Share a brief service highlight or why this veteran should be featured."></textarea>
             </div>
-
-            <!-- Honeypot (basic spam trap) -->
-            <div class="hidden-hp" aria-hidden="true">
-              <label for="hp">Leave this field blank</label>
-              <input id="hp" name="hp" tabindex="-1" autocomplete="off">
-            </div>
-
             <div class="field">
               <label class="check">
-                <input type="checkbox" id="agree" required>
+                <input type="checkbox" id="agree" name="agree" required>
                 I’m 18+ and agree to the giveaway rules (below).<span class="req">*</span>
               </label>
             </div>
@@ -145,16 +137,6 @@
             <button class="btn ghost" type="reset">Clear</button>
           </div>
         </form>
-
-        <!-- OPTION B: Google Form embed (no backend) -->
-        <!--
-        If you prefer Google Forms:
-          1) Create a Google Form with the same fields
-          2) Use File > Send > <> Embed, copy the <iframe>, and paste it below.
-          3) Then remove or comment out the <form id="giveForm"> block above.
-        <iframe src="YOUR_GOOGLE_FORM_EMBED_URL"
-                width="100%" height="1200" frameborder="0" marginheight="0" marginwidth="0" style="background:#fff;border-radius:.5rem"></iframe>
-        -->
       </article>
 
       <!-- Right: Info / Rules -->
@@ -165,7 +147,7 @@
         <h2>How Selection Works</h2>
         <ul class="bullets">
           <li><strong>Monthly draw:</strong> one eligible entry wins each month.</li>
-          <li><strong>Fair & random:</strong> we use a random draw from that month’s entries.</li>
+          <li><strong>Fair & random:</strong> random draw from that month’s entries.</li>
           <li><strong>Spotlight:</strong> we may feature the winner’s story/photos (optional).</li>
         </ul>
 
@@ -187,37 +169,6 @@
       <span class="badge">US Veteran-inspired • Florida-built</span>
     </div>
   </footer>
-
-  <script>
-    // Lightweight client-side handler for Formspree/Netlify (OPTION A)
-    (function(){
-      const form = document.getElementById('giveForm');
-      const success = document.getElementById('giveSuccess');
-      if (!form) return;
-
-      form.addEventListener('submit', async (e) => {
-        const hp = form.querySelector('#hp');
-        if (hp && hp.value) { e.preventDefault(); return; } // spam
-        // If no action set, let the browser do nothing (likely using Google Form iframe)
-        if (!form.getAttribute('action')) return;
-        e.preventDefault();
-
-        const data = new FormData(form);
-        try{
-          const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }});
-          if (res.ok) {
-            form.reset();
-            success.style.display = 'block';
-            window.scrollTo({ top: success.offsetTop - 20, behavior: 'smooth' });
-          } else {
-            alert('Sorry—there was a problem submitting. Please try again in a minute.');
-          }
-        }catch(err){
-          alert('Network error—please try again.');
-        }
-      });
-    })();
-  </script>
 
   <!-- JSON-LD: simple page + giveaway info -->
   <script type="application/ld+json">
