@@ -32,7 +32,7 @@
     ],
 "description": "The Rangemaster 300 is the compact sibling to our Rangemaster 400, purpose-built for pistol calibers. Crafted from durable 1/2-inch ply and finished in Freedom Crate Co.’s signature ultra-flat OD Green.<br><br><strong>Features:</strong><ul><li>Black heavy-duty hardware & oversized stainless steel hinges</li><li>Spring-loaded folding top handle for quick grab-and-go</li><li>Proprietary 1-inch brown nylon webbing side handles with fail-safe recessed mount system</li><li>Secure over-center latch keeps the lid tight and ammo secure</li><li>Divider-ready interior for pistol calibers (.380, 9mm, 10mm, .45 ACP)</li></ul>Compact, organized, and built to last — the Rangemaster 300 is your go-to pistol-caliber ammo crate."
   },
-  "FC-RB-1000": {
+"FC-RB-1000": {
   "status": "active",
   "title": "Freedom Crate 1000",
   "price": 79.99,
@@ -41,7 +41,9 @@
   "images": [
     "assets/img/fc-1000-corner-brace.jpg",
     "assets/img/fc-1000-storage-capacity.jpg",
-    "assets/img/freedom-crate-1000-3.jpg"
+    "assets/img/freedom-crate-1000-front.jpg",
+    "assets/img/freedom-crate-1000-open.jpg",
+    "assets/img/freedom-crate-1000-side.jpg"
   ],
   "tags": [
     "ammo",
@@ -49,7 +51,7 @@
     "crate",
     "premium"
   ],
-  "description": "The Freedom Crate 1000 is our larger ammo crate built for long-term storage of your ammunition—whether tucked in a closet or slid under a bed. At just over 8\" tall, it’s surprisingly low-profile for the capacity it offers. Handcrafted from 3/4-inch exterior-grade plywood with a lid reinforced by solid 1×2 pine braces and solid 1×2 pine legs, it’s built for durability, security, and years of dependable use.<br><br><strong>Features:</strong><ul><li>Overall height: just over 8\" (low-profile storage)</li><li>Constructed from 3/4-inch UTX exterior-grade plywood with 1/4-inch plywood bottom</li><li>Lid reinforced with solid 1×2 pine braces; solid 1×2 pine legs</li><li>1-inch corner brackets for ultra-long-term durability</li><li>Toggle latches with strike plates for secure closure</li><li>Two steel handles for easy carrying</li><li>Two hinges for smooth opening</li><li>Center padlock hasp for lockable security</li><li>Holds 20+ boxes of 9mm (≈1,000+ rounds)</li></ul><em>The Freedom Crate 1000 is a high-capacity, low-profile solution for secure ammo and gear storage.</em>"
+  "description": "The Freedom Crate 1000 is our most hardware-packed, heavy-duty ammo crate to date. Built for maximum durability and long-term storage, it combines rugged materials with premium stainless steel hardware for a crate that’s as functional as it is collectible.<br><br><strong>Construction & Materials:</strong><ul><li>3/4-inch UTX exterior-grade plywood with 1/4-inch plywood bottom</li><li>1×2 solid pine legs for reinforced corner support</li><li>1×2 solid pine lid braces for heavy-duty top reinforcement</li><li>3/4-inch solid pine tongue & groove lid boards</li></ul><strong>Hardware & Features:</strong><ul><li>(2) Stainless steel 3-inch D-ring handles</li><li>(3) Stainless steel toggle latches with red grips</li><li>Stainless steel 90° padlock hasp (center lockable)</li><li>Stainless steel tri-fold rear hinges</li><li>(4) Stainless steel 1-inch interior corner braces</li><li>Low-profile build: just over 8 inches tall</li><li>Holds 20+ boxes of 9mm (≈1,000+ rounds)</li></ul><em>The Freedom Crate 1000 — built for the long haul. Built for freedom.</em>"
 },
   "FC-RM-400": {
   "status": "active",
