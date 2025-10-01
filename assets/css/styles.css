@@ -935,3 +935,20 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 }
 .giveaway-banner a{ color:#fff; text-decoration:none; }
 .giveaway-banner a:hover{ text-decoration:underline; }
+/* --- Giveaway pages: stop horizontal overflow on mobile --- */
+html, body { overflow-x: hidden; }
+
+.give-wrap, .container {
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* make sure gallery images never exceed the column */
+.gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gallery-grid img { max-width: 100%; height: auto; display: block; }
+
+/* avoid long rows pushing the width */
+.badge-row, .btn-row { flex-wrap: wrap; }
