@@ -899,3 +899,16 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   outline: 2px solid #222;
   outline-offset: 2px;
 }
+/* === FIX: product detail gallery main image should never crop === */
+.gallery > img,
+.gallery .product-hero {
+  width: 100%;
+  height: auto;
+  max-height: 65vh;          /* lets tall images fit without blowing up */
+  object-fit: contain !important; /* ensure no zoom/crop even if other rules say 'cover' */
+}
+.gallery .thumbs img{
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
