@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- Default (will be updated dynamically via JS for each SKU) -->
+  <!-- Default (updated dynamically per SKU) -->
   <title>Product • Freedom Crate Co.</title>
   <meta name="description" content="Freedom Crate Co. builds handcrafted wooden ammo crates, range boxes, and military-inspired storage boxes. Rugged, veteran-inspired, built to last." />
   <meta name="keywords" content="wood military ammo box, wooden ammo boxes, handcrafted range boxes, Freedom Crate Co, veteran inspired storage" />
@@ -25,6 +25,29 @@
   <meta name="twitter:image" content="https://freedomcrateco.com/assets/img/logo.png" />
 
   <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- Page-scoped styles for gallery arrows (no changes needed in styles.css) -->
+  <style>
+    .gallery { position: relative; }
+    .gallery-arrow{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px; height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(0,0,0,.55);
+      color: #fff;
+      font-size: 24px;
+      line-height: 40px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .gallery-arrow.prev{ left: 8px; }
+    .gallery-arrow.next{ right: 8px; }
+    .gallery .thumbs img.is-active{ outline: 2px solid var(--brand); outline-offset: 2px; }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -48,6 +71,10 @@
     <div class="gallery">
       <img id="pd-hero" class="product-hero" src="assets/img/blank.jpg" alt="">
       <div class="thumbs" id="pd-thumbs"></div>
+
+      <!-- NEW: arrow buttons -->
+      <button class="gallery-arrow prev" type="button" aria-label="Previous image">‹</button>
+      <button class="gallery-arrow next" type="button" aria-label="Next image">›</button>
     </div>
 
     <!-- Info -->
@@ -81,7 +108,7 @@
   <script src="assets/js/inventory.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
 
-  <!-- Product loader with SEO injection -->
+  <!-- Product loader with SEO injection + arrow cycling -->
   <script>
   (async function () {
     const ensurePath = (src) => {
@@ -119,6 +146,7 @@
     const sku = params.get('sku');
     if (!sku) { location.href = 'index.html'; return; }
 
+    // Wait until product loader is ready
     while (!window.FC || typeof window.FC.loadProducts !== 'function') {
       await new Promise(r => setTimeout(r, 10));
     }
@@ -156,9 +184,46 @@
     imgs.forEach((src, i) => {
       const t = document.createElement('img');
       t.src = src; t.alt = `${P.title} ${i+1}`;
-      t.addEventListener('click', () => setHero(src, t.alt));
+      t.addEventListener('click', () => show(i));
       thumbs.appendChild(t);
     });
+
+    // Arrow / cycling controls
+    const prevBtn = document.querySelector('.gallery .gallery-arrow.prev');
+    const nextBtn = document.querySelector('.gallery .gallery-arrow.next');
+    const thumbEls = Array.from(thumbs.querySelectorAll('img'));
+    let idx = 0;
+
+    function show(i){
+      const n = thumbEls.length;
+      if (!n) return;
+      idx = (i % n + n) % n;
+      const t = thumbEls[idx];
+      const src = t.dataset.full || t.src;
+      const alt = t.alt || `Photo ${idx+1}`;
+      const tmp = new Image();
+      tmp.onload = () => { setHero(src, alt); };
+      tmp.src = src;
+      thumbEls.forEach((el,j) => el.classList.toggle('is-active', j === idx));
+    }
+
+    if (prevBtn && nextBtn && thumbEls.length){
+      prevBtn.addEventListener('click', () => show(idx - 1));
+      nextBtn.addEventListener('click', () => show(idx + 1));
+
+      // keyboard support (left/right) when gallery has focus
+      const galleryEl = document.querySelector('.gallery');
+      if (galleryEl) {
+        galleryEl.setAttribute('tabindex','0');
+        galleryEl.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft')  { e.preventDefault(); show(idx - 1); }
+          if (e.key === 'ArrowRight') { e.preventDefault(); show(idx + 1); }
+        });
+      }
+
+      // init
+      show(0);
+    }
 
     // Stock badge
     let qty = Number(P.qty ?? 0);
@@ -175,7 +240,10 @@
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute("content", P.title + " | Freedom Crate Co.");
     const ogImage = document.querySelector('meta[property="og:image"]');
-    if (ogImage && imgs[0]) ogImage.setAttribute("content", location.origin + "/" + imgs[0]);
+    if (ogImage && imgs[0]) {
+      const absolute = imgs[0].startsWith('http') ? imgs[0] : (location.origin + "/" + imgs[0].replace(/^\/+/, ''));
+      ogImage.setAttribute("content", absolute);
+    }
 
     // Add JSON-LD Product schema
     const ld = {
@@ -183,7 +251,7 @@
       "@type": "Product",
       "name": P.title,
       "sku": P.sku,
-      "image": imgs.map(src => location.origin + "/" + src),
+      "image": imgs.map(src => (src.startsWith('http') ? src : location.origin + "/" + src.replace(/^\/+/, ''))),
       "description": P.description || "Handcrafted wooden ammo box.",
       "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
       "offers": {
@@ -199,6 +267,24 @@
     script.textContent = JSON.stringify(ld);
     document.head.appendChild(script);
 
+    // Cart hooks (unchanged)
+    const addToCartSafe = (sku, name, price, qty, meta) =>
+      (typeof window.addToCart === 'function')
+        ? window.addToCart(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
+
+    const buyNowSafe = (sku, name, price, qty, meta) =>
+      (typeof window.buyNow === 'function')
+        ? window.buyNow(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
+
+    addBtn.addEventListener('click', () => {
+      addToCartSafe(P.sku, P.title, Number(P.price || 0), 1, { image: hero.src });
+    });
+
+    buyBtn.addEventListener('click', () => {
+      buyNowSafe(P.sku, P.title, Number(P.price || 0), 1, { image: hero.src });
+    });
   })();
   </script>
 
