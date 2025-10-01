@@ -25,14 +25,12 @@
 
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    /* Page-scoped helpers only (matches your existing design system) */
+    /* Page-scoped helpers only */
     .hero-about { text-align:center; padding: 2rem 1rem 1rem; }
     .hero-about .lede { max-width: 60ch; margin: .5rem auto 0; opacity:.9; }
-    .center { text-align:center; }
     .btn-row { display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap; }
     .btn.ghost { background: transparent; border:1px solid rgba(255,255,255,.25); }
-    /* Ensure no horizontal scroll on mobile due to images */
-    .gallery-grid img { width:100%; height:auto; display:block; }
+    .gallery-grid img { width:100%; height:auto; display:block; } /* prevent sideways scroll */
   </style>
 </head>
 <body>
@@ -64,37 +62,32 @@
 
       <div class="gallery-grid">
         <figure>
-          <img src="assets/img/Army.jpg" alt="Army Branch Collection ammo box" loading="lazy" decoding="async">
+          <img src="assets/img/army.jpg" alt="Army Branch Collection ammo box" loading="lazy" decoding="async">
           <figcaption>Army</figcaption>
         </figure>
         <figure>
-          <img src="assets/img/Navy.jpg" alt="Navy Branch Collection ammo box" loading="lazy" decoding="async">
+          <img src="assets/img/navy.jpg" alt="Navy Branch Collection ammo box" loading="lazy" decoding="async">
           <figcaption>Navy</figcaption>
         </figure>
         <figure>
-          <img src="assets/img/Marines.jpg" alt="Marines Branch Collection ammo box" loading="lazy" decoding="async">
+          <img src="assets/img/marines.jpg" alt="Marines Branch Collection ammo box" loading="lazy" decoding="async">
           <figcaption>Marines</figcaption>
         </figure>
         <figure>
-          <img src="assets/img/AirForce.jpg" alt="Air Force Branch Collection ammo box" loading="lazy" decoding="async">
+          <img src="assets/img/airforce.jpg" alt="Air Force Branch Collection ammo box" loading="lazy" decoding="async">
           <figcaption>Air Force</figcaption>
         </figure>
         <figure>
-          <img src="assets/img/CoastGuard.jpg" alt="Coast Guard Branch Collection ammo box" loading="lazy" decoding="async">
+          <img src="assets/img/coastguard.jpg" alt="Coast Guard Branch Collection ammo box" loading="lazy" decoding="async">
           <figcaption>Coast Guard</figcaption>
         </figure>
       </div>
 
       <div class="btn-row" style="margin-top:1rem">
         <a class="btn" href="gallery.html">Browse the Gallery →</a>
-        <a class="btn ghost" href="branch-collection.html">See Branch Collection Details</a>
+        <!-- Jump to the featured Branch Collection card on the home page -->
+        <a class="btn ghost" href="/#classic-box">See Branch Collection Details</a>
       </div>
-    </section>
-
-    <section class="about-card">
-      <h2>Want One Now?</h2>
-      <p>Can’t wait for the giveaway results? Order your Branch Collection box today and have one shipped free to your door.</p>
-      <p><a class="btn" href="shop.html">Order a Branch Collection Box →</a></p>
     </section>
   </main>
 
@@ -104,7 +97,7 @@
     </div>
   </footer>
 
-  <!-- (Optional) Simple structured data for the thanks page -->
+  <!-- Simple structured data -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -121,7 +114,7 @@
   }
   </script>
 
-  <!-- Keep your existing core scripts (optional here, but harmless if global UI needs them) -->
+  <!-- Optional global scripts -->
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
