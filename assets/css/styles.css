@@ -951,3 +951,36 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 
 /* avoid long rows pushing the width */
 .badge-row, .btn-row { flex-wrap: wrap; }
+/* --- Giveaway Thanks page: contain width on mobile --- */
+.giveaway-thanks .container{
+  box-sizing: border-box;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* make the gallery an actual grid and keep it inside the viewport */
+.giveaway-thanks #branch-collection .gallery-grid{
+  display: grid;
+  gap: .75rem;
+  grid-template-columns: 1fr;                 /* phones */
+}
+@media (min-width: 700px){
+  .giveaway-thanks #branch-collection .gallery-grid{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px){
+  .giveaway-thanks #branch-collection .gallery-grid{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* images should never overflow the column */
+.giveaway-thanks img,
+.giveaway-thanks svg,
+.giveaway-thanks video,
+.giveaway-thanks canvas{
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
