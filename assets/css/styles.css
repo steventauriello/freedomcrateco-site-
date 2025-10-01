@@ -1073,3 +1073,15 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
   border-radius: 6px;
   cursor: pointer;
 }
+/* Force product thumbs UNDER the main image on all widths */
+.gallery { grid-template-columns: 1fr !important; }      /* single column */
+.gallery .hero-wrap { grid-column: 1; }
+.gallery .thumbs {
+  grid-column: 1 !important;
+  flex-direction: row !important;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: .5rem;
+}
+.gallery .thumbs img { width: 84px; height: 84px; }
