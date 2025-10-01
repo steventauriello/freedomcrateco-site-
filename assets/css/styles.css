@@ -1029,3 +1029,12 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
 .gallery .nav-arrow.right {
   right: 10px;
 }
+/* Keep arrows in the hero column and above thumbs */
+.gallery { display: grid; grid-template-columns: 1fr 92px; } /* you already have this */
+.gallery .hero-wrap { grid-column: 1; position: relative; }  /* NEW */
+.gallery .thumbs    { grid-column: 2; position: relative; z-index: 1; } /* ensure thumbs sit below arrows */
+.gallery .nav-arrow { z-index: 5; } /* your 10 is fine too */
+@media (max-width: 640px){
+  .gallery { grid-template-columns: 1fr; }
+  .gallery .thumbs { grid-column: 1; }  /* thumbs drop below on mobile (you already have similar rules) */
+}
