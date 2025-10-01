@@ -993,3 +993,9 @@ figure { margin: 0 0 1rem; }
 
 /* Safe global media guard (you already have a scoped one, but global is fine) */
 img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
+/* === Re-enable horizontal scrolling site-wide === */
+html, body { overflow-x: auto; }          /* allow sideways scroll if content is wider */
+
+/* Undo earlier clipping that hid the overflow */
+.container,
+.giveaway-thanks .container { overflow-x: visible; }  /* don't clip off-screen content */
