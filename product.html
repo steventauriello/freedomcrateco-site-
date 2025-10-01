@@ -69,13 +69,16 @@
   <main id="main" class="container product-detail">
     <!-- Gallery -->
     <div class="gallery">
-      <img id="pd-hero" class="product-hero" src="assets/img/blank.jpg" alt="">
-      <div class="thumbs" id="pd-thumbs"></div>
+  <div class="hero-wrap">
+    <img id="pd-hero" class="product-hero" src="assets/img/blank.jpg" alt="">
 
-      <!-- NEW: arrow buttons -->
-      <button class="gallery-arrow prev" type="button" aria-label="Previous image">‹</button>
-      <button class="gallery-arrow next" type="button" aria-label="Next image">›</button>
-    </div>
+    <!-- arrows INSIDE hero-wrap -->
+    <button class="gallery-arrow prev" type="button" aria-label="Previous image">‹</button>
+    <button class="gallery-arrow next" type="button" aria-label="Next image">›</button>
+  </div>
+
+  <div class="thumbs" id="pd-thumbs"></div>
+</div>
 
     <!-- Info -->
     <h1 id="pd-title">Loading…</h1>
