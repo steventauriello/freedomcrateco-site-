@@ -95,19 +95,19 @@
           <div class="form-grid">
             <div class="field">
               <label for="fullName">Veteran’s full name<span class="req">*</span></label>
-              <input id="fullName" name="fullName" required placeholder="First Last">
+              <input id="fullName" name="fullName" autocomplete="name" required placeholder="First Last">
             </div>
             <div class="field">
               <label for="email">Contact email<span class="req">*</span></label>
-              <input id="email" name="email" type="email" required placeholder="name@example.com" inputmode="email">
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="name@example.com" inputmode="email">
             </div>
             <div class="field">
               <label for="phone">Phone (optional)</label>
-              <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555" inputmode="tel">
+              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555" inputmode="tel">
             </div>
             <div class="field">
               <label for="branch">Branch<span class="req">*</span></label>
-              <select id="branch" name="branch" required>
+              <select id="branch" name="branch" autocomplete="organization" required>
                 <option value="">Select branch…</option>
                 <option>U.S. Army</option>
                 <option>U.S. Marine Corps</option>
@@ -118,11 +118,11 @@
             </div>
             <div class="field">
               <label for="years">Years served / rank (optional)</label>
-              <input id="years" name="years" placeholder="e.g., 2009–2017, E-6">
+              <input id="years" name="years" autocomplete="off" placeholder="e.g., 2009–2017, E-6">
             </div>
             <div class="field wide">
               <label for="story">Short story (optional)</label>
-              <textarea id="story" name="story" placeholder="Share a brief service highlight or why this veteran should be featured."></textarea>
+              <textarea id="story" name="story" autocomplete="off" placeholder="Share a brief service highlight or why this veteran should be featured."></textarea>
             </div>
             <div class="field">
               <label class="check">
