@@ -13,7 +13,7 @@
       "footlocker",
       "classic"
     ],
-    "description": "The Freedom Footlocker is our largest handcrafted ammo box, built from durable 1/2-inch plywood to balance strength with reduced weight. Designed with dual removable compartments for organized storage, it offers an impressive interior capacity of 20 1/4\" wide \u00d7 10\" long \u00d7 8\" deep. Crafted in limited quantities due to the time and material required\u2014available occasionally as stock permits or by custom request."
+    "description": "The Freedom Footlocker is our largest handcrafted ammo box, built from durable 1/2-inch plywood to balance strength with reduced weight. Designed with dual removable compartments for organized storage, it offers an impressive interior capacity of 20 1/4\" wide × 10\" long × 8\" deep. Crafted in limited quantities due to the time and material required—available occasionally as stock permits or by custom request."
   },
   "FC-RB-300": {
     "status": "archived",
@@ -30,67 +30,71 @@
       "range",
       "compact"
     ],
-"description": "The Rangemaster 300 is the compact sibling to our Rangemaster 400, purpose-built for pistol calibers. Crafted from durable 1/2-inch ply and finished in Freedom Crate Co.’s signature ultra-flat OD Green.<br><br><strong>Features:</strong><ul><li>Black heavy-duty hardware & oversized stainless steel hinges</li><li>Spring-loaded folding top handle for quick grab-and-go</li><li>Proprietary 1-inch brown nylon webbing side handles with fail-safe recessed mount system</li><li>Secure over-center latch keeps the lid tight and ammo secure</li><li>Divider-ready interior for pistol calibers (.380, 9mm, 10mm, .45 ACP)</li></ul>Compact, organized, and built to last — the Rangemaster 300 is your go-to pistol-caliber ammo crate."
+    "description": "The Rangemaster 300 is the compact sibling to our Rangemaster 400, purpose-built for pistol calibers. Crafted from durable 1/2-inch ply and finished in Freedom Crate Co.’s signature ultra-flat OD Green.<br><br><strong>Features:</strong><ul><li>Black heavy-duty hardware & oversized stainless steel hinges</li><li>Spring-loaded folding top handle for quick grab-and-go</li><li>Proprietary 1-inch brown nylon webbing side handles with fail-safe recessed mount system</li><li>Secure over-center latch keeps the lid tight and ammo secure</li><li>Divider-ready interior for pistol calibers (.380, 9mm, 10mm, .45 ACP)</li></ul>Compact, organized, and built to last — the Rangemaster 300 is your go-to pistol-caliber ammo crate."
   },
-"FC-RB-1000": {
-  "status": "active",
-  "title": "Freedom Crate 1000",
-  "price": 79.99,
-  "qty": 2,
-  "image_url": "assets/img/fc-1000-front-closed.jpg",
-  "images": [
-    "assets/img/fc-1000-main-photo.jpg",
-    "assets/img/fc-1000-side-angle.jpg",
-    "assets/img/freedom-crate-1000-large-capacity.jpg",
-    "assets/img/freedom-crate-1000-closed-toggle.jpg",
-    "assets/img/fc-1000-front-closed.jpg",
-    "assets/img/freedom-crate-1000-stainless-hinge.jpg",
-    "assets/img/fc-1000-corner-brace.jpg",
-    "assets/img/fc-1000-front-closed.jpg"
-  ],
-  "tags": [
-    "ammo",
-    "storage",
-    "crate",
-    "premium"
-  ],
-  "description": "The Freedom Crate 1000 is our most hardware-packed, heavy-duty ammo crate to date. Built for maximum durability, long-term storage, and uncompromising security, it combines rugged materials with premium stainless steel hardware for a crate that’s as functional as it is collectible.<br><br><strong>Construction & Materials:</strong><ul><li>3/4-inch UTX exterior-grade plywood with 1/4-inch plywood bottom</li><li>1×2 solid pine legs for reinforced corner support</li><li>1×2 solid pine lid braces for heavy-duty top reinforcement</li><li>3/4-inch solid pine tongue & groove lid boards</li></ul><strong>Hardware & Features:</strong><ul><li>(2) Stainless steel 3-inch D-ring handles</li><li>(3) Stainless steel toggle latches with red grips</li><li>Massive 4-inch 304 stainless steel center padlock hasp (padlock not included) — screws are concealed beneath the hasp itself, preventing tampering or removal</li><li>Stainless steel tri-fold rear hinges with six mounting points (2 surface-mount, 2 edge-mount, 2 rear-panel mount) for maximum strength and security</li><li>(4) Stainless steel 1-inch interior corner braces</li><li>Low-profile build: just over 8 inches tall</li><li>Holds 20+ boxes of 9mm (≈1,000+ rounds) with space left for oxygen or moisture-absorbing packets</li></ul><strong>Designed for Security:</strong> Unlike standard crates where a padlock hasp can simply be unscrewed, the Freedom Crate 1000 was engineered to stop quick-access tampering. Combined with reinforced rear hinges and lockable hardware, this crate is built to safeguard your ammunition for the long haul — whether under a bed or stored in a closet.<br><br><em>The Freedom Crate 1000 — built for durability. Built for security. Built for freedom.</em>"
-},
+  "FC-RB-1000": {
+    "status": "active",
+    "title": "Freedom Crate 1000",
+    "price": 79.99,
+    "qty": 2,
+    "image_url": "assets/img/fc-1000-front-closed.jpg",
+    "images": [
+      "assets/img/fc-1000-main-photo.jpg",
+      "assets/img/fc-1000-side-angle.jpg",
+      "assets/img/freedom-crate-1000-large-capacity.jpg",
+      "assets/img/freedom-crate-1000-closed-toggle.jpg",
+      "assets/img/fc-1000-front-closed.jpg",
+      "assets/img/freedom-crate-1000-stainless-hinge.jpg",
+      "assets/img/fc-1000-corner-brace.jpg",
+      "assets/img/fc-1000-front-closed.jpg"
+    ],
+    "tags": [
+      "ammo",
+      "storage",
+      "crate",
+      "premium"
+    ],
+    "description": "The Freedom Crate 1000 is our most hardware-packed, heavy-duty ammo crate to date. Built for maximum durability, long-term storage, and uncompromising security, it combines rugged materials with premium stainless steel hardware for a crate that’s as functional as it is collectible.<br><br><strong>Construction & Materials:</strong><ul><li>3/4-inch UTX exterior-grade plywood with 1/4-inch plywood bottom</li><li>1×2 solid pine legs for reinforced corner support</li><li>1×2 solid pine lid braces for heavy-duty top reinforcement</li><li>3/4-inch solid pine tongue & groove lid boards</li></ul><strong>Hardware & Features:</strong><ul><li>(2) Stainless steel 3-inch D-ring handles</li><li>(3) Stainless steel toggle latches with red grips</li><li>Massive 4-inch 304 stainless steel center padlock hasp (padlock not included) — screws are concealed beneath the hasp itself, preventing tampering or removal</li><li>Stainless steel tri-fold rear hinges with six mounting points (2 surface-mount, 2 edge-mount, 2 rear-panel mount) for maximum strength and security</li><li>(4) Stainless steel 1-inch interior corner braces</li><li>Low-profile build: just over 8 inches tall</li><li>Holds 20+ boxes of 9mm (≈1,000+ rounds) with space left for oxygen or moisture-absorbing packets</li></ul><strong>Designed for Security:</strong> Unlike standard crates where a padlock hasp can simply be unscrewed, the Freedom Crate 1000 was engineered to stop quick-access tampering. Combined with reinforced rear hinges and lockable hardware, this crate is built to safeguard your ammunition for the long haul — whether under a bed or stored in a closet.<br><br><em>The Freedom Crate 1000 — built for durability. Built for security. Built for freedom.</em>"
+  },
   "FC-RM-400": {
-  "status": "active",
-  "title": "Rangemaster 400",
-  "price": 49.99,
-  "qty": 0,
-  "image_url": "assets/img/rm400-top.jpg",
-  "images": [
-    "assets/img/rangemaster-400-top-angle-closed.jpg",
-    "assets/img/rangemaster-400-open-full.jpg",
-    "assets/img/rangemaster-400-black-toggle-close-up.jpg",
-    "assets/img/rangemaster-400-handle-close-up.jpg"
-  ],
-  "tags": [
-    "range",
-    "400"
-  ],
-  "description": "The Rangemaster 400 is a purpose-built, portable ammo crate engineered for shooters who carry multiple calibers to the range. Built from 1/2-inch high-density plywood and finished with rugged hardware, the RM-400 is compact, highly portable, and designed to be carried by its side webbing handles longways. The base model ships without interior or exterior poly-shield coatings — choose Armor Core (interior poly shield) or Battle Guard (exterior poly shield) from the main product card for added protection and longevity.<br><br><strong>Features:</strong><ul><li>Constructed from 1/2-inch high-density plywood for superior stiffness and durability</li><li>Spring-loaded folding top handle for quick grab-and-go carry</li><li>Single black toggle latch on the front for secure closure</li><li>Two oversized stainless-steel hinges at the rear for ultra durability</li><li>Proprietary 1-inch brown nylon webbing side handles designed to carry the box on its side (longways)</li><li>Divider-ready interior with two dividers to create three compartments</li><li>Interior dimensions: 9\" × 4\" × 4\" (usable) — Exterior: 11\" × 5\" × 5\"</li><li>Estimated capacity: ~400 rounds total (approx. 60 .308 / 100 .223-5.56 / 200 9mm — varies by packaging and loading)</li><li>Base model is uncoated; Armor Core (interior) or Battle Guard (exterior) selectable for extra protection</li><li>Approx. fully loaded weight: ~14 lbs (varies by loadout)</li></ul><em>Here at Freedom Crate Co., we thrive on producing one-of-a-kind items — and just like the Freedom Crate Co. brand, all of our crates are built to last. The Rangemaster 400 makes the perfect gift for that husband who loves days on the range, that veteran buddy you respect, or the gun enthusiast in your life. When you buy the Rangemaster 400, you’re buying functional art that’s guaranteed to turn heads at the range. It’s guaranteed to get a smile out of the husband, a high-five from that veteran friend, and without a doubt, a compliment every time you bring it out to shoot.</em>"
-},
-"FC-CLASSIC": {
-  "status": "active",
-  "title": "Freedom Crate Slide-Top",
-  "price": 69.99,
-  "qty": 1,
-  "image_url": "assets/img/blank.jpg",
-  "images": [
-    "assets/img/slide-top-lid.jpg",
-    "assets/img/slide-top-lid-open.jpg",
-    "assets/img/freedom-crate-classic-side-view.jpg",
-    "assets/img/freedom-crate-classic-slide-top.jpg"
-  ],
-  "tags": [
-    "slide-top",
-    "freedom",
-    "ammo-box"
-  ],
-"description": "The Freedom Crate Slide-Top is the crate that started it all — the very first box ever built at Freedom Crate Co. Inspired by the original box passed down from my friend’s father, this design became the foundation of our story (as shared on our About page). Simple, rugged, and dependable, it quickly grew into our number-one seller and remains a customer favorite to this day. <br><br>Essentially the Freedom Crate Branch Collection without the hardware, the Slide-Top is the purest form of our craftsmanship — clean, functional, and built to last. Featuring a smooth sliding lid with no hinges, latches, or stenciling, this design embodies minimalist durability. Each crate is built from 3/4\" UTX Exterior-grade plywood with reinforced lid rails and integrated side handles for reliable strength and everyday use.<br><br><strong>Features:</strong><ul><li><strong>Heritage:</strong> The original Freedom Crate design — the very first box we ever built, inspired by a gift that sparked the entire company</li><li><strong>Material:</strong> 3/4&quot; UTX Exterior-grade plywood</li><li><strong>Design:</strong> Smooth slide lid — no hinges, no latches, no stencils</li><li><strong>Features:</strong> Reinforced lid rails, integrated side handles</li><li><strong>Finish:</strong> Natural plywood with clean edges, ready for use</li><li><strong>Use:</strong> Everyday storage, organization, or display</li></ul><em>A timeless classic, the Slide-Top remains a great value for anyone who appreciates rugged simplicity, authentic craftsmanship, and the story of where Freedom Crate Co. began.</em>"
-}
+    "status": "active",
+    "title": "Rangemaster 400",
+    "price": 49.99,
+    "qty": 0,
+    "image_url": "assets/img/rm400-top.jpg",
+    "images": [
+      "assets/img/rangemaster-400-top-angle-closed.JPG",
+      "assets/img/rangemaster-400-open-full.JPG",
+      "assets/img/rangemaster-400-empty-armor-core.JPG",
+      "assets/img/rangemaster-400-base-open-empty.JPG",
+      "assets/img/rangemaster-400-armor-core-close-up.JPG",
+      "assets/img/rangemaster-400-handle-close-up.JPG",
+      "assets/img/rangemaster-400-hinge-close-up.JPG",
+      "assets/img/rangemaster-400-stacked-closed.JPG"
+    ],
+    "tags": [
+      "range",
+      "400"
+    ],
+    "description": "The Rangemaster 400 is a purpose-built, portable ammo crate engineered for shooters who carry multiple calibers to the range. Built from 1/2-inch high-density plywood and finished with rugged hardware, the RM-400 is compact, highly portable, and designed to be carried by its side webbing handles longways. The base model ships without interior or exterior poly-shield coatings — choose Armor Core (interior poly shield) or Battle Guard (exterior poly shield) from the main product card for added protection and longevity.<br><br><strong>Features:</strong><ul><li>Constructed from 1/2-inch high-density plywood for superior stiffness and durability</li><li>Spring-loaded folding top handle for quick grab-and-go carry</li><li>Single black toggle latch on the front for secure closure</li><li>Two oversized stainless-steel hinges at the rear for ultra durability</li><li>Proprietary 1-inch brown nylon webbing side handles designed to carry the box on its side (longways)</li><li>Divider-ready interior with two dividers to create three compartments</li><li>Interior dimensions: 9\" × 4\" × 4\" (usable) — Exterior: 11\" × 5\" × 5\"</li><li>Estimated capacity: ~400 rounds total (approx. 60 .308 / 100 .223-5.56 / 200 9mm — varies by packaging and loading)</li><li>Base model is uncoated; Armor Core (interior) or Battle Guard (exterior) selectable for extra protection</li><li>Approx. fully loaded weight: ~14 lbs (varies by loadout)</li></ul><em>Here at Freedom Crate Co., we thrive on producing one-of-a-kind items — and just like the Freedom Crate Co. brand, all of our crates are built to last. The Rangemaster 400 makes the perfect gift for that husband who loves days on the range, that veteran buddy you respect, or the gun enthusiast in your life. When you buy the Rangemaster 400, you’re buying functional art that’s guaranteed to turn heads at the range. It’s guaranteed to get a smile out of the husband, a high-five from that veteran friend, and without a doubt, a compliment every time you bring it out to shoot.</em>"
+  },
+  "FC-CLASSIC": {
+    "status": "active",
+    "title": "Freedom Crate Slide-Top",
+    "price": 69.99,
+    "qty": 1,
+    "image_url": "assets/img/blank.jpg",
+    "images": [
+      "assets/img/slide-top-lid.jpg",
+      "assets/img/slide-top-lid-open.jpg",
+      "assets/img/freedom-crate-classic-side-view.jpg",
+      "assets/img/freedom-crate-classic-slide-top.jpg"
+    ],
+    "tags": [
+      "slide-top",
+      "freedom",
+      "ammo-box"
+    ],
+    "description": "The Freedom Crate Slide-Top is the crate that started it all — the very first box ever built at Freedom Crate Co. Inspired by the original box passed down from my friend's father, this design became the foundation of our story (as shared on our About page). Simple, rugged, and dependable, it quickly grew into our number-one seller and remains a customer favorite to this day. <br><br>Essentially the Freedom Crate Branch Collection without the hardware, the Slide-Top is the purest form of our craftsmanship — clean, functional, and built to last. Featuring a smooth sliding lid with no hinges, latches, or stenciling, this design embodies minimalist durability. Each crate is built from 3/4\" UTX Exterior-grade plywood with reinforced lid rails and integrated side handles for reliable strength and everyday use.<br><br><strong>Features:</strong><ul><li><strong>Heritage:</strong> The original Freedom Crate design — the very first box we ever built, inspired by a gift that sparked the entire company</li><li><strong>Material:</strong> 3/4\" UTX Exterior-grade plywood</li><li><strong>Design:</strong> Smooth slide lid — no hinges, no latches, no stencils</li><li><strong>Features:</strong> Reinforced lid rails, integrated side handles</li><li><strong>Finish:</strong> Natural plywood with clean edges, ready for use</li><li><strong>Use:</strong> Everyday storage, organization, or display</li></ul><em>A timeless classic, the Slide-Top remains a great value for anyone who appreciates rugged simplicity, authentic craftsmanship, and the story of where Freedom Crate Co. began.</em>"
+  }
 }
