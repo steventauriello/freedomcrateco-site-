@@ -1107,3 +1107,9 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
     height: 72px;
   }
 }
+/* Override white letterbox bars on gallery hero image */
+.gallery > img,
+.gallery .product-hero {
+  background: #0d0f14 !important;
+  border: 1px solid var(--border) !important;
+}
