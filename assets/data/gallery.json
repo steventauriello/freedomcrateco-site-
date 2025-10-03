@@ -226,5 +226,11 @@
     "alt": "Freedom Crate Slide Top",
     "caption": "Slide-top ammo crate build",
     "tags": ["One-of-One", "Shop/Studio"]
+  },
+  {
+    "src": "assets/img/fc-footlocker.JPG",
+    "alt": "Freedom Footlocker 1of2",
+    "caption": "traditional footlocker",
+    "tags": ["One-of-One", "Shop/Studio"]
   }
 ]
