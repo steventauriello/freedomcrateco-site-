@@ -1,151 +1,28 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- Favicons (order matters: put the biggest PNG first) -->
-<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png?v=2">
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png?v=2">
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180x180.png?v=2">
-<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png?v=2">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
-<link rel="icon" href="/favicon.ico?v=2">
-
-  <!-- Store JSON-LD (kept) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Store",
-  "name": "Freedom Crate Co.",
-  "url": "https://freedomcrateco.com",
-  "logo": "https://freedomcrateco.com/assets/img/logo.png",
-  "description": "Handcrafted wooden ammo boxes, range crates, and military-inspired storage. Rugged, practical, and made to be used.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Florida",
-    "addressCountry": "US"
-  },
-  "sameAs": [
-    "https://www.facebook.com/FreedomCrateCo",
-    "https://www.instagram.com/FreedomCrateCo",
-    "https://www.etsy.com/shop/FreedomCrateCo",
-    "https://www.ebay.com/usr/FreedomCrateCo"
-  ]
-}
-</script>
-
-<!-- Homepage ItemList + Product JSON-LD (new) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "ItemList",
-      "@id": "https://freedomcrateco.com/#featured",
-      "name": "Featured Wooden Ammo Boxes",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "url": "https://freedomcrateco.com/branch-collection.html" },
-        { "@type": "ListItem", "position": 2, "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400" }
-      ]
-    },
-    {
-      "@type": "Product",
-      "@id": "https://freedomcrateco.com/branch-collection.html#product",
-      "name": "Freedom Crate Classic — Branch Collection (Wooden Ammo Box)",
-      "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
-      "category": "Wooden Ammo Box",
-      "sku": "FC-CLASSIC",
-      "url": "https://freedomcrateco.com/branch-collection.html",
-      "image": [
-        "https://freedomcrateco.com/assets/img/branch-collection-army.jpg",
-        "https://freedomcrateco.com/assets/img/branch-collection-marines.jpg",
-        "https://freedomcrateco.com/assets/img/branch-collection-navy.jpg",
-        "https://freedomcrateco.com/assets/img/branch-collection-airforce.jpg",
-        "https://freedomcrateco.com/assets/img/branch-collection-coastguard.jpg"
-      ],
-      "description": "Handcrafted wooden military-style ammo box with optional branch stencil. Lockable hardware, rugged build, made in the USA.",
-      "material": "Exterior-grade plywood, stainless/black hardware",
-      "offers": {
-        "@type": "AggregateOffer",
-        "lowPrice": "64.99",
-        "highPrice": "69.99",
-        "priceCurrency": "USD",
-        "offerCount": "2",
-        "availability": "https://schema.org/InStock",
-        "url": "https://freedomcrateco.com/branch-collection.html"
-      }
-    },
-    {
-      "@type": "Product",
-      "@id": "https://freedomcrateco.com/product.html?sku=FC-RM-400#product",
-      "name": "Rangemaster 400 (Wooden Range Ammo Box)",
-      "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
-      "category": "Wooden Ammo Box",
-      "sku": "FC-RM-400",
-      "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400",
-      "image": [
-        "https://freedomcrateco.com/assets/img/rangemaster-400-main-photo.png",
-        "https://freedomcrateco.com/assets/img/rm400-open.jpg",
-        "https://freedomcrateco.com/assets/img/rm400-battle-guard.jpg",
-        "https://freedomcrateco.com/assets/img/rangemaster-400-armor-core.png"
-      ],
-      "description": "Compact, stackable wooden range ammo box with lockable hardware and optional Armor Core (interior) or Battle Guard (exterior) PolyShield.",
-      "material": "Exterior-grade plywood, stainless/black hardware",
-      "offers": [
-        {
-          "@type": "Offer",
-          "sku": "RM400-BASE",
-          "name": "Rangemaster 400 — Base",
-          "price": "49.99",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock",
-          "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400"
-        },
-        {
-          "@type": "Offer",
-          "sku": "RM400-ARMOR",
-          "name": "Rangemaster 400 — Armor Core",
-          "price": "59.99",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock",
-          "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400"
-        },
-        {
-          "@type": "Offer",
-          "sku": "RM400-BG",
-          "name": "Rangemaster 400 — Battle Guard",
-          "price": "69.99",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock",
-          "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400"
-        }
-      ]
-    }
-  ]
-}
-</script>
-
-<!-- Google tag (gtag.js) (kept) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-DNNL0065X9'); /* GA4 Measurement ID */
-</script>
+  <!-- Core meta FIRST -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
- <title>Wooden Ammo Boxes | Freedom Crate Co. – Handcrafted Military-Style Crates</title>
+  <!-- Title + primary SEO -->
+  <title>Wooden Ammo Boxes | Freedom Crate Co. – Handcrafted Military-Style Crates</title>
+  <meta name="description" content="Handcrafted wooden ammo boxes and military-style range crates built in Florida. Lockable hardware, custom branch stencils, free U.S. shipping. Freedom Crate Co – veteran-inspired, rugged, made to be used." />
+  <meta name="keywords" content="wooden ammo box, wooden ammo crate, wooden military ammo box, military ammo box, range ammo box, handcrafted ammo box, Freedom Crate Co" />
+  <meta name="author" content="Freedom Crate Co." />
+  <link rel="canonical" href="https://freedomcrateco.com/" />
 
-<!-- Primary SEO meta (updated & expanded) -->
-<meta name="description" content="Handcrafted wooden ammo boxes and military-style range crates built in Florida. Lockable hardware, custom branch stencils, free U.S. shipping. Freedom Crate Co – veteran-inspired, rugged, made to be used." />
-<meta name="keywords" content="wooden ammo box, wooden ammo crate, wooden military ammo box, military ammo box, range ammo box, handcrafted ammo box, Freedom Crate Co" />
-<meta name="author" content="Freedom Crate Co." />
-<link rel="canonical" href="https://freedomcrateco.com/" />
+  <!-- Favicons (largest PNG first) -->
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png?v=2">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180x180.png?v=2">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+  <link rel="icon" href="/favicon.ico?v=2">
 
-
-  <!-- Open Graph -->
-<meta property="og:title" content="Wooden Ammo Boxes | Freedom Crate Co. – Handcrafted Military-Style Crates" />
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Wooden Ammo Boxes | Freedom Crate Co. – Handcrafted Military-Style Crates" />
   <meta property="og:description" content="Hand-built ammo and range boxes with lockable hardware and custom stencils. Free shipping." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freedomcrateco.com/" />
@@ -155,21 +32,105 @@
   <meta property="og:site_name" content="Freedom Crate Co." />
   <meta property="og:locale" content="en_US" />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Wooden Ammo Boxes | Freedom Crate Co. – Handcrafted Military-Style Crates" />
   <meta name="twitter:description" content="Hand-built ammo and range boxes with lockable hardware and custom stencils. Free shipping." />
   <meta name="twitter:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
   <meta name="twitter:image:alt" content="Freedom Crate Co. founders-themed banner with the slogan ‘Made for the people. By the people.’" />
-  
-  <!-- Google Font: Black Ops One (stencil look) -->
+
+  <!-- Fonts + CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="assets/css/styles.css" />
 
-  <!-- Organization JSON-LD (kept) -->
+  <!-- Structured Data: Store -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Freedom Crate Co.",
+    "url": "https://freedomcrateco.com",
+    "logo": "https://freedomcrateco.com/assets/img/logo.png",
+    "description": "Handcrafted wooden ammo boxes, range crates, and military-inspired storage. Rugged, practical, and made to be used.",
+    "address": { "@type": "PostalAddress", "addressLocality": "Florida", "addressCountry": "US" },
+    "sameAs": [
+      "https://www.facebook.com/FreedomCrateCo",
+      "https://www.instagram.com/FreedomCrateCo",
+      "https://www.etsy.com/shop/FreedomCrateCo",
+      "https://www.ebay.com/usr/FreedomCrateCo"
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: Homepage ItemList + Products -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ItemList",
+        "@id": "https://freedomcrateco.com/#featured",
+        "name": "Featured Wooden Ammo Boxes",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "url": "https://freedomcrateco.com/branch-collection.html" },
+          { "@type": "ListItem", "position": 2, "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400" }
+        ]
+      },
+      {
+        "@type": "Product",
+        "@id": "https://freedomcrateco.com/branch-collection.html#product",
+        "name": "Freedom Crate Classic — Branch Collection (Wooden Ammo Box)",
+        "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
+        "category": "Wooden Ammo Box",
+        "sku": "FC-CLASSIC",
+        "url": "https://freedomcrateco.com/branch-collection.html",
+        "image": [
+          "https://freedomcrateco.com/assets/img/branch-collection-army.jpg",
+          "https://freedomcrateco.com/assets/img/branch-collection-marines.jpg",
+          "https://freedomcrateco.com/assets/img/branch-collection-navy.jpg",
+          "https://freedomcrateco.com/assets/img/branch-collection-airforce.jpg",
+          "https://freedomcrateco.com/assets/img/branch-collection-coastguard.jpg"
+        ],
+        "description": "Handcrafted wooden military-style ammo box with optional branch stencil. Lockable hardware, rugged build, made in the USA.",
+        "material": "Exterior-grade plywood, stainless/black hardware",
+        "offers": {
+          "@type": "AggregateOffer",
+          "lowPrice": "64.99",
+          "highPrice": "69.99",
+          "priceCurrency": "USD",
+          "offerCount": "2",
+          "availability": "https://schema.org/InStock",
+          "url": "https://freedomcrateco.com/branch-collection.html"
+        }
+      },
+      {
+        "@type": "Product",
+        "@id": "https://freedomcrateco.com/product.html?sku=FC-RM-400#product",
+        "name": "Rangemaster 400 (Wooden Range Ammo Box)",
+        "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
+        "category": "Wooden Ammo Box",
+        "sku": "FC-RM-400",
+        "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400",
+        "image": [
+          "https://freedomcrateco.com/assets/img/rangemaster-400-main-photo.png",
+          "https://freedomcrateco.com/assets/img/rm400-open.jpg",
+          "https://freedomcrateco.com/assets/img/rm400-battle-guard.jpg",
+          "https://freedomcrateco.com/assets/img/rangemaster-400-armor-core.png"
+        ],
+        "description": "Compact, stackable wooden range ammo box with lockable hardware and optional Armor Core (interior) or Battle Guard (exterior) PolyShield.",
+        "material": "Exterior-grade plywood, stainless/black hardware",
+        "offers": [
+          { "@type": "Offer", "sku": "RM400-BASE",  "name": "Rangemaster 400 — Base",         "price": "49.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400" },
+          { "@type": "Offer", "sku": "RM400-ARMOR", "name": "Rangemaster 400 — Armor Core",   "price": "59.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400" },
+          { "@type": "Offer", "sku": "RM400-BG",    "name": "Rangemaster 400 — Battle Guard", "price": "69.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Organization JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -180,12 +141,22 @@
     "sameAs": []
   }
   </script>
+
+  <!-- Google tag (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-DNNL0065X9'); /* GA4 Measurement ID */
+  </script>
 </head>
+
 <body>
   <!-- Giveaway Banner -->
-<div class="giveaway-banner">
-  <a href="giveaway.html">🇺🇸 Monthly Veteran Box Giveaway 🇺🇸</a>
-</div>
+  <div class="giveaway-banner">
+    <a href="giveaway.html">🇺🇸 Monthly Veteran Box Giveaway 🇺🇸</a>
+  </div>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- Header -->
@@ -201,42 +172,38 @@
       <a href="contact.html">Custom Orders</a>
       <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
     </nav>
-   <div class="shipping-banner" role="note" aria-label="Shipping notice">
-  <span class="flag" aria-hidden="true">🇺🇸</span>
-  <span class="label-desktop">Free Shipping on All Orders Within the U.S.</span>
-  <span class="label-mobile">Free US Shipping</span>
-</div>
+    <div class="shipping-banner" role="note" aria-label="Shipping notice">
+      <span class="flag" aria-hidden="true">🇺🇸</span>
+      <span class="label-desktop">Free Shipping on All Orders Within the U.S.</span>
+      <span class="label-mobile">Free US Shipping</span>
+    </div>
   </header>
 
+  <!-- Hero -->
   <section class="hero-banner" aria-label="Homepage banner">
-  <img src="assets/img/founders-banner.png"
-       alt="Freedom Crate Co wooden ammo boxes and military-style crates — We Hold These Truths"
-       width="1600" height="700"
-       fetchpriority="high"
-       loading="eager"
-       decoding="async">
-</section>
+    <img
+      src="assets/img/founders-banner.png"
+      alt="Freedom Crate Co wooden ammo boxes and military-style crates — We Hold These Truths"
+      width="1600" height="700"
+      fetchpriority="high" loading="eager" decoding="async">
+  </section>
+
   <main class="container" id="main">
-  <!-- Title strip under banner -->
-  <div class="site-title-strip" role="region" aria-label="Site title">
-   <h1>Freedom Crate Co. — Wooden Ammo Boxes & Military-Style Crates</h1>
-    <p>Handcrafted Ammo &amp; Range Boxes</p>
-    <p class="slogan">Made For The People By The People</p>
-
-    <!-- New diagonal Free Shipping badge -->
-    <div class="hero-ship" aria-label="Free US Shipping">
-      <span class="flag" aria-hidden="true">🇺🇸</span>
-      <span class="label">Free US Shipping</span>
+    <!-- Title strip -->
+    <div class="site-title-strip" role="region" aria-label="Site title">
+      <h1>Freedom Crate Co. — Wooden Ammo Boxes &amp; Military-Style Crates</h1>
+      <p>Handcrafted Ammo &amp; Range Boxes</p>
+      <p class="slogan">Made For The People By The People</p>
+      <div class="hero-ship" aria-label="Free US Shipping">
+        <span class="flag" aria-hidden="true">🇺🇸</span>
+        <span class="label">Free US Shipping</span>
+      </div>
     </div>
-  </div>
 
-    <!-- ========================= -->
     <!-- Featured: Freedom Crate Classic -->
-    <!-- ========================= -->
     <section class="featured-wrap" aria-label="Freedom Crate Classic">
       <div class="featured-card" id="classic-box">
         <div class="fc-media">
-          <!-- ✅ NEW: wrap image with link to Branch Collection details page -->
           <a href="branch-collection.html" aria-label="View photos & details for the Branch Collection">
             <img id="sb-image"
                  src="assets/img/blank.jpg"
@@ -247,8 +214,8 @@
         </div>
 
         <div class="fc-controls">
-         <h2><a class="feature-link" href="branch-collection.html">Freedom Crate Classic</a></h2>
-<div class="branch-label"><a class="feature-link" href="branch-collection.html">Branch Collection</a></div>
+          <h2><a class="feature-link" href="branch-collection.html">Freedom Crate Classic</a></h2>
+          <div class="branch-label"><a class="feature-link" href="branch-collection.html">Branch Collection</a></div>
           <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
 
           <label for="sb-branch">Branch stencil</label>
@@ -281,22 +248,17 @@
             <button id="sb-add" class="fc-btn btn" type="button">Add to Cart</button>
             <button id="sb-buy" class="fc-btn btn" type="button">Buy Now</button>
           </div>
-          <p class="more-details">
-  <a href="branch-collection.html">More details →</a>
-</p>
 
+          <p class="more-details"><a href="branch-collection.html">More details →</a></p>
           <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
         </div>
       </div>
     </section>
 
-    <!-- ========================= -->
     <!-- Featured: Rangemaster 400 -->
-    <!-- ========================= -->
     <section class="featured-wrap" aria-label="Rangemaster 400 Options">
       <div class="featured-card" id="rm400-card">
         <div class="fc-media">
-          <!-- ✅ NEW: wrap image with link to existing RM400 product detail page -->
           <a href="product.html?sku=FC-RM-400" aria-label="View photos & details for Rangemaster 400">
             <img id="rm400-image"
                  src="assets/img/rangemaster-400-main-photo.png"
@@ -312,24 +274,9 @@
 
           <label for="rm400-package">Package</label>
           <select id="rm400-package" aria-describedby="rm400-help">
-            <option value="base"
-                    data-sku="RM400-BASE"
-                    data-price="49.99"
-                    data-img="assets/img/rangemaster-400-main-photo.png">
-              Rangemaster 400 (Base)
-            </option>
-            <option value="armor"
-                    data-sku="RM400-ARMOR"
-                    data-price="59.99"
-                    data-img="assets/img/rangemaster-400-armor-core.png">
-              Rangemaster 400 — Armor Core (Interior PolyShield)
-            </option>
-            <option value="battleguard"
-                    data-sku="RM400-BG"
-                    data-price="69.99"
-                    data-img="assets/img/rm400-battle-guard.jpg">
-              Rangemaster 400 — Battle Guard (Exterior PolyShield)
-            </option>
+            <option value="base" data-sku="RM400-BASE"  data-price="49.99" data-img="assets/img/rangemaster-400-main-photo.png">Rangemaster 400 (Base)</option>
+            <option value="armor" data-sku="RM400-ARMOR" data-price="59.99" data-img="assets/img/rangemaster-400-armor-core.png">Rangemaster 400 — Armor Core (Interior PolyShield)</option>
+            <option value="battleguard" data-sku="RM400-BG" data-price="69.99" data-img="assets/img/rm400-battle-guard.jpg">Rangemaster 400 — Battle Guard (Exterior PolyShield)</option>
           </select>
           <p id="rm400-help" class="sr-only" aria-hidden="true"></p>
 
@@ -343,22 +290,19 @@
             </div>
           </div>
 
-<div class="fc-row">
-  <div><strong>Total: <span id="rm400-price" aria-live="polite">$49.99</span></strong></div>
-  <small class="fc-note">Base $49.99</small>
-</div>
+          <div class="fc-row">
+            <div><strong>Total: <span id="rm400-price" aria-live="polite">$49.99</span></strong></div>
+            <small class="fc-note">Base $49.99</small>
+          </div>
 
-<div class="fc-row">
-  <button id="rm400-add" class="fc-btn btn" type="button">Add to Cart</button>
-  <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
-</div>
+          <div class="fc-row">
+            <button id="rm400-add" class="fc-btn btn" type="button">Add to Cart</button>
+            <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
+          </div>
 
-<p class="more-details">
-  <a href="product.html?sku=FC-RM-400">More details →</a>
-</p>
-
-<p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
-<p class="fc-note">Armor Core = interior PolyShield (oil/chemical resistant). Battle Guard = exterior PolyShield (scratch/dent resistant). Free shipping.</p>
+          <p class="more-details"><a href="product.html?sku=FC-RM-400">More details →</a></p>
+          <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
+          <p class="fc-note">Armor Core = interior PolyShield (oil/chemical resistant). Battle Guard = exterior PolyShield (scratch/dent resistant). Free shipping.</p>
         </div>
       </div>
     </section>
@@ -382,171 +326,160 @@
   <script src="assets/js/cart.js" defer></script>
   <script src="assets/js/catalog.js" defer></script>
 
- <!-- Page-scoped featured card logic (FIXED) -->
-<script>
-/* --- Freedom Crate Classic: price + image swap + Add/Buy --- */
-(function(){
-  // Use your actual filenames (case & spaces matter)
-  const IMG = {
-    blank:      "assets/img/branch-collection-blank.jpg",
-    army:       "assets/img/branch-collection-army.jpg",
-    marines:    "assets/img/branch-collection-marines.jpg",     // change to "Marine.jpg" if that's your file
-    navy:       "assets/img/branch-collection-navy.jpg",
-    airforce:   "assets/img/branch-collection-airforce.jpg",
-    coastguard: "assets/img/branch-collection-coastguard.jpg"
-  };
-  
-  // Prices for Freedom Crate Classic
-const BRANCH_PRICE = 69.99;  // with stencil
-const BLANK_PRICE  = 64.99;  // no stencil
-
-  // If you ever add latch upcharges, set them here
-  const LATCH_PRICE  = { Stainless: 0, Black: 0 };
-
-  const imgEl   = document.getElementById('sb-image');
-  const branch  = document.getElementById('sb-branch');
-  const priceEl = document.getElementById('sb-price');
-  const addBtn  = document.getElementById('sb-add');
-  const buyBtn  = document.getElementById('sb-buy');
-  const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
-
-  const fmt  = n => '$' + Number(n).toFixed(2);
-  const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-
-  // Preload images for snappy swaps
-  Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; });
-
-  function updateImage(){
-    const val = branch.value;
-    const src = IMG[val] || IMG.blank;
-    const label = branch.options[branch.selectedIndex]?.text || 'Blank';
-
-    imgEl.classList.add('is-loading');
-    const tmp = new Image();
-    tmp.onload = () => {
-      imgEl.src = src;
-      imgEl.alt = (val === 'blank')
-        ? 'Freedom Crate Classic (no stencil)'
-        : `Freedom Crate Classic — ${label}`;
-      requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
+  <!-- Page-scoped featured card logic -->
+  <script>
+  /* --- Freedom Crate Classic: price + image swap + Add/Buy --- */
+  (function(){
+    const IMG = {
+      blank:      "assets/img/branch-collection-blank.jpg",
+      army:       "assets/img/branch-collection-army.jpg",
+      marines:    "assets/img/branch-collection-marines.jpg",
+      navy:       "assets/img/branch-collection-navy.jpg",
+      airforce:   "assets/img/branch-collection-airforce.jpg",
+      coastguard: "assets/img/branch-collection-coastguard.jpg"
     };
-    tmp.src = src;
-  }
 
-  function getLatch(){ return latchInputs.find(x => x.checked)?.value || 'Stainless'; }
+    const BRANCH_PRICE = 69.99;
+    const BLANK_PRICE  = 64.99;
+    const LATCH_PRICE  = { Stainless: 0, Black: 0 };
 
-  function calcTotal(){
-    const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
-    const total = base + (LATCH_PRICE[getLatch()] || 0);
-    priceEl.textContent = fmt(total);
-  }
+    const imgEl   = document.getElementById('sb-image');
+    const branch  = document.getElementById('sb-branch');
+    const priceEl = document.getElementById('sb-price');
+    const addBtn  = document.getElementById('sb-add');
+    const buyBtn  = document.getElementById('sb-buy');
+    const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
 
-  function buildSkuName(){
-    const bVal = branch.value;                          // blank|army|marines|navy|airforce|coastguard
-    const lTxt = getLatch();                            // Stainless|Black
-    const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`; // e.g., classic-army-stainless
-    const name = `Freedom Crate Classic — ${branch.options[branch.selectedIndex].text} • ${lTxt}`;
-    const price = Number(priceEl.textContent.replace(/[^0-9.]/g,'')) || 0;
-    return { sku, name, price };
-  }
+    const fmt  = n => '$' + Number(n).toFixed(2);
+    const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 
-  const addToCartSafe = (sku, name, price, qty, meta) =>
-    (typeof window.addToCart === 'function')
-      ? window.addToCart(sku, name, price, qty, meta)
-      : console.warn('Cart not ready');
+    Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; });
 
-  const buyNowSafe = (sku, name, price, qty, meta) =>
-    (typeof window.buyNow === 'function')
-      ? window.buyNow(sku, name, price, qty, meta)
-      : console.warn('Cart not ready');
+    function updateImage(){
+      const val = branch.value;
+      const src = IMG[val] || IMG.blank;
+      const label = branch.options[branch.selectedIndex]?.text || 'Blank';
 
-  // Events
-  branch.addEventListener('change', () => { updateImage(); calcTotal(); });
-  latchInputs.forEach(r => r.addEventListener('change', calcTotal));
-
-  addBtn.addEventListener('click', () => {
-    const { sku, name, price } = buildSkuName();
-    addToCartSafe(sku, name, price, 1, { image: imgEl.src });
-  });
-
-  buyBtn.addEventListener('click', () => {
-    const { sku, name, price } = buildSkuName();
-    buyNowSafe(sku, name, price, 1, { image: imgEl.src });
-  });
-
-  // Initial render (respects your default "selected" option)
-  updateImage();
-  calcTotal();
-})();
-
-/* --- Rangemaster 400: image/price swap + Add/Buy --- */
-(function(){
-  const pkgSel   = document.getElementById('rm400-package');
-  const priceEl  = document.getElementById('rm400-price');
-  const imgEl    = document.getElementById('rm400-image');
-  const addBtn   = document.getElementById('rm400-add');
-  const buyBtn   = document.getElementById('rm400-buy');
-  const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
-
-  if (!pkgSel || !priceEl || !imgEl) return;
-
-  const fmt = n => '$' + Number(n).toFixed(2);
-  const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
-  const getHW  = () => hwInputs.find(x=>x.checked)?.value || 'Stainless';
-
-  function updateView(){
-    const pkg = getPkg();
-    priceEl.textContent = fmt(Number(pkg.dataset.price));
-    if (pkg.dataset.img){
-      const next = pkg.dataset.img;
+      imgEl.classList.add('is-loading');
       const tmp = new Image();
-      tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
-      tmp.src = next;
+      tmp.onload = () => {
+        imgEl.src = src;
+        imgEl.alt = (val === 'blank') ? 'Freedom Crate Classic (no stencil)' : `Freedom Crate Classic — ${label}`;
+        requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
+      };
+      tmp.src = src;
     }
-  }
 
-  function buildSkuName(){
-    const pkg = getPkg();
-    const hw  = getHW();
-    const code = (hw === 'Stainless' ? 'STN' : 'BLK');
-    const sku  = `${pkg.dataset.sku}-${code}`; // e.g., RM400-ARMOR-STN
-    const name = `${pkg.text} • ${hw}`;
-    const price = Number(pkg.dataset.price) || 0;
-    return { sku, name, price };
-  }
+    function getLatch(){ return latchInputs.find(x => x.checked)?.value || 'Stainless'; }
 
-  const addToCartSafe = (sku, name, price, qty, meta) =>
-    (typeof window.addToCart === 'function')
-      ? window.addToCart(sku, name, price, qty, meta)
-      : console.warn('Cart not ready');
+    function calcTotal(){
+      const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
+      const total = base + (LATCH_PRICE[getLatch()] || 0);
+      priceEl.textContent = fmt(total);
+    }
 
-  const buyNowSafe = (sku, name, price, qty, meta) =>
-    (typeof window.buyNow === 'function')
-      ? window.buyNow(sku, name, price, qty, meta)
-      : console.warn('Cart not ready');
+    function buildSkuName(){
+      const bVal = branch.value;
+      const lTxt = getLatch();
+      const sku  = `classic-${slug(bVal)}-${slug(lTxt)}`;
+      const name = `Freedom Crate Classic — ${branch.options[branch.selectedIndex].text} • ${lTxt}`;
+      const price = Number(priceEl.textContent.replace(/[^0-9.]/g,'')) || 0;
+      return { sku, name, price };
+    }
 
-  // Preload images
-  ["assets/img/rm400-top.jpg","assets/img/rm400-open.jpg","assets/img/rm400-armor-core.jpg","assets/img/rm400-battle-guard.jpg"]
-    .forEach(src => { const im = new Image(); im.src = src; });
+    const addToCartSafe = (sku, name, price, qty, meta) =>
+      (typeof window.addToCart === 'function')
+        ? window.addToCart(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
 
-  // Events
-  pkgSel.addEventListener('change', updateView);
-  hwInputs.forEach(r => r.addEventListener('change', updateView));
+    const buyNowSafe = (sku, name, price, qty, meta) =>
+      (typeof window.buyNow === 'function')
+        ? window.buyNow(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
 
-  addBtn.addEventListener('click', () => {
-    const { sku, name, price } = buildSkuName();
-    addToCartSafe(sku, name, price, 1, { image: imgEl.src });
-  });
+    branch.addEventListener('change', () => { updateImage(); calcTotal(); });
+    latchInputs.forEach(r => r.addEventListener('change', calcTotal));
 
-  buyBtn.addEventListener('click', () => {
-    const { sku, name, price } = buildSkuName();
-    buyNowSafe(sku, name, price, 1, { image: imgEl.src });
-  });
+    addBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuName();
+      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+    });
 
-  // Init
-  updateView();
-})();
-</script>
+    buyBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuName();
+      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+    });
+
+    updateImage();
+    calcTotal();
+  })();
+
+  /* --- Rangemaster 400: image/price swap + Add/Buy --- */
+  (function(){
+    const pkgSel   = document.getElementById('rm400-package');
+    const priceEl  = document.getElementById('rm400-price');
+    const imgEl    = document.getElementById('rm400-image');
+    const addBtn   = document.getElementById('rm400-add');
+    const buyBtn   = document.getElementById('rm400-buy');
+    const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
+
+    if (!pkgSel || !priceEl || !imgEl) return;
+
+    const fmt = n => '$' + Number(n).toFixed(2);
+    const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
+    const getHW  = () => hwInputs.find(x=>x.checked)?.value || 'Stainless';
+
+    function updateView(){
+      const pkg = getPkg();
+      priceEl.textContent = fmt(Number(pkg.dataset.price));
+      if (pkg.dataset.img){
+        const next = pkg.dataset.img;
+        const tmp = new Image();
+        tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
+        tmp.src = next;
+      }
+    }
+
+    function buildSkuName(){
+      const pkg = getPkg();
+      const hw  = getHW();
+      const code = (hw === 'Stainless' ? 'STN' : 'BLK');
+      const sku  = `${pkg.dataset.sku}-${code}`;
+      const name = `${pkg.text} • ${hw}`;
+      const price = Number(pkg.dataset.price) || 0;
+      return { sku, name, price };
+    }
+
+    const addToCartSafe = (sku, name, price, qty, meta) =>
+      (typeof window.addToCart === 'function')
+        ? window.addToCart(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
+
+    const buyNowSafe = (sku, name, price, qty, meta) =>
+      (typeof window.buyNow === 'function')
+        ? window.buyNow(sku, name, price, qty, meta)
+        : console.warn('Cart not ready');
+
+    ["assets/img/rm400-top.jpg","assets/img/rm400-open.jpg","assets/img/rm400-armor-core.jpg","assets/img/rm400-battle-guard.jpg"]
+      .forEach(src => { const im = new Image(); im.src = src; });
+
+    pkgSel.addEventListener('change', updateView);
+    hwInputs.forEach(r => r.addEventListener('change', updateView));
+
+    addBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuName();
+      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+    });
+
+    buyBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuName();
+      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+    });
+
+    updateView();
+  })();
+  </script>
+
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
