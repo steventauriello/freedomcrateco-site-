@@ -2,286 +2,133 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-DNNL0065X9'); /* GA4 Measurement ID */
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-DNNL0065X9');
+  </script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- SEO: tuned description + keywords (kept structure) -->
-  <meta name="description" content="About Freedom Crate Co. — handmade, military-style wooden ammo boxes and storage crates. Born from a Cold War ammo can. Rugged, affordable, and purpose-built for real ammo capacity (e.g., 20 boxes of 9mm) with a proprietary, outside-mounted handle system and sealed interiors." />
-  <meta name="keywords" content="wooden ammo box, ammo storage crate, military style wood crate, 9mm ammo box, .308 storage crate, bug out gear locker, hurricane prep locker, handcrafted crate" />
+  <meta name="description" content="About Freedom Crate Co. — handmade, military-style wooden ammo boxes and storage crates. Born from a Cold War ammo can. Rugged, affordable, and purpose-built for real ammo capacity with a proprietary, outside-mounted handle system and sealed interiors." />
+  <meta name="keywords" content="wooden ammo box, ammo storage crate, military style wood crate, handcrafted crate, Freedom Crate Co, Steven Tauriello" />
 
   <link rel="canonical" href="https://freedomcrateco.com/about.html" />
   <meta name="robots" content="index, follow" />
-
-<meta property="og:title" content="About Freedom Crate Co." />
-<meta property="og:description" content="Handmade wooden ammo boxes & military-style storage crates. Born from a Cold War ammo can. Built tough, priced fair, and sized for real capacity." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://freedomcrateco.com/about.html" />
-<meta property="og:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:site_name" content="Freedom Crate Co." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="About Freedom Crate Co." />
-<meta name="twitter:description" content="Rugged, affordable wooden ammo boxes & military-style crates—built for real use and real capacity." />
-<meta name="twitter:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
-<meta name="twitter:image:alt" content="Freedom Crate Co. founders-themed banner with the slogan ‘Made for the people. By the people.’" />
-
+  <meta property="og:title" content="About Freedom Crate Co." />
+  <meta property="og:description" content="Handmade wooden ammo boxes & military-style storage crates. Built tough, priced fair, and sized for real capacity." />
+  <meta property="og:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
+  <meta property="og:site_name" content="Freedom Crate Co." />
   <title>About • Freedom Crate Co.</title>
   <link rel="icon" href="/assets/img/favicon.ico">
   <link rel="stylesheet" href="assets/css/styles.css" />
+
   <style>
-    /* Page-scoped helpers for About */
-    .hero-about { padding: 3rem 1rem; text-align: center; }
-    .hero-about h1 { font-size: clamp(2rem, 2.8vw, 3rem); margin-bottom: .5rem; }
-    .hero-about p.lede { max-width: 60ch; margin: .5rem auto 0; opacity:.9 }
-    .about-grid { display:grid; gap: 1.25rem; grid-template-columns: 1fr; }
-    .about-card { border:1px solid rgba(255,255,255,.08); border-radius: .75rem; padding: 1rem; background: rgba(255,255,255,.03);} 
-    .about-card h2 { margin: 0 0 .5rem 0; font-size: 1.25rem; }
-    .goals ul { margin: .25rem 0 0 1.1rem; }
-    .gallery-grid { display:grid; gap: .75rem; grid-template-columns: repeat(2, 1fr); }
-    @media (min-width: 900px) { .about-grid { grid-template-columns: 2fr 1fr; } .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
-    .gallery-grid figure { margin:0; border-radius:.5rem; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#111; }
-    .gallery-grid img { width:100%; height:160px; object-fit:cover; display:block; }
-    .gallery-grid figcaption { font-size:.85rem; padding:.5rem; opacity:.9 }
-    /* Lightweight lightbox */
-    .lightbox-backdrop { position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.8); z-index:9999; }
-    .lightbox-backdrop[open] { display:grid; }
-    .lightbox-img { max-width: min(1200px, 92vw); max-height: 86vh; border-radius:.5rem; }
-    .close-btn { position:absolute; top:1rem; right:1rem; background:#000; color:#fff; border:1px solid rgba(255,255,255,.25); padding:.35rem .6rem; border-radius:.35rem; }
-    .badge-row { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.5rem; }
-    .badge-row .badge { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.2); }
-    /* Contact block tweaks */
+    .hero-about { padding: 3rem 1rem; text-align:center; }
+    .hero-about h1 { font-size:clamp(2rem,2.8vw,3rem); margin-bottom:.5rem; }
+    .hero-about p.lede { max-width:60ch; margin:.5rem auto 0; opacity:.9; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin-top:.5rem; }
+    .about-card { border:1px solid rgba(255,255,255,.08); border-radius:.75rem; padding:1rem; background:rgba(255,255,255,.03); margin-bottom:1rem; }
+    .about-card h2 { margin-top:0; }
+    .section-sep { border:0; border-top:1px solid rgba(255,255,255,.1); margin:1.5rem 0; }
+    #about-steven-identity p { margin:.35rem 0; }
+    #about-faq ul { margin:.25rem 0 0 1.1rem; }
     .contact-info ul { list-style:none; padding:0; line-height:1.8; }
     .socials a { margin-right:.5rem; }
-  #about-steven-identity p:first-of-type { margin-top:.25rem; }
-#about-steven-identity em { opacity:.95; }
   </style>
 </head>
+
 <body>
-  <header class="site-header">
-    <a class="brand" href="/"><img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60"></a>
-    <nav class="nav" aria-label="Primary">
-      <a href="/">Shop</a>
-      <a href="about.html" aria-current="page">About</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="contact.html">Custom Orders</a>
-      <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
-    </nav>
-  </header>
+<header class="site-header">
+  <a class="brand" href="/"><img src="assets/img/logo.png" alt="Freedom Crate Co." height="60"></a>
+  <nav class="nav">
+    <a href="/">Shop</a>
+    <a href="about.html" aria-current="page">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Custom Orders</a>
+    <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
+  </nav>
+</header>
 
-  <main class="container">
-    <section class="hero-about">
-      <h1>Freedom Crate Co.</h1>
-      <p class="lede">Handcrafted ammo & range boxes built by a family in Florida—rooted in American history, veteran-inspired craftsmanship, and a mission to make rugged gear that lasts.</p>
-      <div class="badge-row">
-        <span class="badge">Florida-built</span>
-        <span class="badge">Veteran-inspired</span>
-        <span class="badge">Small-batch</span>
-        <span class="badge">Free Shipping</span>
-      </div>
-    </section>
-    <!-- Steven cross-brand identity box -->
-<section class="about-card" id="about-steven-identity">
-  <h2>About Steven</h2>
-  <p><strong>In case you were wondering — yes, I am that Steven Tauriello.</strong></p>
-  <p>
-    I’m the same Steven behind <em>The Steven Tauriello Show</em>, where I bring my fellow Americans
-    straight talk on culture, news, and politics. Woodworking has always been a passion of mine —
-    alongside video production and podcasting — and those worlds come together here at
-    <strong>Freedom Crate Co.</strong>
-  </p>
-  <p>
-    This brand is where craftsmanship meets patriotism. Every crate is built with pride, purpose,
-    and a deep respect for the values that make this country worth fighting for.
-  </p>
-</section>
+<main class="container">
+  <section class="hero-about">
+    <h1>Freedom Crate Co.</h1>
+    <p class="lede">Handcrafted ammo & range boxes built by a family in Florida — rooted in American history, veteran-inspired craftsmanship, and a mission to make rugged gear that lasts.</p>
+    <div class="badge-row">
+      <span class="badge">Florida-built</span>
+      <span class="badge">Veteran-inspired</span>
+      <span class="badge">Small-batch</span>
+      <span class="badge">Free Shipping</span>
+    </div>
+  </section>
 
-    <section class="about-grid">
-<article class="about-card" id="our-story">
-  <h2>Our Story</h2>
-  <p>The idea started with a <strong>Cold War–era ammo can for 7.62×51</strong> a friend’s dad gave me. I was using it for baseball cards, but one day I thought: <em>why not use it for ammo?</em> That sent me online, digging through Etsy and eBay for a proper <strong>military-style wooden ammo box</strong>. What I found was either beat-up surplus or presentation-style boxes that weren’t my style. So I built my own. My name is <strong>Steven Tauriello</strong>, and that was the beginning of Freedom Crate Co.</p>
+  <!-- Founder Card -->
+  <section class="about-card" id="about-steven-identity">
+    <h2>Founder</h2>
+    <p><strong>Steven Tauriello</strong> — Founder, Owner & Craftsman at <strong>Freedom Crate Co.</strong></p>
+    <p class="muted">Podcaster • Political Commentator • Woodworker</p>
+    <p class="muted">Yes — this is the same <strong>Steven Tauriello</strong> from <em>The Steven Tauriello Show</em>.</p>
+  </section>
 
-  <p>I’ve always loved building with my hands — blanket chests, bookshelves, desks — I’ve always had a thing for boxes. Designing <strong>ammo storage crates</strong> felt natural. My first one copied the Cold War can’s proportions but I tweaked it to hold <strong>20 boxes of 9mm</strong>. That became the <strong>Freedom Crate Classic</strong>.</p>
+  <hr class="section-sep">
 
-  <p>The hardest part was the <strong>handles</strong>. My first version used half-inch hemp rope tied through <strong>¾″ holes</strong> in the sides — tough, but the inside knots stole capacity and broke the interior seal. I wanted the interior as <strong>airtight as possible</strong> and full edge-to-edge capacity, so no more holes through the walls. After countless hours, I built a <strong>fail-proof, outside-mounted handle system</strong> that’s now my proprietary design — rugged, comfortable, and doesn’t compromise the box.</p>
+  <!-- OUR STORY (unchanged) -->
+  <section class="about-card" id="our-story">
+    <h2>Our Story</h2>
+    <p>The idea started with a <strong>Cold War–era ammo can for 7.62×51</strong> a friend’s dad gave me. I was using it for baseball cards, but one day I thought: <em>why not use it for ammo?</em> That sent me online, digging through Etsy and eBay for a proper <strong>military-style wooden ammo box</strong>. What I found was either beat-up surplus or presentation-style boxes that weren’t my style. So I built my own. My name is <strong>Steven Tauriello</strong>, and that was the beginning of Freedom Crate Co.</p>
+    <p>I’ve always loved building with my hands — blanket chests, bookshelves, desks — I’ve always had a thing for boxes. Designing <strong>ammo storage crates</strong> felt natural. My first one copied the Cold War can’s proportions but I tweaked it to hold <strong>20 boxes of 9mm</strong>. That became the <strong>Freedom Crate Classic</strong>.</p>
+    <p>The hardest part was the <strong>handles</strong>. My first version used half-inch hemp rope tied through <strong>¾″ holes</strong> in the sides — tough, but the inside knots stole capacity and broke the interior seal. I wanted the interior as <strong>airtight as possible</strong> and full edge-to-edge capacity, so no more holes through the walls. After countless hours, I built a <strong>fail-proof, outside-mounted handle system</strong> that’s now my proprietary design — rugged, comfortable, and doesn’t compromise the box.</p>
+    <p>When I showed a Marine buddy, he asked for one to hold his medals. That’s when I realized other people wanted these crates too — not just ammo storage, but <em>functional pieces of art</em>. And I wanted them to be <strong>affordable</strong>. Even as material costs climbed, I kept pricing in line with cheaper boxes I saw online — while using better wood, real hinges, and stronger hardware. I’m not chasing giant margins; I’m building value.</p>
+    <p>I kept thinking about that old saying: keep a thousand rounds for each caliber you own. That idea shaped the lineup — from the Classic to the <strong>1000-round .308 storage crate</strong> — and the <strong>Freedom Crate Footlocker</strong> for bug-out and hurricane-prep gear.</p>
+    <p><strong>Since designing my first box, I haven’t stopped improving them.</strong> I’m constantly in R&amp;D — testing corrosion resistance, waterproofing, and air-sealing. I’m currently experimenting with advanced <strong>elastomers</strong> and <strong>silicone-based polymers</strong> — ultra-durable, specialized coatings drawn from the same industries that protect heavy equipment and infrastructure worldwide. Every new build pushes me to make the crates stronger, sturdier, and more rugged. My goal is for these boxes to last a lifetime — even multiple lifetimes — to be passed down like family heirlooms. That’s why I sign the bottom of each box, and why I design them to be repairable. These boxes are built to endure, be fixed, and keep serving for generations.</p>
+    <p>What started as a search for a decent ammo box turned into building my own, then inventing a handle system, then building one for a Marine friend, and eventually a whole lineup of <strong>purpose-built wooden crates</strong>. I never set out to build a company; I just wanted boxes that made sense. Now I build them for people who want the same: storage that’s strong, reliable, and built to last. Freedom Crate Co. is more than a shop to me — it’s a calling, and I’m proud to put my name, <strong>Steven Tauriello</strong>, behind every box that leaves my bench.</p>
+  </section>
 
-  <p>When I showed a Marine buddy, he asked for one to hold his medals. That’s when I realized other people wanted these crates too — not just ammo storage, but <em>functional pieces of art</em>. And I wanted them to be <strong>affordable</strong>. Even as material costs climbed, I kept pricing in line with cheaper boxes I saw online — while using better wood, real hinges, and stronger hardware. I’m not chasing giant margins; I’m building value.</p>
+  <!-- Quick FAQ -->
+  <section class="about-card" id="about-faq">
+    <h2>Quick FAQ</h2>
+    <ul>
+      <li><strong>Is this the same Steven Tauriello from the podcast?</strong> Yes.</li>
+      <li><strong>Where are the crates built?</strong> Florida, USA.</li>
+      <li><strong>What makes them different?</strong> Real capacity, proprietary outside-mounted handles, sealed interiors, and repairable, hard-use construction.</li>
+    </ul>
+  </section>
 
-  <p>I kept thinking about that old saying: keep a thousand rounds for each caliber you own. That idea shaped the lineup — from the Classic to the <strong>1000-round .308 storage crate</strong> — and the <strong>Freedom Crate Footlocker</strong> for bug-out and hurricane-prep gear.</p>
+  <!-- Mission & Values -->
+  <section class="about-card" id="our-mission">
+    <h2>Mission &amp; Values</h2>
+    <ul>
+      <li>Build <strong>reliable, hard-use</strong> boxes that look sharp and work harder.</li>
+      <li>Honor American craftsmanship with <strong>hand-built, small-batch</strong> production.</li>
+      <li>Keep things <strong>simple, serviceable,</strong> and <strong>affordable</strong> with free shipping.</li>
+      <li>Always in R&amp;D — engineering tougher, smarter designs for every use case.</li>
+      <li>Each box is built as if it were my own.</li>
+    </ul>
+  </section>
 
-  <p><strong>Since designing my first box, I haven’t stopped improving them.</strong> I’m constantly in R&amp;D — testing corrosion resistance, waterproofing, and air-sealing. I’m currently experimenting with advanced <strong>elastomers</strong> and <strong>silicone-based polymers</strong> — ultra-durable, specialized coatings drawn from the same industries that protect heavy equipment and infrastructure worldwide. I’m currently researching how corner brackets and structural braces can reinforce joint strength and improve long-term rigidity. Every new build pushes me to make the crates stronger, sturdier, and more rugged. My goal is for these boxes to last a lifetime — even multiple lifetimes — to be passed down like family heirlooms. That’s why I sign the bottom of each box, and why I design them to be repairable. If something breaks, it shouldn’t mean the whole crate is trash. These boxes are built to endure, be fixed, and keep serving for generations.</p>
+  <!-- Contact -->
+  <section class="about-card contact-info" id="contact">
+    <h2>Contact Freedom Crate Co.</h2>
+    <p class="muted">Questions or custom requests? Reach out anytime.</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:support@freedomcrateco.com">support@freedomcrateco.com</a></li>
+      <li class="socials"><strong>Follow Us:</strong>
+        <a href="https://tiktok.com/@freedomcrateco" target="_blank">TikTok</a>
+        <a href="https://www.instagram.com/freedomcrate?igsh=eTVkMnVqYXpvbWh3" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/share/1B1755LENh/?mibextid=wwXIfr" target="_blank">Facebook</a>
+      </li>
+    </ul>
+  </section>
+</main>
 
-  <p>What started as a search for a decent ammo box turned into building my own, then inventing a handle system, then building one for a Marine friend, and eventually a whole lineup of <strong>purpose-built wooden crates</strong>. I never set out to build a company; I just wanted boxes that made sense. Now I build them for people who want the same: storage that’s strong, reliable, and built to last. Freedom Crate Co. is more than a shop to me — it’s a calling, and I’m proud to put my name, <strong>Steven Tauriello</strong>, behind every box that leaves my bench.</p>
-</article>
-
-      <aside class="about-card goals" id="our-mission">
-        <h2>Mission &amp; Values</h2>
-        <ul>
-          <li>Build <strong>reliable, hard-use</strong> boxes that look sharp and work harder.</li>
-          <li>Honor American craftsmanship with <strong>hand-built, small-batch</strong> production.</li>
-          <li>Keep things <strong>simple, serviceable,</strong> and <strong>affordable</strong> with free shipping.</li>
-          <li>We’re always in R&amp;D—engineering tougher, smarter designs for every use case, whether that’s range days, long-term ammo storage, or everyday carry solutions like our med kit box with sliding trays and dividers.</li>
-          <li>I build each box as if I was building it for myself.</li>
-        </ul>
-      </aside>
-    </section>
-
-    <section class="about-card goals" id="legacy">
-      <h2>The Legacy Project: Where We’re Headed (My Dream Goal)</h2>
-      <p>Our long-term goal is bigger than just building crates—we want to give back. The Legacy Project will be the non-profit side of Freedom Crate Co., created to honor newly retired veterans by gifting them handcrafted crates to hold their medals, awards, and keepsakes.</p>
-      <p>The project will be funded solely by a percentage of profits from Freedom Crate Co. sales and by donations. With the support of even a few generous donors, we could be building crates for newly retired veterans for years to come.</p>
-      <p>Veterans will be able to request a crate by verifying their service and choosing their branch, rank, and even a personalized quote under the lid. Once we reach the point where every newly retired veteran can receive a Freedom Crate at no cost, our vision will be complete.</p>
-      <ul>
-        <li><strong>Give-Back:</strong> provide free handcrafted crates to newly retired veterans.</li>
-        <li><strong>Personalization:</strong> branch insignia, rank, initials, or a custom quote under the lid.</li>
-        <li><strong>Funding:</strong> supported by Freedom Crate Co. profits and generous donor contributions.</li>
-      </ul>
-    </section>
-
-    <section class="about-card" id="gallery">
-      <h2>Gallery: One-of-One &amp; Past Builds</h2>
-      <p>Browse a few favorites below. Want your build featured? Send photos after delivery or tag us on social.</p>
-      <div class="gallery-grid" id="galleryGrid">
-        <!-- Example items; duplicate and swap filenames/captions as you add images -->
-        <figure>
-          <img src="assets/img/Rich-review-2.jpg" alt="RangeMaster 400 – angled view" loading="lazy" data-full="assets/img/Rich-review-2.jpg">
-          <figcaption>Customer design commission • Tribute to two WWII vets</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/img/chris-humvee-1.jpg" alt="Freedom Crate on Humvee interior" loading="lazy" data-full="assets/img/chris-humvee-1.jpg">
-          <figcaption>Army Box + Humvee = perfect combo</figcaption>
-        </figure>
-      </div>
-
-      <p><a class="btn" href="gallery.html">See the full gallery →</a></p>
-
-      <dialog class="lightbox-backdrop" id="lightbox" aria-label="Image preview">
-        <button class="close-btn" data-close>&times; Close</button>
-        <img class="lightbox-img" id="lightboxImg" alt="Gallery preview">
-      </dialog>
-    </section>
-
-   <section class="about-card" id="cta">
-  <h2>Want a custom build?</h2>
-  <p>See something you like in our gallery or another customer’s custom box? Request a custom order for that same design—just let us know which box inspired you, and we’ll make one for you too.</p>
-  <p><a class="btn" href="contact.html">Request a Custom Order</a></p>
-</section>
-
-    <!-- NEW: Contact block -->
-    <section class="about-card contact-info" id="contact">
-      <h2>Contact Freedom Crate Co.</h2>
-      <p class="muted">Have a question, custom request, or wholesale inquiry? We’d love to hear from you.</p>
-      <ul>
-        <li><strong>Email:</strong> <a href="mailto:support@freedomcrateco.com">support@freedomcrateco.com</a></li>
-        <li class="socials"><strong>Follow Us:</strong>
-          <a href="https://tiktok.com/@freedomcrateco" target="_blank" rel="noopener">TikTok</a>
-          <a href="https://www.instagram.com/freedomcrate?igsh=eTVkMnVqYXpvbWh3&utm_source=qr" target="_blank" rel="noopener">Instagram</a>
-          <a href="https://www.facebook.com/share/1B1755LENh/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
-        </li>
-      </ul>
-      <p class="muted"><em>The best way to support our mission is by sharing Freedom Crate Co. with fellow patriots, or picking up a handcrafted box for yourself.</em></p>
-    </section>
-  </main>
-
-  <footer class="site-footer"><div class="container">
+<footer class="site-footer">
+  <div class="container">
     <span class="badge">US Veteran-inspired • Florida-built</span>
-  </div></footer>
-
-  <script src="assets/js/util.js" defer></script>
-  <script src="assets/js/config.js" defer></script>
-  <script src="assets/js/cart.js" defer></script>
-  <script>
-    // Minimal lightbox
-    const grid = document.getElementById('galleryGrid');
-    const dialog = document.getElementById('lightbox');
-    const img = document.getElementById('lightboxImg');
-    grid?.addEventListener('click', (e) => {
-      const t = e.target;
-      if (t && t.tagName === 'IMG') { img.src = t.dataset.full || t.src; dialog.showModal(); }
-    });
-    dialog?.addEventListener('click', (e) => { if (e.target.hasAttribute('data-close') || e.target === dialog) dialog.close(); });
-    window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dialog?.open) dialog.close(); });
-  </script>
-
-  <!-- BreadcrumbList JSON-LD for About page (kept) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"Home","item":"https://freedomcrateco.com/"},
-      {"@type":"ListItem","position":2,"name":"About","item":"https://freedomcrateco.com/about.html"}
-    ]
-  }
-  </script>
-
-  <!-- Added: AboutPage + Organization JSON-LD (structure intact) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "name": "About Freedom Crate Co.",
-  "url": "https://freedomcrateco.com/about.html",
-  "mainEntity": {
-    "@type": "Organization",
-    "name": "Freedom Crate Co.",
-    "url": "https://freedomcrateco.com/",
-    "logo": "https://freedomcrateco.com/assets/img/logo.png",
-    "description": "Handmade wooden ammo boxes and military-style storage crates: rugged, affordable, purpose-built for real capacity (e.g., 20 boxes of 9mm) with proprietary outside-mounted handles and sealed interiors.",
-    "founder": {
-      "@type": "Person",
-      "name": "Steven Tauriello"
-    },
-    "sameAs": [
-      "https://tiktok.com/@freedomcrateco",
-      "https://www.instagram.com/freedomcrate?igsh=eTVkMnVqYXpvbWh3&utm_source=qr",
-      "https://www.facebook.com/share/1B1755LENh/?mibextid=wwXIfr"
-    ]
-  }
-}
-</script>
-
-<!-- Added: FAQ JSON-LD to support potential rich results -->
-<script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {
-        "@type":"Question",
-        "name":"What makes Freedom Crate different from other wooden ammo boxes?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Crates are sized for real ammo capacity (e.g., 20 boxes of 9mm), use a proprietary outside-mounted handle system to maximize strength and interior space, and aim to stay affordable without cutting corners on materials or hardware."
-        }
-      },
-      {
-        "@type":"Question",
-        "name":"Are the crates airtight?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"They’re designed to be as airtight as practical for wood: no handle holes through the walls and a sealed interior for protection, while allowing a small amount of natural airflow."
-        }
-      },
-      {
-        "@type":"Question",
-        "name":"Which models do you offer?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Freedom Crate Classic (fits 20 boxes of 9mm), a 1000-round .308 storage crate, and the Freedom Crate Locker for bug-out and hurricane-prep gear."
-        }
-      }
-    ]
-  }
-</script>
+  </div>
+</footer>
 </body>
 </html>
