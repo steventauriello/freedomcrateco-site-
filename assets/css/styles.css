@@ -1113,3 +1113,11 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
   background: #0d0f14 !important;
   border: 1px solid var(--border) !important;
 }
+.custom-link {
+  text-align: left;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+.custom-link a {
+  display: inline-block;
+}
