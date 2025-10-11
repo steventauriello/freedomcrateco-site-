@@ -1154,6 +1154,6 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
 }
 
 .featured-card .custom-link {
-  margin-top: 12px !important;
-  margin-bottom: -4px; /* this helps visually align with More details */
+  margin-top: 14px !important;
+  margin-bottom: -3px; /* this helps visually align with More details */
 }
