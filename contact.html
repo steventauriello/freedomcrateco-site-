@@ -128,6 +128,7 @@
         <select id="boxType" name="boxType" required>
           <option value="">Select one...</option>
           <option value="classic">Freedom Crate Classic</option>
+          <option value="branchcollection">Freedom Crate Branch Collection</option>
           <option value="footlocker">Footlocker Ammo Box</option>
           <option value="rangemaster400">Rangemaster 400</option>
           <option value="freedomcrate1000">Freedom Crate 1000</option>
@@ -191,12 +192,12 @@
       const hardwareEl = document.getElementById('hardware');
 
       function updateClassicVisibility() {
-        const isClassic = boxType.value === 'classic';
-        classicWrap.hidden = !isClassic;
+        const needsBranchOptions = (boxType.value === 'classic' || boxType.value === 'branchcollection');
+        classicWrap.hidden = !needsBranchOptions;
         [branchEl, hardwareEl].forEach(el => {
-          el.disabled = !isClassic;
-          el.required = isClassic;
-          if (!isClassic) el.value = '';
+          el.disabled = !needsBranchOptions;
+          el.required = needsBranchOptions;
+          if (!needsBranchOptions) el.value = '';
         });
       }
 
