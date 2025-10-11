@@ -1137,7 +1137,7 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
   text-align: left !important;
   display: block !important;
   width: 100%;
-  margin-top: 16px;
+  margin-top: 20px;
   padding-left: 4px;
 }
 
