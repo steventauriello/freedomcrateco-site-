@@ -45,8 +45,18 @@
     .give-img { width:100%; border-radius:.5rem; border:1px solid rgba(255,255,255,.08); display:block; }
     .disclaimer { font-size:.9rem; opacity:.85; }
     .legal small { display:block; opacity:.8; margin-top:.35rem; }
-    .hidden-hp { position: absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden; }
     .req { color:#ff6b6b; font-weight:700; margin-left:.2rem;}
+    #successMsg {
+      display:none;
+      background:#0b2f13;
+      color:#9fff8c;
+      padding:1rem;
+      border-radius:.5rem;
+      border:1px solid #2c993f;
+      font-weight:600;
+      margin-top:1rem;
+      text-align:center;
+    }
   </style>
 </head>
 <body>
@@ -67,9 +77,9 @@
       <h1>Veteran Giveaway</h1>
       <p class="lede">Each month we gift one U.S. veteran a <strong>Branch Collection</strong> ammo box—Army, Marines, Navy, Air Force, or Coast Guard.</p>
       <div class="badge-row" style="justify-content:center">
-  <span class="badge">Monthly Winner</span>
-  <span class="badge">Free U.S. Shipping</span>
-</div>
+        <span class="badge">Monthly Winner</span>
+        <span class="badge">Free U.S. Shipping</span>
+      </div>
     </section>
 
     <section class="give-grid">
@@ -78,19 +88,8 @@
         <h2>Enter a Veteran</h2>
         <p class="disclaimer">You can nominate yourself or someone else. We select one veteran at random each month and may feature their story (optional) on our socials/newsletter.</p>
 
-        <!-- Netlify Form -->
-        <form name="veteran-giveaway"
-              method="POST"
-              action="/giveaway-thanks.html"
-              data-netlify="true"
-              netlify-honeypot="hp">
-          <!-- Required for Netlify bots to register the form -->
-          <input type="hidden" name="form-name" value="veteran-giveaway">
-
-          <div class="hidden-hp" aria-hidden="true">
-            <label>Leave this field blank <input name="hp" /></label>
-          </div>
-
+        <!-- Supabase-integrated form -->
+        <form id="veteran-giveaway" method="POST" action="/.netlify/functions/fcc-giveaway">
           <div class="form-grid">
             <div class="field">
               <label for="fullName">Veteran’s full name<span class="req">*</span></label>
@@ -98,15 +97,15 @@
             </div>
             <div class="field">
               <label for="email">Contact email<span class="req">*</span></label>
-              <input id="email" name="email" type="email" autocomplete="email" required placeholder="name@example.com" inputmode="email">
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="name@example.com">
             </div>
             <div class="field">
               <label for="phone">Phone (optional)</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555" inputmode="tel">
+              <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555">
             </div>
             <div class="field">
               <label for="branch">Branch<span class="req">*</span></label>
-              <select id="branch" name="branch" autocomplete="organization" required>
+              <select id="branch" name="branch" required>
                 <option value="">Select branch…</option>
                 <option>U.S. Army</option>
                 <option>U.S. Marine Corps</option>
@@ -117,11 +116,11 @@
             </div>
             <div class="field">
               <label for="years">Years served / rank (optional)</label>
-              <input id="years" name="years" autocomplete="off" placeholder="e.g., 2009–2017, E-6">
+              <input id="years" name="years" placeholder="e.g., 2009–2017, E-6">
             </div>
             <div class="field wide">
               <label for="story">Short story (optional)</label>
-              <textarea id="story" name="story" autocomplete="off" placeholder="Share a brief service highlight or why this veteran should be featured."></textarea>
+              <textarea id="story" name="story" placeholder="Share a brief service highlight or why this veteran should be featured."></textarea>
             </div>
             <div class="field">
               <label class="check">
@@ -135,6 +134,8 @@
             <button class="btn" type="submit">Submit Entry</button>
             <button class="btn ghost" type="reset">Clear</button>
           </div>
+
+          <p id="successMsg">✅ Entry received! Check your email at the end of the month.</p>
         </form>
       </article>
 
@@ -184,6 +185,37 @@
     },
     "description":"Monthly Branch Collection ammo box giveaway honoring one U.S. veteran."
   }
+  </script>
+
+  <script>
+    const form = document.getElementById('veteran-giveaway');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams([...fd.entries()])
+        });
+        const json = await res.json();
+
+        if (res.ok && json.ok) {
+          successMsg.style.display = 'block';
+          form.reset();
+          window.scrollTo({ top: successMsg.offsetTop - 50, behavior: 'smooth' });
+        } else {
+          alert('⚠️ Something went wrong. Please try again later.');
+          console.error('Error:', json);
+        }
+      } catch (err) {
+        alert('⚠️ Network error — please try again.');
+        console.error(err);
+      }
+    });
   </script>
 </body>
 </html>
