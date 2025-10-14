@@ -64,72 +64,122 @@
   </script>
 
   <!-- Structured Data: Homepage ItemList + Products -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "ItemList",
-        "@id": "https://freedomcrateco.com/#featured",
-        "name": "Featured Wooden Ammo Boxes",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "url": "https://freedomcrateco.com/branch-collection.html" },
-          { "@type": "ListItem", "position": 2, "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400" }
-        ]
-      },
-      {
-        "@type": "Product",
-        "@id": "https://freedomcrateco.com/branch-collection.html#product",
-        "name": "Freedom Crate Classic — Branch Collection (Wooden Ammo Box)",
-        "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
-        "category": "Wooden Ammo Box",
-        "sku": "FC-CLASSIC",
+ <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ItemList",
+      "@id": "https://freedomcrateco.com/#featured",
+      "name": "Featured Wooden Ammo Boxes",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "url": "https://freedomcrateco.com/branch-collection.html" },
+        { "@type": "ListItem", "position": 2, "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400" }
+      ]
+    },
+
+    {
+      "@type": "Product",
+      "@id": "https://freedomcrateco.com/branch-collection.html#product",
+      "name": "Freedom Crate Classic — Branch Collection (Wooden Ammo Box)",
+      "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
+      "category": "Wooden Ammo Box",
+      "sku": "FC-CLASSIC",
+      "url": "https://freedomcrateco.com/branch-collection.html",
+      "image": [
+        "https://freedomcrateco.com/assets/img/branch-collection-army.jpg",
+        "https://freedomcrateco.com/assets/img/branch-collection-marines.jpg",
+        "https://freedomcrateco.com/assets/img/branch-collection-navy.jpg",
+        "https://freedomcrateco.com/assets/img/branch-collection-airforce.jpg",
+        "https://freedomcrateco.com/assets/img/branch-collection-coastguard.jpg"
+      ],
+      "description": "Handcrafted wooden military-style ammo box with optional branch stencil. Lockable hardware, rugged build, made in the USA.",
+      "material": "Exterior-grade plywood, stainless/black hardware",
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "64.99",
+        "highPrice": "69.99",
+        "priceCurrency": "USD",
+        "offerCount": "2",
+        "availability": "https://schema.org/InStock",
         "url": "https://freedomcrateco.com/branch-collection.html",
-        "image": [
-          "https://freedomcrateco.com/assets/img/branch-collection-army.jpg",
-          "https://freedomcrateco.com/assets/img/branch-collection-marines.jpg",
-          "https://freedomcrateco.com/assets/img/branch-collection-navy.jpg",
-          "https://freedomcrateco.com/assets/img/branch-collection-airforce.jpg",
-          "https://freedomcrateco.com/assets/img/branch-collection-coastguard.jpg"
-        ],
-        "description": "Handcrafted wooden military-style ammo box with optional branch stencil. Lockable hardware, rugged build, made in the USA.",
-        "material": "Exterior-grade plywood, stainless/black hardware",
-        "offers": {
-          "@type": "AggregateOffer",
-          "lowPrice": "64.99",
-          "highPrice": "69.99",
-          "priceCurrency": "USD",
-          "offerCount": "2",
-          "availability": "https://schema.org/InStock",
-          "url": "https://freedomcrateco.com/branch-collection.html"
-        }
-      },
-      {
-        "@type": "Product",
-        "@id": "https://freedomcrateco.com/product.html?sku=FC-RM-400#product",
-        "name": "Rangemaster 400 (Wooden Range Ammo Box)",
-        "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
-        "category": "Wooden Ammo Box",
-        "sku": "FC-RM-400",
-        "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400",
-        "image": [
-          "https://freedomcrateco.com/assets/img/rangemaster-400-main-photo.png",
-          "https://freedomcrateco.com/assets/img/rm400-open.jpg",
-          "https://freedomcrateco.com/assets/img/rm400-battle-guard.jpg",
-          "https://freedomcrateco.com/assets/img/rangemaster-400-armor-core.png"
-        ],
-        "description": "Compact, stackable wooden range ammo box with lockable hardware and optional Armor Core (interior) or Battle Guard (exterior) PolyShield.",
-        "material": "Exterior-grade plywood, stainless/black hardware",
         "offers": [
-          { "@type": "Offer", "sku": "RM400-BASE",  "name": "Rangemaster 400 — Base",         "price": "49.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400" },
-          { "@type": "Offer", "sku": "RM400-ARMOR", "name": "Rangemaster 400 — Armor Core",   "price": "59.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400" },
-          { "@type": "Offer", "sku": "RM400-BG",    "name": "Rangemaster 400 — Battle Guard", "price": "69.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400" }
+          {
+            "@type": "Offer",
+            "sku": "classic-blank",
+            "name": "Freedom Crate Classic — Blank (no stencil)",
+            "price": "64.99",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://freedomcrateco.com/branch-collection.html",
+            "priceValidUntil": "2026-12-31"
+          },
+          {
+            "@type": "Offer",
+            "sku": "classic-stencil",
+            "name": "Freedom Crate Classic — With Stencil",
+            "price": "69.99",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://freedomcrateco.com/branch-collection.html",
+            "priceValidUntil": "2026-12-31"
+          }
         ]
       }
-    ]
-  }
-  </script>
+    },
 
+    {
+      "@type": "Product",
+      "@id": "https://freedomcrateco.com/product.html?sku=FC-RM-400#product",
+      "name": "Rangemaster 400 (Wooden Range Ammo Box)",
+      "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
+      "category": "Wooden Ammo Box",
+      "sku": "FC-RM-400",
+      "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400",
+      "image": [
+        "https://freedomcrateco.com/assets/img/rangemaster-400-main-photo.png",
+        "https://freedomcrateco.com/assets/img/rm400-open.jpg",
+        "https://freedomcrateco.com/assets/img/rm400-battle-guard.jpg",
+        "https://freedomcrateco.com/assets/img/rangemaster-400-armor-core.png"
+      ],
+      "description": "Compact, stackable wooden range ammo box with lockable hardware and optional Armor Core (interior) or Battle Guard (exterior) PolyShield.",
+      "material": "Exterior-grade plywood, stainless/black hardware",
+      "offers": [
+        {
+          "@type": "Offer",
+          "sku": "RM400-BASE",
+          "name": "Rangemaster 400 — Base",
+          "price": "49.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400",
+          "priceValidUntil": "2026-12-31"
+        },
+        {
+          "@type": "Offer",
+          "sku": "RM400-ARMOR",
+          "name": "Rangemaster 400 — Armor Core",
+          "price": "59.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400",
+          "priceValidUntil": "2026-12-31"
+        },
+        {
+          "@type": "Offer",
+          "sku": "RM400-BG",
+          "name": "Rangemaster 400 — Battle Guard",
+          "price": "65.00",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400",
+          "priceValidUntil": "2026-12-31"
+        }
+      ]
+    }
+  ]
+}
+</script>
   <!-- Organization JSON-LD -->
   <script type="application/ld+json">
   {
