@@ -1157,3 +1157,23 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
   margin-top: 14px !important;
   margin-bottom: -2px; /* this helps visually align with More details */
 }
+.stencil-text {
+  font-family: 'Black Ops One', sans-serif;
+  font-size: 1.05rem;
+  color: #fff;            /* keep white like your normal text */
+  letter-spacing: 0.5px;
+}
+
+.green-link {
+  color: #00cc44;         /* bright green like your existing button text */
+  font-weight: 600;
+  margin-left: 4px;
+  text-decoration: none;
+  border-bottom: 1px dotted #00cc44;
+  transition: color .2s, border-color .2s;
+}
+
+.green-link:hover {
+  color: #00ff66;
+  border-color: #00ff66;
+}
