@@ -248,22 +248,51 @@
       ogImage.setAttribute("content", absolute);
     }
 
-// Add JSON-LD Product schema (updated with priceValidUntil + https URLs)
+// === Product JSON-LD with conditional return policy ===
 const toAbs = src => (String(src).startsWith('http') ? src
-  : (location.origin + "/" + String(src).replace(/^\/+/, '')));
+  : (location.origin + "/" + String(src).replace(/^\/+/, "")));
 
-// Generate a far-future price validity date (Dec 31 next year)
-const priceValidUntil = (() => {
-  const d = new Date();
-  d.setFullYear(d.getFullYear() + 1, 11, 31); // month=11 = December
-  return d.toISOString().slice(0, 10);
-})();
+const PRICE_VALID_UNTIL = (() => { const d = new Date(); d.setFullYear(d.getFullYear()+1,11,31); return d.toISOString().slice(0,10); })();
+
+// Heuristic: treat as custom if P.returnable === false OR SKU/title mentions custom/stencil
+const looksCustom = (
+  P.returnable === false ||
+  /custom|stencil/i.test(String(P.title)) ||
+  /custom|stencil/i.test(String(P.sku))
+);
+
+const RETURN_POLICY = looksCustom
+  ? {
+      "@type": "MerchantReturnPolicy",
+      "returnPolicyCategory": "https://schema.org/NonReturnable",
+      "applicableCountry": "US"
+    }
+  : {
+      "@type": "MerchantReturnPolicy",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 14,
+      "applicableCountry": "US",
+      "returnMethod": "https://schema.org/MailReturn",
+      "returnFees": "https://schema.org/ReturnShippingFees"
+    };
+
+const SHIPPING_DETAILS = {
+  "@type": "OfferShippingDetails",
+  "shippingRate": { "@type": "MonetaryAmount", "value": "0.00", "currency": "USD" },
+  "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "US" },
+  "deliveryTime": {
+    "@type": "ShippingDeliveryTime",
+    "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" },
+    "transitTime":  { "@type": "QuantitativeValue", "minValue": 2, "maxValue": 6, "unitCode": "DAY" }
+  }
+};
 
 const ld = {
   "@context": "https://schema.org/",
   "@type": "Product",
   "name": P.title,
   "sku": P.sku,
+  "url": location.href,
   "image": imgs.map(toAbs),
   "description": P.description || "Handcrafted wooden ammo box.",
   "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
@@ -271,18 +300,19 @@ const ld = {
     "@type": "Offer",
     "price": Number(P.price || 0).toFixed(2),
     "priceCurrency": "USD",
-    "priceValidUntil": priceValidUntil,
+    "priceValidUntil": PRICE_VALID_UNTIL,
     "availability": qty > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
     "url": location.href,
-    "seller": { "@type": "Organization", "name": "Freedom Crate Co.", "url": location.origin }
+    "seller": { "@type": "Organization", "name": "Freedom Crate Co.", "url": location.origin },
+    "hasMerchantReturnPolicy": RETURN_POLICY,
+    "shippingDetails": SHIPPING_DETAILS
   }
 };
 
-const script = document.createElement('script');
+const script = document.createElement("script");
 script.type = "application/ld+json";
 script.textContent = JSON.stringify(ld);
 document.head.appendChild(script);
-
     // Cart hooks (unchanged)
     const addToCartSafe = (sku, name, price, qty, meta) =>
       (typeof window.addToCart === 'function')
