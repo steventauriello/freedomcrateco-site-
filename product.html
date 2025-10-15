@@ -247,6 +247,23 @@
       const absolute = imgs[0].startsWith('http') ? imgs[0] : (location.origin + "/" + imgs[0].replace(/^\/+/, ''));
       ogImage.setAttribute("content", absolute);
     }
+// Canonical & og:url (flagship canonicalization)
+const FLAGSHIP_SKU = 'FC-BRANCH'; // <-- set to your real Branch Collection SKU
+const url = new URL(location.href);
+const currentSku = url.searchParams.get('sku');
+const canonicalUrl = (currentSku && currentSku !== FLAGSHIP_SKU)
+  ? (url.origin + url.pathname + '?sku=' + encodeURIComponent(FLAGSHIP_SKU))
+  : (url.origin + url.pathname + url.search);
+
+// <link rel="canonical">
+let link = document.querySelector('link[rel="canonical"]');
+if (!link) { link = document.createElement('link'); link.rel = 'canonical'; document.head.appendChild(link); }
+link.href = canonicalUrl;
+
+// og:url
+let og = document.querySelector('meta[property="og:url"]');
+if (!og) { og = document.createElement('meta'); og.setAttribute('property','og:url'); document.head.appendChild(og); }
+og.setAttribute('content', canonicalUrl);
 
 // === Product JSON-LD with conditional return policy ===
 const toAbs = src => (String(src).startsWith('http') ? src
@@ -292,7 +309,7 @@ const ld = {
   "@type": "Product",
   "name": P.title,
   "sku": P.sku,
-  "url": location.href,
+  "url": canonicalUrl,
   "image": imgs.map(toAbs),
   "description": P.description || "Handcrafted wooden ammo box.",
   "brand": { "@type": "Brand", "name": "Freedom Crate Co." },
@@ -302,7 +319,7 @@ const ld = {
     "priceCurrency": "USD",
     "priceValidUntil": PRICE_VALID_UNTIL,
     "availability": qty > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-    "url": location.href,
+    "url": canonicalUrl,
     "seller": { "@type": "Organization", "name": "Freedom Crate Co.", "url": location.origin },
     "hasMerchantReturnPolicy": RETURN_POLICY,
     "shippingDetails": SHIPPING_DETAILS
