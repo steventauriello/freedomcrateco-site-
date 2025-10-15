@@ -4,12 +4,28 @@
 
 [functions]
   node_bundler = "esbuild"
-  [[redirects]]
-  from = "/index.html"
-  to = "/"
+
+# === Canonical redirects (extension-less → .html) ===
+[[redirects]]
+  from = "/"
+  to = "/index.html"
   status = 301
+  force = true
 
 [[redirects]]
-  from = "/product.html"
-  to = "/"
+  from = "/about"
+  to = "/about.html"
   status = 301
+  force = true
+
+[[redirects]]
+  from = "/reviews"
+  to = "/reviews.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/product"
+  to = "/product.html"
+  status = 301
+  force = true
