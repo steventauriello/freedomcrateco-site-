@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-DNNL0065X9');
+  </script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Transparency • Freedom Crate Co.</title>
+  <meta name="description" content="Monthly transparency report for Freedom Crate Co.: revenue, costs, and how much we allocate to The Final Salute Project." />
+  <link rel="canonical" href="https://freedomcrateco.com/transparency.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Transparency • Freedom Crate Co." />
+  <meta property="og:description" content="See how we split revenue between materials, operations, and The Final Salute Project each month." />
+  <meta property="og:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
+  <meta property="og:site_name" content="Freedom Crate Co." />
+
+  <link rel="icon" href="/assets/img/favicon.ico">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <style>
+    .hero-transparency { padding:3rem 1rem; text-align:center; }
+    .hero-transparency h1 { font-size:clamp(2rem,2.8vw,3rem); margin-bottom:.5rem; }
+    .hero-transparency p.lede { max-width:60ch; margin:.5rem auto 0; opacity:.9; }
+    .badge-row { display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; margin-top:.75rem; }
+
+    .about-card { border:1px solid rgba(255,255,255,.08); border-radius:.75rem; padding:1rem; background:rgba(255,255,255,.03); margin-bottom:1rem; }
+    .about-card h2 { margin-top:0; }
+    .muted { opacity:.8; }
+    .small { font-size:.9rem; }
+    .btn { display:inline-block; padding:.6rem .9rem; border-radius:.5rem; text-decoration:none; border:1px solid rgba(255,255,255,.16); }
+
+    .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.75rem; }
+    .kpi { padding:.9rem; border:1px solid rgba(255,255,255,.08); border-radius:.75rem; background:rgba(255,255,255,.02); }
+    .kpi .label { font-size:.9rem; opacity:.8; }
+    .kpi .value { font-size:1.25rem; font-weight:700; margin-top:.25rem; }
+
+    .table-wrap { overflow:auto; }
+    table.fin-table { width:100%; border-collapse:collapse; font-size:.95rem; }
+    table.fin-table th, table.fin-table td { padding:.6rem .5rem; border-bottom:1px solid rgba(255,255,255,.08); white-space:nowrap; }
+    table.fin-table th { text-align:left; opacity:.9; }
+    table.fin-table td.money { text-align:right; font-variant-numeric:tabular-nums; }
+    table.fin-table tfoot td { font-weight:700; }
+
+    .bar { height:10px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; }
+    .bar > span { display:block; height:100%; background:currentColor; opacity:.8; }
+    .bars { display:grid; gap:.4rem; margin:.4rem 0 .2rem; }
+    .legend { display:flex; flex-wrap:wrap; gap:.5rem; font-size:.85rem; opacity:.9; }
+    .pill { padding:.15rem .45rem; border-radius:.5rem; border:1px solid rgba(255,255,255,.18); }
+
+    .controls { display:flex; gap:.5rem; flex-wrap:wrap; margin:.6rem 0; }
+    .note { font-size:.9rem; opacity:.85; }
+    .right { text-align:right; }
+  </style>
+
+  <!-- Structured data (optional) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"AboutPage",
+    "name":"Transparency",
+    "url":"https://freedomcrateco.com/transparency.html",
+    "isPartOf":{
+      "@type":"Organization",
+      "name":"Freedom Crate Co.",
+      "url":"https://freedomcrateco.com/"
+    },
+    "description":"Monthly transparency on revenue, costs, and donations/allocations to The Final Salute Project."
+  }
+  </script>
+</head>
+
+<body>
+<header class="site-header">
+  <a class="brand" href="/"><img src="assets/img/logo.png" alt="Freedom Crate Co." height="60"></a>
+  <nav class="nav">
+    <a href="/">Shop</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Custom Orders</a>
+    <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="hero-transparency">
+    <h1>Transparency</h1>
+    <p class="lede">
+      Every month we share how our revenue is split between <strong>materials & operations</strong> and what we allocate to
+      <strong>The Final Salute Project</strong>. Our goal is simple: build rugged boxes, price them fairly, and give back.
+    </p>
+    <div class="badge-row">
+      <span class="badge">Monthly Updates</span>
+      <span class="badge">Straightforward Accounting</span>
+      <span class="badge">Final Salute Allocation</span>
+    </div>
+  </section>
+
+  <!-- Methodology / Promise -->
+  <section class="about-card">
+    <h2>How We Calculate</h2>
+    <p class="muted">
+      Each month we tally gross revenue across our sales channels (website, eBay, Etsy). From that we track materials (wood, hardware, coatings),
+      operating costs (shipping, fees, consumables), and then show the dollars allocated to <em>The Final Salute Project</em>.
+      The remaining amount is reinvested to grow inventory and improve quality. Totals below are before income taxes.
+    </p>
+    <div class="controls">
+      <a class="btn" href="about.html#final-salute-project">About The Final Salute Project</a>
+      <a class="btn" href="giveaway.html">Apply / Nominate a Veteran</a>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="about-card">
+    <h2>Year-To-Date Snapshot</h2>
+    <div class="kpis" id="kpis">
+      <!-- Filled by JS -->
+    </div>
+    <p id="lastUpdated" class="muted small" style="margin-top:.5rem;"></p>
+  </section>
+
+  <!-- Monthly Table -->
+  <section class="about-card">
+    <h2>Monthly Breakdown</h2>
+    <div class="controls">
+      <label><input type="checkbox" id="showDetails" checked> Show details (materials & operations)</label>
+    </div>
+    <div class="table-wrap">
+      <table class="fin-table" id="finTable">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th class="right">Revenue</th>
+            <th class="right details">Materials</th>
+            <th class="right details">Operations</th>
+            <th class="right">Final Salute Allocation</th>
+            <th class="right">Reinvest/Net*</th>
+          </tr>
+        </thead>
+        <tbody><!-- rows via JS --></tbody>
+        <tfoot>
+          <tr>
+            <td><strong>Totals (YTD)</strong></td>
+            <td class="money" id="t_rev"></td>
+            <td class="money details" id="t_mat"></td>
+            <td class="money details" id="t_ops"></td>
+            <td class="money" id="t_fsp"></td>
+            <td class="money" id="t_net"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p class="note muted">* “Reinvest/Net” = Revenue − (Materials + Operations + Final Salute Allocation)</p>
+  </section>
+
+  <!-- Visual bars -->
+  <section class="about-card">
+    <h2>Allocation Mix (Latest Month)</h2>
+    <div id="bars" class="bars">
+      <!-- bars via JS -->
+    </div>
+    <div class="legend">
+      <span class="pill">Revenue</span>
+      <span class="pill">Materials</span>
+      <span class="pill">Operations</span>
+      <span class="pill">Final Salute Allocation</span>
+      <span class="pill">Reinvest/Net</span>
+    </div>
+  </section>
+
+  <!-- Footnote + Contact -->
+  <section class="about-card">
+    <p class="muted small">
+      Questions about these numbers or our approach? <a href="mailto:support@freedomcrateco.com">Email us</a>.
+      We’ll keep refining this page and may add third-party verification and automated data pulls as we grow.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="badge">US Veteran-Inspired • Florida-Built</span>
+  </div>
+</footer>
+
+<!-- =========================
+     DATA & RENDER SCRIPT
+     =========================
+     HOW TO UPDATE MONTHLY:
+     1) Change the FINANCIALS array below (append a new month).
+     2) Deploy. The table, KPIs, and bars update automatically.
+
+     OPTIONAL (later):
+     - Replace the inline FINANCIALS with a fetch to /assets/data/transparency.json
+       or pull from Supabase. The render code already expects the same field names.
+-->
+<script>
+/** 
+ * FINANCIALS schema (one object per month):
+ * month: "YYYY-MM", revenue: number,
+ * materials: number, operations: number,
+ * finalSalute: number
+ * NOTE: reinvest/net is derived in code.
+ */
+const FINANCIALS = [
+  // --- SAMPLE DATA (replace with real numbers each month) ---
+  { month: "2025-07", revenue: 850,  materials: 420, operations: 140, finalSalute: 45 },
+  { month: "2025-08", revenue: 1210, materials: 600, operations: 195, finalSalute: 60 },
+  { month: "2025-09", revenue: 960,  materials: 480, operations: 155, finalSalute: 48 },
+  { month: "2025-10", revenue: 1125, materials: 540, operations: 180, finalSalute: 56 }
+];
+
+const currency = n => `$${n.toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0})}`;
+const pct = (part, whole) => whole > 0 ? Math.round((part/whole)*100) : 0;
+
+function computeNet(row){
+  return row.revenue - (row.materials + row.operations + row.finalSalute);
+}
+
+function renderKPIs(rows){
+  const totals = rows.reduce((a,r)=>({
+    rev:a.rev+r.revenue, mat:a.mat+r.materials, ops:a.ops+r.operations, fsp:a.fsp+r.finalSalute, net:a.net+computeNet(r)
+  }), {rev:0,mat:0,ops:0,fsp:0,net:0});
+
+  const ytdAllocPct = totals.rev>0 ? Math.round((totals.fsp/totals.rev)*100) : 0;
+
+  document.getElementById('kpis').innerHTML = `
+    <div class="kpi"><div class="label">Revenue (YTD)</div><div class="value">${currency(totals.rev)}</div></div>
+    <div class="kpi"><div class="label">Allocated to Final Salute (YTD)</div><div class="value">${currency(totals.fsp)} (${ytdAllocPct}%)</div></div>
+    <div class="kpi"><div class="label">Materials + Operations (YTD)</div><div class="value">${currency(totals.mat + totals.ops)}</div></div>
+    <div class="kpi"><div class="label">Reinvest/Net (YTD)</div><div class="value">${currency(totals.net)}</div></div>
+  `;
+
+  // Update totals row
+  document.getElementById('t_rev').textContent = currency(totals.rev);
+  document.getElementById('t_mat').textContent = currency(totals.mat);
+  document.getElementById('t_ops').textContent = currency(totals.ops);
+  document.getElementById('t_fsp').textContent = currency(totals.fsp);
+  document.getElementById('t_net').textContent = currency(totals.net);
+
+  // “Last updated” (uses newest month in data)
+  const newest = rows[rows.length-1]?.month || '';
+  document.getElementById('lastUpdated').textContent = newest ? `Last updated for ${newest}` : '';
+}
+
+function renderTable(rows){
+  const tbody = document.querySelector('#finTable tbody');
+  tbody.innerHTML = rows.map(r=>{
+    const net = computeNet(r);
+    return `
+      <tr>
+        <td>${r.month}</td>
+        <td class="money">${currency(r.revenue)}</td>
+        <td class="money details">${currency(r.materials)}</td>
+        <td class="money details">${currency(r.operations)}</td>
+        <td class="money">${currency(r.finalSalute)} (${pct(r.finalSalute, r.revenue)}%)</td>
+        <td class="money">${currency(net)}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function renderBars(latest){
+  if(!latest){ document.getElementById('bars').innerHTML = '<p class="muted">No data yet.</p>'; return; }
+  const net = computeNet(latest);
+  const rev = Math.max(latest.revenue, 1); // avoid div/0 in width calc
+
+  const makeBar = (label, value) => {
+    const w = Math.max(0, Math.min(100, pct(value, rev)));
+    return `
+      <div>
+        <div class="right small" style="opacity:.85;margin-bottom:.15rem;">${label}: ${currency(value)} (${w}%)</div>
+        <div class="bar" style="color:currentColor;"><span style="width:${w}%"></span></div>
+      </div>`;
+  };
+
+  document.getElementById('bars').innerHTML = [
+    makeBar('Revenue (reference)', rev),
+    makeBar('Materials', latest.materials),
+    makeBar('Operations', latest.operations),
+    makeBar('Final Salute Allocation', latest.finalSalute),
+    makeBar('Reinvest/Net', net)
+  ].join('');
+}
+
+function toggleDetails(show){
+  document.querySelectorAll('.details').forEach(el=>{
+    el.style.display = show ? '' : 'none';
+  });
+}
+
+(function init(){
+  // If you later fetch from a file or Supabase, replace FINANCIALS with that array before calling these:
+  const rows = FINANCIALS.slice(); // copy
+  renderTable(rows);
+  renderKPIs(rows);
+  renderBars(rows[rows.length-1]);
+
+  const checkbox = document.getElementById('showDetails');
+  toggleDetails(checkbox.checked);
+  checkbox.addEventListener('change', ()=>toggleDetails(checkbox.checked));
+})();
+</script>
+
+</body>
+</html>
