@@ -70,11 +70,7 @@
     "@type":"AboutPage",
     "name":"Transparency",
     "url":"https://freedomcrateco.com/transparency.html",
-    "isPartOf":{
-      "@type":"Organization",
-      "name":"Freedom Crate Co.",
-      "url":"https://freedomcrateco.com/"
-    },
+    "isPartOf":{"@type":"Organization","name":"Freedom Crate Co.","url":"https://freedomcrateco.com/"},
     "description":"Monthly transparency on revenue, costs, and donations/allocations to The Final Salute Project."
   }
   </script>
@@ -119,7 +115,7 @@
     </div>
   </section>
 
-  <!-- PHILOSOPHY (moved outside the hero) -->
+  <!-- PHILOSOPHY -->
   <section class="about-card" id="transparency-philosophy">
     <h2>Why We Share Our Numbers</h2>
     <p>
@@ -225,21 +221,6 @@
      DATA & RENDER SCRIPT
      ========================= -->
 <script>
-/**
- * FINANCIALS schema (one object per month):
- * month: "YYYY-MM", revenue: number,
- * materials: number, operations: number,
- * finalSalute: number
- * NOTE: reinvest/net is derived in code.
- */
-const FINANCIALS = [
-  // --- SAMPLE DATA (replace with real numbers each month) ---
-  { month: "2025-07", revenue: 850,  materials: 420, operations: 140, finalSalute: 45 },
-  { month: "2025-08", revenue: 1210, materials: 600, operations: 195, finalSalute: 60 },
-  { month: "2025-09", revenue: 960,  materials: 480, operations: 155, finalSalute: 48 },
-  { month: "2025-10", revenue: 1125, materials: 540, operations: 180, finalSalute: 56 }
-];
-
 const currency = n => `$${n.toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0})}`;
 const pct = (part, whole) => whole > 0 ? Math.round((part/whole)*100) : 0;
 
@@ -261,14 +242,12 @@ function renderKPIs(rows){
     <div class="kpi"><div class="label">Reinvest/Net (YTD)</div><div class="value">${currency(totals.net)}</div></div>
   `;
 
-  // Update totals row
   document.getElementById('t_rev').textContent = currency(totals.rev);
   document.getElementById('t_mat').textContent = currency(totals.mat);
   document.getElementById('t_ops').textContent = currency(totals.ops);
   document.getElementById('t_fsp').textContent = currency(totals.fsp);
   document.getElementById('t_net').textContent = currency(totals.net);
 
-  // “Last updated” (uses newest month in data)
   const newest = rows[rows.length-1]?.month || '';
   document.getElementById('lastUpdated').textContent = newest ? `Last updated for ${newest}` : '';
 }
@@ -291,9 +270,10 @@ function renderTable(rows){
 }
 
 function renderBars(latest){
-  if(!latest){ document.getElementById('bars').innerHTML = '<p class="muted">No data yet.</p>'; return; }
+  const bars = document.getElementById('bars');
+  if(!latest){ bars.innerHTML = '<p class="muted">No data yet.</p>'; return; }
   const net = computeNet(latest);
-  const rev = Math.max(latest.revenue, 1); // avoid div/0
+  const rev = Math.max(latest.revenue, 1);
 
   const makeBar = (label, value) => {
     const w = Math.max(0, Math.min(100, pct(value, rev)));
@@ -304,7 +284,7 @@ function renderBars(latest){
       </div>`;
   };
 
-  document.getElementById('bars').innerHTML = [
+  bars.innerHTML = [
     makeBar('Revenue (reference)', rev),
     makeBar('Materials', latest.materials),
     makeBar('Operations', latest.operations),
@@ -319,16 +299,27 @@ function toggleDetails(show){
   });
 }
 
-(function init(){
-  const rows = FINANCIALS.slice();
-  renderTable(rows);
-  renderKPIs(rows);
-  renderBars(rows[rows.length-1]);
+// ---- Fetch monthly data from JSON file ----
+fetch('/assets/data/transparency.json')
+  .then(res => {
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  })
+  .then(rows => {
+    // sort by month just in case (YYYY-MM)
+    rows.sort((a,b)=> a.month.localeCompare(b.month));
+    renderTable(rows);
+    renderKPIs(rows);
+    renderBars(rows[rows.length - 1]);
 
-  const checkbox = document.getElementById('showDetails');
-  toggleDetails(checkbox.checked);
-  checkbox.addEventListener('change', ()=>toggleDetails(checkbox.checked));
-})();
+    const checkbox = document.getElementById('showDetails');
+    toggleDetails(checkbox.checked);
+    checkbox.addEventListener('change', () => toggleDetails(checkbox.checked));
+  })
+  .catch(err => {
+    console.error('Error loading transparency data:', err);
+    document.getElementById('bars').innerHTML = '<p class="muted">Data unavailable. Please check back soon.</p>';
+  });
 </script>
 
 </body>
