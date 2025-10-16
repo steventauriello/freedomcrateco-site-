@@ -31,7 +31,7 @@
     .hero-transparency p.lede { max-width:60ch; margin:.5rem auto 0; opacity:.9; }
     .badge-row { display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; margin-top:.75rem; }
 
-    .about-card { border:1px solid rgba(255,255,255,.08); border-radius:.75rem; padding:1rem; background:rgba(255,255,255,.03); margin-bottom:1rem; }
+    .about-card { border:1px solid rgba(255,255,255,.08); border-radius:.75rem; padding:1rem; background:rgba(255,255,255,.03); margin:1rem 0; }
     .about-card h2 { margin-top:0; }
     .muted { opacity:.8; }
     .small { font-size:.9rem; }
@@ -58,6 +58,9 @@
     .controls { display:flex; gap:.5rem; flex-wrap:wrap; margin:.6rem 0; }
     .note { font-size:.9rem; opacity:.85; }
     .right { text-align:right; }
+
+    /* Fallback badge style if your global CSS doesn’t define it */
+    .badge{display:inline-block;padding:.25rem .5rem;border:1px solid rgba(255,255,255,.16);border-radius:.5rem;font-size:.85rem}
   </style>
 
   <!-- Structured data (optional) -->
@@ -85,6 +88,7 @@
     <a href="about.html">About</a>
     <a href="gallery.html">Gallery</a>
     <a href="reviews.html">Reviews</a>
+    <a href="transparency.html" aria-current="page">Transparency</a>
     <a href="contact.html">Custom Orders</a>
     <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
   </nav>
@@ -92,17 +96,45 @@
 
 <main class="container">
 
+  <!-- HERO -->
   <section class="hero-transparency">
-    <h1>Transparency</h1>
+    <h1>Transparency & Accountability</h1>
     <p class="lede">
-      Every month we share how our revenue is split between <strong>materials & operations</strong> and what we allocate to
-      <strong>The Final Salute Project</strong>. Our goal is simple: build rugged boxes, price them fairly, and give back.
+      Freedom Crate Co. was built on craftsmanship, integrity, and purpose — and that extends to how we handle every dollar that comes in.
+      This page exists to show exactly how our revenue is divided between <strong>materials, operations, and our nonprofit mission</strong> through
+      <strong>The Final Salute Project</strong>.
     </p>
-    <div class="badge-row">
-      <span class="badge">Monthly Updates</span>
-      <span class="badge">Straightforward Accounting</span>
-      <span class="badge">Final Salute Allocation</span>
+
+    <p class="lede" style="margin-top:1rem;">
+      We believe that transparency isn’t a marketing angle — it’s a responsibility.
+      Each sale helps us keep building better crates, stay self-sustaining as a small business, and most importantly, honor retiring veterans by
+      gifting them personalized keepsake crates at no cost.
+    </p>
+
+    <div class="badge-row" style="margin-top:1rem;">
+      <span class="badge">Integrity in Action</span>
+      <span class="badge">Veteran-Focused Giving</span>
+      <span class="badge">Small-Business Accountability</span>
+      <span class="badge">Proudly Built in Florida</span>
     </div>
+  </section>
+
+  <!-- PHILOSOPHY (moved outside the hero) -->
+  <section class="about-card" id="transparency-philosophy">
+    <h2>Why We Share Our Numbers</h2>
+    <p>
+      We believe small businesses should lead with honesty. For too long, consumers have been left guessing what’s behind the price tag — and many assume that
+      any business owner must be wealthy. The truth is, most small businesses are built by hard-working families balancing costs, risk, and a dream.
+    </p>
+    <p>
+      By opening our books and showing how every dollar is spent, we’re doing more than building trust — we’re helping people understand what it really takes
+      to build something by hand, keep it affordable, and still give back. This level of transparency is our way of leading by example and setting a new
+      standard for integrity in small business.
+    </p>
+    <p>
+      If this inspires other makers, craftsmen, and entrepreneurs to do the same, then the movement toward <strong>open and honest business</strong> has already begun —
+      and that’s something we can all be proud of.
+    </p>
   </section>
 
   <!-- Methodology / Promise -->
@@ -122,9 +154,7 @@
   <!-- KPIs -->
   <section class="about-card">
     <h2>Year-To-Date Snapshot</h2>
-    <div class="kpis" id="kpis">
-      <!-- Filled by JS -->
-    </div>
+    <div class="kpis" id="kpis"></div>
     <p id="lastUpdated" class="muted small" style="margin-top:.5rem;"></p>
   </section>
 
@@ -165,9 +195,7 @@
   <!-- Visual bars -->
   <section class="about-card">
     <h2>Allocation Mix (Latest Month)</h2>
-    <div id="bars" class="bars">
-      <!-- bars via JS -->
-    </div>
+    <div id="bars" class="bars"></div>
     <div class="legend">
       <span class="pill">Revenue</span>
       <span class="pill">Materials</span>
@@ -195,17 +223,9 @@
 
 <!-- =========================
      DATA & RENDER SCRIPT
-     =========================
-     HOW TO UPDATE MONTHLY:
-     1) Change the FINANCIALS array below (append a new month).
-     2) Deploy. The table, KPIs, and bars update automatically.
-
-     OPTIONAL (later):
-     - Replace the inline FINANCIALS with a fetch to /assets/data/transparency.json
-       or pull from Supabase. The render code already expects the same field names.
--->
+     ========================= -->
 <script>
-/** 
+/**
  * FINANCIALS schema (one object per month):
  * month: "YYYY-MM", revenue: number,
  * materials: number, operations: number,
@@ -273,14 +293,14 @@ function renderTable(rows){
 function renderBars(latest){
   if(!latest){ document.getElementById('bars').innerHTML = '<p class="muted">No data yet.</p>'; return; }
   const net = computeNet(latest);
-  const rev = Math.max(latest.revenue, 1); // avoid div/0 in width calc
+  const rev = Math.max(latest.revenue, 1); // avoid div/0
 
   const makeBar = (label, value) => {
     const w = Math.max(0, Math.min(100, pct(value, rev)));
     return `
       <div>
         <div class="right small" style="opacity:.85;margin-bottom:.15rem;">${label}: ${currency(value)} (${w}%)</div>
-        <div class="bar" style="color:currentColor;"><span style="width:${w}%"></span></div>
+        <div class="bar"><span style="width:${w}%"></span></div>
       </div>`;
   };
 
@@ -300,8 +320,7 @@ function toggleDetails(show){
 }
 
 (function init(){
-  // If you later fetch from a file or Supabase, replace FINANCIALS with that array before calling these:
-  const rows = FINANCIALS.slice(); // copy
+  const rows = FINANCIALS.slice();
   renderTable(rows);
   renderKPIs(rows);
   renderBars(rows[rows.length-1]);
