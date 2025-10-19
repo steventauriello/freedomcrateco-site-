@@ -1,6 +1,6 @@
 [
-  { "month": "2025-07", "revenue": 500, "materials": 235, "operations": 90, "finalSalute": 25 },
-  { "month": "2025-08", "revenue": 500, "materials": 240, "operations": 85, "finalSalute": 25 },
-  { "month": "2025-09", "revenue": 500, "materials": 230, "operations": 95, "finalSalute": 25 },
+  { "month": "2025-07", "revenue": 413, "materials": 235, "operations": 90, "finalSalute": 25 },
+  { "month": "2025-08", "revenue": 501, "materials": 240, "operations": 85, "finalSalute": 25 },
+  { "month": "2025-09", "revenue": 375, "materials": 230, "operations": 95, "finalSalute": 25 },
   { "month": "2025-10", "revenue": 500, "materials": 225, "operations": 90, "finalSalute": 25 }
 ]
