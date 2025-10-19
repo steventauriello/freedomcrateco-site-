@@ -217,20 +217,30 @@
   </div>
 </footer>
 
-<!-- =========================
-     DATA & RENDER SCRIPT
-     ========================= -->
 <script>
-const currency = n => `$${n.toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0})}`;
-const pct = (part, whole) => whole > 0 ? Math.round((part/whole)*100) : 0;
+/* ------------ Formatting helpers (safe with blanks) ------------ */
+const currency = n =>
+  (n == null || Number.isNaN(n)) ? '—'
+  : `$${Number(n).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0})}`;
+
+const pct = (part, whole) =>
+  (part == null || whole == null || whole <= 0) ? 0 : Math.round((part/whole)*100);
 
 function computeNet(row){
-  return row.revenue - (row.materials + row.operations + row.finalSalute);
+  const { revenue, materials, operations, finalSalute } = row;
+  if ([revenue, materials, operations, finalSalute].some(v => v == null || Number.isNaN(v))) return null;
+  return revenue - (materials + operations + finalSalute);
 }
 
+/* ------------ Renderers (skip blanks in totals) ------------ */
 function renderKPIs(rows){
-  const totals = rows.reduce((a,r)=>({
-    rev:a.rev+r.revenue, mat:a.mat+r.materials, ops:a.ops+r.operations, fsp:a.fsp+r.finalSalute, net:a.net+computeNet(r)
+  const add = (a,v)=> a + (Number.isFinite(v) ? v : 0);
+  const totals = rows.reduce((t,r)=>({
+    rev: add(t.rev, r.revenue),
+    mat: add(t.mat, r.materials),
+    ops: add(t.ops, r.operations),
+    fsp: add(t.fsp, r.finalSalute),
+    net: add(t.net, computeNet(r))
   }), {rev:0,mat:0,ops:0,fsp:0,net:0});
 
   const ytdAllocPct = totals.rev>0 ? Math.round((totals.fsp/totals.rev)*100) : 0;
@@ -248,21 +258,25 @@ function renderKPIs(rows){
   document.getElementById('t_fsp').textContent = currency(totals.fsp);
   document.getElementById('t_net').textContent = currency(totals.net);
 
-  const newest = rows[rows.length-1]?.month || '';
-  document.getElementById('lastUpdated').textContent = newest ? `Last updated for ${newest}` : '';
+  // "Last updated" shows the latest month we actually have revenue for
+  const latestWithData = [...rows].reverse().find(r => Number.isFinite(r.revenue));
+  document.getElementById('lastUpdated').textContent =
+    latestWithData ? `Last updated for ${latestWithData.month}` : '';
 }
 
 function renderTable(rows){
   const tbody = document.querySelector('#finTable tbody');
   tbody.innerHTML = rows.map(r=>{
     const net = computeNet(r);
+    const rev = r.revenue;
+    const fspPct = (rev == null) ? 0 : pct(r.finalSalute, rev);
     return `
       <tr>
-        <td>${r.month}</td>
+        <td>${r.month || '—'}</td>
         <td class="money">${currency(r.revenue)}</td>
         <td class="money details">${currency(r.materials)}</td>
         <td class="money details">${currency(r.operations)}</td>
-        <td class="money">${currency(r.finalSalute)} (${pct(r.finalSalute, r.revenue)}%)</td>
+        <td class="money">${currency(r.finalSalute)}${rev==null?'':` (${fspPct}%)`}</td>
         <td class="money">${currency(net)}</td>
       </tr>
     `;
@@ -272,8 +286,17 @@ function renderTable(rows){
 function renderBars(latest){
   const bars = document.getElementById('bars');
   if(!latest){ bars.innerHTML = '<p class="muted">No data yet.</p>'; return; }
-  const net = computeNet(latest);
-  const rev = Math.max(latest.revenue, 1);
+
+  // If the newest month is blank, fall back to the latest month that has revenue
+  let ref = latest;
+  if (latest.revenue == null) {
+    const allRows = window.__rows || [];
+    ref = [...allRows].reverse().find(r => Number.isFinite(r.revenue)) || null;
+  }
+  if (!ref) { bars.innerHTML = '<p class="muted">No month has data yet.</p>'; return; }
+
+  const net = computeNet(ref);
+  const rev = Math.max(ref.revenue, 1);
 
   const makeBar = (label, value) => {
     const w = Math.max(0, Math.min(100, pct(value, rev)));
@@ -285,10 +308,10 @@ function renderBars(latest){
   };
 
   bars.innerHTML = [
-    makeBar('Revenue (reference)', rev),
-    makeBar('Materials', latest.materials),
-    makeBar('Operations', latest.operations),
-    makeBar('Final Salute Allocation', latest.finalSalute),
+    makeBar(`Revenue (${ref.month})`, rev),
+    makeBar('Materials', ref.materials),
+    makeBar('Operations', ref.operations),
+    makeBar('Final Salute Allocation', ref.finalSalute),
     makeBar('Reinvest/Net', net)
   ].join('');
 }
@@ -299,18 +322,71 @@ function toggleDetails(show){
   });
 }
 
-// ---- Fetch monthly data from JSON file ----
+/* ------------ Data loading with "current month blank" behavior ------------ */
+// Default % used when revenue is present but a field is omitted
+const DEFAULT_RATES = {
+  materials: 0.46,   // 46% of revenue
+  operations: 0.18,  // 18%
+  finalSalute: 0.05  // 5%
+};
+
+// Month helpers
+const toYM = (y,m) => `${y}-${String(m).padStart(2,'0')}`;
+function nextMonthStr(s){
+  const [y,m] = String(s||'').split('-').map(Number);
+  const d = new Date(y, (m||1)-1, 1);
+  d.setMonth(d.getMonth()+1);
+  return toYM(d.getFullYear(), d.getMonth()+1);
+}
+function currentMonthYM(){
+  const d = new Date(); // uses visitor's local time; that's fine
+  return toYM(d.getFullYear(), d.getMonth()+1);
+}
+
 fetch('/assets/data/transparency.json')
   .then(res => {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   })
-  .then(rows => {
-    // sort by month just in case (YYYY-MM)
-    rows.sort((a,b)=> a.month.localeCompare(b.month));
+  .then(rawRows => {
+    // Keep only rows that at least have a month string
+    const clean = (rawRows||[]).filter(r => r && r.month);
+    clean.sort((a,b)=> String(a.month||'').localeCompare(String(b.month||'')));
+    if (clean.length === 0) throw new Error('No rows with a "month" key found.');
+
+    const byMonth = new Map(clean.map(r => [r.month, r]));
+    const first = clean[0].month;
+    const lastWanted = currentMonthYM(); // include the current month, which may be blank
+
+    // Build inclusive month list from first data month through current month
+    const months = [];
+    for (let cur = first; ; cur = nextMonthStr(cur)) {
+      months.push(cur);
+      if (cur === lastWanted) break;
+    }
+
+    // Build rows; if a month isn't in JSON, insert a blank row (—)
+    const rows = months.map(month => {
+      const r = byMonth.get(month);
+      if (!r) return { month, revenue: null, materials: null, operations: null, finalSalute: null };
+
+      const revenue = (r.revenue != null) ? Number(r.revenue) : null;
+      const materials   = (r.materials   != null) ? Number(r.materials)
+                        : (revenue != null ? Math.round(revenue * DEFAULT_RATES.materials) : null);
+      const operations  = (r.operations  != null) ? Number(r.operations)
+                        : (revenue != null ? Math.round(revenue * DEFAULT_RATES.operations) : null);
+      const finalSalute = (r.finalSalute != null) ? Number(r.finalSalute)
+                        : (revenue != null ? Math.round(revenue * DEFAULT_RATES.finalSalute) : null);
+
+      return { month, revenue, materials, operations, finalSalute };
+    });
+
+    // Expose rows for renderBars fallback
+    window.__rows = rows;
+
     renderTable(rows);
     renderKPIs(rows);
-    renderBars(rows[rows.length - 1]);
+    renderBars(rows[rows.length - 1]); // will auto-fallback if latest is blank
 
     const checkbox = document.getElementById('showDetails');
     toggleDetails(checkbox.checked);
