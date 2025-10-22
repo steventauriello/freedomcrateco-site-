@@ -204,18 +204,17 @@
         const json = await res.json();
 
         if (res.ok && json.ok) {
-          successMsg.style.display = 'block';
-          form.reset();
-          window.scrollTo({ top: successMsg.offsetTop - 50, behavior: 'smooth' });
-        } else {
-          alert('⚠️ Something went wrong. Please try again later.');
-          console.error('Error:', json);
-        }
-      } catch (err) {
-        alert('⚠️ Network error — please try again.');
-        console.error(err);
-      }
-    });
-  </script>
+  // ✅ Redirect to thank-you page on success
+  window.location.href = "/giveaway-thanks.html";
+} else {
+  alert('⚠️ Something went wrong. Please try again later.');
+  console.error('Error:', json);
+}
+} catch (err) {
+  alert('⚠️ Network error — please try again.');
+  console.error(err);
+}
+});
+</script>
 </body>
 </html>
