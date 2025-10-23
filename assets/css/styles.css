@@ -923,16 +923,40 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   border-radius: 8px;
   border: 1px solid #e5e5e5;   /* subtle frame */
 }
-/* Monthly Giveaway Banner */
-.giveaway-banner{
-  background: linear-gradient(90deg,#b22222,#000080);
-  text-align:center;
-  padding:.6rem 1rem;
-  font-size:1.1rem;
-  font-weight:bold;
-  letter-spacing:.5px;
-  border-bottom:2px solid #fff;
+/* === Monthly Giveaway Banner === */
+.giveaway-banner {
+  text-align: center;
+  padding: 0.4rem 0;
+  background: linear-gradient(90deg, #7300ff, #e0006b);
 }
+
+.giveaway-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+
+.giveaway-link .flag {
+  width: 28px;
+  height: auto;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+/* Optional: shrink flags slightly on desktop */
+@media (min-width: 768px) {
+  .giveaway-link .flag {
+    width: 22px;
+  }
+}
+
 .giveaway-banner a{ color:#fff; text-decoration:none; }
 .giveaway-banner a:hover{ text-decoration:underline; }
 /* --- Giveaway pages: stop horizontal overflow on mobile --- */
