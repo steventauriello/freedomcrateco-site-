@@ -1,31 +1,45 @@
 [build]
-  publish = "."        # your site root (where index.html lives)
+  publish = "."
   functions = "netlify/functions"
 
 [functions]
   node_bundler = "esbuild"
 
-# === Canonical redirects (extension-less → .html) ===
+# --- HOMEPAGE: make "/" the one true URL ---
 [[redirects]]
-  from = "/"
-  to = "/index.html"
+  from = "/index.html"
+  to   = "/"
   status = 301
   force = true
 
+# Catch a couple variants just in case
+[[redirects]]
+  from = "/index.htm"
+  to   = "/"
+  status = 301
+  force = true
+
+# --- INNER PAGES: keep ".html" as canonical (your current pattern) ---
 [[redirects]]
   from = "/about"
-  to = "/about.html"
+  to   = "/about.html"
   status = 301
   force = true
 
 [[redirects]]
   from = "/reviews"
-  to = "/reviews.html"
+  to   = "/reviews.html"
   status = 301
   force = true
 
 [[redirects]]
   from = "/product"
-  to = "/product.html"
+  to   = "/product.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/product/"
+  to   = "/product.html"
   status = 301
   force = true
