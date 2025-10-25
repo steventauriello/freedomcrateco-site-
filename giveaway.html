@@ -1,7 +1,75 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <!-- Core meta -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- Title + primary SEO -->
+  <title>Monthly Veteran Giveaway | Freedom Crate Co. – Win a Wooden Ammo Box</title>
+  <meta name="description" content="Enter the Freedom Crate Co. Monthly Veteran Giveaway. Win a handcrafted wooden ammo box with military-style stencil. Free U.S. shipping. Veteran-inspired, Florida-built." />
+  <link rel="canonical" href="https://freedomcrateco.com/giveaway.html" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="keywords" content="veteran giveaway, military giveaway, ammo box giveaway, wooden ammo box, handcrafted ammo crate, Freedom Crate Co" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Monthly Veteran Giveaway | Freedom Crate Co." />
+  <meta property="og:description" content="Win a handcrafted wooden ammo box. Enter the Monthly Veteran Giveaway by Freedom Crate Co." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freedomcrateco.com/giveaway.html" />
+  <meta property="og:image" content="https://freedomcrateco.com/assets/img/branch-collection-army.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Freedom Crate Co." />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Monthly Veteran Giveaway | Freedom Crate Co." />
+  <meta name="twitter:description" content="Enter to win a handcrafted wooden ammo box with U.S. branch stencil." />
+  <meta name="twitter:image" content="https://freedomcrateco.com/assets/img/branch-collection-marines.jpg" />
+
+  <!-- Fonts + CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+
+  <!-- Organization schema (brand) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Freedom Crate Co.",
+    "url":"https://freedomcrateco.com",
+    "logo":"https://freedomcrateco.com/assets/img/logo.png",
+    "sameAs":[
+      "https://www.facebook.com/FreedomCrateCo",
+      "https://www.instagram.com/FreedomCrateCo",
+      "https://www.etsy.com/shop/FreedomCrateCo"
+    ]
+  }
+  </script>
+
+  <!-- Giveaway schema (describes the promotion) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"PromotionCard",
+    "name":"Freedom Crate Co. Monthly Veteran Giveaway",
+    "description":"Enter to win a handcrafted wooden ammo box from Freedom Crate Co. Veteran-inspired, Florida-built.",
+    "url":"https://freedomcrateco.com/giveaway.html",
+    "sponsor":{
+      "@type":"Organization",
+      "name":"Freedom Crate Co.",
+      "url":"https://freedomcrateco.com"
+    },
+    "eligibleRegion":{
+      "@type":"Country",
+      "name":"United States"
+    }
+  }
+  </script>
+
+  <!-- GA4 (if used sitewide, keep it consistent) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -9,212 +77,87 @@
     gtag('js', new Date());
     gtag('config', 'G-DNNL0065X9');
   </script>
-
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Veteran Giveaway • Freedom Crate Co.</title>
-
-  <!-- SEO -->
-  <link rel="canonical" href="https://freedomcrateco.com/giveaway.html" />
-  <meta name="robots" content="index, follow" />
-  <meta name="description" content="Each month Freedom Crate Co. gifts one U.S. veteran a Branch Collection ammo box—Army, Marines, Navy, Air Force, or Coast Guard. Enter here." />
-  <meta name="keywords" content="veteran giveaway, veteran appreciation, military giveaway, ammo box giveaway, Freedom Crate Co" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Veteran Giveaway — Branch Collection Box Each Month" />
-  <meta property="og:description" content="We honor one U.S. veteran per month with a handcrafted Branch Collection ammo box. Enter here." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://freedomcrateco.com/giveaway.html" />
-  <meta property="og:image" content="https://freedomcrateco.com/assets/img/branch-collection-marines.jpg" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Veteran Giveaway — Branch Collection Box Each Month" />
-  <meta name="twitter:description" content="We honor one U.S. veteran per month with a handcrafted Branch Collection ammo box. Enter here." />
-  <meta name="twitter:image" content="https://freedomcrateco.com/assets/img/branch-collection-marines.jpg" />
-
-  <link rel="stylesheet" href="assets/css/styles.css" />
-  <style>
-    .give-hero { text-align:center; padding: 2rem 1rem 1rem; }
-    .give-hero h1 { margin-bottom:.25rem; }
-    .give-wrap { max-width: 900px; margin: 0 auto; }
-    .give-grid { display:grid; gap:1rem; grid-template-columns: 1fr; }
-    @media (min-width: 900px){ .give-grid { grid-template-columns: 1.2fr .8fr; } }
-    .give-card { border:1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03); border-radius: .75rem; padding:1rem; }
-    .give-card h2 { margin:.25rem 0 .5rem; font-size:1.25rem; }
-    .give-img { width:100%; border-radius:.5rem; border:1px solid rgba(255,255,255,.08); display:block; }
-    .disclaimer { font-size:.9rem; opacity:.85; }
-    .legal small { display:block; opacity:.8; margin-top:.35rem; }
-    .req { color:#ff6b6b; font-weight:700; margin-left:.2rem;}
-    #successMsg {
-      display:none;
-      background:#0b2f13;
-      color:#9fff8c;
-      padding:1rem;
-      border-radius:.5rem;
-      border:1px solid #2c993f;
-      font-weight:600;
-      margin-top:1rem;
-      text-align:center;
-    }
-  </style>
 </head>
 <body>
+
+  <!-- Header (reuse your site header) -->
   <header class="site-header">
-    <a class="brand" href="/"><img src="assets/img/logo.png" alt="Freedom Crate Co." height="60" width="60"></a>
+    <a class="brand" href="/"><img src="/assets/img/logo.png" alt="Freedom Crate Co. Logo"></a>
     <nav class="nav" aria-label="Primary">
       <a href="/">Shop</a>
-      <a href="about.html">About</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="contact.html">Custom Orders</a>
-      <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
+      <a href="/about.html">About</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/reviews.html">Reviews</a>
+      <a href="/contact.html">Custom Orders</a>
+      <a href="/transparency.html">Transparency</a>
+      <a href="/checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
     </nav>
+    <div class="shipping-banner" role="note"><span class="flag" aria-hidden="true">🇺🇸</span><span class="label-desktop">Free Shipping on All Orders Within the U.S.</span><span class="label-mobile">Free US Shipping</span></div>
   </header>
 
-  <main class="container give-wrap">
-    <section class="give-hero">
-      <h1>Veteran Giveaway</h1>
-      <p class="lede">Each month we gift one U.S. veteran a <strong>Branch Collection</strong> ammo box—Army, Marines, Navy, Air Force, or Coast Guard.</p>
-      <div class="badge-row" style="justify-content:center">
-        <span class="badge">Monthly Winner</span>
-        <span class="badge">Free U.S. Shipping</span>
-      </div>
+  <main class="container narrow" id="main">
+    <header class="hero">
+      <h1>Monthly Veteran Giveaway</h1>
+      <p class="muted">We honor those who serve. Enter below for a chance to win a handcrafted wooden ammo box.</p>
+    </header>
+
+    <!-- Giveaway image -->
+    <figure>
+      <img src="/assets/img/branch-collection-coastguard.jpg" width="1200" height="800" alt="Freedom Crate Co. handcrafted wooden ammo box — Coast Guard edition">
+      <figcaption class="sr-only">Coast Guard branch stencil on handcrafted wooden ammo box.</figcaption>
+    </figure>
+
+    <!-- Giveaway form (keep your existing form action/fields if you already have them wired) -->
+    <section aria-label="Entry form">
+      <form id="giveaway-form" action="/giveaway-thanks.html" method="get" class="form-grid">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" placeholder="John Smith" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field wide">
+          <label for="service">Are you Active-Duty, Reserve, Veteran, or Family?</label>
+          <select id="service" name="service">
+            <option value="active">Active-Duty</option>
+            <option value="reserve">Reserve / Guard</option>
+            <option value="veteran">Veteran</option>
+            <option value="family">Family</option>
+            <option value="supporter">Supporter</option>
+          </select>
+        </div>
+        <div class="field wide">
+          <button class="btn" type="submit">Enter the Giveaway</button>
+        </div>
+        <p class="small muted">No purchase necessary. U.S. only. One entry per person per month.</p>
+      </form>
     </section>
 
-    <section class="give-grid">
-      <!-- Left: Form -->
-      <article class="give-card">
-        <h2>Enter a Veteran</h2>
-        <p class="disclaimer">You can nominate yourself or someone else. We select one veteran at random each month and may feature their story (optional) on our socials/newsletter.</p>
-
-        <!-- Supabase-integrated form -->
-        <form id="veteran-giveaway" method="POST" action="/.netlify/functions/fcc-giveaway">
-          <div class="form-grid">
-            <div class="field">
-              <label for="fullName">Veteran’s full name<span class="req">*</span></label>
-              <input id="fullName" name="fullName" autocomplete="name" required placeholder="First Last">
-            </div>
-            <div class="field">
-              <label for="email">Contact email<span class="req">*</span></label>
-              <input id="email" name="email" type="email" autocomplete="email" required placeholder="name@example.com">
-            </div>
-            <div class="field">
-              <label for="phone">Phone (optional)</label>
-              <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555">
-            </div>
-            <div class="field">
-              <label for="branch">Branch<span class="req">*</span></label>
-              <select id="branch" name="branch" required>
-                <option value="">Select branch…</option>
-                <option>U.S. Army</option>
-                <option>U.S. Marine Corps</option>
-                <option>U.S. Navy</option>
-                <option>U.S. Air Force</option>
-                <option>U.S. Coast Guard</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="years">Years served / rank (optional)</label>
-              <input id="years" name="years" placeholder="e.g., 2009–2017, E-6">
-            </div>
-            <div class="field wide">
-              <label for="story">Short story (optional)</label>
-              <textarea id="story" name="story" placeholder="Share a brief service highlight or why this veteran should be featured."></textarea>
-            </div>
-            <div class="field">
-              <label class="check">
-                <input type="checkbox" id="agree" name="agree" required>
-                I’m 18+ and agree to the giveaway rules (below).<span class="req">*</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="actions">
-            <button class="btn" type="submit">Submit Entry</button>
-            <button class="btn ghost" type="reset">Clear</button>
-          </div>
-
-          <p id="successMsg">✅ Entry received! Check your email at the end of the month.</p>
-        </form>
-      </article>
-
-      <!-- Right: Info / Rules -->
-      <aside class="give-card legal">
-        <h2>What You’ll Win</h2>
-        <p>One <strong>Branch Collection</strong> ammo box (your branch choice), handcrafted with lockable hardware and shipped free within the U.S.</p>
-
-        <h2>How Selection Works</h2>
-        <ul class="bullets">
-          <li><strong>Monthly draw:</strong> one eligible entry wins each month.</li>
-          <li><strong>Fair & random:</strong> random draw from that month’s entries.</li>
-          <li><strong>Spotlight:</strong> we may feature the winner’s story/photos (optional).</li>
-        </ul>
-
-        <h2>Rules (Short)</h2>
-        <ul class="bullets">
-          <li>Open to U.S. veterans (any branch). Proof of service may be requested.</li>
-          <li>One entry per person per month. Re-enter next month if you weren’t selected.</li>
-          <li>No purchase necessary. Void where prohibited.</li>
-          <li>Prize is one Branch Collection ammo box; no cash value.</li>
-          <li>Winner notified by email; must respond within 7 days.</li>
-        </ul>
-        <small>Tip: want to help us gift more boxes? Share the giveaway or pick up a crate—sales help fund future boxes.</small>
-      </aside>
+    <!-- Internal links for crawl depth -->
+    <section aria-label="Explore our boxes" style="margin-top:1.25rem;">
+      <p><a href="/product.html">See our handcrafted wooden ammo boxes</a> • <a href="/branch-collection.html">Browse the Branch Collection</a></p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
       <span class="badge">US Veteran-inspired • Florida-built</span>
+      <p class="muted">Rugged, practical, and made to be used.</p>
+      <p class="muted">
+        <a href="/product.html" class="footer-link">Shop handcrafted wooden ammo boxes</a> •
+        <a href="/gallery.html" class="footer-link">View past builds</a>
+      </p>
     </div>
   </footer>
 
-  <!-- JSON-LD: simple page + giveaway info -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebPage",
-    "name":"Veteran Giveaway",
-    "url":"https://freedomcrateco.com/giveaway.html",
-    "about":{
-      "@type":"Organization",
-      "name":"Freedom Crate Co.",
-      "url":"https://freedomcrateco.com/",
-      "founder":{"@type":"Person","name":"Steven Tauriello"}
-    },
-    "description":"Monthly Branch Collection ammo box giveaway honoring one U.S. veteran."
-  }
-  </script>
-
-  <script>
-    const form = document.getElementById('veteran-giveaway');
-    const successMsg = document.getElementById('successMsg');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const fd = new FormData(form);
-
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams([...fd.entries()])
-        });
-        const json = await res.json();
-
-        if (res.ok && json.ok) {
-  // ✅ Redirect to thank-you page on success
-  window.location.href = "/giveaway-thanks.html";
-} else {
-  alert('⚠️ Something went wrong. Please try again later.');
-  console.error('Error:', json);
-}
-} catch (err) {
-  alert('⚠️ Network error — please try again.');
-  console.error(err);
-}
-});
-</script>
+  <!-- Shared libs (if used sitewide) -->
+  <script src="/assets/js/util.js" defer></script>
+  <script src="/assets/js/config.js" defer></script>
+  <script src="/assets/js/inventory.js" defer></script>
+  <script src="/assets/js/data.js" defer></script>
+  <script src="/assets/js/cart.js" defer></script>
+  <script src="/assets/js/catalog.js" defer></script>
 </body>
 </html>
