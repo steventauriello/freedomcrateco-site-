@@ -374,16 +374,19 @@
           <div class="branch-label"><a class="feature-link" href="branch-collection.html">Branch Collection</a></div>
           <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
 
-          <label for="sb-branch">Branch stencil</label>
-          <select id="sb-branch" aria-describedby="sb-branch-help">
-            <option value="blank">Blank (no stencil)</option>
-            <option value="army">U.S. Army</option>
-            <option value="marines" selected>U.S. Marine Corps</option>
-            <option value="navy">U.S. Navy</option>
-            <option value="airforce">U.S. Air Force</option>
-            <option value="coastguard">U.S. Coast Guard</option>
-          </select>
-          <p id="sb-branch-help" class="sr-only" aria-hidden="true"></p>
+        <label class="fc-label" for="sb-branch">Branch stencil</label>
+<div class="fc-select-wrap">
+  <select id="sb-branch" name="branch" class="fc-select" aria-describedby="sb-branch-help">
+    <option value="blank">Blank (no stencil)</option>
+    <option value="army">U.S. Army</option>
+    <option value="marines" selected>U.S. Marine Corps</option>
+    <option value="navy">U.S. Navy</option>
+    <option value="airforce">U.S. Air Force</option>
+    <option value="coastguard">U.S. Coast Guard</option>
+  </select>
+</div>
+<p id="sb-branch-help" class="sr-only" aria-hidden="true"></p>
+
 
           <label>Hardware (both lockable)</label>
           <div role="group" aria-label="Latch finish">
@@ -491,12 +494,16 @@
     <section id="products" class="grid" aria-live="polite"></section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span class="badge">US Veteran-inspired • Florida-built</span>
-      <p class="muted">Rugged, practical, and made to be used.</p>
-    </div>
-  </footer>
+ <footer class="site-footer">
+  <div class="container">
+    <span class="badge">US Veteran-inspired • Florida-built</span>
+    <p class="muted">Rugged, practical, and made to be used.</p>
+    <p class="muted">
+      <a href="/giveaway.html" class="footer-link">🎖 Enter our Monthly Veteran Box Giveaway</a>
+    </p>
+  </div>
+</footer>
+
 
   <!-- Shared libs -->
   <script src="assets/js/util.js" defer></script>
