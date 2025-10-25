@@ -1203,3 +1203,39 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
   color: #00ff66;
   border-color: #00ff66;
 }
+/* ---------- Unified dropdown (Branch + Rangemaster) ---------- */
+.fc-field{display:flex;flex-direction:column;gap:.4rem;margin:.9rem 0}
+.fc-label{font-weight:600;letter-spacing:.02em}
+
+.fc-select{
+  width:100%;
+  padding:.85rem 2.6rem .85rem .9rem;
+  font:inherit;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#0e1013;            /* matches your dark inputs */
+  color:var(--text);
+  outline:none;
+  appearance:none; -webkit-appearance:none;
+  line-height:1.2;
+  transition:border-color .15s, box-shadow .15s, background .15s;
+}
+
+.fc-select:focus{
+  border-color:#2162ff;          /* same blue you use elsewhere */
+  box-shadow:0 0 0 3px color-mix(in srgb, #2162ff 35%, transparent);
+}
+
+/* caret icon */
+.fc-select-wrap{position:relative}
+.fc-select-wrap::after{
+  content:"";
+  position:absolute; right:.9rem; top:50%; translate:0 -50%;
+  width:12px; height:12px; pointer-events:none; opacity:.7;
+  background:currentColor;
+  -webkit-mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="white"/></svg>') no-repeat center/contain;
+          mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="white"/></svg>') no-repeat center/contain;
+}
+
+/* iOS dark list contrast */
+select.fc-select option{background:#0f131a;color:#fff}
