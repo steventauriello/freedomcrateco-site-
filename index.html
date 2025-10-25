@@ -426,27 +426,45 @@
           </a>
         </div>
 
-        <div class="fc-controls">
-          <h2>Rangemaster 400</h2>
-          <p class="fc-note">Choose your package to preview instantly.</p>
+      <div class="fc-controls">
+  <h2>Rangemaster 400</h2>
+  <p class="fc-note">Choose your package to preview instantly.</p>
 
-          <label for="rm400-package">Package</label>
-          <select id="rm400-package" aria-describedby="rm400-help">
-            <option value="base" data-sku="RM400-BASE"  data-price="49.99" data-img="assets/img/rangemaster-400-main-photo.png">Rangemaster 400 (Base)</option>
-            <option value="armor" data-sku="RM400-ARMOR" data-price="59.99" data-img="assets/img/armor-core-main.jpg">Rangemaster 400 — Armor Core (Interior PolyShield)</option>
-            <option value="battleguard" data-sku="RM400-BG" data-price="69.99" data-img="assets/img/battleguard-main.jpg">Rangemaster 400 — Battle Guard (Exterior PolyShield)</option>
-          </select>
-          <p id="rm400-help" class="sr-only" aria-hidden="true"></p>
+  <!-- unified select (same pattern as Branch Collection) -->
+  <label class="fc-field" for="rm400-package">
+    <span class="fc-label">Package</span>
+    <div class="fc-select-wrap">
+      <select id="rm400-package" name="package" class="fc-select" aria-describedby="rm400-help">
+        <option value="base" data-sku="RM400-BASE"  data-price="49.99" data-img="assets/img/rangemaster-400-main-photo.png">
+          Rangemaster 400 (Base)
+        </option>
+        <option value="armor" data-sku="RM400-ARMOR" data-price="59.99" data-img="assets/img/armor-core-main.jpg">
+          Rangemaster 400 — Armor Core (Interior PolyShield)
+        </option>
+        <option value="battleguard" data-sku="RM400-BG" data-price="69.99" data-img="assets/img/battleguard-main.jpg">
+          Rangemaster 400 — Battle Guard (Exterior PolyShield)
+        </option>
+      </select>
+    </div>
+  </label>
+  <p id="rm400-help" class="sr-only" aria-hidden="true"></p>
 
-          <label>Hardware (both lockable)</label>
-          <div role="group" aria-label="Hardware finish">
-            <div class="option-row">
-              <label><input type="radio" name="rm400-hw" class="rm400-hw" value="Stainless" data-code="STN" checked> Original Stainless Toggle Latches</label>
-            </div>
-            <div class="option-row">
-              <label><input type="radio" name="rm400-hw" class="rm400-hw" value="Black" data-code="BLK"> Black Toggle Latches</label>
-            </div>
-          </div>
+  <label>Hardware (both lockable)</label>
+  <div role="group" aria-label="Hardware finish">
+    <div class="option-row">
+      <label>
+        <input type="radio" name="rm400-hw" class="rm400-hw" value="Stainless" data-code="STN" checked>
+        Original Stainless Toggle Latches
+      </label>
+    </div>
+    <div class="option-row">
+      <label>
+        <input type="radio" name="rm400-hw" class="rm400-hw" value="Black" data-code="BLK">
+        Black Toggle Latches
+      </label>
+    </div>
+  </div>
+</div>
 
           <div class="fc-row">
             <div><strong>Total: <span id="rm400-price" aria-live="polite">$49.99</span></strong></div>
