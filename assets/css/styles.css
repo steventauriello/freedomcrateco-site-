@@ -1604,3 +1604,74 @@ margin-right: -30px; /* slight spacing before text */
   }
   .site-header, .header-inner{ overflow: hidden; }
 }
+/* === Mobile header fixes (polished layout) === */
+@media (max-width: 640px){
+
+  /* Reset off-canvas nav so all links are visible */
+  .site-header .nav{
+    position: static !important;
+    transform: none !important;
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+
+    /* Grid layout: wraps cleanly */
+    display: grid !important;
+    grid-template-columns: repeat(3, auto);
+    grid-auto-flow: row;
+    justify-content: center;
+    align-items: center;
+    gap: 6px 10px;
+    width: 100%;
+    order: 3;
+  }
+
+  /* Hide hamburger */
+  .menu-btn{ display: none !important; }
+
+  /* Compact nav links */
+  .site-header .nav a{
+    margin: 0 !important;
+    padding: 6px 8px !important;
+    font-size: .95rem;
+    white-space: nowrap;
+  }
+  .site-header .nav a::before{ content: none !important; }
+
+  /* Cart aligns right on same row, no wrapping */
+  .site-header .nav .cart-link{
+    grid-column: 3;
+    justify-self: end;
+    align-self: center;
+    order: 999;
+    margin-top: 4px;
+  }
+  .nav .cart-link .flag{ display: none; }
+
+  /* CTA buttons span full width below nav links */
+  .nav-cta{
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    margin-top: .35rem;
+  }
+
+  /* Logo adjustments */
+  :root{
+    --logo-x: 0px !important;
+    --logo-h: 78px !important;
+  }
+  .site-header .brand{
+    margin: 0 auto;
+  }
+
+  /* Header flex wrap */
+  .header-inner{
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+  }
+  .site-header, .header-inner{ overflow: hidden; }
+}
