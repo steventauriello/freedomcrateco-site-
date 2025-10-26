@@ -1841,3 +1841,81 @@ html, body{ overflow-x: hidden !important; }
   .header-inner{ flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem; }
   .site-header, .header-inner{ overflow: hidden; }
 }
+/* ===== MOBILE HEADER: fit-to-screen, no sideways scroll, buttons visible ===== */
+html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
+
+/* Shorten the top bar on phones */
+@media (max-width:640px){
+  .topbar-inner{ grid-template-columns:1fr !important; }
+  .topbar .msg{
+    white-space:normal !important; visibility:hidden !important; position:relative; height:1.25rem;
+  }
+  .topbar .msg::after{
+    content:"FREE U.S. SHIPPING"; visibility:visible; position:absolute; inset:0;
+    display:block; text-align:center; font-weight:700; letter-spacing:.2px;
+  }
+}
+
+/* Header + nav */
+@media (max-width:640px){
+  /* neutralize any off-canvas behavior */
+  .site-header .nav{
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+
+    /* IMPORTANT: columns that never overflow the viewport */
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));  /* 3 equal columns */
+    gap: 6px 8px;
+    justify-items: center;       /* center items in their cells */
+    align-items: center;
+    width: 100%;
+    order: 3;
+  }
+
+  /* tiny phones: 2 columns so nothing clips */
+  @media (max-width:390px){
+    .site-header .nav{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+
+  .menu-btn{ display:none !important; }
+
+  /* Link pills that can wrap to 2 lines if needed (no overflow) */
+  .site-header .nav a{
+    margin: 0 !important;
+    padding: 6px 6px !important;
+    font-size: .92rem;
+    text-align: center;
+    line-height: 1.2;
+    white-space: normal;      /* <-- allow wrapping within the pill */
+    word-break: keep-all;
+  }
+  .site-header .nav a::before{ content:none !important; }
+
+  /* Cart at end; hide big flag to avoid width bloat */
+  .site-header .nav .cart-link{
+    order: 99;
+    justify-self: end;
+    margin: 0 !important;
+  }
+  .nav .cart-link .flag{ display:none !important; }
+
+  /* Buttons always on their own full-width row, fully visible */
+  .nav-cta{
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    margin-top: .35rem;
+  }
+
+  /* Logo sizing/offset so it never forces width */
+  :root{ --logo-x:0px !important; --logo-h:72px !important; }
+  .site-header .brand{ margin:0 auto; }
+
+  .header-inner{ flex-wrap:wrap; align-items:center; justify-content:center; gap:.5rem; }
+}
