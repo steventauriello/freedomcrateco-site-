@@ -88,13 +88,6 @@ a { color: var(--link); text-decoration: none; }
   background: linear-gradient(180deg,#0f0f12,rgba(15,15,18,.9));
   border-bottom: 1px solid var(--border);
 }
-.site-header .brand { display: flex; align-items: center; gap: 12px; color: #fff; }
-.site-header .brand img{
-  width: 60px; height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #fff;
-}
 
 /* Nav (cart forced to far right) */
 .site-header .nav {
@@ -923,11 +916,39 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
   border-radius: 8px;
   border: 1px solid #e5e5e5;   /* subtle frame */
 }
-/* === Monthly Giveaway Banner === */
+/* === Monthly Giveaway Banner (refined) === */
 .giveaway-banner {
-  text-align: center;
-  padding: 0.4rem 0;
-  background: linear-gradient(90deg, #7300ff, #e0006b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.35rem 0.5rem;
+  background: linear-gradient(90deg, #0b1114, #10161b);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.giveaway-banner .giveaway-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+.giveaway-banner .giveaway-link:hover {
+  opacity: 0.85;
+}
+
+.giveaway-banner .flag {
+  width: 22px;
+  height: auto;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 2px;
 }
 
 .giveaway-link {
@@ -1239,3 +1260,277 @@ html, body { overflow-x: auto; }          /* allow sideways scroll if content is
 
 /* iOS dark list contrast */
 select.fc-select option{background:#0f131a;color:#fff}
+/* ===== Header v2 (Freedom Crate Co.) — place at END of stylesheet ===== */
+:root{
+  --brand:#2ecc71;
+  --ink:#0c1424;
+  --header: rgba(6,8,10,.82);
+  --stroke: rgba(255,255,255,.14);
+  --text:#fff;
+}
+
+/* Skip link (accessibility) */
+.skip-link{
+  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+}
+.skip-link:focus{
+  position:fixed; left:1rem; top:1rem; width:auto; height:auto; padding:.5rem .75rem;
+  background:#111; color:#fff; border:1px solid var(--stroke); border-radius:.5rem; z-index:10000;
+}
+
+/* Giveaway banner (polished) */
+.giveaway-banner{
+  display:flex; justify-content:center; align-items:center;
+  background:#0b1114; border-bottom:1px solid var(--stroke);
+}
+.giveaway-banner .giveaway-link{
+  display:flex; align-items:center; gap:.5rem; color:#fff; text-decoration:none; padding:.45rem .75rem;
+}
+.giveaway-banner .giveaway-link .text{ font-weight:700; letter-spacing:.2px; }
+
+/* Full-width bar */
+.topbar{
+  background:#0a0f13;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  color:#d0d6dc;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+}
+
+/* Inner container matches your main header width so the center aligns perfectly */
+.topbar-inner{
+  max-width:1100px;          /* match your .header-inner/container width */
+  margin:0 auto;
+  padding:.35rem .75rem;
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;   /* left | center | right */
+  align-items:center;
+  gap:.5rem;
+}
+
+/* Centered text lives in the middle column */
+.topbar .msg{
+  grid-column:2;
+  text-align:center;
+  margin:0;
+  line-height:1.2;
+  white-space:nowrap;
+}
+
+/* Right flag pinned to the far edge */
+.topbar .flag{
+  grid-column:3;
+  justify-self:end;
+  width:120px;               /* adjust size */
+  height:auto;
+  display:block;
+}
+
+/* Mobile tweaks */
+@media (max-width:640px){
+  .topbar-inner{ grid-template-columns: 1fr auto 80px; }
+  .topbar .flag{ width:80px; }
+  .topbar .msg{ font-size:.9rem; }
+}
+
+.topbar .msg {
+  text-align: center;
+  opacity: 0.95;
+}
+
+.topbar .msg strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Always-visible header shadow */
+.site-header {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Subtle shadow on scroll */
+.site-header.scrolled {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border-bottom-color: transparent;
+}
+
+
+/* Subtle shadow on scroll */
+.site-header.scrolled {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border-bottom-color: transparent;
+}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  max-width:1100px; margin:0 auto; padding:.6rem .9rem;
+}
+
+/* Brand */
+.brand{ display:flex; align-items:center; gap:.6rem; color:#fff; text-decoration:none; }
+.brand img{ border-radius:.5rem; }
+.brand-tag{ font-size:.9rem; opacity:.85; white-space:nowrap; }
+
+/* Mobile menu button */
+.menu-btn{
+  display:none; background:transparent; border:1px solid var(--stroke); border-radius:.5rem;
+  width:42px; height:38px; align-items:center; justify-content:center; color:#fff;
+}
+.menu-icon, .menu-icon:before, .menu-icon:after{
+  content:""; display:block; width:20px; height:2px; background:#fff; position:relative;
+}
+.menu-icon:before{ position:absolute; top:-6px; }
+.menu-icon:after { position:absolute; top:6px; }
+
+/* Primary nav */
+.nav{ display:flex; align-items:center; gap:1rem; }
+.nav a{ color:#fff; text-decoration:none; opacity:.95; padding:.35rem .25rem; border-radius:.4rem; }
+.nav a:hover, .nav a:focus{ text-decoration:underline; }
+.nav a[aria-current="page"]{ color:var(--brand); font-weight:700; text-decoration:none; }
+
+/* Header CTAs (right side) */
+.nav-cta{ display:flex; align-items:center; gap:.6rem; margin-left:.5rem; }
+.btn{
+  display:inline-block; padding:.6rem .9rem; border-radius:.55rem; text-decoration:none;
+  border:1px solid var(--stroke); color:#fff;
+}
+/* Cart (far right with flag) */
+.nav .cart-link {
+  margin-left: auto; /* pushes cart to the far right */
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: var(--text, #fff);
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nav .cart-link:hover {
+  background: #1a1d26;
+  color: var(--brand, #2ecc71);
+}
+
+.nav .cart-link .flag {
+  width: 90px;
+  height: auto;
+  display: inline-block;
+  vertical-align: middle;
+margin-right: -30px; /* slight spacing before text */
+}
+.nav .cart-link {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+.nav .cart-link .flag {
+  transform: translateY(2px); /* nudge down slightly for perfect centering */
+}
+.nav .cart-link:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--brand, #2ecc71);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.cart-icon {
+  font-size: 1.2rem;
+  margin-left: 4px;
+}
+
+.cart-count {
+  background: var(--brand, #2ecc71);
+  color: #000;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  margin-left: 4px;
+  font-weight: 700;
+}
+.cart-svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff; /* white outline */
+  margin-left: 4px;
+  vertical-align: middle;
+  transition: stroke 0.3s ease;
+}
+
+.cart-link:hover .cart-svg {
+  stroke: var(--brand, #2ecc71); /* turns green on hover */
+}
+
+/* Mobile layout */
+@media (max-width: 640px) {
+  .nav .cart-link {
+    order: 99;
+    margin-left: auto;
+  }
+}
+
+.btn.ghost{ background:transparent; }
+.btn.small{ padding:.45rem .7rem; font-size:.95rem; }
+.btn:hover{ border-color:#fff; }
+.btn.ghost:hover{ background:rgba(255,255,255,.06); }
+.cart-link{ color:#fff; text-decoration:none; }
+.cart-link:hover{ text-decoration:underline; }
+
+/* Mobile behaviour */
+@media (max-width: 900px){
+  .menu-btn{ display:inline-flex; }
+  .nav{
+    position:fixed; inset:calc(60px + 2.2rem + 32px) 0 auto 0; /* under banner + topbar + header */
+    display:grid; gap:.75rem; padding:1rem; background:#0b1114; border-top:1px solid var(--stroke);
+    transform:translateY(-120%); transition:transform .2s ease-out;
+  }
+  .nav.open{ transform:translateY(0); }
+  .nav-cta{ margin-top:.25rem; }
+}
+
+/* Subtle shadow when scrolled */
+.scrolled .site-header{ box-shadow:0 8px 24px rgba(0,0,0,.25); }
+
+/* Remove old shipping pill if it still exists */
+.shipping-banner{ display:none !important; }
+.brand-tag {
+  display: none;
+}
+/* ===== FreedomCrate Logo Controls (final) ===== */
+:root{
+  --logo-h:90px;
+  --logo-x:-150px;
+  --logo-y:0px;
+  --logo-scale:1;
+  --logo-round:50%;  /*  ← this makes it perfectly circular  */
+  --logo-border:2px; /* optional */
+  --logo-border-color:#fff;
+}
+
+/* keep the brand from shrinking in the header row */
+.site-header .brand{
+  display:flex; align-items:center; gap:.6rem; color:#fff;
+  flex:0 0 auto;
+}
+
+/* nudge / scale wrapper */
+.site-header .brand .logo-wrap{
+  display:inline-flex; align-items:center; justify-content:center;
+  transform: translate(var(--logo-x), var(--logo-y)) scale(var(--logo-scale));
+  transform-origin: left center;
+}
+
+/* the logo image (no squish) */
+.site-header .brand img.logo{
+  height: var(--logo-h);
+  width: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  border-radius: var(--logo-round);
+  border: var(--logo-border) solid var(--logo-border-color);
+  display:block;
+}
+
+/* coarse alignment helpers (use one on .brand) */
+.brand-left  { margin-right:auto; }
+.brand-center{ margin:0 auto; }
+.brand-right { margin-left:auto; }
