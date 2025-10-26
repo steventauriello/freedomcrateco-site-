@@ -1744,3 +1744,100 @@ margin-right: -30px; /* slight spacing before text */
   .header-inner{ flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem; }
   .site-header, .header-inner{ overflow: hidden; }
 }
+/* ===== MOBILE HOTFIX (no sideways scroll + compact header) ===== */
+
+/* 0) Absolutely forbid horizontal scrolling site-wide */
+html, body{ overflow-x: hidden !important; }
+.container, .giveaway-thanks .container{ overflow-x: hidden !important; }
+
+/* 1) Top bar: show ONLY "FREE U.S. SHIPPING" on phones */
+@media (max-width:640px){
+  .topbar-inner{ grid-template-columns: 1fr !important; }
+  .topbar .msg{
+    white-space: normal !important;
+    visibility: hidden !important;      /* hide original long string */
+    position: relative;
+    height: 1.25rem;                    /* reserve space */
+  }
+  .topbar .msg::after{
+    content: "FREE U.S. SHIPPING";
+    visibility: visible;
+    position: absolute; inset: 0;
+    display: block; text-align: center;
+    font-weight: 700; letter-spacing: .2px;
+  }
+}
+
+/* 2) Header/nav: inline, wraps neatly into two rows; buttons stay visible */
+@media (max-width:640px){
+
+  /* neutralize off-canvas menu */
+  .site-header .nav{
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+
+    /* grid layout that actually fits */
+    display: grid !important;
+    grid-template-columns: repeat(3, auto); /* 3 per row on normal phones */
+    gap: 6px 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    order: 3;
+  }
+
+  /* tiny phones: drop to 2 per row so nothing clips */
+  @media (max-width:380px){
+    .site-header .nav{ grid-template-columns: repeat(2, auto); }
+  }
+
+  /* hide hamburger; we’re showing links inline */
+  .menu-btn{ display: none !important; }
+
+  /* compact link pills */
+  .site-header .nav a{
+    margin: 0 !important;
+    padding: 6px 8px !important;
+    font-size: .95rem;
+    white-space: nowrap;
+  }
+  .site-header .nav a::before{ content: none !important; }
+
+  /* place links in 2 rows (explicit order, cart at end right) */
+  .nav a[href="/"]{ order:10; }                            /* Shop */
+  .nav a[href="/branch-collection.html"]{ order:11; }
+  .nav a[href="/gallery.html"]{ order:12; }
+  .nav a[href="/about.html"]{ order:13; }
+
+  .nav a[href="/reviews.html"]{ order:14; }
+  .nav a[href="/contact.html"]{ order:15; }                /* Custom Orders */
+  .nav a[href="/transparency.html"]{ order:16; }
+  .nav .cart-link{
+    order:17;
+    justify-self: end;
+    margin: 0 !important;
+  }
+  .nav .cart-link .flag{ display: none !important; }       /* prevent width bloat */
+
+  /* buttons: always full width row below the links */
+  .nav-cta{
+    grid-column: 1 / -1;
+    display: flex; justify-content: center; gap: .5rem;
+    margin-top: .35rem;
+  }
+
+  /* logo size/offset so it never pushes layout wider */
+  :root{
+    --logo-x: 0px !important;
+    --logo-h: 72px !important;
+  }
+  .site-header .brand{ margin: 0 auto; }
+
+  /* keep header wrapping tidy */
+  .header-inner{ flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem; }
+  .site-header, .header-inner{ overflow: hidden; }
+}
