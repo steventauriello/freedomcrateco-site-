@@ -1675,3 +1675,72 @@ margin-right: -30px; /* slight spacing before text */
   }
   .site-header, .header-inner{ overflow: hidden; }
 }
+/* === Mobile header: exactly 2 rows (4 columns) + logo fix === */
+@media (max-width:640px){
+
+  /* Un-hide/neutralize any off-canvas rules */
+  .site-header .nav{
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+
+    /* 2-row grid (4 columns) */
+    display: grid !important;
+    grid-template-columns: repeat(4, auto);
+    grid-auto-flow: row;
+    justify-content: center;
+    align-items: center;
+    gap: 6px 10px;
+    width: 100%;
+    order: 3;
+  }
+
+  /* Hide hamburger since nav is visible */
+  .menu-btn{ display: none !important; }
+
+  /* Compact link pills */
+  .site-header .nav a{
+    margin: 0 !important;
+    padding: 6px 8px !important;
+    font-size: .95rem;
+    white-space: nowrap;
+  }
+  .site-header .nav a::before{ content: none !important; }
+
+  /* Explicit ordering: 2 rows × 4 columns */
+  .nav a[href="/"]{                   order:10; }  /* Shop */
+  .nav a[href="/branch-collection.html"]{ order:11; }
+  .nav a[href="/gallery.html"]{       order:12; }
+  .nav a[href="/about.html"]{         order:13; }
+
+  .nav a[href="/reviews.html"]{       order:14; }
+  .nav a[href="/contact.html"]{       order:15; }  /* Custom Orders */
+  .nav a[href="/transparency.html"]{  order:16; }
+  .nav .cart-link{                    order:17; justify-self:end; }
+
+  /* Shrink/hide cart flag to prevent overflow */
+  .nav .cart-link .flag{ display: none; }
+
+  /* CTA buttons sit centered beneath the 2 nav rows */
+  .nav-cta{
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    margin-top: .35rem;
+  }
+
+  /* Logo corrections */
+  :root{
+    --logo-x: 0px !important;
+    --logo-h: 78px !important;
+  }
+  .site-header .brand{ margin: 0 auto; }
+
+  /* Keep header tidy */
+  .header-inner{ flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem; }
+  .site-header, .header-inner{ overflow: hidden; }
+}
