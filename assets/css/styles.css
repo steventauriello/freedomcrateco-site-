@@ -1530,25 +1530,34 @@ margin-right: -30px; /* slight spacing before text */
   display:block;
 }
 
-/* coarse alignment helpers (use one on .brand) */
-.brand-left  { margin-right:auto; }
-.brand-center{ margin:0 auto; }
-.brand-right { margin-left:auto; }
-/* === Mobile header fixes: 2-row nav + logo nudge (FINAL) === */
+/* === Mobile header fixes (final integrated block) === */
 @media (max-width: 640px){
 
-  /* 1) Let the nav be its own box again (not display: contents) */
+  /* Reset off-canvas nav behavior so links are visible inline */
   .site-header .nav{
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+
+    /* Grid layout: 3 items per row, wraps automatically */
     display: grid !important;
-    grid-template-columns: repeat(3, auto);  /* 3 items per row -> wraps to 2+ rows */
-    justify-content: center;                 /* centered links */
+    grid-template-columns: repeat(3, auto);
+    grid-auto-flow: row;
+    grid-auto-rows: minmax(0, auto);
+    justify-content: center;
     align-items: center;
-    gap: 6px 10px;                           /* row/column gaps */
+    gap: 6px 10px;
     width: 100%;
-    order: 3;                                 /* puts the nav under brand/menu button */
+    order: 3;
   }
 
-  /* Uniform, compact link pills */
+  /* Hide hamburger menu on mobile since nav is visible */
+  .menu-btn{ display: none !important; }
+
+  /* Uniform, compact nav links */
   .site-header .nav a{
     margin: 0 !important;
     padding: 6px 8px !important;
@@ -1556,48 +1565,42 @@ margin-right: -30px; /* slight spacing before text */
     white-space: nowrap;
   }
 
-  /* Kill the little "|" separators you added for the one-line layout */
+  /* Remove vertical bar separators */
   .site-header .nav a::before{ content: none !important; }
 
-  /* Cart sits on the same grid and snaps to the right edge on the last row */
+  /* Cart link placement and flag control */
   .site-header .nav .cart-link{
     margin: 0 !important;
-    justify-self: end;   /* right edge of the grid */
-    order: 999;          /* make sure it falls to the end */
+    justify-self: end;
+    order: 999;
   }
+  .nav .cart-link .flag{ display: none; } /* hide big flag on small screens */
 
-  /* CTA buttons span the row, centered under the links (optional) */
+  /* CTA buttons full-width under nav links */
   .nav-cta{
-    grid-column: 1 / -1;            /* full width */
+    grid-column: 1 / -1;
     justify-content: center;
     gap: .5rem;
     margin: .25rem 0 0 0;
   }
 
-  /* 2) Logo: neutralize the leftward offset + slightly smaller on phones */
+  /* Logo size + offset fix */
   :root{
-    --logo-x: 0px !important;       /* stop pushing it off-screen left */
-    --logo-h: 78px !important;      /* optional: a touch smaller for fit */
+    --logo-x: 0px !important;
+    --logo-h: 78px !important;
   }
 
-  /* Center the brand block (or nudge right) */
+  /* Center the logo block (change to margin-left:24px for slight right bias) */
   .site-header .brand{
     margin-left: auto;
-    margin-right: auto;              /* centers it; remove this line to bias right */
+    margin-right: auto;
   }
 
-  /* Keep the header content stacking nicely */
+  /* Keep header flexible and prevent horizontal scroll */
   .header-inner{
     flex-wrap: wrap;
     align-items: center;
     gap: .6rem;
   }
-
-  /* Make sure nothing in the header can force horizontal scroll */
   .site-header, .header-inner{ overflow: hidden; }
 }
-/* shrink the big cart flag on phones (or hide it if you prefer) */
-.nav .cart-link .flag { width: 60px; }   /* or: display:none; */
-
-/* make sure grid packs neatly without stretching columns */
-.site-header .nav { grid-auto-flow: row; grid-auto-rows: minmax(0,auto); }
