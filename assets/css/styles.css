@@ -1831,10 +1831,23 @@ html, body{ overflow-x: hidden !important; }
   }
 
   /* logo size/offset so it never pushes layout wider */
-  :root{
-    --logo-x: 0px !important;
-    --logo-h: 60px !important;
+:root {
+  --logo-x: 0px !important;
+  --logo-h: 60px !important;   /* default desktop size */
+}
+
+@media (max-width: 640px) {
+  :root {
+    --logo-h: 70px !important;  /* mobile size */
   }
+
+  /* move logo to the left on mobile */
+  .site-header .brand {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    justify-self: start !important;
+  }
+}
   .site-header .brand{ margin: 0 auto; }
 
   /* keep header wrapping tidy */
