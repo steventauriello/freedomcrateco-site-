@@ -1940,3 +1940,28 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
     justify-self: start !important;
   }
 }
+/* === FINAL: logo controls (desktop vs mobile) === */
+/* Desktop defaults */
+:root{
+  --logo-h: 90px;         /* desktop logo height */
+  --logo-x: -150px;       /* desktop horizontal nudge (px) */
+  --logo-y: 0px;          /* desktop vertical nudge (px) */
+  --logo-scale: 1;        /* desktop scale */
+}
+
+/* Mobile overrides */
+@media (max-width:640px){
+  :root{
+    --logo-h: 72px;       /* mobile logo height */
+    --logo-x: 0px;        /* keep inside viewport on phones */
+    --logo-y: 0px;
+    --logo-scale: 1;
+  }
+
+  /* put logo on the left on mobile */
+  .site-header .brand{
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    justify-self: start !important;
+  }
+}
