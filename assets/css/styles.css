@@ -1919,3 +1919,11 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
 
   .header-inner{ flex-wrap:wrap; align-items:center; justify-content:center; gap:.5rem; }
 }
+/* === Mobile logo alignment: move logo to the left === */
+@media (max-width:640px){
+  .site-header .brand{
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    justify-self: start !important;
+  }
+}
