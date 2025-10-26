@@ -1833,7 +1833,7 @@ html, body{ overflow-x: hidden !important; }
   /* logo size/offset so it never pushes layout wider */
   :root{
     --logo-x: 0px !important;
-    --logo-h: 72px !important;
+    --logo-h: 60px !important;
   }
   .site-header .brand{ margin: 0 auto; }
 
