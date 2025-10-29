@@ -2162,3 +2162,43 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   color: var(--brand);
   text-decoration: underline;
 }
+/* Desktop-only nudge (what you have now) */
+@media (min-width: 881px){
+  #classic-box .custom-stencil-btn{
+    position: relative;
+    left: -200px;    /* keep your desired placement on desktop */
+  }
+}
+/* Phones: no negative left offset, allow wrapping, keep it inside the card */
+@media (max-width: 880px){
+  #classic-box .custom-stencil-btn{
+    position: static !important;     /* kills left:-200px */
+    display: block;
+    margin: 10px 16px 0 !important;  /* small side padding so it never kisses the edge */
+    text-align: center;               /* looks like one centered “pill” */
+    white-space: normal;              /* ← lets it break to two lines if needed */
+    line-height: 1.25;
+  }
+
+  /* If you want it to look like a button/pill on mobile, uncomment:
+  #classic-box .custom-stencil-btn{
+    padding: .55rem .9rem;
+    border: 1px solid var(--brand);
+    border-radius: 9999px;
+  }
+  */
+
+  /* Pin the “More details →” safely inside the card on phones */
+  #classic-box .more-details{
+    left: 16px;            /* clamp both sides so it can wrap */
+    right: 16px;
+    bottom: 6px;
+    text-align: center;    /* reads nicer under the controls */
+    line-height: 1.2;
+  }
+
+  /* Ensure the controls leave room for the pinned link */
+  #classic-box .fc-controls{ padding-bottom: 64px !important; }
+}
+
+
