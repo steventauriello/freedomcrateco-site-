@@ -1965,3 +1965,200 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
     justify-self: start !important;
   }
 }
+/* --- Fix RM400 image click being blocked --- */
+#rm400-card { position: relative; overflow: hidden; }
+#rm400-card .fc-media { position: relative; z-index: 3; }   /* put image link on top */
+#rm400-card .fc-media a { display: block; pointer-events: auto; }
+#rm400-card .fc-controls { position: relative; z-index: 1; } /* push controls underneath */
+#rm400-card .fc-controls {
+  margin-top: 0;
+  padding-top: 0;
+}
+/* Classic card: keep "More details →" clickable without moving it */
+#classic-box { position: relative; }                /* create a local stacking context */
+#classic-box .fc-media { position: relative; z-index: 0; } /* image layer */
+#classic-box .more-details { position: relative; z-index: 2; } /* lift link above image only */
+#classic-box .more-details a { pointer-events: auto; display: inline; } /* avoid full-width block */
+
+/* Branch Collection: pin "More details" bottom-right */
+#classic-box .fc-controls { position: relative; padding-bottom: 44px; } /* room for the link */
+#classic-box .more-details {
+  position: absolute; right: 16px; bottom: 8px;
+  margin: 0; text-align: right;
+}
+
+/* Rangemaster 400: ensure it stays bottom-right too */
+#rm400-card .fc-controls { position: relative; padding-bottom: 44px; }
+#rm400-card .more-details {
+  position: absolute; right: 16px; bottom: 8px;
+  margin: 0; text-align: right;
+}
+/* Adjust spacing above "Want Custom Stenciling?" text */
+#classic-box .custom-link {
+  margin-top: 16px !important;
+  display: block;
+}
+/* --- Fix overlap between Add/Buy buttons and custom-stenciling link --- */
+#classic-box .fc-row:last-of-type {
+  margin-bottom: 1rem; /* adds breathing room under Buy Now buttons */
+}
+
+#classic-box .custom-link {
+  display: block;
+  margin-top: 0.5rem;
+  clear: both;
+}
+/* --- Classic card: keep buttons from crowding custom-stenciling line --- */
+#classic-box .fc-controls .fc-row:nth-of-type(2) {
+  /* this is the Add to Cart / Buy Now row */
+  margin-bottom: 18px;              /* more breathing room below buttons */
+}
+
+#classic-box .custom-link {
+  display: block;
+  margin-top: 18px;                 /* space above the text line */
+  clear: both;                      /* no chance of flex/float crowding */
+  position: relative; 
+  z-index: 2;                       /* render above anything nearby */
+}
+/* --- Final adjustment for Classic box layout --- */
+#classic-box .fc-controls {
+  padding-bottom: 20px;  /* adds room below Buy Now buttons */
+}
+
+#classic-box .custom-link {
+  display: block;
+  margin-top: 10px !important;
+  clear: both;
+  position: relative;
+  z-index: 3;
+}
+/* restore clean alignment from production */
+#classic-box .fc-controls {
+  position: relative;
+  padding-top: 0;
+  padding-bottom: 16px; /* tighter vertical spacing */
+  margin-top: 0;
+}
+
+#classic-box .fc-note {
+  margin: 0.25rem 0; /* remove large gaps between lines */
+}
+
+#classic-box .fc-row {
+  margin-top: 0.5rem; /* keep small space above Add/Buy buttons */
+  margin-bottom: 0;   /* remove extra space under them */
+}
+
+#classic-box .more-details {
+  position: absolute;
+  bottom: 12px;
+  right: 20px;
+}
+/* --- Keep "Want Custom Stenciling?" clear of the buttons (Classic card) --- */
+#classic-box .fc-controls .stencil-text {
+  display: block;
+  clear: both;              /* just in case anything floats */
+  margin-top: 10px !important;   /* push it down from the buttons */
+  line-height: 1.25;
+  position: relative;
+  z-index: 0;
+}
+
+/* Ensure the button row leaves breathing room below it */
+#classic-box .fc-controls .fc-row,
+#classic-box .fc-controls .buy-row {
+  margin-bottom: 12px !important;
+}
+
+/* (defensive) buttons don’t collapse their own height */
+#classic-box .fc-controls .btn {
+  line-height: 1 !important;
+  position: relative;
+  z-index: 1;               /* keeps button label above nearby text */
+}
+/* --- Classic card controls: make rows stack with a fixed gap --- */
+#classic-box .fc-controls{
+  display: grid !important;
+  grid-auto-flow: row;
+  grid-auto-rows: min-content;
+  row-gap: 10px;                 /* space between every row */
+  position: relative;            /* required for the absolute More details */
+  padding-bottom: 64px;          /* room for the bottom-right More details link */
+}
+
+/* Ensure the green buttons don't collapse their bottom space */
+#classic-box .fc-controls .fc-row,
+#classic-box .fc-controls .buy-row{
+  margin: 0 !important;          /* grid gap handles spacing */
+}
+
+/* “Want Custom Stenciling?” block (whatever wrapper it has) */
+#classic-box .fc-controls .custom-link,
+#classic-box .fc-controls .stencil-text,
+#classic-box .fc-controls .custom-link *{
+  display: block;
+}
+
+/* Keep the More details link pinned bottom-right (your previous behavior) */
+#classic-box .fc-controls .more-details{
+  position: absolute !important;
+  right: 16px !important;
+  bottom: 6px !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+/* --- Fix: Buttons inline & remove green line under "Click here →" --- */
+
+/* Make Add to Cart + Buy Now sit side-by-side */
+#classic-box .fc-controls .fc-row {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px !important;
+}
+
+/* Ensure buttons are same height and aligned */
+#classic-box .fc-controls .fc-row .btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+/* Remove the green underline */
+#classic-box .fc-controls .green-link {
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+/* If "Click here →" uses .green-link inside a <p> or .custom-link */
+#classic-box .fc-controls .custom-link a {
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+.custom-stencil-btn {
+  display: inline-block;
+  font-family: inherit;
+  font-size: var(--step-0);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 0.75rem;
+
+  /* Force it left */
+  text-align: left;
+  margin-left: 0 !important;
+  transform: none !important;
+  position: relative;
+  left: -200px; /* Adjust this value to move more or less left */
+
+  transition: color 0.2s ease;
+}
+
+.custom-stencil-btn:hover {
+  color: var(--brand);
+  text-decoration: underline;
+}

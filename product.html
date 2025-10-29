@@ -144,10 +144,19 @@
       return div.innerHTML;
     }
 
-    // SKU from URL
-    const params = new URLSearchParams(location.search);
-    const sku = params.get('sku');
-    if (!sku) { location.href = 'index.html'; return; }
+    // SKU from URL (works for both localhost and production)
+const params = new URLSearchParams(location.search);
+let sku = params.get('sku') || (location.hash ? location.hash.slice(1) : '');
+
+// Optional: default SKU for dev testing
+if (!sku && ['localhost','127.0.0.1'].includes(location.hostname)) {
+  sku = 'FC-RM-400';
+  history.replaceState(null, '', location.pathname + '#' + sku);
+}
+
+// Redirect if still missing SKU
+if (!sku) { location.href = 'index.html'; return; }
+
 
     // Wait until product loader is ready
     while (!window.FC || typeof window.FC.loadProducts !== 'function') {

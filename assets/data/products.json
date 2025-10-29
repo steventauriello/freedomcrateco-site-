@@ -63,16 +63,17 @@
     "qty": 2,
     "image_url": "assets/img/rangemaster-400-top-angle-logo.png",
     "images": [
-      "assets/img/rangemaster-400-top-angle-closed.JPG",
+      "assets/img/rangemaster-armorecore-open-branded.png",
       "assets/img/rangemaster-400-base-full-close-up.JPG",
-      "assets/img/rangemaster-400-empty-armor-core.JPG",
+      "assets/img/rangemaster-armorcore-empty.JPG",
       "assets/img/rangemaster-400-base-open-empty.JPG",
       "assets/img/rangemaster-400-armor-core.png",
       "assets/img/rangemaster-400-handle-close-up.JPG",
       "assets/img/rangemaster-400-hinge-close-up.JPG",
       "assets/img/rangemaster-400-stacked-closed.JPG",
       "assets/img/black-toggle.JPG",
-      "assets/img/rangemaster-400-schematic.png"
+      "assets/img/rangemaster-400-schematic.png",
+      "assets/img/rangemaster-armorecore-full.JPG"
     ],
     "tags": [
       "range",

@@ -452,12 +452,12 @@
 
           <p class="more-details"><a href="branch-collection.html">More details →</a></p>
 
-          <p class="more-details custom-link">
-            <span class="stencil-text">Want Custom Stenciling?</span><br>
-            <a href="contact.html#custom" class="green-link">Click here →</a>
-          </p>
+          <p class="more-details">
+  <a href="contact.html#custom" class="custom-stencil-btn">
+    Want Custom Stenciling? Click here →
+  </a>
+</p>
 
-          <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
         </div>
       </div>
     </section>
@@ -466,7 +466,8 @@
     <section class="featured-wrap" aria-label="Rangemaster 400 Options">
       <div class="featured-card" id="rm400-card">
         <div class="fc-media">
-          <a href="product.html?sku=FC-RM-400" aria-label="View photos & details for Rangemaster 400">
+          <a href="#" id="rm400-link" aria-label="View photos & details for Rangemaster 400">
+
             <img id="rm400-image"
                  src="assets/img/rangemaster-400-main-photo.png"
                  alt="Rangemaster 400 — Closed"
@@ -498,21 +499,10 @@
   </label>
   <p id="rm400-help" class="sr-only" aria-hidden="true"></p>
 
-  <label>Hardware (both lockable)</label>
-  <div role="group" aria-label="Hardware finish">
-    <div class="option-row">
-      <label>
-        <input type="radio" name="rm400-hw" class="rm400-hw" value="Stainless" data-code="STN" checked>
-        Original Stainless Toggle Latches
-      </label>
-    </div>
-    <div class="option-row">
-      <label>
-        <input type="radio" name="rm400-hw" class="rm400-hw" value="Black" data-code="BLK">
-        Black Toggle Latches
-      </label>
-    </div>
-  </div>
+  <!-- Hardware fixed (hidden) -->
+<input type="hidden" id="rm400-hw-fixed" value="Black" data-code="BLK">
+<p class="fc-note">Hardware: Black Toggle Latches (lockable)</p>
+
 </div>
 
           <div class="fc-row">
@@ -641,72 +631,75 @@
     updateImage();
     calcTotal();
   })();
+</script>
 
-  /* --- Rangemaster 400: image/price swap + Add/Buy --- */
-  (function(){
-    const pkgSel   = document.getElementById('rm400-package');
-    const priceEl  = document.getElementById('rm400-price');
-    const imgEl    = document.getElementById('rm400-image');
-    const addBtn   = document.getElementById('rm400-add');
-    const buyBtn   = document.getElementById('rm400-buy');
-    const hwInputs = Array.from(document.querySelectorAll('.rm400-hw'));
 
-    if (!pkgSel || !priceEl || !imgEl) return;
+ <script>
+/* --- Rangemaster 400: image/price swap + Add/Buy (hardware fixed to Black) --- */
+(function(){
+  const pkgSel   = document.getElementById('rm400-package');
+  const priceEl  = document.getElementById('rm400-price');
+  const imgEl    = document.getElementById('rm400-image');
+  const addBtn   = document.getElementById('rm400-add');
+  const buyBtn   = document.getElementById('rm400-buy');
+  if (!pkgSel || !priceEl || !imgEl) return;
 
-    const fmt = n => '$' + Number(n).toFixed(2);
-    const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
-    const getHW  = () => hwInputs.find(x=>x.checked)?.value || 'Stainless';
+  const HW = { name: 'Black Toggle Latches', code: 'BLK' };
+  const fmt = n => '$' + Number(n).toFixed(2);
+  const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
 
-    function updateView(){
-      const pkg = getPkg();
-      priceEl.textContent = fmt(Number(pkg.dataset.price));
-      if (pkg.dataset.img){
-        const next = pkg.dataset.img;
-        const tmp = new Image();
-        tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
-        tmp.src = next;
-      }
+  function updateView(){
+    const pkg = getPkg();
+    priceEl.textContent = fmt(Number(pkg.dataset.price));
+    const next = pkg.dataset.img;
+    if (next){
+      const tmp = new Image();
+      tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
+      tmp.src = next;
     }
+  }
 
-    function buildSkuName(){
-      const pkg = getPkg();
-      const hw  = getHW();
-      const code = (hw === 'Stainless' ? 'STN' : 'BLK');
-      const sku  = `${pkg.dataset.sku}-${code}`;
-      const name = `${pkg.text} • ${hw}`;
-      const price = Number(pkg.dataset.price) || 0;
-      return { sku, name, price };
-    }
+  function buildSkuName(){
+    const pkg = getPkg();
+    return {
+      sku:   `${pkg.dataset.sku}-${HW.code}`,
+      name:  `${pkg.text} • ${HW.name}`,
+      price: Number(pkg.dataset.price) || 0
+    };
+  }
 
-    const addToCartSafe = (sku, name, price, qty, meta) =>
-      (typeof window.addToCart === 'function')
-        ? window.addToCart(sku, name, price, qty, meta)
-        : console.warn('Cart not ready');
+  const addToCartSafe = (sku, name, price, qty, meta) =>
+    (typeof window.addToCart === 'function')
+      ? window.addToCart(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
 
-    const buyNowSafe = (sku, name, price, qty, meta) =>
-      (typeof window.buyNow === 'function')
-        ? window.buyNow(sku, name, price, qty, meta)
-        : console.warn('Cart not ready');
+  const buyNowSafe = (sku, name, price, qty, meta) =>
+    (typeof window.buyNow === 'function')
+      ? window.buyNow(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
 
-    ["assets/img/rm400-top.jpg","assets/img/rm400-open.jpg","assets/img/rm400-armor-core.jpg","assets/img/rm400-battle-guard.jpg"]
-      .forEach(src => { const im = new Image(); im.src = src; });
+  // ✅ Proper preload lives INSIDE this IIFE
+  Array.from(pkgSel.options).forEach(opt => {
+    if (opt.dataset.img){ const im = new Image(); im.src = opt.dataset.img; }
+  });
 
-    pkgSel.addEventListener('change', updateView);
-    hwInputs.forEach(r => r.addEventListener('change', updateView));
+  pkgSel.addEventListener('change', updateView);
 
-    addBtn.addEventListener('click', () => {
-      const { sku, name, price } = buildSkuName();
-      addToCartSafe(sku, name, price, 1, { image: imgEl.src });
-    });
+  addBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuName();
+    addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+  });
 
-    buyBtn.addEventListener('click', () => {
-      const { sku, name, price } = buildSkuName();
-      buyNowSafe(sku, name, price, 1, { image: imgEl.src });
-    });
+  buyBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuName();
+    buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+  });
 
-    updateView();
-  })();
-  </script>
+  updateView();
+})();
+</script>
+
+
 
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 <script>
@@ -725,6 +718,29 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   })();
+</script>
+<script>
+(function () {
+  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
+  if (!isLocal) return;
+  document
+    .querySelectorAll('a[href^="/product.html?sku="], a[href^="product.html?sku="]')
+    .forEach(a => {
+      const u = new URL(a.href, location.origin);
+      const sku = u.searchParams.get('sku');
+      if (sku) a.href = '/product.html#' + sku; // dev-friendly
+    });
+})();
+</script>
+<script>
+(function() {
+  const link = document.getElementById('rm400-link');
+  if (!link) return;
+  const sku = 'FC-RM-400';
+  const base = 'product.html';
+  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
+  link.href = isLocal ? `${base}#${sku}` : `${base}?sku=${sku}`;
+})();
 </script>
 </body>
 </html>
