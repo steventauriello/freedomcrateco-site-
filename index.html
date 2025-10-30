@@ -398,129 +398,141 @@
       </div>
     </div>
 
-    <!-- Featured: Freedom Crate Classic -->
-    <section class="featured-wrap" aria-label="Freedom Crate Classic">
-      <div class="featured-card" id="classic-box">
-        <div class="fc-media">
-          <a href="branch-collection.html" aria-label="View photos & details for the Branch Collection">
-            <img id="sb-image"
-                 src="assets/img/blank.jpg"
-                 alt="Freedom Crate Classic live preview"
-                 loading="lazy" decoding="async"
-                 width="1200" height="800">
-          </a>
+   <!-- Featured: Freedom Crate Classic -->
+<section class="featured-wrap" aria-label="Freedom Crate Classic">
+  <div class="featured-card" id="classic-box">
+    <!-- LEFT COLUMN: image + More details -->
+    <div class="fc-media-col">
+      <div class="fc-media">
+        <a href="branch-collection.html" aria-label="View photos & details for the Branch Collection">
+          <img id="sb-image"
+               src="assets/img/blank.jpg"
+               alt="Freedom Crate Classic live preview"
+               loading="lazy" decoding="async"
+               width="1200" height="800">
+        </a>
+      </div>
+
+      <p class="more-details"><a href="branch-collection.html">More details →</a></p>
+    </div>
+
+    <!-- RIGHT COLUMN: controls (unchanged) -->
+    <div class="fc-controls">
+      <h2><a class="feature-link" href="branch-collection.html">Freedom Crate Classic</a></h2>
+      <div class="branch-label"><a class="feature-link" href="branch-collection.html">Branch Collection</a></div>
+      <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
+
+      <label class="fc-label" for="sb-branch">Branch stencil</label>
+      <div class="fc-select-wrap">
+        <select id="sb-branch" name="branch" class="fc-select" aria-describedby="sb-branch-help">
+          <option value="blank">Blank (no stencil)</option>
+          <option value="army">U.S. Army</option>
+          <option value="marines" selected>U.S. Marine Corps</option>
+          <option value="navy">U.S. Navy</option>
+          <option value="airforce">U.S. Air Force</option>
+          <option value="coastguard">U.S. Coast Guard</option>
+        </select>
+      </div>
+      <p id="sb-branch-help" class="sr-only" aria-hidden="true"></p>
+
+      <label>Hardware (both lockable)</label>
+      <div role="group" aria-label="Latch finish">
+        <div class="option-row">
+          <label><input type="radio" name="latch" class="sb-latch" value="Stainless" checked> Original Stainless Toggle Latches</label>
         </div>
-
-        <div class="fc-controls">
-          <h2><a class="feature-link" href="branch-collection.html">Freedom Crate Classic</a></h2>
-          <div class="branch-label"><a class="feature-link" href="branch-collection.html">Branch Collection</a></div>
-          <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
-
-        <label class="fc-label" for="sb-branch">Branch stencil</label>
-<div class="fc-select-wrap">
-  <select id="sb-branch" name="branch" class="fc-select" aria-describedby="sb-branch-help">
-    <option value="blank">Blank (no stencil)</option>
-    <option value="army">U.S. Army</option>
-    <option value="marines" selected>U.S. Marine Corps</option>
-    <option value="navy">U.S. Navy</option>
-    <option value="airforce">U.S. Air Force</option>
-    <option value="coastguard">U.S. Coast Guard</option>
-  </select>
-</div>
-<p id="sb-branch-help" class="sr-only" aria-hidden="true"></p>
-
-
-          <label>Hardware (both lockable)</label>
-          <div role="group" aria-label="Latch finish">
-            <div class="option-row">
-              <label><input type="radio" name="latch" class="sb-latch" value="Stainless" checked> Original Stainless Toggle Latches</label>
-            </div>
-            <div class="option-row">
-              <label><input type="radio" name="latch" class="sb-latch" value="Black"> Black Toggle Latches</label>
-            </div>
-          </div>
-
-          <div class="fc-row">
-            <div><strong>Total: <span id="sb-price" aria-live="polite">$64.99</span></strong></div>
-            <small class="fc-note">Blank $64.99 • With stencil $69.99</small>
-          </div>
-
-          <div class="fc-row">
-            <button id="sb-add" class="fc-btn btn" type="button">Add to Cart</button>
-            <button id="sb-buy" class="fc-btn btn" type="button">Buy Now</button>
-          </div>
-
-          <p class="more-details"><a href="branch-collection.html">More details →</a></p>
-
-          <p class="more-details">
-  <a href="contact.html#custom" class="custom-stencil-btn">
-    Want Custom Stenciling? Click here →
-  </a>
-</p>
-
+        <div class="option-row">
+          <label><input type="radio" name="latch" class="sb-latch" value="Black"> Black Toggle Latches</label>
         </div>
       </div>
-    </section>
+
+      <div class="fc-row">
+        <div><strong>Total: <span id="sb-price" aria-live="polite">$64.99</span></strong></div>
+        <small class="fc-note">Blank $64.99 • With stencil $69.99</small>
+      </div>
+
+      <div class="fc-row">
+        <button id="sb-add" class="fc-btn btn" type="button">Add to Cart</button>
+        <button id="sb-buy" class="fc-btn btn" type="button">Buy Now</button>
+      </div>
+
+      <p class="custom-link">
+        <a href="contact.html#custom" class="custom-stencil-btn">Want Custom Stenciling? Click here →</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+
 
     <!-- Featured: Rangemaster 400 -->
-    <section class="featured-wrap" aria-label="Rangemaster 400 Options">
-      <div class="featured-card" id="rm400-card">
-        <div class="fc-media">
-          <a href="#" id="rm400-link" aria-label="View photos & details for Rangemaster 400">
+<section class="featured-wrap" aria-label="Rangemaster 400 Options">
+  <div class="featured-card" id="rm400-card">
 
-            <img id="rm400-image"
-                 src="assets/img/rangemaster-400-main-photo.png"
-                 alt="Rangemaster 400 — Closed"
-                 loading="lazy" decoding="async"
-                 width="1200" height="800">
-          </a>
-        </div>
-
-      <div class="fc-controls">
-  <h2>Rangemaster 400</h2>
-  <p class="fc-note">Choose your package to preview instantly.</p>
-
-  <!-- unified select (same pattern as Branch Collection) -->
-  <label class="fc-field" for="rm400-package">
-    <span class="fc-label">Package</span>
-    <div class="fc-select-wrap">
-      <select id="rm400-package" name="package" class="fc-select" aria-describedby="rm400-help">
-        <option value="base" data-sku="RM400-BASE"  data-price="49.99" data-img="assets/img/rangemaster-400-main-photo.png">
-          Rangemaster 400 (Base)
-        </option>
-        <option value="armor" data-sku="RM400-ARMOR" data-price="59.99" data-img="assets/img/armor-core-main.jpg">
-          Rangemaster 400 — Armor Core (Interior PolyShield)
-        </option>
-        <option value="battleguard" data-sku="RM400-BG" data-price="69.99" data-img="assets/img/battleguard-main.jpg">
-          Rangemaster 400 — Battle Guard (Exterior PolyShield)
-        </option>
-      </select>
-    </div>
-  </label>
-  <p id="rm400-help" class="sr-only" aria-hidden="true"></p>
-
-  <!-- Hardware fixed (hidden) -->
-<input type="hidden" id="rm400-hw-fixed" value="Black" data-code="BLK">
-<p class="fc-note">Hardware: Black Toggle Latches (lockable)</p>
-
-</div>
-
-          <div class="fc-row">
-            <div><strong>Total: <span id="rm400-price" aria-live="polite">$49.99</span></strong></div>
-            <small class="fc-note">Base $49.99</small>
-          </div>
-
-          <div class="fc-row">
-            <button id="rm400-add" class="fc-btn btn" type="button">Add to Cart</button>
-            <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
-          </div>
-
-          <p class="more-details"><a href="product.html?sku=FC-RM-400">More details →</a></p>
-          <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
-          <p class="fc-note">Armor Core = interior PolyShield (oil/chemical resistant). Battle Guard = exterior PolyShield (scratch/dent resistant).</p>
-        </div>
+    <!-- LEFT COLUMN: image + More details (matches Classic layout) -->
+    <div class="fc-media-col">
+      <div class="fc-media">
+        <a href="#" id="rm400-link" aria-label="View photos & details for Rangemaster 400">
+          <img
+            id="rm400-image"
+            src="assets/img/rangemaster-400-main-photo.png"
+            alt="Rangemaster 400 — Closed"
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="800">
+        </a>
       </div>
-    </section>
+      <p class="more-details"><a href="product.html?sku=FC-RM-400">More details →</a></p>
+    </div>
+
+    <!-- RIGHT COLUMN: controls -->
+    <div class="fc-controls">
+      <h2>Rangemaster 400</h2>
+      <p class="fc-note">Choose your package to preview instantly.</p>
+
+      <!-- Package select -->
+      <label class="fc-field" for="rm400-package">
+        <span class="fc-label">Package</span>
+        <div class="fc-select-wrap">
+          <select id="rm400-package" name="package" class="fc-select" aria-describedby="rm400-help">
+            <option value="base" data-sku="RM400-BASE" data-price="49.99" data-img="assets/img/rangemaster-400-main-photo.png">
+              Rangemaster 400 (Base)
+            </option>
+            <option value="armor" data-sku="RM400-ARMOR" data-price="59.99" data-img="assets/img/armor-core-main.jpg">
+              Rangemaster 400 — Armor Core (Interior PolyShield)
+            </option>
+            <option value="battleguard" data-sku="RM400-BG" data-price="69.99" data-img="assets/img/battleguard-main.jpg">
+              Rangemaster 400 — Battle Guard (Exterior PolyShield)
+            </option>
+          </select>
+        </div>
+      </label>
+      <p id="rm400-help" class="sr-only" aria-hidden="true"></p>
+
+      <!-- Hardware fixed (hidden) -->
+      <input type="hidden" id="rm400-hw-fixed" value="Black" data-code="BLK">
+      <p class="fc-note">Hardware: Black Toggle Latches (lockable)</p>
+
+      <!-- Pricing -->
+      <div class="fc-row">
+        <div><strong>Total: <span id="rm400-price" aria-live="polite">$49.99</span></strong></div>
+        <small class="fc-note">Base $49.99</small>
+      </div>
+
+      <!-- Buttons -->
+      <div class="fc-row">
+        <button id="rm400-add" class="fc-btn btn" type="button">Add to Cart</button>
+        <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
+      </div>
+
+      <!-- Notes -->
+      <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
+      <p class="fc-note">Armor Core = interior PolyShield (oil/chemical resistant). Battle Guard = exterior PolyShield (scratch/dent resistant).</p>
+    </div>
+
+  </div>
+</section>
+
 
     <!-- Product grid (small cards) -->
     <section id="products" class="grid" aria-live="polite"></section>
