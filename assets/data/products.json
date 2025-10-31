@@ -58,22 +58,20 @@
   },
   "FC-RM-400": {
     "status": "active",
-    "title": "Rangemaster 400",
+    "title": "Rangemaster 400 Base",
     "price": 49.99,
     "qty": 2,
     "image_url": "assets/img/rangemaster-400-top-angle-logo.png",
     "images": [
-      "assets/img/rangemaster-armorcore-open-branded.png",
       "assets/img/rangemaster-400-base-full-close-up.JPG",
-      "assets/img/battleguard-top.JPG",
       "assets/img/rangemaster-400-base-open-empty.JPG",
-      "assets/img/rangemaster-400-armor-core.png",
       "assets/img/rangemaster-400-handle-close-up.JPG",
       "assets/img/rangemaster-400-hinge-close-up.JPG",
       "assets/img/rangemaster-400-stacked-closed.JPG",
       "assets/img/black-toggle.JPG",
-      "assets/img/rangemaster-400-schematic.png",
-      "assets/img/rangemaster-armorecore-full.JPG"
+      "assets/img/armorcore-main.JPG",
+      "assets/img/battleguard-main.JPG",
+      "assets/img/rangemaster-400-schematic.png"
     ],
     "tags": [
       "range",
