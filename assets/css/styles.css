@@ -2445,3 +2445,76 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
     min-width: 0;
   }
 }
+/* --- Giveaway form: mobile overflow fix --- */
+@media (max-width:640px){
+  /* Keep the form container inside the viewport */
+  .give-wrap form,
+  .give-card form {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Force the form grid to a single column on phones */
+  .give-wrap .form-grid,
+  .give-card .form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  /* Allow children to shrink instead of forcing the page wider */
+  .give-wrap .field,
+  .give-card .field,
+  .give-wrap .field *,
+  .give-card .field * {
+    min-width: 0;
+  }
+
+  /* Inputs/selects/textarea should never exceed their column */
+  .give-wrap input,
+  .give-wrap select,
+  .give-wrap textarea,
+  .give-card input,
+  .give-card select,
+  .give-card textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Consent / checkbox rows: allow wrapping */
+  .give-wrap .consent,
+  .give-card .consent,
+  .give-wrap .check,
+  .give-card .check {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+    flex-wrap: wrap;     /* ← prevents overflow from long text */
+    min-width: 0;
+  }
+
+  /* Button row: full-width buttons look cleaner and don't overflow */
+  .give-wrap .btn-row,
+  .give-card .btn-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .5rem;
+  }
+  .give-wrap .btn-row .btn,
+  .give-card .btn-row .btn { width: 100%; }
+
+  /* If a captcha/iframe is present, contain it */
+  .give-wrap iframe,
+  .give-card iframe {
+    max-width: 100% !important;
+  }
+
+  /* Very long words/URLs inside helper text won’t push width */
+  .give-wrap p, .give-wrap a, .give-wrap label,
+  .give-card p, .give-card a, .give-card label {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
