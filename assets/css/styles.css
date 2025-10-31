@@ -2518,3 +2518,23 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
     word-break: break-word;
   }
 }
+.btn-final-salute {
+  background-color: #1b1e36; /* deep navy base */
+  color: #fff;
+  font-weight: 700;
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(#1b1e36, #1b1e36),
+    linear-gradient(90deg, #b22234, #ffffff, #3c3b6e);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 8px rgba(0,0,0,0.25);
+}
+
+.btn-final-salute:hover {
+  background-color: #2c315a;
+  box-shadow: 0 0 12px rgba(255,255,255,0.3);
+}
