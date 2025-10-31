@@ -2411,40 +2411,37 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
 .card .overlay-link { pointer-events: none; z-index: 1; }
 .card .actions,
 .card .actions * { pointer-events: auto; position: relative; z-index: 2; }
-/* --- About page bottom overflow: MOBILE-ONLY --- */
+/* --- Giveaway page mobile overflow fix --- */
 @media (max-width:640px){
-  /* Keep these sections from widening the viewport */
-  #our-story,
-  #final-salute-project,
-  #our-mission,
-  #about-steven-identity,
-  #contact,
-  #partners,
-  .site-footer .container {
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden !important;
+  }
+
+  .give-wrap,
+  .give-grid,
+  .give-card,
+  .site-footer .container,
+  section[aria-label="Explore our boxes"] {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Allow text and links to wrap instead of forcing a single line */
+  section[aria-label="Explore our boxes"] a,
+  section[aria-label="Explore our boxes"] p,
+  footer a,
+  footer p {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  /* Ensure the grid can shrink inside its container */
+  .give-grid,
+  .give-grid > * {
     min-width: 0;
   }
-
-  /* Let long words/links wrap so they don't push width */
-  #partners p,
-  #partners a,
-  .about-card p,
-  .about-card a,
-  .site-footer .badge {
-    white-space: normal;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  /* Lists won’t push width with big padding */
-  #partners ul,
-  .about-card ul { padding-inline-start: 1.1rem; margin-inline: 0; }
-
-  /* Safety: children can shrink inside flex/grid parents */
-  #partners *, .about-card * { min-width: 0; }
-
-  /* UA default margins on figure can sometimes cause side drift */
-  figure { margin: 0 0 1rem; }
 }
