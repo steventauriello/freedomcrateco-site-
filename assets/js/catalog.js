@@ -112,47 +112,54 @@
             : '');
 
       card.innerHTML = `
-        ${imgBlock}
-        <div class="meta">
-          ${stockRow}
-          <div class="sku">SKU: ${escapeHtml(sku)}</div>
-          <h3><a href="${escapeHtml(link)}">${escapeHtml(title)}</a></h3>
-          <p>${escapeHtml(p.description || '')}</p>
+  ${imgBlock}
+  <div class="meta">
+    ${stockRow}
+    <div class="sku">SKU: ${escapeHtml(sku)}</div>
+    <h3><a href="${escapeHtml(link)}">${escapeHtml(title)}</a></h3>
+    <p>${escapeHtml(p.description || '')}</p>
 
-          <div class="price-row">
-            <span class="price">${formatPrice(priceNum)}</span>
-            ${
-              isComing
-                ? `<span class="muted">Coming Soon</span>`
-                : (qty > 0
-                    ? `<div class="actions">
-                         <button class="btn" data-add="${escapeHtml(sku)}">Add to Cart</button>
-                         <button class="btn" data-buy="${escapeHtml(sku)}">Buy Now</button>
-                       </div>`
-                    : `<span class="muted">Unavailable</span>`)
-            }
-          </div>
-        </div>
+    <div class="price-row">
+      <span class="price">${formatPrice(priceNum)}</span>
+      ${
+        isComing
+          ? `<span class="muted">Coming Soon</span>`
+          : (qty > 0
+              ? `<div class="actions">
+                   <button class="btn add-to-cart" data-add="${escapeHtml(sku)}">Add to Cart</button>
+                   <button class="btn" data-buy="${escapeHtml(sku)}">Buy Now</button>
+                 </div>`
+              : `<span class="muted">Unavailable</span>`)
+      }
+    </div>
+  </div>
 
-        <!-- Full-card overlay link (so anywhere you click goes to the detail page) -->
-        <a class="overlay-link" href="${escapeHtml(link)}" aria-label="${escapeHtml(title)}"></a>
-      `;
+  <!-- Full-card overlay link (so anywhere you click goes to the detail page) -->
+  <a class="overlay-link" href="${escapeHtml(link)}" aria-label="${escapeHtml(title)}"></a>
+`;
 
-      // Wire cart buttons (don’t navigate when clicking them)
-      const addBtn = card.querySelector('[data-add]');
-      const buyBtn = card.querySelector('[data-buy]');
+// Wire cart buttons (don’t navigate when clicking them)
+const addBtn = card.querySelector('[data-add]');
+const buyBtn = card.querySelector('[data-buy]');
 
-      if (addBtn) addBtn.addEventListener('click', (e) => {
-        e.preventDefault(); e.stopPropagation();
-        safeCall(window.addToCart)(sku, title, priceNum, 1, { image: imgUrl });
-      });
+if (addBtn) addBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
 
-      if (buyBtn) buyBtn.addEventListener('click', (e) => {
-        e.preventDefault(); e.stopPropagation();
-        safeCall(window.buyNow)(sku, title, priceNum, 1, { image: imgUrl });
-      });
+  // ✅ Fire the fly-to-cart animation
+  if (window.flashAddToCart) window.flashAddToCart(addBtn, 1);
 
-      listEl.appendChild(card);
+  // Then run your existing add-to-cart logic
+  safeCall(window.addToCart)(sku, title, priceNum, 1, { image: imgUrl });
+});
+
+if (buyBtn) buyBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  safeCall(window.buyNow)(sku, title, priceNum, 1, { image: imgUrl });
+});
+
+listEl.appendChild(card);
     });
   }
 })();

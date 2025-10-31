@@ -521,7 +521,7 @@
 
       <!-- Buttons -->
       <div class="fc-row">
-        <button id="rm400-add" class="fc-btn btn" type="button">Add to Cart</button>
+       <button id="rm400-add" class="fc-btn btn add-to-cart" type="button">Add to Cart</button>
         <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
       </div>
 
@@ -752,6 +752,81 @@
   const base = 'product.html';
   const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
   link.href = isLocal ? `${base}#${sku}` : `${base}?sku=${sku}`;
+})();
+</script>
+
+<script>
+(function(){
+  const CART_LINK_SEL  = '.nav .cart-link';
+  const CART_COUNT_SEL = '.nav .cart-link .cart-count';
+  const INCREMENT_BADGE = false;   // prevents double counting
+
+  function getQtyFromContext(btn){
+    const wrap = btn.closest('.fc-controls, .product, form, .card') || document;
+    const qtyEl = wrap.querySelector('input[type="number"].qty, input[name="qty"], .qty');
+    const n = parseInt(qtyEl && qtyEl.value, 10);
+    return Number.isFinite(n) && n > 0 ? n : 1;
+  }
+
+  function updateCartCount(qty){
+    if (!INCREMENT_BADGE) return;
+    let badge = document.querySelector(CART_COUNT_SEL);
+    if(!badge){
+      const cartLink = document.querySelector(CART_LINK_SEL);
+      if(!cartLink) return;
+      badge = document.createElement('span');
+      badge.className = 'cart-count';
+      badge.textContent = '0';
+      cartLink.appendChild(badge);
+    }
+    const current = parseInt(badge.textContent || '0', 10) || 0;
+    badge.textContent = String(current + qty);
+  }
+
+  function flyToCart(fromEl, qty){
+    const cart = document.querySelector(CART_LINK_SEL);
+    if(!fromEl || !cart){ updateCartCount(qty); return; }
+
+    const s = fromEl.getBoundingClientRect();
+    const targetRect = (document.querySelector(CART_COUNT_SEL) || cart).getBoundingClientRect();
+    const sx = Math.round(s.left + s.width/2);
+    const sy = Math.round(s.top  + s.height/2);
+    const ex = Math.round(targetRect.left + targetRect.width/2);
+    const ey = Math.round(targetRect.top  + targetRect.height/2);
+
+const flyer = document.createElement('div');
+flyer.className = 'fly-to-cart';
+flyer.innerHTML = `<span class="fly-dot">+${qty}</span>`;
+flyer.style.setProperty('--fx', sx + 'px');
+flyer.style.setProperty('--fy', sy + 'px');
+flyer.style.setProperty('--dx', (ex - sx) + 'px');
+flyer.style.setProperty('--dy', (ey - sy) + 'px');
+document.body.appendChild(flyer);
+
+/* Wait ~0.8s so the big pop finishes before gliding upward */
+setTimeout(() => {
+  flyer.classList.add('end');
+}, 800);
+
+
+    flyer.addEventListener('transitionend', () => {
+      flyer.remove();
+      updateCartCount(qty);
+      cart.classList.add('cart-pop');
+      setTimeout(() => cart.classList.remove('cart-pop'), 350);
+    }, { once:true });
+  }
+
+  window.flashAddToCart = function(triggerEl, qtyOverride){
+    const qty = Number.isFinite(qtyOverride) ? qtyOverride : getQtyFromContext(triggerEl || document.body);
+    flyToCart(triggerEl, qty);
+  };
+
+  document.addEventListener('click', (e) => {
+    const addBtn = e.target.closest('[data-add], #sb-add, .btn[data-add-to-cart], .add-to-cart');
+    if (!addBtn) return;
+    flashAddToCart(addBtn);
+  }, { passive:true });
 })();
 </script>
 </body>

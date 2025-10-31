@@ -148,11 +148,12 @@
       </ul>
     </div>
 
-    <div class="bc-cta">
-      <strong>Total: <span id="bc-price">$95.00</span></strong>
-      <button id="bc-add" class="btn">Add to Cart</button>
-      <small class="muted">Price shown for stenciled branch. “Blank” is $74.99 (available on main Shop card).</small>
-    </div>
+   <div class="bc-cta">
+  <strong>Total: <span id="bc-price">$65.00</span></strong>
+  <button id="bc-add" class="btn">Add to Cart</button>
+  <small class="muted">Price shown for stenciled branch. “Blank” is $59.99 (available on main Shop card).</small>
+</div>
+
   </main>
 
   <!-- Lightbox -->
@@ -181,49 +182,63 @@
     lbClose.addEventListener('click', closeLB);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
 
-    // --- Cart wiring (unchanged; gallery no longer affects price)
-    const PRICES = { blank:74.99, army:79.99, marines:79.99, navy:79.99, airforce:79.99, coastguard:79.99 };
-    const SKUS   = {
-      blank:'classic-blank-stainless',
-      army:'classic-army-stainless',
-      marines:'classic-marines-stainless',
-      navy:'classic-navy-stainless',
-      airforce:'classic-airforce-stainless',
-      coastguard:'classic-coastguard-stainless'
-    };
+  // --- Cart wiring (updated pricing: Blank $59.99, Branches $65.00)
+const PRICES = {
+  blank: 59.99,
+  army: 65.00,
+  marines: 65.00,
+  navy: 65.00,
+  airforce: 65.00,
+  coastguard: 65.00
+};
+const SKUS = {
+  blank: 'classic-blank-stainless',
+  army: 'classic-army-stainless',
+  marines: 'classic-marines-stainless',
+  navy: 'classic-navy-stainless',
+  airforce: 'classic-airforce-stainless',
+  coastguard: 'classic-coastguard-stainless'
+};
 
-    const priceEl = document.getElementById('bc-price');
-    const addBtn  = document.getElementById('bc-add');
-    let currentBranch = 'airforce'; // keep default as before
+const priceEl = document.getElementById('bc-price');
+const addBtn  = document.getElementById('bc-add');
+let currentBranch = 'airforce'; // keep default as before
 
-    function inferBranchFromHero() {
-      const alt = (hero.alt||'').toLowerCase();
-      for (const k of Object.keys(PRICES)) if (alt.includes(k)) return k;
-      const src = (hero.src||'').toLowerCase();
-      for (const k of Object.keys(PRICES)) if (src.includes(k)) return k;
-      return currentBranch;
-    }
-    function renderPrice(){ priceEl.textContent = '$'+(PRICES[currentBranch]||95).toFixed(2); }
-    function updateBranchFromHero(){ currentBranch = inferBranchFromHero(); renderPrice(); }
+function inferBranchFromHero() {
+  const alt = (hero.alt || '').toLowerCase();
+  for (const k of Object.keys(PRICES)) if (alt.includes(k)) return k;
+  const src = (hero.src || '').toLowerCase();
+  for (const k of Object.keys(PRICES)) if (src.includes(k)) return k;
+  return currentBranch;
+}
 
-    addBtn.addEventListener('click', () => {
-      const branch = currentBranch;
-      const sku  = SKUS[branch] || SKUS.marines;
-      const name = 'Freedom Crate Classic — ' + (branch==='blank' ? 'Blank' :
-                   branch.charAt(0).toUpperCase()+branch.slice(1)) + ' • Stainless';
-      const price= PRICES[branch] || 95.00;
+function renderPrice() {
+  priceEl.textContent = '$' + (PRICES[currentBranch] || 65).toFixed(2);
+}
+function updateBranchFromHero() {
+  currentBranch = inferBranchFromHero();
+  renderPrice();
+}
 
-      if (typeof window.addToCart === 'function') {
-        window.addToCart(sku, name, price, 1, { image: hero.src });
-      } else if (typeof window.addItem === 'function') {
-        window.addItem({ sku, name, price, qty:1, image: hero.src });
-      } else {
-        alert('Cart is not ready.');
-      }
-    });
+addBtn.addEventListener('click', () => {
+  const branch = currentBranch;
+  const sku = SKUS[branch] || SKUS.marines;
+  const name = 'Freedom Crate Classic — ' + (branch === 'blank' ? 'Blank' :
+                branch.charAt(0).toUpperCase() + branch.slice(1)) + ' • Stainless';
+  const price = PRICES[branch] || 65.00;
 
-    // initial render
-    updateBranchFromHero();
+  if (typeof window.addToCart === 'function') {
+    window.addToCart(sku, name, price, 1, { image: hero.src });
+  } else if (typeof window.addItem === 'function') {
+    window.addItem({ sku, name, price, qty: 1, image: hero.src });
+  } else {
+    alert('Cart is not ready.');
+  }
+});
+
+// initial render
+updateBranchFromHero();
+
 
     // --- Bottom description photos -> open lightbox AND (optionally) sync hero
     const desc = document.querySelector('.desc-photos');
