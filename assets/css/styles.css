@@ -2538,3 +2538,21 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   background-color: #2c315a;
   box-shadow: 0 0 12px rgba(255,255,255,0.3);
 }
+/* Giveaway hero image: keep it shallow */
+.give-wrap .give-img{
+  max-width: 600px !important;     /* match your file’s width */
+  width: 100%;
+  max-height: 360px !important;    /* ↓ reduce vertical footprint */
+  height: auto;
+  object-fit: cover;               /* trims a little top/bottom if needed */
+  border-radius: .5rem;
+  display: block;
+  margin: 0 auto;
+}
+
+/* On phones, make it even shorter */
+@media (max-width:640px){
+  .give-wrap .give-img{
+    max-height: 240px !important;
+  }
+}
