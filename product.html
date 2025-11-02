@@ -154,17 +154,28 @@ if (!sku && ['localhost','127.0.0.1'].includes(location.hostname)) {
   history.replaceState(null, '', location.pathname + '#' + sku);
 }
 
-// Redirect if still missing SKU
-if (!sku) { location.href = 'index.html'; return; }
-
+// Default to Branch Collection (FC-CLASSIC) — no redirect
+if (!sku) {
+  sku = 'FC-CLASSIC';
+  const u = new URL(location.href);
+  u.searchParams.set('sku', sku);
+  history.replaceState(null, '', u.toString());
+}
 
     // Wait until product loader is ready
     while (!window.FC || typeof window.FC.loadProducts !== 'function') {
       await new Promise(r => setTimeout(r, 10));
     }
     const all = await window.FC.loadProducts();
-    const P = all.find(p => String(p.sku) === String(sku));
-    if (!P) { location.href = 'index.html'; return; }
+    let P = all.find(p => String(p.sku) === String(sku));
+if (!P) {
+  // Fall back silently to default product (no redirect)
+  sku = 'FC-CLASSIC';
+  const u = new URL(location.href);
+  u.searchParams.set('sku', sku);
+  history.replaceState(null, '', u.toString());
+  P = all.find(p => String(p.sku) === 'FC-CLASSIC');
+}
 
     // DOM refs
     const hero    = document.getElementById('pd-hero');
@@ -256,13 +267,10 @@ if (!sku) { location.href = 'index.html'; return; }
       const absolute = imgs[0].startsWith('http') ? imgs[0] : (location.origin + "/" + imgs[0].replace(/^\/+/, ''));
       ogImage.setAttribute("content", absolute);
     }
-// Canonical & og:url (flagship canonicalization)
-const FLAGSHIP_SKU = 'FC-BRANCH'; // <-- set to your real Branch Collection SKU
+// Canonical & og:url (self-canonical to the exact SKU)
 const url = new URL(location.href);
-const currentSku = url.searchParams.get('sku');
-const canonicalUrl = (currentSku && currentSku !== FLAGSHIP_SKU)
-  ? (url.origin + url.pathname + '?sku=' + encodeURIComponent(FLAGSHIP_SKU))
-  : (url.origin + url.pathname + url.search);
+const canonicalUrl = url.origin + url.pathname + '?sku=' + encodeURIComponent(sku);
+
 
 // <link rel="canonical">
 let link = document.querySelector('link[rel="canonical"]');
