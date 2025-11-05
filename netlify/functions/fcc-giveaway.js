@@ -2,6 +2,8 @@
 const ALLOW_ORIGINS = [
   'https://freedomcrateco.com',
   'https://www.freedomcrateco.com',
+  'https://finalsaluteproject.org',
+  'https://www.finalsaluteproject.org',
   'http://localhost:8888'
 ];
 
@@ -72,16 +74,17 @@ exports.handler = async (event) => {
   const notes = notesParts.join(' | ') || null;
 
   const record = {
-    email,
-    full_name: (payload.fullName || '').toString().trim() || null,
-    phone: (payload.phone || '').toString().trim() || null,
-    branch: (payload.branch || '').toString().trim() || null,
-    is_veteran: true, // this giveaway is for veterans; flip to checkbox if you add one
-    notes,
-    source: 'freedomcrateco.com/monthly-box',
-    user_agent: event.headers['user-agent'] || null,
-    ip_addr: (event.headers['x-forwarded-for'] || '').split(',')[0] || null
-  };
+  email,
+  full_name: (payload.fullName || '').toString().trim() || null,
+  phone: (payload.phone || '').toString().trim() || null,
+  branch: (payload.branch || '').toString().trim() || null,
+  is_veteran: true,
+  notes,
+  source: payload.source_site || 'freedomcrateco.com/monthly-box',
+  user_agent: event.headers['user-agent'] || null,
+  ip_addr: (event.headers['x-forwarded-for'] || '').split(',')[0] || null
+};
+
 
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/giveaway_signups`, {
