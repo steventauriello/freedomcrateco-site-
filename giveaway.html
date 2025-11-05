@@ -144,6 +144,8 @@ figure{ margin: 0 auto 1rem; }
         <p class="disclaimer">You can nominate yourself or someone else. We select one veteran at random each month and may feature their story (optional) on our socials/newsletter.</p>
 
         <form id="veteran-giveaway" method="POST" action="/.netlify/functions/fcc-giveaway">
+<input type="hidden" name="source" value="freedomcrateco">
+
           <div class="form-grid">
             <div class="field">
               <label for="fullName">Veteran’s full name<span class="req">*</span></label>
