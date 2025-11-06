@@ -153,9 +153,21 @@ figure{ margin: 0 auto 1rem; }
             </div>
 
             <div class="field">
-              <label for="email">Contact email<span class="req">*</span></label>
-              <input id="email" name="email" type="email" autocomplete="email" required placeholder="name@example.com">
-            </div>
+  <label for="email">Contact email<span class="req">*</span></label>
+  <input id="email" name="email" type="email" autocomplete="email" required placeholder="name@example.com">
+</div>
+
+<div class="field">
+  <label for="confirmEmail">Confirm email<span class="req">*</span></label>
+  <input id="confirmEmail" name="confirm_email" type="email" autocomplete="email" required placeholder="Re-enter email">
+</div>
+
+<p id="emailError" class="error" aria-live="polite" style="color:red;font-weight:600;"></p>
+
+<p class="muted" style="font-size:0.9rem; margin-top:-0.25rem; margin-bottom:0.75rem; color:var(--text-light,#ccc);">
+  🔒 Your email is safe with us. We never sell or share your information — it's only used to contact giveaway winners.
+</p>
+
 
             <div class="field">
               <label for="phone">Phone (optional)</label>
@@ -245,41 +257,74 @@ figure{ margin: 0 auto 1rem; }
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
   <!-- Submit handler: posts to Netlify function, then redirects -->
-  <script>
-    (function(){
-      const form = document.getElementById('veteran-giveaway');
-      const successMsg = document.getElementById('successMsg');
-      if(!form) return;
+ <script>
+(function () {
+  const form = document.getElementById('veteran-giveaway');
+  const successMsg = document.getElementById('successMsg');
+  const emailInput = document.getElementById('email');
+  const confirmEmailInput = document.getElementById('confirmEmail');
+  const emailError = document.getElementById('emailError');
+  if (!form) return;
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const fd = new FormData(form);
+  form.addEventListener('submit', async (e) => {
+    emailError.textContent = '';
 
-        try {
-          const res = await fetch(form.action, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams([...fd.entries()])
-          });
+    const email = emailInput.value.trim();
+    const confirmEmail = confirmEmailInput.value.trim();
 
-          let ok = res.ok;
-          let data = {};
-          try { data = await res.json(); ok = ok && (data.ok !== false); } catch(_) {}
+    // Check for valid email syntax
+    if (!emailInput.checkValidity() || !confirmEmailInput.checkValidity()) {
+      e.preventDefault();
+      emailError.textContent = 'Please enter a valid email address.';
+      emailInput.focus();
+      return;
+    }
 
-          if (ok) {
-            successMsg.style.display = 'block';
-            window.location.href = "/giveaway-thanks.html";
-          } else {
-            alert('⚠️ Something went wrong. Please try again later.');
-            console.error('Error response:', data);
-          }
-        } catch (err) {
-          alert('⚠️ Network error — please try again.');
-          console.error(err);
-        }
+    // Check both match
+    if (email.toLowerCase() !== confirmEmail.toLowerCase()) {
+      e.preventDefault();
+      emailError.textContent = 'Email addresses do not match.';
+      confirmEmailInput.focus();
+      return;
+    }
+
+    // Check domain validity
+    const domain = email.split('@')[1];
+    if (!domain || !domain.includes('.')) {
+      e.preventDefault();
+      emailError.textContent = 'Please enter a valid email domain.';
+      emailInput.focus();
+      return;
+    }
+
+    // If all good, continue with form submission
+    e.preventDefault();
+    const fd = new FormData(form);
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams([...fd.entries()])
       });
-    })();
-  </script>
+      let ok = res.ok;
+      let data = {};
+      try { data = await res.json(); ok = ok && (data.ok !== false); } catch(_) {}
+
+      if (ok) {
+        successMsg.style.display = 'block';
+        window.location.href = '/giveaway-thanks.html';
+      } else {
+        alert('⚠️ Something went wrong. Please try again later.');
+        console.error('Error response:', data);
+      }
+    } catch (err) {
+      alert('⚠️ Network error — please try again.');
+      console.error(err);
+    }
+  });
+})();
+</script>
+
 
   <!-- Shared libs -->
   <script src="/assets/js/util.js" defer></script>
