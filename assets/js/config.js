@@ -68,7 +68,7 @@ window.getStripeLinkForCart = function(cartItems){
 // Sitewide Promo / Discount Config
 // ================================
 window.FC_PROMO = {
-  active: true,                // 👈 turn ON or OFF
+  active: false,                // 👈 turn ON or OFF
   percentOff: 10,              // 👈 discount percentage
   label: "Veterans Day — 10% Off All Ammo Boxes!"  // 👈 optional label
 };

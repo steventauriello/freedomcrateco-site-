@@ -555,13 +555,15 @@
 </footer>
 
 
-  <!-- Shared libs -->
-  <script src="assets/js/util.js" defer></script>
-  <script src="assets/js/config.js" defer></script>
-  <script src="assets/js/inventory.js" defer></script>
-  <script src="assets/js/data.js" defer></script>
-  <script src="assets/js/cart.js" defer></script>
-  <script src="assets/js/catalog.js" defer></script>
+  <!-- Make sure config.js runs before any inline code that uses FC_PROMO -->
+<script src="assets/js/config.js"></script>        <!-- 👈 no defer -->
+
+<!-- The rest can stay deferred -->
+<script src="assets/js/util.js" defer></script>
+<script src="assets/js/inventory.js" defer></script>
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/catalog.js" defer></script>
 
   <!-- Page logic (featured cards) -->
   <script>
