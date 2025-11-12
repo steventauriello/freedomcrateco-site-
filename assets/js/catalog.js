@@ -83,9 +83,23 @@
       const status   = String(p.status || 'active').toLowerCase();
       const isComing = status === 'coming-soon';
       const soldOut  = qty <= 0 && !isComing;
-      const priceNum = Number(p.price) || 0;
+      const priceRaw = Number(p.price) || 0;
+      const priceFinal = (window.FC_applyPromo ? window.FC_applyPromo(priceRaw) : priceRaw);
       const imgUrl   = ensureImagePath(p.image_url || p.image || p.img);
       const link     = p.link || `product.html?sku=${encodeURIComponent(sku)}`;
+
+      // Price HTML (shows "was" when promo active and discounted)
+      const isOnSale = (window.FC_PROMO?.active && priceFinal < priceRaw);
+      const priceHtml = isOnSale
+        ? `<span class="price">$${priceFinal.toFixed(2)}</span>
+           <span class="price-was" style="margin-left:.5rem;text-decoration:line-through;">
+             $${priceRaw.toFixed(2)}
+           </span>`
+        : `<span class="price">${formatPrice(priceFinal)}</span>`;
+
+      const saleBadge = isOnSale
+        ? `<span class="sale-badge" title="${escapeHtml(window.FC_PROMO?.label || 'Sale')}">Sale</span>`
+        : '';
 
       const card = document.createElement('article');
       const classes = ['card', 'product-card', 'no-title-overlay'];
@@ -103,13 +117,11 @@
 
       // Stock row:
       // - Coming soon: nothing
-      // - In stock: plain text (no pill)
+      // - In stock: plain text
       // - Out of stock: nothing (ribbon already shows)
       const stockRow = isComing
         ? ''
-        : (qty > 0
-            ? `<div class="qty-text">${qty} left</div>`   /* <-- changed from stock-badge */
-            : '');
+        : (qty > 0 ? `<div class="qty-text">${qty} left</div>` : '');
 
       card.innerHTML = `
   ${imgBlock}
@@ -120,7 +132,8 @@
     <p>${escapeHtml(p.description || '')}</p>
 
     <div class="price-row">
-      <span class="price">${formatPrice(priceNum)}</span>
+      ${priceHtml}
+      ${saleBadge}
       ${
         isComing
           ? `<span class="muted">Coming Soon</span>`
@@ -138,28 +151,29 @@
   <a class="overlay-link" href="${escapeHtml(link)}" aria-label="${escapeHtml(title)}"></a>
 `;
 
-// Wire cart buttons (don’t navigate when clicking them)
-const addBtn = card.querySelector('[data-add]');
-const buyBtn = card.querySelector('[data-buy]');
+      // Wire cart buttons (don’t navigate when clicking them)
+      const addBtn = card.querySelector('[data-add]');
+      const buyBtn = card.querySelector('[data-buy]');
 
-if (addBtn) addBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+      if (addBtn) addBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-  // ✅ Fire the fly-to-cart animation
-  if (window.flashAddToCart) window.flashAddToCart(addBtn, 1);
+        // fly-to-cart animation
+        if (window.flashAddToCart) window.flashAddToCart(addBtn, 1);
 
-  // Then run your existing add-to-cart logic
-  safeCall(window.addToCart)(sku, title, priceNum, 1, { image: imgUrl });
-});
+        // Use discounted price
+        safeCall(window.addToCart)(sku, title, priceFinal, 1, { image: imgUrl });
+      });
 
-if (buyBtn) buyBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  safeCall(window.buyNow)(sku, title, priceNum, 1, { image: imgUrl });
-});
+      if (buyBtn) buyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Use discounted price
+        safeCall(window.buyNow)(sku, title, priceFinal, 1, { image: imgUrl });
+      });
 
-listEl.appendChild(card);
+      listEl.appendChild(card);
     });
   }
 })();
