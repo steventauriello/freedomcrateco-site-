@@ -6,15 +6,18 @@ window.FC_CONFIG = {
   // Leave empty to keep using your local products.json / products.csv.
   SHEET_CSV_URL: "", // e.g. "https://docs.google.com/spreadsheets/d/e/.../pub?output=csv"
 
-  // 🔑 Stripe (FULL Checkout) — add your TEST publishable key here
-  // Looks like: pk_test_****************
-  STRIPE_PUBLISHABLE_KEY: "pk_test_REPLACE_ME"
+  // 🔑 Stripe (FULL Checkout)
+  // Add your **PUBLISHABLE KEY** here (the one that starts with pk_).
+  // You can find it in your Stripe Dashboard → Developers → API keys → “Publishable key”.
+  // Example:
+  //   pk_test_12345...   ← for test mode
+  //   pk_live_12345...   ← for live mode
+  STRIPE_PUBLISHABLE_KEY: "pk_live_51S9PZqEmmlf61EAwcsMG0ejlBQGIjvXuOkibMlDQzQFL5YVSCuFSXFRCm9pvCeWFt7TgyDGlSMjNsCfIBDf0tEAA009SJyqR0o"
 };
 
 // ================================
-// Stripe Payment Links (fill these in)
+// Stripe Payment Links (fill these in if you use Payment Links)
 // ================================
-// For small cards (from products.json)
 window.STRIPE_LINKS = {
   "FC-FOOTLOCKER":  "",  // e.g. "https://buy.stripe.com/xxxx_footlocker"
   "FC-RB-300":      "",
@@ -45,8 +48,9 @@ window.STRIPE_LINKS = {
   "classic-coastguard-black":     ""
 };
 
-// Helper: if cart has exactly 1 item and we have a link for its SKU, return it.
-// Otherwise return null (so the Stripe button hides).
+// ================================
+// Helper: get Stripe Payment Link for single-item cart
+// ================================
 window.getStripeLinkForCart = function(cartItems){
   try{
     const items = Array.isArray(cartItems) ? cartItems : [];
@@ -58,4 +62,22 @@ window.getStripeLinkForCart = function(cartItems){
   }catch(_){
     return null;
   }
+};
+
+// ================================
+// Sitewide Promo / Discount Config
+// ================================
+window.FC_PROMO = {
+  active: true,                // 👈 turn ON or OFF
+  percentOff: 10,              // 👈 discount percentage
+  label: "Veterans Day — 10% Off All Ammo Boxes!"  // 👈 optional label
+};
+
+// Optional helper: apply discount safely
+window.FC_applyPromo = function(price){
+  const cfg = window.FC_PROMO;
+  if (!cfg || !cfg.active) return Number(price || 0);
+  const base = Number(price || 0);
+  const discounted = base - (base * (cfg.percentOff / 100));
+  return Math.round(discounted * 100) / 100; // keep 2 decimals
 };
