@@ -609,10 +609,13 @@
     function getLatch(){ return latchInputs.find(x => x.checked)?.value || 'Stainless'; }
 
     function calcTotal(){
-      const base = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
-      const total = base + (LATCH_PRICE[getLatch()] || 0);
-      priceEl.textContent = fmt(total);
-    }
+  const base  = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
+  const latch = (LATCH_PRICE[getLatch()] || 0);
+  const raw   = base + latch;
+  const final = (window.FC_applyPromo ? window.FC_applyPromo(raw) : raw);
+  priceEl.textContent = fmt(final);
+}
+
 
     function buildSkuName(){
       const bVal = branch.value;
@@ -667,24 +670,30 @@
   const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
 
   function updateView(){
-    const pkg = getPkg();
-    priceEl.textContent = fmt(Number(pkg.dataset.price));
-    const next = pkg.dataset.img;
-    if (next){
-      const tmp = new Image();
-      tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
-      tmp.src = next;
-    }
-  }
+  const pkg   = getPkg();
+  const raw   = Number(pkg.dataset.price) || 0;
+  const final = (window.FC_applyPromo ? window.FC_applyPromo(raw) : raw);
+  priceEl.textContent = fmt(final);
 
-  function buildSkuName(){
-    const pkg = getPkg();
-    return {
-      sku:   `${pkg.dataset.sku}-${HW.code}`,
-      name:  `${pkg.text} • ${HW.name}`,
-      price: Number(pkg.dataset.price) || 0
-    };
+  const next = pkg.dataset.img;
+  if (next){
+    const tmp = new Image();
+    tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
+    tmp.src = next;
   }
+}
+
+function buildSkuName(){
+  const pkg   = getPkg();
+  const raw   = Number(pkg.dataset.price) || 0;
+  const final = (window.FC_applyPromo ? window.FC_applyPromo(raw) : raw);
+  return {
+    sku:   `${pkg.dataset.sku}-${HW.code}`,
+    name:  `${pkg.text} • ${HW.name}`,
+    price: final
+  };
+}
+
 
   const addToCartSafe = (sku, name, price, qty, meta) =>
     (typeof window.addToCart === 'function')
