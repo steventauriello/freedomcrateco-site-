@@ -288,6 +288,15 @@
 
 <body>
 
+<!-- Global Sale Banner (home page only) -->
+<div id="global-sale-banner" class="global-sale-banner" hidden>
+  <div class="sale-tag">SALE</div>
+  <div class="sale-text">
+    <strong data-sale-label>Veterans Day — 10% Off All Ammo Boxes</strong><br>
+    Prices are already marked down. Limited time only.
+  </div>
+</div>
+
 <!-- Accessibility: skip straight to main content -->
 <a class="skip-link" href="#main">Skip to content</a>
 
@@ -451,10 +460,27 @@
         </div>
       </div>
 
-      <div class="fc-row">
-        <div><strong>Total: <span id="sb-price" aria-live="polite">$59.99</span></strong></div>
-        <small class="fc-note">Blank $59.99 • With stencil $64.99</small>
-      </div>
+  <div class="fc-row">
+  <div class="price-row">
+    <strong>
+      Total:
+      <span id="sb-price" class="price" aria-live="polite">$59.99</span>
+
+      <span id="sb-sale" class="sale-badge" hidden>
+        <img src="assets/img/saletag.svg" alt="" class="sale-icon">
+        Sale
+      </span>
+
+    </strong>
+  </div>
+
+  <small id="sb-breakdown" class="fc-note">
+    Blank $59.99 • With stencil $64.99
+  </small>
+</div>
+
+
+
 
       <div class="fc-row">
         <button id="sb-add" class="fc-btn btn" type="button">Add to Cart</button>
@@ -520,10 +546,19 @@
       <p class="fc-note">Hardware: Black Toggle Latches (lockable)</p>
 
       <!-- Pricing -->
-      <div class="fc-row">
-        <div><strong>Total: <span id="rm400-price" aria-live="polite">$49.99</span></strong></div>
-        <small class="fc-note">Base $49.99</small>
-      </div>
+<div class="fc-row">
+  <div class="price-row">
+    <strong>
+      Total:
+      <span id="rm400-price" class="price" aria-live="polite">$49.99</span>
+      <span id="rm400-sale" class="sale-badge" hidden>
+        <img src="assets/img/saletag.svg" alt="" class="sale-icon">
+        Sale
+      </span>
+    </strong>
+  </div>
+</div>
+
 
       <!-- Buttons -->
       <div class="fc-row">
@@ -557,6 +592,45 @@
 
   <!-- Make sure config.js runs before any inline code that uses FC_PROMO -->
 <script src="assets/js/config.js"></script>        <!-- 👈 no defer -->
+<script>
+  (function () {
+    const banner = document.getElementById('global-sale-banner');
+    if (!banner) return;
+
+    function renderPromo() {
+      const cfg = window.FC_PROMO || {};
+
+      // If promo is OFF → hide and bail
+      if (!cfg.active) {
+        banner.hidden = true;
+        banner.style.display = 'none';       // extra safety
+        return;
+      }
+
+      // Promo is ON → show banner
+      banner.hidden = false;
+      banner.style.display = '';             // let CSS handle layout
+
+      // Update % off if we have a number
+      const pctEl = banner.querySelector('[data-sale-pct]');
+      if (pctEl && typeof cfg.percentOff === 'number') {
+        pctEl.textContent = cfg.percentOff;
+      }
+
+      // Update the main label if provided
+      const labelEl = banner.querySelector('[data-sale-label]');
+      if (labelEl && cfg.label) {
+        labelEl.textContent = cfg.label;
+      }
+    }
+
+    // Initial render on load
+    renderPromo();
+
+    // Re-render whenever config.js toggles the promo
+    window.addEventListener('fc:promo-updated', renderPromo);
+  })();
+</script>
 
 <!-- The rest can stay deferred -->
 <script src="assets/js/util.js" defer></script>
@@ -577,47 +651,84 @@
       airforce:   "assets/img/branch-collection-airforce.jpg",
       coastguard: "assets/img/branch-collection-coastguard.jpg"
     };
+
     const BRANCH_PRICE = 64.99;
     const BLANK_PRICE  = 59.99;
     const LATCH_PRICE  = { Stainless: 0, Black: 0 };
 
-    const imgEl   = document.getElementById('sb-image');
-    const branch  = document.getElementById('sb-branch');
-    const priceEl = document.getElementById('sb-price');
-    const addBtn  = document.getElementById('sb-add');
-    const buyBtn  = document.getElementById('sb-buy');
+    const imgEl       = document.getElementById('sb-image');
+    const branch      = document.getElementById('sb-branch');
+    const priceEl     = document.getElementById('sb-price');
+    const saleEl      = document.getElementById('sb-sale');
+    const breakdownEl = document.getElementById('sb-breakdown');
+    const addBtn      = document.getElementById('sb-add');
+    const buyBtn      = document.getElementById('sb-buy');
     const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
 
     const fmt  = n => '$' + Number(n).toFixed(2);
-    const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    const slug = s => String(s).toLowerCase()
+      .replace(/[^a-z0-9]+/g,'-')
+      .replace(/(^-|-$)/g,'');
 
+    // Preload images
     Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; });
 
     function updateImage(){
-      const val = branch.value;
-      const src = IMG[val] || IMG.blank;
+      const val   = branch.value;
+      const src   = IMG[val] || IMG.blank;
       const label = branch.options[branch.selectedIndex]?.text || 'Blank';
 
       imgEl.classList.add('is-loading');
       const tmp = new Image();
       tmp.onload = () => {
         imgEl.src = src;
-        imgEl.alt = (val === 'blank') ? 'Freedom Crate Classic (no stencil)' : `Freedom Crate Classic — ${label}`;
+        imgEl.alt = (val === 'blank')
+          ? 'Freedom Crate Classic (no stencil)'
+          : `Freedom Crate Classic — ${label}`;
         requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
       };
       tmp.src = src;
     }
 
-    function getLatch(){ return latchInputs.find(x => x.checked)?.value || 'Stainless'; }
+    function getLatch(){
+      return latchInputs.find(x => x.checked)?.value || 'Stainless';
+    }
 
     function calcTotal(){
-  const base  = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
-  const latch = (LATCH_PRICE[getLatch()] || 0);
-  const raw   = base + latch;
-  const final = (window.FC_applyPromo ? window.FC_applyPromo(raw) : raw);
-  priceEl.textContent = fmt(final);
-}
+      const base      = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
+      const latch     = (LATCH_PRICE[getLatch()] || 0);
+      const subtotal  = base + latch;
+      const final     = (window.FC_applyPromo ? window.FC_applyPromo(subtotal) : subtotal);
 
+      priceEl.textContent = fmt(final);
+
+      const promoActive = !!(window.FC_PROMO && window.FC_PROMO.active && final < subtotal);
+
+      // Toggle tiny “Sale” pill
+      if (saleEl) {
+        saleEl.hidden = !promoActive;
+        if (promoActive && window.FC_PROMO?.label) {
+          saleEl.title = window.FC_PROMO.label;
+        } else {
+          saleEl.removeAttribute('title');
+        }
+      }
+
+      // Update the “Blank / With stencil” breakdown to match sale pricing
+      if (breakdownEl) {
+        const rawBlank   = BLANK_PRICE;
+        const rawBranch  = BRANCH_PRICE;
+        if (promoActive && window.FC_applyPromo) {
+          const saleBlank  = window.FC_applyPromo(rawBlank);
+          const saleBranch = window.FC_applyPromo(rawBranch);
+          breakdownEl.textContent =
+            `Blank ${fmt(saleBlank)} • With stencil ${fmt(saleBranch)}`;
+        } else {
+          breakdownEl.textContent =
+            `Blank ${fmt(rawBlank)} • With stencil ${fmt(rawBranch)}`;
+        }
+      }
+    }
 
     function buildSkuName(){
       const bVal = branch.value;
@@ -638,7 +749,10 @@
         ? window.buyNow(sku, name, price, qty, meta)
         : console.warn('Cart not ready');
 
-    branch.addEventListener('change', () => { updateImage(); calcTotal(); });
+    branch.addEventListener('change', () => {
+      updateImage();
+      calcTotal();
+    });
     latchInputs.forEach(r => r.addEventListener('change', calcTotal));
 
     addBtn.addEventListener('click', () => {
@@ -651,10 +765,16 @@
       buyNowSafe(sku, name, price, 1, { image: imgEl.src });
     });
 
+    // Initial render
     updateImage();
     calcTotal();
+
+    // 🔔 Recalculate when global promo changes (on/off)
+    window.addEventListener('fc:promo-updated', calcTotal);
   })();
 </script>
+
+
 
 
  <script>
@@ -662,40 +782,54 @@
 (function(){
   const pkgSel   = document.getElementById('rm400-package');
   const priceEl  = document.getElementById('rm400-price');
+  const saleEl   = document.getElementById('rm400-sale');
   const imgEl    = document.getElementById('rm400-image');
   const addBtn   = document.getElementById('rm400-add');
   const buyBtn   = document.getElementById('rm400-buy');
   if (!pkgSel || !priceEl || !imgEl) return;
 
-  const HW = { name: 'Black Toggle Latches', code: 'BLK' };
-  const fmt = n => '$' + Number(n).toFixed(2);
+  const HW    = { name: 'Black Toggle Latches', code: 'BLK' };
+  const fmt   = n => '$' + Number(n).toFixed(2);
   const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
 
   function updateView(){
-  const pkg   = getPkg();
-  const raw   = Number(pkg.dataset.price) || 0;
-  const final = (window.FC_applyPromo ? window.FC_applyPromo(raw) : raw);
-  priceEl.textContent = fmt(final);
+    const pkg   = getPkg();
+    const raw   = Number(pkg.dataset.price) || 0; // full pre-promo price
+    const final = (window.FC_applyPromo ? window.FC_applyPromo(raw) : raw);
 
-  const next = pkg.dataset.img;
-  if (next){
-    const tmp = new Image();
-    tmp.onload = () => { imgEl.src = next; imgEl.alt = pkg.text; };
-    tmp.src = next;
+    priceEl.textContent = fmt(final);
+
+    const promoActive = !!(window.FC_PROMO && window.FC_PROMO.active && final < raw);
+    if (saleEl) {
+      saleEl.hidden = !promoActive;
+      if (promoActive && window.FC_PROMO?.label) {
+        saleEl.title = window.FC_PROMO.label;
+      } else {
+        saleEl.removeAttribute('title');
+      }
+    }
+
+    const next = pkg.dataset.img;
+    if (next){
+      const tmp = new Image();
+      tmp.onload = () => {
+        imgEl.src = next;
+        imgEl.alt = pkg.text;
+      };
+      tmp.src = next;
+    }
   }
-}
 
-function buildSkuName(){
-  const pkg   = getPkg();
-  const raw   = Number(pkg.dataset.price) || 0;
-  const final = (window.FC_applyPromo ? window.FC_applyPromo(raw) : raw);
-  return {
-    sku:   `${pkg.dataset.sku}-${HW.code}`,
-    name:  `${pkg.text} • ${HW.name}`,
-    price: final
-  };
-}
-
+  function buildSkuName(){
+    const pkg   = getPkg();
+    const raw   = Number(pkg.dataset.price) || 0;
+    const final = (window.FC_applyPromo ? window.FC_applyPromo(raw) : raw);
+    return {
+      sku:   `${pkg.dataset.sku}-${HW.code}`,
+      name:  `${pkg.text} • ${HW.name}`,
+      price: final
+    };
+  }
 
   const addToCartSafe = (sku, name, price, qty, meta) =>
     (typeof window.addToCart === 'function')
@@ -707,9 +841,12 @@ function buildSkuName(){
       ? window.buyNow(sku, name, price, qty, meta)
       : console.warn('Cart not ready');
 
-  // ✅ Proper preload lives INSIDE this IIFE
+  // Preload package images
   Array.from(pkgSel.options).forEach(opt => {
-    if (opt.dataset.img){ const im = new Image(); im.src = opt.dataset.img; }
+    if (opt.dataset.img) {
+      const im = new Image();
+      im.src = opt.dataset.img;
+    }
   });
 
   pkgSel.addEventListener('change', updateView);
@@ -724,10 +861,13 @@ function buildSkuName(){
     buyNowSafe(sku, name, price, 1, { image: imgEl.src });
   });
 
+  // Initial render
   updateView();
+
+  // 🔔 Recalculate when global promo changes (on/off)
+  window.addEventListener('fc:promo-updated', updateView);
 })();
 </script>
-
 
 
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>

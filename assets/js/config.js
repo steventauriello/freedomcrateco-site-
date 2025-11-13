@@ -68,16 +68,83 @@ window.getStripeLinkForCart = function(cartItems){
 // Sitewide Promo / Discount Config
 // ================================
 window.FC_PROMO = {
-  active: false,                // 👈 turn ON or OFF
-  percentOff: 10,              // 👈 discount percentage
-  label: "Veterans Day — 10% Off All Ammo Boxes!"  // 👈 optional label
+  active: false,   // 👈 your manual ON/OFF switch (still works)
+  percentOff: 10,
+  label: "Veterans Day — 10% Off All Ammo Boxes!",
+
+  // 👇 Auto-expire system (in days)
+  autoExpireDays: 7,
+
+  // Will store when promo was first turned on
+  _activatedAt: null
 };
 
-// Optional helper: apply discount safely
-window.FC_applyPromo = function(price){
+// ================================
+// Ensure promo has a timestamp if turned on
+// ================================
+window.FC_initPromoTimestamp = function () {
   const cfg = window.FC_PROMO;
-  if (!cfg || !cfg.active) return Number(price || 0);
-  const base = Number(price || 0);
-  const discounted = base - (base * (cfg.percentOff / 100));
-  return Math.round(discounted * 100) / 100; // keep 2 decimals
+
+  if (cfg.active) {
+    // If promo just turned on and no timestamp exists → set it
+    if (!cfg._activatedAt) {
+      cfg._activatedAt = new Date().toISOString();
+    }
+  } else {
+    // If promo is OFF → clear timestamp
+    cfg._activatedAt = null;
+  }
 };
+
+// ================================
+// Check if promo should be active *right now*
+// ================================
+window.FC_isPromoActiveNow = function () {
+  const cfg = window.FC_PROMO;
+
+  // Manual switch OFF → always OFF
+  if (!cfg.active) return false;
+
+  // If no timestamp, set one now
+  if (!cfg._activatedAt) {
+    cfg._activatedAt = new Date().toISOString();
+    return true;
+  }
+
+  // Check expiration window
+  const activatedAt = new Date(cfg._activatedAt);
+  const now = new Date();
+
+  const msSince = now - activatedAt;
+  const msLimit = cfg.autoExpireDays * 24 * 60 * 60 * 1000;
+
+  // If expired → treat promo as OFF
+  if (msSince > msLimit) {
+    return false;
+  }
+
+  return true;
+};
+
+// ================================
+// Apply promo discount (respects auto-expire)
+// ================================
+window.FC_applyPromo = function (price) {
+  const base = Number(price || 0);
+
+  // Do not discount if promo expired or inactive
+  if (!window.FC_isPromoActiveNow()) {
+    return base;
+  }
+
+  const cfg = window.FC_PROMO;
+  const discounted = base - (base * (cfg.percentOff / 100));
+
+  return Math.round(discounted * 100) / 100;
+};
+
+// Run timestamp initializer
+window.FC_initPromoTimestamp();
+
+// Notify page scripts
+window.dispatchEvent(new CustomEvent('fc:promo-updated'));
