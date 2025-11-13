@@ -292,8 +292,12 @@
 <div id="global-sale-banner" class="global-sale-banner" hidden>
   <div class="sale-tag">SALE</div>
   <div class="sale-text">
-    <strong data-sale-label>Veterans Day — 10% Off All Ammo Boxes</strong><br>
+    <strong data-sale-label>
+      Veterans Day — <span data-sale-pct>10</span>% Off All Ammo Boxes
+    </strong><br>
     Prices are already marked down. Limited time only.
+    <span data-promo-countdown class="sale-countdown"></span>
+    <span data-promo-end class="sale-end"></span>
   </div>
 </div>
 
@@ -597,38 +601,136 @@
     const banner = document.getElementById('global-sale-banner');
     if (!banner) return;
 
-    function renderPromo() {
-      const cfg = window.FC_PROMO || {};
+    const countdownEl = banner.querySelector('[data-promo-countdown]');
+    const endLabelEl = banner.querySelector('[data-promo-end]');
+    let countdownTimerId = null;
 
-      // If promo is OFF → hide and bail
-      if (!cfg.active) {
-        banner.hidden = true;
-        banner.style.display = 'none';       // extra safety
+    function stopCountdown() {
+      if (countdownTimerId !== null) {
+        clearInterval(countdownTimerId);
+        countdownTimerId = null;
+      }
+      if (countdownEl) {
+        countdownEl.textContent = "";
+        countdownEl.hidden = true;
+      }
+      if (endLabelEl) {
+        endLabelEl.textContent = "";
+        endLabelEl.hidden = true;
+      }
+    }
+
+    function setEndLabel(end) {
+  if (!endLabelEl) return;
+
+  // Date part: "Thu, Nov 20"
+  const datePart = end.toLocaleDateString(undefined, {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric'
+  });
+
+  // Time part: "5:20 PM" (always 12-hour with AM/PM)
+  const timePart = end.toLocaleTimeString(undefined, {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
+
+  endLabelEl.textContent = `Ends ${datePart} at ${timePart}`;
+  endLabelEl.hidden = false;
+}
+
+
+    function startCountdown() {
+      if (!countdownEl) return;
+
+      stopCountdown(); // reset any old timer
+
+      const cfg = window.FC_PROMO || {};
+      const hasHelper = (typeof window.FC_isPromoActiveNow === "function");
+      const promoActiveNow = hasHelper ? window.FC_isPromoActiveNow() : !!cfg.active;
+
+      if (!promoActiveNow || !cfg._activatedAt || !cfg.autoExpireDays) {
+        countdownEl.textContent = "";
+        countdownEl.hidden = true;
+        if (endLabelEl) {
+          endLabelEl.textContent = "";
+          endLabelEl.hidden = true;
+        }
         return;
       }
 
-      // Promo is ON → show banner
-      banner.hidden = false;
-      banner.style.display = '';             // let CSS handle layout
+      const start = new Date(cfg._activatedAt);
+      const end = new Date(start.getTime() + cfg.autoExpireDays * 24 * 60 * 60 * 1000);
 
-      // Update % off if we have a number
-      const pctEl = banner.querySelector('[data-sale-pct]');
-      if (pctEl && typeof cfg.percentOff === 'number') {
+      countdownEl.hidden = false;
+      setEndLabel(end);
+
+      function tick() {
+        const now = new Date();
+        const stillActive = hasHelper ? window.FC_isPromoActiveNow() : !!cfg.active;
+        const diff = end - now;
+
+        if (!stillActive || diff <= 0) {
+          stopCountdown();
+          renderPromo(); // will hide the banner when fully done
+          return;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        const parts = [];
+        if (days > 0) parts.push(days + "d");
+        parts.push(String(hours).padStart(2, "0") + "h");
+        parts.push(String(minutes).padStart(2, "0") + "m");
+        parts.push(String(seconds).padStart(2, "0") + "s");
+
+        countdownEl.textContent = parts.join(" ") + " left";
+      }
+
+      tick();                          // show immediately
+      countdownTimerId = setInterval(tick, 1000);
+    }
+
+    function renderPromo() {
+      const cfg = window.FC_PROMO || {};
+      const hasHelper = (typeof window.FC_isPromoActiveNow === "function");
+      const isActiveNow = hasHelper ? window.FC_isPromoActiveNow() : !!cfg.active;
+
+      if (!isActiveNow) {
+        banner.hidden = true;
+        banner.style.display = "none";
+        stopCountdown();
+        return;
+      }
+
+      banner.hidden = false;
+      banner.style.display = "";
+
+      const pctEl = banner.querySelector("[data-sale-pct]");
+      if (pctEl && typeof cfg.percentOff === "number") {
         pctEl.textContent = cfg.percentOff;
       }
 
-      // Update the main label if provided
-      const labelEl = banner.querySelector('[data-sale-label]');
+      const labelEl = banner.querySelector("[data-sale-label]");
       if (labelEl && cfg.label) {
         labelEl.textContent = cfg.label;
       }
+
+      // make sure countdown + end label are synced
+      startCountdown();
     }
 
     // Initial render on load
     renderPromo();
 
-    // Re-render whenever config.js toggles the promo
-    window.addEventListener('fc:promo-updated', renderPromo);
+    // Re-render whenever config.js toggles the promo or updates timing
+    window.addEventListener("fc:promo-updated", renderPromo);
   })();
 </script>
 
