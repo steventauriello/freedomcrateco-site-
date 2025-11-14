@@ -1,0 +1,91 @@
+{
+  "site": {
+    "name": "Freedom Crate Co.",
+    "domain": "freedomcrateco.com",
+    "url": "https://freedomcrateco.com/",
+    "description": "Freedom Crate Co. builds handcrafted wooden military-style ammo boxes and range crates. Veteran-inspired, Florida-built, and made for real use at the range or as patriotic display pieces.",
+    "language": "en-US",
+    "country": "US"
+  },
+  "business": {
+    "type": "ecommerce-small-business",
+    "location": "Florida, United States",
+    "tags": [
+      "wooden ammo box",
+      "wooden military ammo box",
+      "range box",
+      "patriotic gifts",
+      "veteran-supporting business"
+    ],
+    "owner": {
+      "name": "Steven Tauriello",
+      "role": "Founder"
+    }
+  },
+  "products": [
+    {
+      "id": "FC-CLASSIC",
+      "name": "Freedom Crate Classic — Branch Collection",
+      "category": "Wooden ammo box",
+      "url": "https://freedomcrateco.com/branch-collection.html",
+      "shortDescription": "Handcrafted wooden military-style ammo box with optional U.S. branch stencil, lockable hardware, and free U.S. shipping.",
+      "priceRange": {
+        "currency": "USD",
+        "min": 59.99,
+        "max": 64.99
+      },
+      "useCases": [
+        "ammo storage",
+        "range box",
+        "patriotic home decor",
+        "gift for veterans and service members"
+      ]
+    },
+    {
+      "id": "FC-RM-400",
+      "name": "Rangemaster 400",
+      "category": "Wooden range ammo box",
+      "url": "https://freedomcrateco.com/product.html?sku=FC-RM-400",
+      "shortDescription": "Compact, stackable wooden range box with optional Armor Core interior liner or Battle Guard exterior PolyShield.",
+      "priceRange": {
+        "currency": "USD",
+        "min": 49.99,
+        "max": 64.99
+      },
+      "useCases": [
+        "range-day ammo organization",
+        "loose-round storage",
+        "boxed ammo and magazines",
+        "truck or gear box"
+      ]
+    }
+  ],
+  "shipping": {
+    "regions": ["US"],
+    "policy": "Free U.S. shipping on ammo boxes. Most orders ship within 1–3 business days and arrive within 2–6 business days.",
+    "returns": "Most non-custom items may be returned within 14 days of delivery (customer pays return shipping). Custom-stenciled crates are generally non-returnable unless damaged in transit."
+  },
+  "projects": [
+    {
+      "name": "Final Salute Project",
+      "url": "https://freedomcrateco.com/about.html#final-salute-project",
+      "description": "An initiative to honor recently retired U.S. veterans with handcrafted keepsake crates."
+    },
+    {
+      "name": "Monthly Veteran Box Giveaway",
+      "url": "https://freedomcrateco.com/giveaway.html",
+      "description": "A monthly giveaway where a nominated veteran receives a custom Freedom Crate Co. box."
+    }
+  ],
+  "contact": {
+    "email": "steven@freedomcrateco.com",
+    "webForms": [
+      "https://freedomcrateco.com/contact.html",
+      "https://freedomcrateco.com/giveaway.html"
+    ]
+  },
+  "privacy": {
+    "url": "https://freedomcrateco.com/transparency.html",
+    "summary": "Freedom Crate Co. only collects the information needed to fulfill orders, respond to messages, and verify giveaway entries. Information is never sold or traded."
+  }
+}
