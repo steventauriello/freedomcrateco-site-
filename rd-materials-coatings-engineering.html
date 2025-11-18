@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-DNNL0065X9');
+  </script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>R&amp;D Materials &amp; Coatings Engineering • Freedom Crate Co.</title>
+  <meta name="description" content="Freedom Crate Co. R&D Materials & Coatings Engineering: testing epoxy, polyelastomer liners, and engineering upgrades that make our wooden ammo & range boxes more durable, waterproof, and long-lasting." />
+  <link rel="canonical" href="https://freedomcrateco.com/rd-materials-coatings-engineering.html" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="R&amp;D Materials &amp; Coatings Engineering • Freedom Crate Co." />
+  <meta property="og:description" content="Deep dive into the engineering, materials, and coatings behind Freedom Crate Co.’s wooden ammo & range boxes — including Armor Core interior liners and Battle Guard exterior protection." />
+  <meta property="og:image" content="https://freedomcrateco.com/assets/img/army.jpg" />
+  <meta property="og:site_name" content="Freedom Crate Co." />
+  <meta property="og:locale" content="en_US" />
+
+  <link rel="icon" href="/favicon.ico?v=2">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <style>
+    .rd-hero {
+      padding: 3rem 1rem 2rem;
+      text-align: center;
+    }
+    .rd-hero h1 {
+      font-size: clamp(2rem, 2.6vw, 3rem);
+      margin-bottom: .5rem;
+    }
+    .rd-tagline {
+      max-width: 70ch;
+      margin: .5rem auto 0;
+      opacity: .9;
+    }
+    .rd-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .5rem;
+      margin-top: 1rem;
+    }
+
+    .rd-section {
+      border-radius: .75rem;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      padding: 1.5rem 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .rd-section h2 {
+      margin-top: 0;
+      margin-bottom: .5rem;
+      font-size: clamp(1.25rem, 2vw, 1.6rem);
+    }
+    .rd-section h3 {
+      margin-top: 1rem;
+      margin-bottom: .35rem;
+      font-size: 1.05rem;
+    }
+    .rd-section p {
+      margin: .35rem 0;
+    }
+    .rd-section ul {
+      margin: .35rem 0 .75rem 1.1rem;
+      padding: 0;
+    }
+    .rd-section li {
+      margin-bottom: .25rem;
+    }
+
+    .rd-note {
+      font-size: .9rem;
+      opacity: .85;
+    }
+
+    /* Video grid */
+    .rd-video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: .75rem;
+    }
+    .rd-video {
+      border-radius: .75rem;
+      border: 1px solid rgba(255,255,255,.08);
+      padding: .75rem;
+      background: rgba(0,0,0,.25);
+    }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: .5rem;
+      background: #000;
+      margin-bottom: .5rem;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .rd-video-title {
+      font-weight: 600;
+      margin: 0 0 .1rem;
+    }
+    .rd-video-desc {
+      font-size: .9rem;
+      opacity: .9;
+      margin: 0;
+    }
+
+    /* Lab notes */
+    .rd-lab-notes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: .75rem;
+    }
+    .rd-note-card {
+      border-radius: .75rem;
+      border: 1px solid rgba(255,255,255,.08);
+      padding: .8rem .9rem;
+      background: rgba(255,255,255,.02);
+    }
+    .rd-note-meta {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      opacity: .7;
+      margin-bottom: .25rem;
+    }
+    .rd-note-title {
+      font-weight: 600;
+      margin-bottom: .25rem;
+    }
+    .rd-note-body {
+      font-size: .9rem;
+      opacity: .95;
+    }
+
+    /* Gallery */
+    .rd-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: .75rem;
+    }
+    .rd-gallery-item {
+      border-radius: .75rem;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.3);
+      overflow: hidden;
+    }
+    .rd-gallery-thumb {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+    .rd-gallery-caption {
+      padding: .6rem .75rem .7rem;
+      font-size: .9rem;
+      line-height: 1.35;
+    }
+    .rd-gallery-caption strong {
+      display: block;
+      margin-bottom: .1rem;
+    }
+
+    /* Lightbox */
+    .rd-lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.85);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      z-index: 9999;
+    }
+    .rd-lightbox-overlay img {
+      max-width: min(100%, 980px);
+      max-height: 80vh;
+      border-radius: .5rem;
+      box-shadow: 0 0 40px rgba(0,0,0,.7);
+    }
+    .rd-lightbox-caption {
+      margin-top: .75rem;
+      max-width: min(100%, 980px);
+      font-size: .9rem;
+      text-align: center;
+      opacity: .9;
+    }
+    .rd-lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.8rem;
+      line-height: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .muted.small {
+      font-size:.85rem;
+      opacity:.8;
+    }
+
+    @media (min-width: 768px) {
+      .rd-hero {
+        padding-top: 3.5rem;
+      }
+    }
+  </style>
+
+  <!-- Structured data for this R&D page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "name": "R&D Materials & Coatings Engineering",
+    "url": "https://freedomcrateco.com/rd-materials-coatings-engineering.html",
+    "headline": "R&D Materials & Coatings Engineering",
+    "description": "Engineering notes, materials testing, and coatings R&D behind Freedom Crate Co.'s wooden ammo and range boxes, including interior epoxy liners and exterior bed-liner style coatings.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://freedomcrateco.com/#website"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Steven Tauriello"
+    }
+  }
+  </script>
+</head>
+
+<body>
+
+<!-- Giveaway + topbar copied from index.html -->
+<div class="giveaway-banner" role="note" aria-label="Monthly giveaway">
+  <a class="giveaway-link" href="/giveaway.html" aria-label="Monthly Veteran Box Giveaway">
+    <img class="flag" src="/assets/img/american-flag-icon-3.svg" alt="" aria-hidden="true">
+    <span class="text">Monthly Veteran Box Giveaway</span>
+    <img class="flag" src="/assets/img/american-flag-icon-3.svg" alt="" aria-hidden="true">
+  </a>
+</div>
+
+<div class="topbar" role="note" aria-label="Shipping notice">
+  <div class="topbar-inner">
+    <span aria-hidden="true"></span>
+    <span class="msg">
+      US VETERAN-INSPIRED • FLORIDA-BUILT • <strong>FREE U.S. SHIPPING</strong>
+    </span>
+  </div>
+</div>
+
+<header class="site-header" role="banner">
+  <div class="header-inner">
+
+    <!-- Brand -->
+    <a class="brand brand-left" href="/" aria-label="Freedom Crate Co. Home">
+      <span class="logo-wrap">
+        <img class="logo" src="/assets/img/logo.png" alt="Freedom Crate Co. logo" decoding="async">
+      </span>
+      <span class="brand-tag">Handcrafted Ammo & Range Boxes</span>
+    </a>
+
+    <!-- Mobile menu button -->
+    <button class="menu-btn" id="menuBtn" aria-controls="primaryNav" aria-expanded="false" aria-label="Open menu">
+      <span class="menu-icon" aria-hidden="true"></span>
+    </button>
+
+    <!-- Primary nav -->
+    <nav id="primaryNav" class="nav" aria-label="Primary">
+      <a href="/">Shop</a>
+      <a href="/branch-collection.html">Branch Collection</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/about.html">About</a>
+      <a href="/reviews.html">Reviews</a>
+      <a href="/contact.html">Custom Orders</a>
+      <a href="/transparency.html">Transparency</a>
+      <a href="/rd-materials-coatings-engineering.html">R&amp;D Materials &amp; Coatings Engineering</a>
+
+      <div class="nav-cta">
+        <a class="btn small btn-final-salute" href="/about.html#final-salute-project" aria-label="The Final Salute Project">
+          Final Salute Project
+        </a>
+        <a class="btn ghost small" href="/giveaway.html">Enter Giveaway</a>
+      </div>
+
+      <a class="cart-link" href="/checkout.html" aria-label="Cart">
+        <img class="flag" src="/assets/img/american-flag-icon-2.svg" alt="">
+        <span class="cart-icon">
+          <svg class="cart-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+        </span>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Auto-set aria-current on active nav link
+  (function(){
+    const path = location.pathname.replace(/\/+$/, '') || '/';
+    document.querySelectorAll('.nav a').forEach(a => {
+      const href = (a.getAttribute('href') || '').replace(/\/+$/, '') || '/';
+      if (href === path || (path === '/' && (href === '/' || href === '/index.html'))) {
+        a.setAttribute('aria-current', 'page');
+      } else {
+        a.removeAttribute('aria-current');
+      }
+    });
+  })();
+</script>
+
+<main class="container" id="main">
+
+  <!-- HERO -->
+  <section class="rd-hero">
+    <h1>R&amp;D Materials &amp; Coatings Engineering</h1>
+    <p class="rd-tagline">
+      This page documents the real-world testing, failures, improvements, and engineering decisions
+      behind <strong>Armor Core</strong>, <strong>Battle Guard</strong>, and the structural design of our wooden ammo &amp; range boxes.
+      If a box makes it into a Freedom Crate product line, it’s because it survived the abuse here first.
+    </p>
+    <div class="rd-badge-row">
+      <span class="badge">Penetrating Epoxy Testing</span>
+      <span class="badge">Bed-Liner Style Coatings</span>
+      <span class="badge">Moisture &amp; Impact Resistance</span>
+      <span class="badge">Longevity &amp; Failure Analysis</span>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="rd-section">
+    <h2>What This Page Is For</h2>
+    <p>
+      Freedom Crate Co. isn’t just about making boxes that look cool. The goal is to build
+      <strong>real working equipment</strong> that can live in garages, trucks, sheds, and ranges for years —
+      not just sit on a shelf. This page is where we:
+    </p>
+    <ul>
+      <li>Document the <strong>materials</strong> we use (woods, epoxies, polyelastomers, fasteners).</li>
+      <li>Show how <strong>interior and exterior coatings</strong> change durability and water resistance.</li>
+      <li>Log <strong>test results</strong> from impact, moisture, and abuse testing.</li>
+      <li>Share <strong>engineering changes</strong> we make based on what fails and what holds up.</li>
+    </ul>
+    <p class="rd-note">
+      If you’re a customer, a fellow maker, or a contracting officer evaluating Freedom Crate Co.,
+      this is where you see the thought process behind the products — not just the marketing.
+    </p>
+  </section>
+
+  <!-- WHY WOOD SECTION -->
+  <section class="rd-section" id="why-wood">
+    <h2>Why Wood Instead of Metal or Plastic?</h2>
+    <p>
+      When people see a rugged storage box, they usually think metal or injection-molded plastic.
+      Freedom Crate Co. deliberately chose <strong>wood</strong> as the primary structural material and then
+      engineered coatings and reinforcements around it. This section explains why.
+    </p>
+
+    <h3>1. The Only Material That Doesn’t Require Electricity to Make</h3>
+    <p>
+      Metal requires furnaces, presses, welders, and a lot of power. Plastic requires expensive molds
+      and high-energy injection machines. Wood is different: it’s a natural material that can be shaped
+      with simple tools, scaled up in a small shop, and produced with minimal energy input.
+    </p>
+    <p class="rd-note">
+      In a world of supply chain shocks and power-hungry manufacturing, wood is the only structural
+      material that can still be turned into real equipment with basic tools if it ever had to be.
+    </p>
+
+    <h3>2. Wood Becomes a Composite When It’s Sealed Correctly</h3>
+    <p>
+      Raw wood is porous, but once we flood the interior with penetrating epoxy and add optional liners,
+      the box behaves more like a <strong>composite structure</strong> than plain lumber.
+      The epoxy soaks into the fibers, stiffens the panels, and creates a continuous bead in the interior
+      corners of the box.
+    </p>
+    <ul>
+      <li>Epoxy forms a <strong>rounded corner fillet</strong> along the entire bottom perimeter.</li>
+      <li>That fillet helps distribute impact forces and seals the joint against liquid intrusion.</li>
+      <li>The end result is closer to a small boat hull than a simple wooden crate.</li>
+    </ul>
+
+    <h3>3. Lighter Than Metal, Tougher Than Plastics in Panel Form</h3>
+    <p>
+      Steel and aluminum can dent and deform. Many plastics crack, especially in cold weather or after UV exposure.
+      A properly built wooden panel has thousands of fibers sharing the load, and the epoxy + liner system adds both
+      stiffness and controlled flex.
+    </p>
+    <ul>
+      <li>Wood flexes slightly under impact instead of caving in like thin metal.</li>
+      <li>Epoxy and coatings help prevent checking, splitting, and delamination.</li>
+      <li>Panels can absorb abuse from stacked crates, vehicle transport, and field use.</li>
+    </ul>
+
+    <h3>4. No Rust, No Cold-Weather Brittleness</h3>
+    <p>
+      Metal wants to rust. Plastics can turn brittle in the cold or soften in extreme heat.
+      A sealed wooden box avoids both problems.
+    </p>
+    <ul>
+      <li>No corrosion layer to manage over the life of the crate.</li>
+      <li>Fasteners bite into wood and stay tight instead of loosening in plastic.</li>
+      <li>Coatings bond extremely well, turning the outer shell into a protective skin.</li>
+    </ul>
+
+    <h3>5. Repairable Instead of Disposable</h3>
+    <p>
+      A dented metal case is hard to fix. A cracked plastic case usually gets thrown away.
+      Wood has a built-in repair path:
+    </p>
+    <ul>
+      <li>Panels can be sanded, patched, and recoated.</li>
+      <li>Corners can be braced, glued, or re-epoxied.</li>
+      <li>Hardware can be moved, upgraded, or replaced without scrapping the box.</li>
+    </ul>
+
+    <h3>6. Strength Per Dollar and Environmental Profile</h3>
+    <p>
+      Injection-molded plastic cases require expensive tooling before the first usable part is made.
+      Metal cases require industrial equipment and higher material cost.
+      Wood delivers one of the best <strong>strength-per-dollar</strong> ratios for field gear.
+    </p>
+    <p>
+      It’s also renewable, doesn’t create microplastics, and doesn’t require smelting, melting, or
+      high-temperature processing.
+    </p>
+
+    <h3>What About Plastics and 3D Printing?</h3>
+    <p>
+      Modern plastics and 3D printing are impressive. You can print almost any geometry, swap in
+      carbon-filled filaments, and even print in metals. But for rugged storage crates, there are some
+      realities that matter more than hype.
+    </p>
+    <ul>
+      <li>
+        <strong>Energy & infrastructure required:</strong> every plastic or 3D-printed crate starts with
+        a powered machine, spools or pellets, heated nozzles, and electronics. If the power goes out,
+        production stops. With wood, you can still build a working box with hand tools, nails, and rope.
+      </li>
+      <li>
+        <strong>Time to make one box:</strong> large 3D-printed objects take hours to print and
+        babysit. A well-tuned wood shop can cut, assemble, and coat a box faster than most printers
+        can finish a single full-size crate.
+      </li>
+      <li>
+        <strong>Cost of materials & tooling:</strong> high-strength filaments and composite plastics
+        are expensive. Industrial-scale plastic molding also needs costly molds before the first part
+        is made. Wood delivers serious strength without that up-front tooling bill.
+      </li>
+      <li>
+        <strong>Environmental reality:</strong> plastics don’t disappear. They break down into
+        microplastics that end up in oceans, soil, and even wild-caught fish. Wood is a natural
+        material that can be responsibly sourced and doesn’t turn into permanent dust in the
+        environment.
+      </li>
+    </ul>
+    <p>
+      3D printing and advanced plastics absolutely have their place, especially for complex parts.
+      But for a field-ready ammo or range box, the philosophy here is simple:
+      <strong>if you can build it from wood, you should.</strong> It’s repairable, renewable, and can
+      be built without depending on a high-tech factory or a constant stream of electricity.
+    </p>
+
+    <p class="rd-note">
+      Bottom line: with the right joinery, fasteners, and coatings, wood becomes a
+      <strong>lightweight, repairable, high-strength platform</strong>. That’s why Freedom Crate Co. starts with wood
+      and then builds Armor Core, Battle Guard, and all future coating systems around it.
+    </p>
+  </section>
+
+  <!-- ARMOR CORE SECTION -->
+  <section class="rd-section" id="armor-core">
+    <h2>Armor Core — Interior PolyShield (Penetrating Epoxy + Liner)</h2>
+    <p>
+      <strong>Armor Core</strong> is our interior protection system. The idea is simple:
+      <em>seal the wood fibers from the inside out</em> using a penetrating epoxy, then (where appropriate)
+      back it up with a tough liner like a truck-bed–style coating.
+    </p>
+
+    <h3>Current Process (Typical)</h3>
+    <ul>
+      <li>
+        <strong>Flood coat with penetrating epoxy</strong> on all interior surfaces
+        (bottom panel, side walls, ends, and lid interior).
+      </li>
+      <li>
+        Allow full cure per manufacturer spec before adding any liner or topcoat.
+      </li>
+      <li>
+        Optional: follow with a <strong>spray or roll-on interior liner</strong> for added abrasion and chemical resistance.
+      </li>
+    </ul>
+
+    <h3>What We’re Testing</h3>
+    <ul>
+      <li>How well the epoxy seals against <strong>oil, moisture, and humidity</strong> over time.</li>
+      <li>How interior coatings behave with <strong>loose ammo, magazines, and range gear</strong> sliding around.</li>
+      <li>Whether the epoxy + liner combo reduces <strong>panel warping, delamination, or rot</strong> in tough environments.</li>
+    </ul>
+
+    <p class="rd-note">
+      In normal conditions (indoor storage or garage use), a fully sealed Armor Core interior should dramatically
+      extend the life of the box compared to raw or unsealed wood.
+    </p>
+  </section>
+
+  <!-- BATTLE GUARD SECTION -->
+  <section class="rd-section" id="battle-guard">
+    <h2>Battle Guard — Exterior PolyShield (Truck Bed–Style Coating)</h2>
+    <p>
+      <strong>Battle Guard</strong> focuses on the outside of the box — where impacts, scrapes, and weather hit first.
+      Think of it as a <strong>tactical “armor plate” for wood</strong>, based on bed-liner style coatings.
+    </p>
+
+    <h3>Current Focus Areas</h3>
+    <ul>
+      <li>Adhesion to epoxy-sealed vs. bare exterior surfaces.</li>
+      <li>Scratch and gouge resistance when boxes are <strong>stacked, dragged, or tossed</strong>.</li>
+      <li>Resistance to <strong>UV, moisture, and temperature swings</strong> (garage, truck bed, range).</li>
+    </ul>
+
+    <h3>What We’re Looking For</h3>
+    <ul>
+      <li>A coating system that <strong>bites into the wood</strong> but still flexes with seasonal movement.</li>
+      <li>Texture that gives <strong>good grip</strong> without shredding clothing or skin.</li>
+      <li>Color and sheen that match the <strong>military / field-use look</strong> Freedom Crate is built around.</li>
+    </ul>
+  </section>
+
+  <!-- ADVANCED COMPOSITE CONSTRUCTION -->
+  <section class="rd-section" id="advanced-composites">
+    <h2>Advanced Composite Construction — Phenolic Plywood + Epoxy + Polyelastomer</h2>
+    <p>
+      Solid wood is the backbone of Freedom Crate Co., but the long-term goal is to push into
+      <strong>advanced composite construction</strong> using high-grade plywood systems such as phenolic-faced panels.
+      When you combine engineered plywood with penetrating epoxy and a polyelastomer liner, you get
+      something closer to a small composite structure than a traditional wood box.
+    </p>
+    <h3>What Phenolic-Faced Plywood Brings to the Table</h3>
+    <ul>
+      <li>Factory-applied phenolic faces that are <strong>highly water-resistant</strong> and abrasion tolerant.</li>
+      <li>Multi-ply construction that spreads loads across many thin veneers for <strong>high stiffness</strong>.</li>
+      <li>Consistent thickness and flatness compared to construction-grade sheets.</li>
+    </ul>
+    <h3>Layering Armor Core on Top</h3>
+    <p>
+      Even with a tough phenolic skin, we still want the interior fully sealed:
+    </p>
+    <ul>
+      <li>Penetrating epoxy is used to flood interior seams and corners, forming a continuous fillet.</li>
+      <li>This epoxy fillet ties the panels together structurally and helps prevent moisture from ever
+          reaching the core.</li>
+      <li>Any exposed edges of the plywood stack are sealed to guard against wicking.</li>
+    </ul>
+    <h3>Wrapping Everything in Battle Guard</h3>
+    <p>
+      On the exterior, a polyelastomer coating like <strong>Battle Guard</strong> locks the structure in:
+    </p>
+    <ul>
+      <li>It adds a tough, impact-resistant shell that bonds to the phenolic face.</li>
+      <li>Edges, corners, and hardware zones can be built up for extra protection.</li>
+      <li>The result is a box that behaves like a <strong>hybrid of wood, composite panel, and armor coating</strong>.</li>
+    </ul>
+    <p class="rd-note">
+      Put together, phenolic plywood + Armor Core + Battle Guard represents the “ultimate” evolution
+      of the Freedom Crate design language: lightweight, heavily sealed, and built to shrug off hard use.
+    </p>
+  </section>
+
+  <!-- YOUTUBE TEST FOOTAGE -->
+  <section class="rd-section" id="test-footage">
+    <h2>Test Footage &amp; R&amp;D Videos</h2>
+    <p>
+      Below are real test clips from the shop and range — epoxy flood tests, water soak tests, impact tests,
+      and anything else we throw at these boxes. All videos are hosted on the
+      <strong>Freedom Crate Co.</strong> YouTube channel and embedded here.
+    </p>
+
+    <div class="rd-video-grid">
+      <!--
+        To add a new video:
+        1. Upload to YouTube on your Freedom Crate Co. channel.
+        2. Copy the VIDEO_ID from the URL: https://www.youtube.com/watch?v=VIDEO_ID
+        3. Duplicate one of these .rd-video blocks and replace VIDEO_ID + title + description.
+      -->
+
+      <div class="rd-video">
+        <div class="video-wrapper">
+          <!-- Example embed – replace VIDEO_ID_HERE with your actual YouTube ID -->
+          <iframe
+            src="https://www.youtube.com/embed/VIDEO_ID_HERE"
+            title="Freedom Crate Co. R&D Test Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+        <p class="rd-video-title">Armor Core Epoxy Flood Test (Example)</p>
+        <p class="rd-video-desc">
+          Placeholder description — replace this with what you actually did in the test
+          (soak time, observations, failures, and what you changed afterward).
+        </p>
+      </div>
+
+      <!-- Add more .rd-video blocks below as you create new tests -->
+    </div>
+
+    <p class="rd-note" style="margin-top:.75rem;">
+      Want to see every clip we post? Visit the
+      <a href="https://www.youtube.com/@FreedomCrateCo" target="_blank" rel="noopener">
+        Freedom Crate Co. YouTube channel
+      </a>.
+    </p>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section class="rd-section" id="rd-gallery">
+    <h2>Photo Gallery: Armor Core &amp; Battle Guard</h2>
+    <p>
+      A closer look at real boxes on the bench — raw wood, epoxy-flooded interiors, and full Battle Guard shells.
+      Click any image to expand.
+    </p>
+
+    <div class="rd-gallery-grid">
+      <!-- NOTE: swap these src paths with your actual filenames in /assets/img/... -->
+      <figure class="rd-gallery-item">
+        <a href="/assets/img/rd/armor-core-main.jpg" data-caption="Armor Core promo graphic showing a fully flooded interior before and after coating.">
+          <img class="rd-gallery-thumb" src="/assets/img/rd/armor-core-main.jpg" alt="Armor Core interior promo graphic">
+        </a>
+        <figcaption class="rd-gallery-caption">
+          <strong>Armor Core overview</strong>
+          Flooded interior epoxy liner concept graphic.
+        </figcaption>
+      </figure>
+
+      <figure class="rd-gallery-item">
+        <a href="/assets/img/rd/armor-core-raw-vs-coated.jpg" data-caption="Side-by-side: raw plywood exterior with a fully sealed Armor Core interior.">
+          <img class="rd-gallery-thumb" src="/assets/img/rd/armor-core-raw-vs-coated.jpg" alt="Raw exterior with sealed Armor Core interior">
+        </a>
+        <figcaption class="rd-gallery-caption">
+          <strong>Raw exterior, sealed interior</strong>
+          Test box showing unpainted sides with the Armor Core interior already complete.
+        </figcaption>
+      </figure>
+
+      <figure class="rd-gallery-item">
+        <a href="/assets/img/rd/armor-core-interior.jpg" data-caption="Close-up of the epoxy fillet running the full perimeter of the interior.">
+          <img class="rd-gallery-thumb" src="/assets/img/rd/armor-core-interior.jpg" alt="Close interior shot of Armor Core liner">
+        </a>
+        <figcaption class="rd-gallery-caption">
+          <strong>Epoxy fillet detail</strong>
+          Interior corners flooded with resin to tie every panel together.
+        </figcaption>
+      </figure>
+
+      <figure class="rd-gallery-item">
+        <a href="/assets/img/rd/battle-guard-main.jpg" data-caption="Battle Guard exterior graphic showing coated range boxes.">
+          <img class="rd-gallery-thumb" src="/assets/img/rd/battle-guard-main.jpg" alt="Battle Guard exterior promo graphic">
+        </a>
+        <figcaption class="rd-gallery-caption">
+          <strong>Battle Guard shell</strong>
+          Exterior polyelastomer armor wrapped around the entire box.
+        </figcaption>
+      </figure>
+
+      <figure class="rd-gallery-item">
+        <a href="/assets/img/rd/coming-soon.jpg" data-caption="Placeholder for upcoming phenolic plywood + composite builds.">
+          <img class="rd-gallery-thumb" src="/assets/img/rd/coming-soon.jpg" alt="Freedom Crate Co. coming soon placeholder">
+        </a>
+        <figcaption class="rd-gallery-caption">
+          <strong>Coming soon</strong>
+          Reserved spot for future phenolic plywood and advanced composite prototypes.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- LAB NOTES / ENGINEERING LOGS -->
+  <section class="rd-section" id="lab-notes">
+    <h2>Lab Notes &amp; Engineering Log</h2>
+    <p>
+      These are quick snapshots of what we’re testing and changing over time — thicknesses, fastener choices,
+      coatings, and structural tweaks. Think of it as a running notebook that explains <em>why</em> a later version of a box
+      looks or behaves differently than an earlier one.
+    </p>
+
+    <div class="rd-lab-notes">
+      <!-- Example card 1 -->
+      <article class="rd-note-card">
+        <div class="rd-note-meta">Example Entry</div>
+        <div class="rd-note-title">Epoxy-Flooded Interior vs. Raw Wood (Control)</div>
+        <p class="rd-note-body">
+          Side-by-side test of two identical boxes: one interior fully flooded with penetrating epoxy,
+          one left raw. Stored in a non-climate-controlled garage. Tracking any swelling, seam movement,
+          and surface checking over time.
+        </p>
+      </article>
+
+      <!-- Example card 2 -->
+      <article class="rd-note-card">
+        <div class="rd-note-meta">Example Entry</div>
+        <div class="rd-note-title">Battle Guard Exterior Drag Test</div>
+        <p class="rd-note-body">
+          Coated exterior with bed-liner style product, then dragged the loaded box over concrete and gravel.
+          Documenting where the coating scuffs, chips, or fails and whether corners or edges need extra buildup.
+        </p>
+      </article>
+    </div>
+
+      </section>
+
+  <!-- CONTACT NOTE -->
+  <section class="rd-section">
+    <h2>Questions from Buyers or Contracting Officers</h2>
+    <p>
+      If you’re evaluating Freedom Crate Co. for a purchase order, contract, or just want more detail on a specific test,
+      you can reach out directly and request additional information, photos, or raw test notes.
+    </p>
+    <p class="rd-note">
+      Questions about materials, coatings, or test methods?<br>
+      Email: <a href="mailto:steven@freedomcrateco.com">steven@freedomcrateco.com</a>
+      (or use the contact form on the site).
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="badge">US Veteran-inspired • Florida-built</span>
+    <p class="muted">Rugged, practical, and made to be used.</p>
+    <p class="muted">
+      <a href="/giveaway.html" class="footer-link">🎖 Enter our Monthly Veteran Box Giveaway</a>
+    </p>
+
+    <hr class="footer-divider" />
+
+    <p class="footer-links">
+      <a href="/faq.html" class="footer-link-small">FAQ</a>
+      <span class="footer-sep">•</span>
+      <a href="/about.html#contact" class="footer-link-small">Contact</a>
+      <span class="footer-sep">•</span>
+      <a href="/transparency.html" class="footer-link-small">Transparency</a>
+      <span class="footer-sep">•</span>
+      <a href="/privacy.html" class="footer-link-small">Privacy Policy</a>
+      <span class="footer-sep">•</span>
+      <a href="/terms.html" class="footer-link-small">Terms</a>
+    </p>
+
+    <p class="footer-copy">
+      © <span id="fc-year"></span> Freedom Crate Co. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var y = document.getElementById('fc-year');
+    if (y) y.textContent = new Date().getFullYear();
+  })();
+</script>
+
+<!-- Shared JS (promo banner, cart, etc.) – same pattern as index.html -->
+<script src="assets/js/config.js"></script>
+<script src="assets/js/util.js" defer></script>
+<script src="assets/js/inventory.js" defer></script>
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/catalog.js" defer></script>
+
+<script>
+  // Header scroll effect
+  (function(){
+    const header = document.querySelector('.site-header');
+    if(!header) return;
+    let ticking = false;
+    function onScroll(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        header.classList.toggle('scrolled', window.scrollY > 8);
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+<script>
+  // Simple gallery lightbox
+  (function(){
+    const links = document.querySelectorAll('#rd-gallery a[href]');
+    if (!links.length) return;
+
+    function openLightbox(event){
+      event.preventDefault();
+      const href = this.getAttribute('href');
+      const caption = this.getAttribute('data-caption') || '';
+
+      const overlay = document.createElement('div');
+      overlay.className = 'rd-lightbox-overlay';
+
+      const img = document.createElement('img');
+      img.src = href;
+      img.alt = '';
+
+      const cap = document.createElement('div');
+      cap.className = 'rd-lightbox-caption';
+      cap.textContent = caption;
+
+      const btn = document.createElement('button');
+      btn.className = 'rd-lightbox-close';
+      btn.setAttribute('aria-label', 'Close');
+      btn.innerHTML = '&times;';
+
+      function close(){
+        overlay.remove();
+        document.removeEventListener('keydown', onKey);
+      }
+      function onKey(e){
+        if (e.key === 'Escape') close();
+      }
+
+      btn.addEventListener('click', close);
+      overlay.addEventListener('click', function(e){
+        if (e.target === overlay) close();
+      });
+      document.addEventListener('keydown', onKey);
+
+      overlay.appendChild(btn);
+      overlay.appendChild(img);
+      if (caption) overlay.appendChild(cap);
+      document.body.appendChild(overlay);
+    }
+
+    links.forEach(a => a.addEventListener('click', openLightbox));
+  })();
+</script>
+
+<script>
+  // Simple fly-to-cart hook (no-op if cart JS overrides)
+  (function(){
+    window.flashAddToCart = window.flashAddToCart || function(){};
+  })();
+</script>
+
+</body>
+</html>
