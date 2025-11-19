@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNNL0065X9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-DNNL0065X9');
+  </script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Engineering Notebook • Freedom Crate Co.</title>
+  <meta name="description" content="Engineering Notebook for Freedom Crate Co.: documented field tests, durability trials, coating experiments, and structural notes for wooden ammo and range boxes." />
+  <link rel="canonical" href="https://freedomcrateco.com/engineering-notebook.html" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="Engineering Notebook • Freedom Crate Co." />
+  <meta property="og:description" content="Legit test notes, photos, and engineering records from Freedom Crate Co.'s ammo and range box development." />
+  <meta property="og:image" content="https://freedomcrateco.com/assets/img/army.jpg" />
+  <meta property="og:site_name" content="Freedom Crate Co." />
+  <meta property="og:locale" content="en_US" />
+
+  <link rel="icon" href="/favicon.ico?v=2">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <style>
+    /* Page-specific styling */
+
+    .en-hero {
+      padding: 3rem 1rem 2rem;
+      text-align: center;
+    }
+    .en-hero h1 {
+      font-size: clamp(2rem, 2.6vw, 3rem);
+      margin-bottom: .5rem;
+    }
+    .en-tagline {
+      max-width: 70ch;
+      margin: .5rem auto 0;
+      opacity: .9;
+    }
+    .en-hero-meta {
+      margin-top: .75rem;
+      font-size: .9rem;
+      opacity: .8;
+    }
+
+    .en-section {
+      border-radius: .75rem;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      padding: 1.5rem 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .en-section h2 {
+      margin-top: 0;
+      margin-bottom: .5rem;
+      font-size: clamp(1.25rem, 2vw, 1.6rem);
+    }
+
+    /* Filter bar */
+    .en-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin: .75rem 0 0;
+    }
+    .en-filter-btn {
+      padding: .25rem .7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      color: inherit;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .en-filter-btn.en-active {
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.7);
+    }
+
+    /* Test grid */
+    .en-test-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: .75rem;
+    }
+    .en-test-card {
+      border-radius: .75rem;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.25);
+      padding: .9rem .9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .en-test-header {
+      display: flex;
+      justify-content: space-between;
+      gap: .5rem;
+      align-items: baseline;
+      font-size: .85rem;
+      opacity: .9;
+    }
+    .en-test-id {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-size: .78rem;
+      opacity: .75;
+    }
+    .en-test-date {
+      font-size: .8rem;
+      opacity: .75;
+    }
+    .en-test-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin: 0;
+    }
+    .en-test-meta {
+      font-size: .85rem;
+      opacity: .8;
+    }
+    .en-test-summary {
+      font-size: .9rem;
+      opacity: .95;
+    }
+
+    /* Tags */
+    .en-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      margin-top: .25rem;
+    }
+    .en-tag {
+      font-size: .75rem;
+      padding: .1rem .45rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      opacity: .85;
+    }
+
+    /* Photos inside card */
+    .en-photo-strip {
+      display: flex;
+      gap: .5rem;
+      margin-top: .4rem;
+      overflow-x: auto;
+      padding-bottom: .1rem;
+    }
+    .en-photo-strip img {
+      display: block;
+      height: 90px;
+      width: auto;
+      border-radius: .4rem;
+      border: 1px solid rgba(255,255,255,.2);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Details (full test notes) */
+    .en-details {
+      margin-top: .4rem;
+      font-size: .9rem;
+    }
+    .en-details summary {
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+    }
+    .en-details summary::marker,
+    .en-details summary::-webkit-details-marker {
+      display: none;
+    }
+    .en-details summary span {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .en-details-content {
+      margin-top: .4rem;
+      padding-top: .4rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .en-details-content h4 {
+      font-size: .9rem;
+      margin: .35rem 0 .15rem;
+    }
+    .en-details-content p,
+    .en-details-content li {
+      font-size: .88rem;
+      margin: .15rem 0;
+    }
+    .en-details-content ul {
+      margin: .15rem 0 .35rem 1rem;
+      padding: 0;
+    }
+
+    /* Lightbox overlay */
+    .en-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .en-lightbox.open {
+      display: flex;
+    }
+    .en-lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      border-radius: .5rem;
+      border: 1px solid rgba(255,255,255,.4);
+    }
+    .en-lightbox-close {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .muted.small {
+      font-size:.85rem;
+      opacity:.8;
+    }
+
+    @media (min-width: 768px) {
+      .en-hero {
+        padding-top: 3.5rem;
+      }
+    }
+  </style>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "name": "Engineering Notebook",
+    "url": "https://freedomcrateco.com/engineering-notebook.html",
+    "headline": "Engineering Notebook",
+    "description": "Documented test notes, photos, and engineering observations from Freedom Crate Co.'s ammo and range box development.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://freedomcrateco.com/#website"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Steven Tauriello"
+    }
+  }
+  </script>
+</head>
+
+<body>
+
+<!-- Giveaway + topbar -->
+<div class="giveaway-banner" role="note" aria-label="Monthly giveaway">
+  <a class="giveaway-link" href="/giveaway.html" aria-label="Monthly Veteran Box Giveaway">
+    <img class="flag" src="/assets/img/american-flag-icon-3.svg" alt="" aria-hidden="true">
+    <span class="text">Monthly Veteran Box Giveaway</span>
+    <img class="flag" src="/assets/img/american-flag-icon-3.svg" alt="" aria-hidden="true">
+  </a>
+</div>
+
+<div class="topbar" role="note" aria-label="Shipping notice">
+  <div class="topbar-inner">
+    <span aria-hidden="true"></span>
+    <span class="msg">
+      US VETERAN-INSPIRED • FLORIDA-BUILT • <strong>FREE U.S. SHIPPING</strong>
+    </span>
+  </div>
+</div>
+
+<header class="site-header" role="banner">
+  <div class="header-inner">
+
+    <!-- Brand -->
+    <a class="brand brand-left" href="/" aria-label="Freedom Crate Co. Home">
+      <span class="logo-wrap">
+        <img class="logo" src="/assets/img/logo.png" alt="Freedom Crate Co. logo" decoding="async">
+      </span>
+      <span class="brand-tag">Handcrafted Ammo & Range Boxes</span>
+    </a>
+
+    <!-- Mobile menu button -->
+    <button class="menu-btn" id="menuBtn" aria-controls="primaryNav" aria-expanded="false" aria-label="Open menu">
+      <span class="menu-icon" aria-hidden="true"></span>
+    </button>
+
+    <!-- Primary nav -->
+    <nav id="primaryNav" class="nav" aria-label="Primary">
+      <a href="/">Shop</a>
+      <a href="/branch-collection.html">Branch Collection</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/about.html">About</a>
+      <a href="/reviews.html">Reviews</a>
+      <a href="/contact.html">Custom Orders</a>
+      <a href="/transparency.html">Transparency</a>
+      <a href="/rd-materials-coatings-engineering.html">R&amp;D</a>
+      <a href="/engineering-notebook.html">Engineering Notebook</a>
+
+      <div class="nav-cta">
+        <a class="btn small btn-final-salute" href="/about.html#final-salute-project" aria-label="The Final Salute Project">
+          Final Salute Project
+        </a>
+        <a class="btn ghost small" href="/giveaway.html">Enter Giveaway</a>
+      </div>
+
+      <a class="cart-link" href="/checkout.html" aria-label="Cart">
+        <img class="flag" src="/assets/img/american-flag-icon-2.svg" alt="">
+        <span class="cart-icon">
+          <svg class="cart-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+        </span>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Auto-set aria-current on active nav link
+  (function(){
+    const path = location.pathname.replace(/\/+$/, '') || '/';
+    document.querySelectorAll('.nav a').forEach(a => {
+      const href = (a.getAttribute('href') || '').replace(/\/+$/, '') || '/';
+      if (href === path || (path === '/' && (href === '/' || href === '/index.html'))) {
+        a.setAttribute('aria-current', 'page');
+      } else {
+        a.removeAttribute('aria-current');
+      }
+    });
+  })();
+</script>
+
+<main class="container" id="main">
+
+  <!-- HERO -->
+  <section class="en-hero">
+    <h1>Engineering Notebook</h1>
+    <p class="en-tagline">
+      Documented tests, failures, fixes, and field notes from the development of Freedom Crate Co. ammo &amp; range boxes.
+      Every entry here represents real work done in the shop, at the range, or during shipping.
+    </p>
+    <p class="en-hero-meta muted small">
+      This page is meant for serious buyers, contracting officers, and fellow builders who want to see the testing
+      behind the gear — not just the marketing.
+    </p>
+  </section>
+
+  <!-- FILTERS + INTRO -->
+  <section class="en-section">
+    <h2>Test Log Overview</h2>
+    <p class="muted small">
+      Use the filters to browse by test type. To add a new entry, duplicate one of the cards below and update
+      the test ID, date, summary, photos, and notes.
+    </p>
+
+    <div class="en-filter-bar" aria-label="Filter tests by category">
+      <button class="en-filter-btn en-active" data-filter="all">All</button>
+      <button class="en-filter-btn" data-filter="drop">Drop &amp; Impact</button>
+      <button class="en-filter-btn" data-filter="shipping">Shipping Damage</button>
+      <button class="en-filter-btn" data-filter="coatings">Epoxy &amp; Coatings</button>
+      <button class="en-filter-btn" data-filter="fasteners">Fasteners &amp; Structure</button>
+      <button class="en-filter-btn" data-filter="longterm">Long-Term Exposure</button>
+    </div>
+
+    <div class="en-test-grid" id="enTestGrid">
+
+      <!-- ===== EXAMPLE CARD 1: LEG REINFORCEMENT (SPAX) ===== -->
+      <article class="en-test-card" data-category="fasteners shipping">
+        <div class="en-test-header">
+          <div>
+            <div class="en-test-id">FC-LEG-2025-001</div>
+            <div class="en-test-date">Test date: Feb 2025 (ongoing observation)</div>
+          </div>
+        </div>
+
+        <h3 class="en-test-title">1¼&quot; SPAX Power Trim Screws on 1x2 Legs</h3>
+        <p class="en-test-meta">
+          Platforms tested: Standard solid-pine leg boxes (all 1x2 leg designs except Rangemaster 400).  
+          Goal: reduce leg failures during shipping and rough handling.
+        </p>
+        <p class="en-test-summary">
+          Customer damage reports showed that the <strong>legs take most of the abuse</strong> during shipping and drops.
+          This test evaluates switching from brad-nail + glue legs to <strong>brad + 1¼&quot; SPAX Power Trim screws</strong>
+          installed on a diagonal pattern (two per leg).
+        </p>
+
+        <div class="en-tag-row">
+          <span class="en-tag">Fasteners</span>
+          <span class="en-tag">Shipping Resilience</span>
+          <span class="en-tag">1x2 Pine Legs</span>
+        </div>
+
+        <div class="en-photo-strip">
+  <img
+    src="/assets/img/engineering/spax-fastener.jpg"
+    data-en-photo-full="/assets/img/engineering/spax-fastener.jpg"
+    alt="1 1/4&quot; SPAX Power Trim screw detail on ammo box leg">
+
+  <img
+    src="/assets/img/engineering/spax-fastener-application.jpg"
+    data-en-photo-full="/assets/img/engineering/spax-fastener-application.jpg"
+    alt="SPAX Power Trim screw being driven into 1x2 pine leg">
+
+  <img
+    src="/assets/img/engineering/spax-hold-pattern.jpg"
+    data-en-photo-full="/assets/img/engineering/spax-hold-pattern.jpg"
+    alt="Diagonal hold pattern of SPAX screws on box legs">
+</div>
+
+
+        <details class="en-details">
+          <summary><span>Full test notes</span></summary>
+          <div class="en-details-content">
+            <h4>Objective</h4>
+            <p>
+              Confirm that adding 1¼&quot; SPAX Power Trim screws to the leg attachment dramatically reduces
+              leg failures (legs cracking off, pulling away, or loosening) during shipping and field use.
+            </p>
+
+            <h4>Method</h4>
+            <ul>
+              <li>Apply glue + brad nails as usual for leg installation.</li>
+              <li>
+                Add <strong>two 1¼&quot; SPAX Power Trim screws per leg</strong>, installed on a diagonal
+                (caddy-corner) pattern – one high, one low.
+              </li>
+              <li>Repeat on all four legs for each test box.</li>
+              <li>Send multiple boxes through standard carriers and monitor any damage reports.</li>
+            </ul>
+
+            <h4>Key Observations (so far)</h4>
+            <ul>
+              <li>
+                Legs appear to be acting as sacrificial impact structures – they take the brunt of abuse
+                when boxes are dropped or slammed.
+              </li>
+              <li>
+                With screws + glue + brads, legs feel <strong>much more rigid in tension and shear</strong>.
+                The wood itself can still crush if severely pinched, but the legs are far less likely to
+                separate from the box body.
+              </li>
+              <li>
+                Early shipments suggest a reduction in leg-related failure claims compared to glue + brads alone.
+              </li>
+            </ul>
+
+            <h4>Preliminary Conclusion</h4>
+            <p>
+              For all designs using 1x2 solid-pine legs, <strong>1¼&quot; SPAX Power Trim screws are now considered a
+              standard structural requirement</strong>, not an optional upgrade. This will be refined as more data and
+              photos are collected from the field.
+            </p>
+          </div>
+        </details>
+      </article>
+
+      <!-- ===== EXAMPLE CARD 2: DROP TEST (RANGEMASTER 400) ===== -->
+      <article class="en-test-card" data-category="drop shipping">
+        <div class="en-test-header">
+          <div>
+            <div class="en-test-id">FC-RM400-2025-DR01</div>
+            <div class="en-test-date">Planned test: 2025</div>
+          </div>
+        </div>
+
+        <h3 class="en-test-title">Rangemaster 400 – Waist-Height Drop Test (Loaded)</h3>
+        <p class="en-test-meta">
+          Platform: Rangemaster 400.  
+          Test concept: fill with live ammo to typical customer load, then drop from waist height to concrete.
+        </p>
+        <p class="en-test-summary">
+          This test will simulate the kind of abuse a box might see when a customer drops it getting out of a truck
+          or moving it around a garage. The goal is to see what fails first — legs, joints, lid, or hardware — and
+          document changes needed.
+        </p>
+
+        <div class="en-tag-row">
+          <span class="en-tag">Drop Test</span>
+          <span class="en-tag">Loaded Box</span>
+          <span class="en-tag">Rangemaster 400</span>
+        </div>
+
+        <div class="en-photo-strip">
+          <img src="/assets/img/armor-core-main.png" alt="Rangemaster 400 interior (placeholder)"
+               data-en-photo-full="/assets/img/armor-core-main.png">
+          <img src="/assets/img/battleguard-main.png" alt="Exterior coating and hardware (placeholder)"
+               data-en-photo-full="/assets/img/battleguard-main.png">
+        </div>
+
+        <details class="en-details">
+          <summary><span>Full test notes (planned)</span></summary>
+          <div class="en-details-content">
+            <h4>Planned Objective</h4>
+            <p>
+              Observe how a <strong>fully loaded Rangemaster 400</strong> behaves when dropped from approximately
+              waist height (~3 ft / ~0.9 m) onto a hard surface. Focus on joint integrity, leg performance,
+              lid alignment, and hardware deformation.
+            </p>
+
+            <h4>Planned Method</h4>
+            <ul>
+              <li>Load the box with a realistic quantity of ammunition and/or range gear.</li>
+              <li>Record starting weight and contents.</li>
+              <li>Drop from waist height onto concrete, at least 3 times, varying orientation (flat bottom, corner, edge).</li>
+              <li>Capture video and still photos for each drop and final condition.</li>
+            </ul>
+
+            <h4>Data to Capture</h4>
+            <ul>
+              <li>Any cracks in panels, joints, or legs.</li>
+              <li>Changes in lid closure (does it still latch properly?).</li>
+              <li>Hardware bending or loosening.</li>
+              <li>Any fastener pull-out or epoxy/liner damage.</li>
+            </ul>
+
+            <h4>Next Steps</h4>
+            <p>
+              Once performed, this entry will be updated with real test dates, observations, photos, and
+              engineering changes (if required).
+            </p>
+          </div>
+        </details>
+      </article>
+
+      <!-- ===== EXAMPLE CARD 3: EPOXY FLOOD & CORNER FILLET ===== -->
+      <article class="en-test-card" data-category="coatings longterm">
+        <div class="en-test-header">
+          <div>
+            <div class="en-test-id">FC-EPOXY-2025-INT01</div>
+            <div class="en-test-date">Ongoing</div>
+          </div>
+        </div>
+
+        <h3 class="en-test-title">Penetrating Epoxy Flood – Interior Corner Fillet</h3>
+        <p class="en-test-meta">
+          Platform: standard solid-pine box + interior penetrating epoxy flood (Armor Core concept).  
+          Focus: durability of the interior fillet that forms where bottom panel meets side walls.
+        </p>
+        <p class="en-test-summary">
+          This test tracks how a <strong>full interior epoxy flood</strong> behaves over time, especially
+          the continuous fillet that forms in the interior corners. The hypothesis is that this fillet
+          acts like a mini boat-hull joint, distributing impact and sealing against water intrusion.
+        </p>
+
+        <div class="en-tag-row">
+          <span class="en-tag">Epoxy</span>
+          <span class="en-tag">Interior Seal</span>
+          <span class="en-tag">Long-Term Storage</span>
+        </div>
+
+        <div class="en-photo-strip">
+          <img src="/assets/img/armor-core-main.png" alt="Epoxy flood on interior panels (placeholder)"
+               data-en-photo-full="/assets/img/armor-core-main.png">
+          <img src="/assets/img/armor-core-no-paint.jpg" alt="Raw epoxy fillet at bottom corner (placeholder)"
+               data-en-photo-full="/assets/img/armor-core-no-paint.jpg">
+        </div>
+
+        <details class="en-details">
+          <summary><span>Full test notes</span></summary>
+          <div class="en-details-content">
+            <h4>Objective</h4>
+            <p>
+              Validate that a penetrating epoxy flood with a formed fillet in the corners:
+              <strong>(1)</strong> prevents moisture intrusion, <strong>(2)</strong> stiffens the lower box
+              structure, and <strong>(3)</strong> delays or prevents panel separation over time.
+            </p>
+
+            <h4>Method</h4>
+            <ul>
+              <li>Flood all interior surfaces with penetrating epoxy, allowing resin to pool slightly in corners.</li>
+              <li>Rotate or brush as needed to form a consistent, rounded bead along the bottom interior perimeter.</li>
+              <li>Allow full cure per manufacturer specs.</li>
+              <li>Store boxes in real-world conditions (garage, range, truck) and periodically inspect.</li>
+            </ul>
+
+            <h4>Inspection Checklist</h4>
+            <ul>
+              <li>Any visible cracking or separation at corner joints.</li>
+              <li>Signs of water staining, swelling, or delamination.</li>
+              <li>Changes in lid fit or box squareness.</li>
+              <li>Surface wear of the epoxy where loose ammo or gear contacts it.</li>
+            </ul>
+
+            <h4>Preliminary Notes</h4>
+            <p>
+              Early indications suggest the epoxy fillet behaves like a structural radius found in marine and
+              aerospace structures — <strong>spreading loads out instead of concentrating them at a sharp 90° seam</strong>.
+            </p>
+          </div>
+        </details>
+      </article>
+
+      <!-- ===== TEMPLATE COMMENT =====
+        To add a new test:
+        1. Copy one of the <article class="en-test-card"> blocks.
+        2. Change the test ID, date, title, summary, tags, and details content.
+        3. Update data-category="..." with space-separated categories:
+           drop, shipping, coatings, fasteners, longterm
+        4. Point the <img> src and data-en-photo-full to your real photos.
+      -->
+    </div>
+  </section>
+
+</main>
+
+<!-- Lightbox element -->
+<div class="en-lightbox" id="enLightbox" aria-hidden="true">
+  <span class="en-lightbox-close" id="enLightboxClose" aria-label="Close image">&times;</span>
+  <img src="" alt="">
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="badge">US Veteran-inspired • Florida-built</span>
+    <p class="muted">Rugged, practical, and made to be used.</p>
+    <p class="muted">
+      <a href="/giveaway.html" class="footer-link">🎖 Enter our Monthly Veteran Box Giveaway</a>
+    </p>
+
+    <hr class="footer-divider" />
+
+    <p class="footer-links">
+      <a href="/faq.html" class="footer-link-small">FAQ</a>
+      <span class="footer-sep">•</span>
+      <a href="/about.html#contact" class="footer-link-small">Contact</a>
+      <span class="footer-sep">•</span>
+      <a href="/transparency.html" class="footer-link-small">Transparency</a>
+      <span class="footer-sep">•</span>
+      <a href="/privacy.html" class="footer-link-small">Privacy Policy</a>
+      <span class="footer-sep">•</span>
+      <a href="/terms.html" class="footer-link-small">Terms</a>
+    </p>
+
+    <p class="footer-copy">
+      © <span id="fc-year"></span> Freedom Crate Co. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var y = document.getElementById('fc-year');
+    if (y) y.textContent = new Date().getFullYear();
+  })();
+</script>
+
+<!-- Shared JS -->
+<script src="assets/js/config.js"></script>
+<script src="assets/js/util.js" defer></script>
+<script src="assets/js/inventory.js" defer></script>
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/catalog.js" defer></script>
+
+<script>
+  // Header scroll effect
+  (function(){
+    const header = document.querySelector('.site-header');
+    if(!header) return;
+    let ticking = false;
+    function onScroll(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        header.classList.toggle('scrolled', window.scrollY > 8);
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+<script>
+  // Simple fly-to-cart hook (no-op if cart JS overrides)
+  (function(){
+    window.flashAddToCart = window.flashAddToCart || function(){};
+  })();
+</script>
+
+<script>
+  // Filter logic
+  (function(){
+    const buttons = document.querySelectorAll('.en-filter-btn');
+    const cards = document.querySelectorAll('.en-test-card');
+
+    function applyFilter(filter) {
+      cards.forEach(card => {
+        if (filter === 'all') {
+          card.style.display = '';
+        } else {
+          const cats = (card.getAttribute('data-category') || '').split(/\s+/);
+          card.style.display = cats.includes(filter) ? '' : 'none';
+        }
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('en-active'));
+        btn.classList.add('en-active');
+        applyFilter(btn.getAttribute('data-filter'));
+      });
+    });
+
+    applyFilter('all');
+  })();
+</script>
+
+<script>
+  // Lightbox for photos
+  (function(){
+    const lb = document.getElementById('enLightbox');
+    if (!lb) return;
+    const lbImg = lb.querySelector('img');
+    const lbClose = document.getElementById('enLightboxClose');
+
+    document.addEventListener('click', function(e){
+      const img = e.target.closest('img[data-en-photo-full]');
+      if (!img) return;
+      const fullSrc = img.getAttribute('data-en-photo-full') || img.src;
+      lbImg.src = fullSrc;
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+    });
+
+    function closeLb(){
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      lbImg.src = '';
+    }
+
+    lbClose.addEventListener('click', closeLb);
+    lb.addEventListener('click', function(e){
+      if (e.target === lb) closeLb();
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && lb.classList.contains('open')) {
+        closeLb();
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -352,7 +352,7 @@
 <!-- Accessibility: skip straight to main content -->
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- Promo / giveaway banner (kept, polished) -->
+<!-- Giveaway + topbar -->
 <div class="giveaway-banner" role="note" aria-label="Monthly giveaway">
   <a class="giveaway-link" href="/giveaway.html" aria-label="Monthly Veteran Box Giveaway">
     <img class="flag" src="/assets/img/american-flag-icon-3.svg" alt="" aria-hidden="true">
@@ -361,26 +361,25 @@
   </a>
 </div>
 
-<!-- Thin trust/shipping bar -->
 <div class="topbar" role="note" aria-label="Shipping notice">
   <div class="topbar-inner">
-    <span aria-hidden="true"></span> <!-- empty left cell to balance the grid -->
+    <span aria-hidden="true"></span>
     <span class="msg">
       US VETERAN-INSPIRED • FLORIDA-BUILT • <strong>FREE U.S. SHIPPING</strong>
     </span>
   </div>
 </div>
-<!-- Header -->
+
 <header class="site-header" role="banner">
   <div class="header-inner">
 
-<!-- Brand -->
-<a class="brand brand-left" href="/" aria-label="Freedom Crate Co. Home">
-  <span class="logo-wrap">
-    <img class="logo" src="/assets/img/logo.png" alt="Freedom Crate Co. logo" decoding="async">
-  </span>
-  <span class="brand-tag">Handcrafted Ammo & Range Boxes</span>
-</a>
+    <!-- Brand -->
+    <a class="brand brand-left" href="/" aria-label="Freedom Crate Co. Home">
+      <span class="logo-wrap">
+        <img class="logo" src="/assets/img/logo.png" alt="Freedom Crate Co. logo" decoding="async">
+      </span>
+      <span class="brand-tag">Handcrafted Ammo & Range Boxes</span>
+    </a>
 
     <!-- Mobile menu button -->
     <button class="menu-btn" id="menuBtn" aria-controls="primaryNav" aria-expanded="false" aria-label="Open menu">
@@ -396,40 +395,33 @@
       <a href="/reviews.html">Reviews</a>
       <a href="/contact.html">Custom Orders</a>
       <a href="/transparency.html">Transparency</a>
-      <a href="/rd-materials-coatings-engineering.html">
-    R&amp;D Materials &amp; Coatings Engineering
-  </a>
+      <a href="/rd-materials-coatings-engineering.html">R&amp;D</a>
+      <a href="/engineering-notebook.html">Engineering Notebook</a>
 
-      <!-- Header CTAs -->
-<div class="nav-cta">
-  <a class="btn small btn-final-salute" href="/about.html#final-salute-project" aria-label="The Final Salute Project">
-    Final Salute Project
-  </a>
-  <a class="btn ghost small" href="/giveaway.html">Enter Giveaway</a>
-</div>
+      <div class="nav-cta">
+        <a class="btn small btn-final-salute" href="/about.html#final-salute-project" aria-label="The Final Salute Project">
+          Final Salute Project
+        </a>
+        <a class="btn ghost small" href="/giveaway.html">Enter Giveaway</a>
+      </div>
 
-<!-- Cart moved to the far right with a flag -->
-<a class="cart-link" href="/checkout.html" aria-label="Cart">
-  <img class="flag" src="/assets/img/american-flag-icon-2.svg" alt="">
-<span class="cart-icon">
-  <svg class="cart-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="9" cy="21" r="1"></circle>
-    <circle cx="20" cy="21" r="1"></circle>
-    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-  </svg>
-</span>
-
-  <span class="cart-count" id="cartCount">0</span>
-</a>
-
-</nav>
-</div>
+      <a class="cart-link" href="/checkout.html" aria-label="Cart">
+        <img class="flag" src="/assets/img/american-flag-icon-2.svg" alt="">
+        <span class="cart-icon">
+          <svg class="cart-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+        </span>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </nav>
+  </div>
 </header>
 
-
-
 <script>
-  // Auto-set aria-current on the active nav link
+  // Auto-set aria-current on active nav link
   (function(){
     const path = location.pathname.replace(/\/+$/, '') || '/';
     document.querySelectorAll('.nav a').forEach(a => {
@@ -442,7 +434,6 @@
     });
   })();
 </script>
-
   <!-- Hero -->
   <section class="hero-banner" aria-label="Homepage banner">
   <img
