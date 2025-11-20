@@ -2643,3 +2643,42 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   margin-top: 2px;
 }
 
+/* === Engineering Notebook: search bar === */
+.en-search-bar {
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.en-search-bar label {
+  font-weight: 600;
+  .en-search-bar label {
+  font-weight: 600;
+  color: #4da3ff;
+}
+
+
+.en-search-input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #0e1013;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.en-search-input::placeholder {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* keep it from getting squished on phones */
+@media (max-width: 640px) {
+  .en-search-bar {
+    width: 100%;
+  }
+  .en-search-input {
+    width: 100%;
+  }
+}

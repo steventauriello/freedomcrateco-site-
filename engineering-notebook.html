@@ -367,11 +367,24 @@
   <!-- FILTERS + INTRO -->
   <section class="en-section">
     <h2>Test Log Overview</h2>
-    <p class="muted small">
+       <p class="muted small">
       Use the filters to browse by test type. To add a new entry, duplicate one of the cards below and update
       the test ID, date, summary, photos, and notes.
     </p>
 
+    <!-- Keyword search -->
+    <div class="en-search-bar">
+      <label for="enSearchInput">Keyword search</label>
+      <input
+        id="enSearchInput"
+        class="en-search-input"
+        type="search"
+        placeholder="Search notes (SPAX, legs, epoxy, latch, shipping, etc.)"
+        autocomplete="off"
+      />
+    </div>
+
+  
     <div class="en-filter-bar" aria-label="Filter tests by category">
       <button class="en-filter-btn en-active" data-filter="all">All</button>
       <button class="en-filter-btn" data-filter="drop">Drop &amp; Impact</button>
@@ -400,7 +413,7 @@
         <p class="en-test-summary">
           Customer damage reports showed that the <strong>legs take most of the abuse</strong> during shipping and drops.
           This test evaluates switching from brad-nail + glue legs to <strong>brad + 1¼&quot; SPAX Power Trim screws</strong>
-          installed on a diagonal pattern (two per leg).
+          installed on a diagonal pattern (two per leg). 
         </p>
 
         <div class="en-tag-row">
@@ -463,6 +476,19 @@
               </li>
             </ul>
 
+<p class="en-test-summary">
+  These boxes are currently designed so that stacked units rest on the <strong>tops of the legs</strong> rather than
+  on the lid rails. I originally built them this way to prevent the lids from getting scratched, gouged, or scuffed
+  when boxes are stacked during use or transport. The taller legs protect the lid finish — but this also means the
+  upper box has <strong>less surface area</strong> to rest on, which reduces overall stacking stability.
+
+  A future improvement could involve designing a <strong>groove, notch, or interlocking feature</strong> on the tops
+  (and possibly bottoms) of the legs so stacked boxes positively locate into each other. This would keep the lids
+  protected while greatly improving stability. Alternatively, if a field-use variant is ever developed, we may revisit
+  the idea of allowing the upper box to rest directly on the lid rails for maximum footprint and stability.
+</p>
+
+
             <h4>Preliminary Conclusion</h4>
             <p>
               For all designs using 1x2 solid-pine legs, <strong>1¼&quot; SPAX Power Trim screws are now considered a
@@ -472,6 +498,273 @@
           </div>
         </details>
       </article>
+
+      <!-- ===== HANDLE SYSTEM: NYLON WEBBING + LEG-ENCLOSED SCREW ===== -->
+      <article class="en-test-card" data-category="fasteners handles longterm">
+        <div class="en-test-header">
+          <div>
+            <div class="en-test-id">FC-HANDLES-2025-001</div>
+            <div class="en-test-date">Design evolution: 2024–2025 (ongoing)</div>
+          </div>
+        </div>
+
+        <h3 class="en-test-title">Enclosed Nylon Webbing Handle System (Leg-Integrated)</h3>
+        <p class="en-test-meta">
+          Platform: all boxes using 1&quot; nylon webbing handles and 1x2 legs.  
+          Focus: a <strong>fail-safe, serviceable handle system</strong> that preserves interior volume 
+          and keeps the box as airtight as possible.
+        </p>
+        <p class="en-test-summary">
+          This entry documents the evolution from <strong>through-hole rope handles with interior knots</strong> 
+          to a <strong>leg-integrated nylon webbing handle system</strong> where the screw head and handle 
+          attachment are fully enclosed by the leg. The goal is a handle that <em>cannot critically fail</em> 
+          without multiple points of failure occurring at once.
+        </p>
+
+        <div class="en-tag-row">
+          <span class="en-tag">Handles</span>
+          <span class="en-tag">Leg System</span>
+          <span class="en-tag">Serviceable Design</span>
+          <span class="en-tag">Airtightness</span>
+        </div>
+
+        <div class="en-photo-strip">
+          <!-- Placeholder images – replace with real photos later -->
+          <img src="/assets/img/coming-soon.jpg"
+               data-en-photo-full="/assets/img/coming-soon.jpg"
+               alt="Handle system illustration placeholder">
+          <img src="/assets/img/coming-soon.jpg"
+               data-en-photo-full="/assets/img/coming-soon.jpg"
+               alt="Leg-enclosed screw detail placeholder">
+        </div>
+
+        <details class="en-details">
+          <summary><span>Full test & design notes</span></summary>
+          <div class="en-details-content">
+            <h4>Background – Original Rope Handle Design</h4>
+            <p>
+              The first generation boxes used <strong>hemp rope handles</strong> passed through drilled holes 
+              in the side panels and secured with interior knots. This worked mechanically, but had two 
+              major drawbacks:
+            </p>
+            <ul>
+              <li><strong>Airtightness &amp; climate control:</strong> through-holes and knots allowed more air 
+                  exchange than desired for long-term storage and humidity control.</li>
+              <li><strong>Lost interior volume:</strong> the interior knots took up space, making the side 
+                  zones of the box less usable. In practice, only the center area of the box was fully usable.</li>
+            </ul>
+            <p>
+              These issues motivated a move to a <strong>surface-mounted handle system</strong> that stayed 
+              completely outside the storage cavity.
+            </p>
+
+            <h4>Step 1 – Early Nylon Webbing Handles (Exposed Screw Heads)</h4>
+            <p>
+              Inspired by Cold War-era ammo boxes, the design moved to <strong>1&quot; nylon webbing handles</strong>.  
+              Early versions simply screwed the webbing directly to the side panel using coarse-threaded wood screws, 
+              with the screw heads exposed. This solved the interior space problem but:
+            </p>
+            <ul>
+              <li>Left the screw heads exposed to impact and abrasion.</li>
+              <li>Still relied on the screw holding in pure tension if the box was heavily loaded and yanked.</li>
+            </ul>
+
+            <h4>Current Design – Leg-Integrated, Enclosed Screw System</h4>
+            <p>
+              The current handle system integrates the handle hardware into the <strong>1x2 leg assemblies</strong> 
+              and uses the legs as both a structural member and a protective shroud for the handle screw:
+            </p>
+            <ul>
+              <li>The <strong>1&quot; nylon webbing</strong> is fastened directly to the box side with a single 
+                  <strong>coarse-threaded wood screw</strong> per handle end.</li>
+              <li>Each leg has a <strong>groove ~1⅛&quot; wide</strong> machined into it so the 1&quot; webbing 
+                  sits <em>embedded</em> in the leg rather than bulging out.</li>
+              <li>A shallow pocket is milled into the back of the leg with a Forstner bit so the 
+                  <strong>screw head sits inside this recess</strong>.</li>
+              <li>When installed, the leg <strong>fully encloses the screw head and handle attachment point</strong>, 
+                  leaving only clean webbing visible exiting the leg.</li>
+            </ul>
+            <p>
+              Result: from the exterior you see a clean nylon handle emerging from the legs; on the interior 
+              you see <strong>no hardware, no holes, and no lost volume</strong>.
+            </p>
+
+            <h4>Failure Modes &amp; Why This Is “Fail-Safe”</h4>
+            <p>
+              Because the screw head is trapped inside the leg pocket, a normal “screw backing out” failure 
+              mode is essentially eliminated. For the handle to truly fail, multiple things would need to happen:
+            </p>
+            <ul>
+              <li>The leg would have to <strong>break off</strong> the box body, <em>or</em></li>
+              <li>The screw would have to <strong>rip out of the wood</strong>, <em>and</em> the enclosed 
+                  screw head somehow clear the leg pocket, <em>or</em></li>
+              <li>The 1&quot; nylon webbing would have to <strong>tear around the screw shank</strong> under 
+                  extreme load (estimated on the order of a hundred pounds or more).</li>
+            </ul>
+            <p>
+              In normal use scenarios (fully loaded ammo box, carried by hand), this design behaves like a 
+              <strong>no-critical-failure system</strong>. It is dramatically stronger than the early hemp 
+              rope + interior knot design and far cleaner inside the box.
+            </p>
+
+            <h4>Serviceability &amp; Field Repair</h4>
+            <p>
+              This handle system was intentionally designed to be <strong>field-serviceable</strong>:
+            </p>
+            <ul>
+              <li>Each leg is attached with glue, brads, and <strong>two 1¼&quot; SPAX Power Trim screws</strong> 
+                  (see test ID <em>FC-LEG-2025-001</em>).</li>
+              <li>To replace a worn handle, the owner can:
+                <ul>
+                  <li>Remove the SPAX screws.</li>
+                  <li>Tap the leg outward to break the glue and brads loose.</li>
+                  <li>Access the handle screw, back it out, and swap in a new section of 1&quot; webbing.</li>
+                  <li>Reinstall the leg over the screw head and handle tail, and re-fasten.</li>
+                </ul>
+              </li>
+              <li>The leg groove forces the user to stick with <strong>1&quot; webbing</strong> (the design spec), 
+                  preventing oversize handles that don’t fit correctly.</li>
+            </ul>
+
+            <h4>Benefits vs. Original Rope Handles</h4>
+            <ul>
+              <li><strong>No interior obstruction:</strong> full use of interior footprint; no knot bulges.</li>
+              <li><strong>Improved airtightness:</strong> no through-holes for rope; easier to control humidity.</li>
+              <li><strong>Cleaner interior aesthetic:</strong> nothing inside the box reveals there are handles outside.</li>
+              <li><strong>Higher load capacity:</strong> coarse-threaded screws into solid wood + leg enclosure 
+                  significantly increase the practical weight rating.</li>
+            </ul>
+
+            <h4>Planned Testing – Handle Load / Shear Test</h4>
+            <p>
+              A dedicated test is planned to quantify the <strong>actual failure load</strong> of this handle system.  
+              Proposed test:
+            </p>
+            <ul>
+              <li>Hang a fully built box from one handle and progressively load weight.</li>
+              <li>Record the weight at first noticeable deformation and at ultimate failure (if any).</li>
+              <li>Document where failure occurs: nylon tear, screw pull-out, leg failure, or panel damage.</li>
+            </ul>
+            <p>
+              Once completed, this entry will be updated with measured load values and any design tweaks 
+              that come out of the test.
+            </p>
+          </div>
+        </details>
+      </article>
+
+
+
+
+      <!-- ===== LATCH / LATCH CATCH STRUCTURAL TESTING ===== -->
+      <article class="en-test-card" data-category="fasteners shipping">
+        <div class="en-test-header">
+          <div>
+            <div class="en-test-id">FC-LATCH-2025-001</div>
+            <div class="en-test-date">Test window: 2024–2025 (ongoing)</div>
+          </div>
+        </div>
+
+        <h3 class="en-test-title">Toggle Latches – Edge-Mount vs 90° Protex Latch Catches</h3>
+        <p class="en-test-meta">
+          Platforms tested: early Freedom Crate Co. ammo boxes with black toggle latches.  
+          Focus: failure modes of <strong>edge-mounted latch catches</strong> vs true <strong>90° latch catches</strong>.
+        </p>
+
+        <p class="en-test-summary">
+          Early boxes used black toggle latches with <strong>edge-mounted latch catches</strong> because no U.S. supplier
+          offered black 90° latch catches at the time. Repeated open/close cycles showed that edge-mounted catches are a
+          <strong>critical failure point</strong>: they can rip out of the lid when the toggle is tightened and latched under load.
+          This series of tests led to a permanent switch to <strong>Protex 90° black latch catches</strong> despite higher cost,
+          shipping, and import tariffs.
+        </p>
+
+        <div class="en-tag-row">
+          <span class="en-tag">Fasteners</span>
+          <span class="en-tag">Hardware</span>
+          <span class="en-tag">Latch System</span>
+          <span class="en-tag">Shipping Resilience</span>
+        </div>
+
+        <div class="en-photo-strip">
+          <!-- Update these paths once your photos are uploaded, e.g. /assets/img/notes/black-toggle-latch.JPEG -->
+          <img src="/assets/img/notes/edge-mounted-latch-catch-top.JPEG"
+               data-en-photo-full="/assets/img/notes/edge-mounted-latch-catch-top.JPEG"
+               alt="Edge-mounted latch catch on ammo box lid">
+
+          <img src="/assets/img/notes/edge-mounted-latch-catch.JPEG"
+               data-en-photo-full="/assets/img/notes/edge-mounted-latch-catch.JPEG"
+               alt="Protex 90-degree black latch catch installed on ammo box">
+
+          <img src="/assets/img/notes/edge-mounted-latch-solution.JPEG"
+               data-en-photo-full="/assets/img/notes/edge-mounted-latch-solution.JPEG"
+               alt="Example of latch catch pulled out of lid after over-tightening">
+        </div>
+
+        <details class="en-details">
+          <summary><span>Full test notes</span></summary>
+          <div class="en-details-content">
+            <h4>Background</h4>
+            <p>
+              Early in production, Freedom Crate Co. used black toggle latches, but no American supplier offered
+              <strong>black 90° latch catches</strong>. The only option was stainless 90° catches, which didn’t match the
+              hardware finish. To keep the black hardware option, boxes were built with <strong>edge-mounted latch catches</strong>
+              screwed into the front edge of the lid.
+            </p>
+
+            <h4>Method</h4>
+            <ul>
+              <li>Install black toggles with edge-mounted latch catches on pine lids.</li>
+              <li>Use black wood screws approx. 3/4&quot;–1/2&quot; long for the latch catch attachment.</li>
+              <li>
+                Repeatedly latch and unlatch the toggle, tightening the draw bar after each cycle to simulate a customer
+                “cranking down” on the latch over time.
+              </li>
+              <li>Monitor for movement, loosening, or pull-out of the latch catch from the lid edge.</li>
+            </ul>
+
+            <h4>Observed Failure Mode</h4>
+            <ul>
+              <li>
+                Every time the latch was closed, the <strong>force was concentrated into the thin edge of the lid</strong>,
+                directly in line with the screws.
+              </li>
+              <li>
+                After roughly ~20 latch cycles (with tightening in between), the screws began to loosen and the
+                entire latch catch started to pull out of the edge grain.
+              </li>
+              <li>
+                Even when switching to <strong>1½&quot; black wood screws</strong>, which helped by distributing the load deeper
+                into the lid, an over-tightened toggle could still rip the edge-mounted catch out under aggressive use.
+              </li>
+            </ul>
+
+            <h4>Switch to Protex 90° Latch Catches</h4>
+            <p>
+              To eliminate the edge-mount failure mode, the design was updated to use <strong>Protex 90° black latch catches</strong>
+              mounted down the face of the box, not into the lid edge. Protex is currently the <strong>only</strong> source for
+              black 90° latch catches that match the toggle hardware finish.
+            </p>
+            <ul>
+              <li>Unit cost: approx. $0.86 per catch at 100+ quantity (as of latest purchase).</li>
+              <li>Shipping from the UK is ~<strong>$60 per order</strong>, plus customs and tariff fees.</li>
+              <li>
+                U.S. distributors (e.g., Grainger, McMaster-Carr) offered to supply similar parts but at
+                <strong>~3× the Protex cost</strong>, so direct import remains the most cost-effective option.
+              </li>
+            </ul>
+
+            <h4>Conclusion / Design Rule</h4>
+            <p>
+              Edge-mounted latch catches are now considered a <strong>non-approved configuration</strong> for any box that will see
+              real field use. They are only acceptable on purely decorative or light-duty boxes. For ammo and range boxes intended
+              for trucks, ranges, and shipping, <strong>90° Protex latch catches are mandatory</strong> to keep the hardware anchored
+              in long-grain wood and away from the fragile lid edge.
+            </p>
+          </div>
+        </details>
+      </article>
+
 
       <!-- ===== EXAMPLE CARD 2: DROP TEST (RANGEMASTER 400) ===== -->
       <article class="en-test-card" data-category="drop shipping">
@@ -698,32 +991,58 @@
 </script>
 
 <script>
-  // Filter logic
-  (function(){
-    const buttons = document.querySelectorAll('.en-filter-btn');
-    const cards = document.querySelectorAll('.en-test-card');
+  // Filter + keyword search logic
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput   = document.querySelector('#enSearchInput');
+    const grid          = document.querySelector('#enTestGrid');
+    const cards         = grid ? Array.from(grid.querySelectorAll('.en-test-card')) : [];
+    const filterButtons = Array.from(document.querySelectorAll('.en-filter-btn'));
 
-    function applyFilter(filter) {
+    if (!grid || !cards.length) return;
+
+    let activeFilter = 'all';
+    let searchTerm   = '';
+
+    function applyFilters() {
+      const term = searchTerm.trim().toLowerCase();
+
       cards.forEach(card => {
-        if (filter === 'all') {
-          card.style.display = '';
-        } else {
-          const cats = (card.getAttribute('data-category') || '').split(/\s+/);
-          card.style.display = cats.includes(filter) ? '' : 'none';
-        }
+        const cats = (card.dataset.category || '').toLowerCase().split(/\s+/);
+        const text = card.textContent.toLowerCase();
+
+        const matchesCategory =
+          activeFilter === 'all' || cats.includes(activeFilter);
+
+        const matchesSearch = !term || text.includes(term);
+
+        card.style.display = (matchesCategory && matchesSearch) ? '' : 'none';
       });
     }
 
-    buttons.forEach(btn => {
+    // Category buttons
+    filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('en-active'));
-        btn.classList.add('en-active');
-        applyFilter(btn.getAttribute('data-filter'));
+        activeFilter = btn.dataset.filter || 'all';
+
+        filterButtons.forEach(b =>
+          b.classList.toggle('en-active', b === btn)
+        );
+
+        applyFilters();
       });
     });
 
-    applyFilter('all');
-  })();
+    // Text search
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        searchTerm = searchInput.value;
+        applyFilters();
+      });
+    }
+
+    // Initial state
+    applyFilters();
+  });
 </script>
 
 <script>
