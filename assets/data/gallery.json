@@ -238,5 +238,65 @@
     "alt": "Freedom Footlocker 1of2",
     "caption": "traditional footlocker side view",
     "tags": ["One-of-One", "Shop/Studio"]
-  }
+  },
+{
+  "src": "assets/img/claymore-m18a1-handle-explosive-marking-1.JPG",
+  "alt": "Claymore crate handle and Explosive 1.1 marking",
+  "caption": "Hardware close-up with Explosive 1.1 stencil",
+  "tags": ["Detail", "Shop/Studio"]
+},
+{
+  "src": "assets/img/claymore-m18a1-front-open.JPG",
+  "alt": "M18A1 Claymore crate open front view",
+  "caption": "M18A1 Claymore anti-personnel mines crate open view",
+  "tags": ["One-of-One", "Shop/Studio"]
+},
+{
+  "src": "assets/img/claymore-m18a1-handle-explosive-marking-2.JPG",
+  "alt": "Claymore crate handle and explosive marking angled view",
+  "caption": "Angled view of carry handle and hazard stencil",
+  "tags": ["Detail", "Shop/Studio"]
+},
+{
+  "src": "assets/img/claymore-m18a1-interior-coated-bottom.JPG",
+  "alt": "Claymore crate interior with coated bottom",
+  "caption": "Coated interior and reinforced walls ready for gear",
+  "tags": ["Detail", "Shop/Studio"]
+},
+{
+  "src": "assets/img/claymore-m18a1-front-stencil-close.JPG",
+  "alt": "M18A1 Claymore crate front stenciling",
+  "caption": "Screen-accurate M18A1 Claymore front stencil detail",
+  "tags": ["Detail", "Shop/Studio"]
+},
+{
+  "src": "assets/img/claymore-m18a1-interior-corner-brace.JPG",
+  "alt": "Claymore crate interior steel corner brace",
+  "caption": "Reinforced interior corner bracket for extra strength",
+  "tags": ["Detail", "Shop/Studio"]
+},
+{
+  "src": "assets/img/claymore-m18a1-handle-full-back.JPG",
+  "alt": "Claymore crate rear panel with handle and Explosive 1.1 stencil",
+  "caption": "Rear view with rugged carry handle and hazard stencil",
+  "tags": ["One-of-One", "Shop/Studio"]
+},
+{
+  "src": "assets/img/claymore-m18a1-front-closed-1.JPG",
+  "alt": "M18A1 Claymore crate closed front angled view",
+  "caption": "Closed Claymore crate with star top slats",
+  "tags": ["One-of-One", "Shop/Studio"]
+},
+{
+  "src": "assets/img/claymore-m18a1-front-closed-2.JPG",
+  "alt": "M18A1 Claymore crate closed front straight view",
+  "caption": "Straight-on front shot of the Claymore mines crate",
+  "tags": ["One-of-One", "Shop/Studio"]
+},
+{
+  "src": "assets/img/claymore-m18a1-rear-packing-data.JPG",
+  "alt": "Claymore crate rear side with packing data stencil",
+  "caption": "Fuzes, mines, and packing data stenciled on the rear panel",
+  "tags": ["Detail", "Shop/Studio"]
+}
 ]

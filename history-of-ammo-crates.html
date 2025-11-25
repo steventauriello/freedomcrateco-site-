@@ -1,0 +1,43 @@
+<section class="ammo-timeline">
+
+  <!-- Controls -->
+  <div class="timeline-controls">
+    <button class="timeline-arrow timeline-arrow-left" aria-label="Scroll left">◀</button>
+    <button class="timeline-arrow timeline-arrow-right" aria-label="Scroll right">▶</button>
+  </div>
+
+  <!-- Scrollable timeline strip -->
+  <div class="timeline-track-wrapper">
+    <div class="timeline-track" id="timelineTrack">
+      <!-- Each of these is a war/era -->
+      <button class="timeline-item major" data-era="ancient-rome">
+        <span class="timeline-year">100 BC – 400 AD</span>
+        <span class="timeline-label">Ancient Rome</span>
+      </button>
+
+      <button class="timeline-item" data-era="medieval">
+        <span class="timeline-year">400–1300</span>
+        <span class="timeline-label">Medieval Era</span>
+      </button>
+
+      <!-- ... all the way through to Freedom Crate Co. -->
+
+      <button class="timeline-item major" data-era="freedom-crate-co">
+        <span class="timeline-year">Present</span>
+        <span class="timeline-label">Freedom Crate Co.</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Details panel -->
+  <div class="timeline-details" id="timelineDetails">
+    <!-- JS will update this based on which war is clicked -->
+    <img id="timelineImage" src="images/history/placeholder.jpg" alt="">
+    <div class="timeline-text">
+      <h2 id="timelineTitle">Select a war to explore its ammo crates</h2>
+      <p id="timelineYears"></p>
+      <p id="timelineBody"></p>
+    </div>
+  </div>
+
+</section>

@@ -2682,3 +2682,37 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
     width: 100%;
   }
 }
+.timeline-track-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+}
+
+.timeline-track {
+  display: inline-flex;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.timeline-item {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.timeline-item.major {
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  outline: 2px solid #444;
+  border-radius: 999px;
+}
+
+.timeline-item.active {
+  background: #222;
+  color: #fff;
+}
