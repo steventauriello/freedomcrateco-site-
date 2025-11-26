@@ -69,7 +69,7 @@ window.getStripeLinkForCart = function(cartItems){
 // ================================
 window.FC_PROMO = {
   active: true,   // 👈 your manual ON/OFF switch (still works)
-  percentOff: 50,
+  percentOff: 10,
   label: "THANKSGIVING DAY SALE — 10% Off All Ammo Boxes!",
 
   // 👇 Auto-expire system (in days)
