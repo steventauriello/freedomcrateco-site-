@@ -228,6 +228,60 @@ series_of_numbers. (eBay)</span>
       </div>
     </section>
 
+    <!-- New: On-site review submission form -->
+    <section class="give-grid" aria-label="Leave a review for Freedom Crate Co.">
+      <article class="give-card">
+        <h2>Leave a Review</h2>
+        <p class="disclaimer">
+          If you’ve ordered a crate or range box from us, we’d really appreciate your feedback.
+          Your review helps other customers and supports this little veteran-inspired shop.
+        </p>
+
+        <form id="review-form" method="POST" action="/.netlify/functions/fcc-review" novalidate>
+          <input type="hidden" name="site_source" value="freedomcrateco.com/reviews">
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="revName">Name or handle (optional)</label>
+              <input id="revName" name="name" placeholder="First name, initials, or username">
+            </div>
+
+            <div class="field">
+              <label for="revEmail">Email (optional, never shared)</label>
+              <input id="revEmail" name="email" type="email" placeholder="you@example.com">
+            </div>
+
+            <div class="field">
+              <label for="revProduct">Which crate or product?</label>
+              <input id="revProduct" name="product" placeholder="FootLocker, Rangemaster 400, Branch crate, etc.">
+            </div>
+
+            <div class="field">
+              <label for="revRating">Rating<span class="req">*</span></label>
+              <select id="revRating" name="rating" required>
+                <option value="">Select…</option>
+                <option value="5">★★★★★ — 5 (Excellent)</option>
+                <option value="4">★★★★☆ — 4 (Great)</option>
+                <option value="3">★★★☆☆ — 3 (Good)</option>
+                <option value="2">★★☆☆☆ — 2 (Fair)</option>
+                <option value="1">★☆☆☆☆ — 1 (Poor)</option>
+              </select>
+            </div>
+
+            <div class="field wide">
+              <label for="revText">Your review<span class="req">*</span></label>
+              <textarea id="revText" name="text" rows="4" required
+                placeholder="What did you order? How was the build, packaging, and shipping?"></textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" type="submit">Submit review</button>
+          </div>
+        </form>
+      </article>
+    </section>
+
     <div class="summary">
       <span id="avgStars" class="stars" aria-hidden="true"></span>
       <strong id="avgRating">0.0</strong>
@@ -235,14 +289,60 @@ series_of_numbers. (eBay)</span>
       <script id="seo-ld-json" type="application/ld+json"></script>
     </div>
 
+
     <div id="reviewsList" class="grid"></div>
   </main>
 
-  <footer class="site-footer">
+    <footer class="site-footer">
     <div class="container">
       <span class="badge">US Veteran-inspired • Florida-built</span>
     </div>
   </footer>
+
+  <!-- Handle on-site review form submission -->
+  <script>
+  (function () {
+    const form = document.getElementById('review-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      // Basic front-end validation
+      const rating = Number(formData.get('rating') || 0);
+      const text = (formData.get('text') || '').toString().trim();
+
+      if (!rating || rating < 1 || rating > 5 || !text) {
+        alert('Please choose a rating and write a short review before submitting.');
+        return;
+      }
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams([...formData.entries()])
+        });
+
+        let data = {};
+        try { data = await res.json(); } catch (_) {}
+
+        if (res.ok && (data.ok !== false)) {
+          alert('Thank you! Your review was submitted and will appear after it is approved.');
+          form.reset();
+        } else {
+          console.error('Review submit error:', res.status, data);
+          alert('Something went wrong submitting your review. Please try again later.');
+        }
+      } catch (err) {
+        console.error('Review submit network error:', err);
+        alert('Network error submitting your review. Please try again later.');
+      }
+    });
+  })();
+  </script>
 
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
@@ -250,3 +350,4 @@ series_of_numbers. (eBay)</span>
   <script src="assets/js/reviews.js" defer></script>
 </body>
 </html>
+
