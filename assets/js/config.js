@@ -68,9 +68,9 @@ window.getStripeLinkForCart = function(cartItems){
 // Sitewide Promo / Discount Config
 // ================================
 window.FC_PROMO = {
-  active: false,   // 👈 your manual ON/OFF switch (still works)
+  active: true,   // 👈 your manual ON/OFF switch (still works)
   percentOff: 50,
-  label: "ENTER HOLIDAY — 10% Off All Ammo Boxes!",
+  label: "THANKSGIVING DAY SALE — 10% Off All Ammo Boxes!",
 
   // 👇 Auto-expire system (in days)
   autoExpireDays: 7,
