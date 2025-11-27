@@ -74,7 +74,7 @@ window.FC_PROMO = {
 
   // ✅ Fixed end date for this sale (set this to when you REALLY want it to stop)
   // Format: YYYY-MM-DDTHH:MM:SS-05:00  (for Eastern time)
-  endsAt: "2025-12-04T11:37:00-05:00",
+  endsAt: "2025-11-28T23:59:00-05:00",
 
   // Optional fallback if endsAt is removed in a future sale
   autoExpireDays: 7,
