@@ -8,16 +8,17 @@
 
   if (!listEl || !avgEl || !countEl || !starsEl || !ldScript) return;
 
-  async function loadReviews() {
+    async function loadReviews() {
     try {
-      const res = await fetch('assets/data/reviews.json', { cache: 'no-store' });
+      const res = await fetch('/.netlify/functions/fcc-get-reviews', { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return await res.json();
     } catch (e) {
-      console.error('Failed to load reviews.json', e);
+      console.error('Failed to load reviews from fcc-get-reviews', e);
       return [];
     }
   }
+
 
   function renderStars(n, max = 5) {
     const wrap = document.createElement('span');
