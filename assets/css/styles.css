@@ -2716,3 +2716,17 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   background: #222;
   color: #fff;
 }
+/* Reviews: star rating display */
+.stars {
+  display: inline-flex;
+  gap: 0.15rem;
+  font-size: 1.1rem;
+}
+
+.star {
+  opacity: 0.25;
+}
+
+.star.filled {
+  opacity: 1;
+}

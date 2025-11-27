@@ -27,6 +27,7 @@
       const s = document.createElement('span');
       s.className = 'star' + (i <= Math.round(n) ? ' filled' : '');
       s.setAttribute('aria-hidden', 'true');
+      s.textContent = '★';
       wrap.appendChild(s);
     }
     wrap.setAttribute('aria-label', `${n} out of ${max} stars`);
