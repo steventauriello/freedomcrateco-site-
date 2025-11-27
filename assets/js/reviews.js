@@ -19,20 +19,26 @@
     }
   }
 
+  function renderStars(value, max = 5) {
+  // Force rating into a safe 0–5 number
+  let n = Number(value);
+  if (!Number.isFinite(n)) n = 0;
+  n = Math.max(0, Math.min(max, n)); // clamp between 0 and max
 
-  function renderStars(n, max = 5) {
-    const wrap = document.createElement('span');
-    wrap.className = 'stars';
-    for (let i = 1; i <= max; i++) {
-      const s = document.createElement('span');
-      s.className = 'star' + (i <= Math.round(n) ? ' filled' : '');
-      s.setAttribute('aria-hidden', 'true');
-      s.textContent = '★';
-      wrap.appendChild(s);
-    }
-    wrap.setAttribute('aria-label', `${n} out of ${max} stars`);
-    return wrap;
+  const wrap = document.createElement('span');
+  wrap.className = 'stars';
+
+  for (let i = 1; i <= max; i++) {
+    const s = document.createElement('span');
+    s.className = 'star' + (i <= n ? ' filled' : '');
+    s.setAttribute('aria-hidden', 'true');
+    s.textContent = '★';
+    wrap.appendChild(s);
   }
+
+  wrap.setAttribute('aria-label', `${n} out of ${max} stars`);
+  return wrap;
+}
 
   function fmtDate(iso) {
     try {
