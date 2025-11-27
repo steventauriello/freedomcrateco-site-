@@ -318,8 +318,16 @@ series_of_numbers. (eBay)</span>
     </div>
   </footer>
 
+<!-- Supabase Client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://vnkyrlglhswzkodlffjj.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZua3lybGdsaHN3emtvZGxmZmpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTQ1OTQsImV4cCI6MjA3NTc5MDU5NH0.ZB50gW-csdl9o6qQ1hFnb7oVYyLBAigtOnwNZv4M5tQ";
+  window.supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
+
   <!-- Handle on-site review form submission -->
-  <script>
+<script>
   (function () {
     const form = document.getElementById('review-form');
     if (!form) return;
@@ -336,6 +344,52 @@ series_of_numbers. (eBay)</span>
       if (!rating || rating < 1 || rating > 5 || !text) {
         alert('Please choose a rating and write a short review before submitting.');
         return;
+      }
+
+      // Try to upload photo (if any) to Supabase Storage
+      let photoUrl = '';
+      try {
+        const fileInput = document.getElementById('revPhoto');
+        const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+        if (file && window.supabase) {
+          // Build a safe file path: timestamp-name.ext
+          const rawName = (formData.get('name') || 'anon').toString();
+          const safeName = rawName
+            .toLowerCase()
+            .replace(/[^\w\-]+/g, '-')
+            .slice(0, 40) || 'anon';
+
+          const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+          const path = `${Date.now()}-${safeName}.${ext}`;
+
+          const { data: uploadData, error: uploadError } = await supabase
+            .storage
+            .from('review_photos')          // your bucket name
+            .upload(path, file, {
+              cacheControl: '3600',
+              upsert: false,
+              contentType: file.type || 'image/jpeg'
+            });
+
+          if (uploadError) {
+            console.error('Photo upload error:', uploadError);
+          } else if (uploadData && uploadData.path) {
+            const { data: publicData } = supabase
+              .storage
+              .from('review_photos')
+              .getPublicUrl(uploadData.path);
+
+            photoUrl = publicData?.publicUrl || '';
+          }
+        }
+      } catch (uploadErr) {
+        console.error('Unexpected photo upload error:', uploadErr);
+      }
+
+      // If we got a URL, add it to the form data that goes to Netlify
+      if (photoUrl) {
+        formData.append('photo_url', photoUrl);
       }
 
       try {
@@ -361,7 +415,8 @@ series_of_numbers. (eBay)</span>
       }
     });
   })();
-  </script>
+</script>
+
 
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/config.js" defer></script>
