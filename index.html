@@ -731,8 +731,16 @@
         return;
       }
 
-      const start = new Date(cfg._activatedAt);
-      const end = new Date(start.getTime() + cfg.autoExpireDays * 24 * 60 * 60 * 1000);
+      let end;
+
+if (cfg.endsAt) {
+  // 🔥 Use fixed end date
+  end = new Date(cfg.endsAt);
+} else {
+  // ⏳ Fallback to auto-expire system
+  const start = new Date(cfg._activatedAt);
+  end = new Date(start.getTime() + cfg.autoExpireDays * 24 * 60 * 60 * 1000);
+}
 
       countdownEl.hidden = false;
       setEndLabel(end);

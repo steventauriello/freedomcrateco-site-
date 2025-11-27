@@ -68,14 +68,17 @@ window.getStripeLinkForCart = function(cartItems){
 // Sitewide Promo / Discount Config
 // ================================
 window.FC_PROMO = {
-  active: true,   // 👈 your manual ON/OFF switch (still works)
+  active: true,   // manual ON/OFF
   percentOff: 10,
   label: "THANKSGIVING DAY SALE — 10% Off All Ammo Boxes!",
 
-  // 👇 Auto-expire system (in days)
+  // ✅ Fixed end date for this sale (set this to when you REALLY want it to stop)
+  // Format: YYYY-MM-DDTHH:MM:SS-05:00  (for Eastern time)
+  endsAt: "2025-12-04T11:37:00-05:00",
+
+  // Optional fallback if endsAt is removed in a future sale
   autoExpireDays: 7,
 
-  // Will store when promo was first turned on
   _activatedAt: null
 };
 
@@ -105,25 +108,25 @@ window.FC_isPromoActiveNow = function () {
   // Manual switch OFF → always OFF
   if (!cfg.active) return false;
 
-  // If no timestamp, set one now
+  const now = new Date();
+
+  // ✅ If a fixed end date is set, use that
+  if (cfg.endsAt) {
+    const end = new Date(cfg.endsAt);
+    return now < end;
+  }
+
+  // 🔙 Fallback: old autoExpireDays logic if no endsAt
   if (!cfg._activatedAt) {
     cfg._activatedAt = new Date().toISOString();
     return true;
   }
 
-  // Check expiration window
   const activatedAt = new Date(cfg._activatedAt);
-  const now = new Date();
-
   const msSince = now - activatedAt;
   const msLimit = cfg.autoExpireDays * 24 * 60 * 60 * 1000;
 
-  // If expired → treat promo as OFF
-  if (msSince > msLimit) {
-    return false;
-  }
-
-  return true;
+  return msSince <= msLimit;
 };
 
 // ================================
