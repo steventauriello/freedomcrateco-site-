@@ -20,8 +20,8 @@
   }
 
   function renderStars(value, max = 5) {
-  // Force rating into a safe 0–5 number
-  let n = Number(value);
+  // Force rating into a safe 0–5 integer
+  let n = parseInt(value, 10);
   if (!Number.isFinite(n)) n = 0;
   n = Math.max(0, Math.min(max, n)); // clamp between 0 and max
 
@@ -29,10 +29,11 @@
   wrap.className = 'stars';
 
   for (let i = 1; i <= max; i++) {
+    const filled = i <= n;
     const s = document.createElement('span');
-    s.className = 'star' + (i <= n ? ' filled' : '');
+    s.className = 'star' + (filled ? ' filled' : '');
     s.setAttribute('aria-hidden', 'true');
-    s.textContent = '★';
+    s.textContent = filled ? '★' : '☆';   // ★ for filled, ☆ for empty
     wrap.appendChild(s);
   }
 
