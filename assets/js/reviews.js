@@ -86,44 +86,81 @@
   }
 
   const frag = document.createDocumentFragment();
-  for (const r of reviews) {
-    const card = document.createElement('article');
-    card.className = 'card review';
 
-    const header = document.createElement('div');
-    header.className = 'header';
+for (const r of reviews) {
+  const hasPhoto = !!r.photo;
 
-    const left = document.createElement('div');
-    left.appendChild(renderStars(r.rating));
+  const card = document.createElement('article');
+  card.className = 'card review review-card' + (hasPhoto ? ' has-photo' : '');
 
-    const when = document.createElement('div');
-    when.className = 'date';
-    when.textContent = fmtDate(r.date);
+  // Header (stars + date)
+  const header = document.createElement('div');
+  header.className = 'header';
 
-    header.append(left, when);
+  const left = document.createElement('div');
+  left.appendChild(renderStars(r.rating));
 
-    const name = document.createElement('div');
-    name.className = 'name';
-    name.textContent = r.name || 'Verified Buyer';
+  const when = document.createElement('div');
+  when.className = 'date';
+  when.textContent = fmtDate(r.date);
 
-    const product = document.createElement('div');
-    product.className = 'product';
-    product.textContent = r.product || '';
+  header.append(left, when);
 
-    const text = document.createElement('p');
-    text.textContent = r.text || '';
+  // Name / handle
+  const name = document.createElement('div');
+  name.className = 'name';
+  name.textContent = r.name || 'Verified Buyer';
 
-    card.append(header, name, product, text);
+  // Product line
+  const product = document.createElement('div');
+  product.className = 'product';
+  product.textContent = r.product || '';
 
-    if (r.photo) {
-      const img = document.createElement('img');
-      img.className = 'photo';
-      img.src = r.photo;
-      img.alt = `${r.product || 'Product'} review photo`;
-      card.appendChild(img);
-    }
+  // Review text
+  const text = document.createElement('p');
+  text.textContent = r.text || '';
 
-    frag.appendChild(card);
+  // Content container (matches your static .review-content)
+  const content = document.createElement('div');
+  content.className = 'review-content';
+  content.append(header, name, product, text);
+
+  card.appendChild(content);
+
+  // Optional photo
+  if (hasPhoto) {
+    const photoUrl = r.photo;
+    const safeAlt = `${r.product || 'Freedom Crate Co. crate'} review photo`;
+
+    // Small “See photo” link (mobile)
+    const toggleLink = document.createElement('a');
+    toggleLink.className = 'photo-toggle';
+    toggleLink.href = photoUrl;
+    toggleLink.target = '_blank';
+    toggleLink.rel = 'noopener';
+    toggleLink.textContent = 'See photo';
+    content.appendChild(toggleLink);
+
+    // Thumbnail (desktop)
+    const photoLink = document.createElement('a');
+    photoLink.className = 'review-photo';
+    photoLink.href = photoUrl;
+    photoLink.target = '_blank';
+    photoLink.rel = 'noopener';
+
+    const img = document.createElement('img');
+    img.src = photoUrl;
+    img.alt = safeAlt;
+    img.loading = 'lazy';
+    img.width = 320;
+    img.height = 240;
+
+    photoLink.appendChild(img);
+    card.appendChild(photoLink);
   }
-  listEl.appendChild(frag);
+
+  frag.appendChild(card);
+}
+
+listEl.appendChild(frag);
 })();
