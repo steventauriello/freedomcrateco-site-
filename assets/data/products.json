@@ -155,7 +155,6 @@
     "collector"
   ],
  "description": "Support Our American Heritage. Defend Freedom. This one-of-one Limited Edition Gadsden Ammo Box captures the defiant spirit of liberty that defined the American Revolution. The renowned “Don’t Tread on Me” emblem was first presented to the Continental Congress on December 17, 1775, by Colonel Christopher Gadsden — a symbol of unity, courage, and resistance to tyranny.<br><br>Handcrafted from solid pine and finished in weathered Bazooka Green, this Freedom Crate Co. original includes Armor Core™ PolyShield interior protection for unmatched durability, rigidity, and moisture resistance.<br><br>⸻<br><br><strong>Features:</strong><ul><li>⚒️ Pro-Tec latch catches for perfect closure alignment</li><li>🔒 Lockable black toggle latches for added security</li><li>🪶 1-inch brown nylon webbing handles for strength and comfort</li><li>🖤 Black tri-fold hinges for ultra-durability</li><li>🐍 Gadsden “Don’t Tread on Me” hand-applied emblem in bold yellow and black contrast</li></ul><br><strong>Specifications:</strong><ul><li>Interior Dimensions: 11” W × 8½” L × 5½” D</li><li>Material: Solid pine (not plywood)</li><li>Finish: Weathered Bazooka Green with Armor Core™ interior coating</li><li>Edition: One-of-One Limited Collector’s Piece</li><li>Lot No.: FC-1217-1775-01</li></ul><br>⸻<br><br>Proudly built by Freedom Crate Co. — Supporting America’s Heroes. A portion of every sale helps fund The Final Salute Project, gifting handcrafted keepsake boxes to recently retired U.S. veterans.<br><br><strong>BUILT BY:</strong> Steven Tauriello"
-
 },
 "FC-ZOMBIE-01": {
   "status": "active",
@@ -183,6 +182,33 @@
     "handcrafted"
   ],
   "description": "Handcrafted by Freedom Crate Co. — Supporting America’s Heroes. A portion of every sale helps fund The Final Salute Project, gifting custom keepsake boxes to recently retired U.S. veterans. ⚒️<br><br>This one-of-one Freedom Crate Classic Bazooka Green Prototype is a rugged, functional, and collectible wooden ammo box built to embody American craftsmanship, battlefield character, and old-school military utility. Finished in a slate-gray undercoat with ultra-flat Bazooka Green brushed over top, it delivers a weathered, zombied-out aesthetic unlike anything else we’ve made.<br><br>⸻<br><br><strong>Features:</strong><ul><li><strong>Prototype Build – One of One:</strong> The only Bazooka Green Prototype ever produced — fully unique and never to be replicated.</li><li><strong>Distressed Finish:</strong> Slate-gray undertone with hand-brushed Bazooka Green for a weathered field-used appearance.</li><li><strong>Black Stenciling:</strong> AMMO front stencil + vintage five-point star.</li><li><strong>1-inch Brown Nylon Webbing Handles:</strong> Lightweight, tough, and field-ready.</li><li><strong>Slide-Top Lid:</strong> Classic Freedom Crate slide-lid design with raised slat rails.</li></ul><br><strong>Specifications:</strong><ul><li>Exterior: 14” L × 10” W × 7” H</li><li>Interior: 11” L × 8.25” W × 5.5” H</li><li>Material: Solid pine</li><li>Finish: Distressed Bazooka Green Prototype</li><li>Edition: One-of-One Prototype</li><li>Lot No.: FC-ZOMBIE-3020-01</li></ul><br>⸻<br><br>Proudly built by Freedom Crate Co. — Supporting America’s Heroes. A portion of every sale helps fund The Final Salute Project, gifting handcrafted keepsake boxes to recently retired U.S. veterans.<br><br><strong>BUILT BY:</strong> Steven Tauriello"
-
+},
+"FC-UTILITY-V01": {
+  "status": "active",
+  "title": "Freedom Crate Utility Series – V01 Modular Dual-Tray Storage Crate",
+  "price": 70.00,
+  "qty": 1,
+  "image_url": "assets/img/fc_gunkit_02.JPG",
+  "images": [
+    "assets/img/fc_gunkit_01.JPG",
+    "assets/img/fc_gunkit_02.JPG",
+    "assets/img/fc_gunkit_03.jpg",
+    "assets/img/fc_gunkit_04.JPG",
+    "assets/img/fc_gunkit_05.JPG",
+    "assets/img/fc_gunkit_06.jpg",
+    "assets/img/fc_gunkit_07.jpg",
+    "assets/img/fc_gunkit_08.JPG",
+    "assets/img/fc_gunkit_09.jpg",
+    "assets/img/fc_gunkit_10.jpg",
+    "assets/img/favicon.png"
+  ],
+  "tags": [
+    "utility-series",
+    "ammo-box",
+    "dual-tray",
+    "modular-storage",
+    "freedom-crate"
+  ],
+  "description": "Handcrafted by Freedom Crate Co. — Supporting America’s Heroes. A portion of every sale helps fund The Final Salute Project, gifting custom keepsake boxes to recently retired U.S. veterans. ⚒️<br><br>The Freedom Crate Utility Series – V01 is the first in our modular gear-storage lineup, built to organize ammo, tools, pistol accessories, and first-aid equipment with rugged reliability and real-wood craftsmanship. Featuring a dual-tray system, reinforced construction, and a mission-ready layout, this crate is designed for everyday use whether at the range, in the workshop, or on standby for emergencies.<br><br>⸻<br><br><strong>Features:</strong><ul><li><strong>Dual-Tray System:</strong> A full-width sliding tray (1\" deep) and a removable main tray (2\" deep) for modular organization.</li><li><strong>Bottom Storage Zone:</strong> 2\" deep compartment beneath the trays — perfect for boxed ammo or larger gear.</li><li><strong>Heavy-Duty Toggle Latch:</strong> Front-mounted latch keeps the lid secure during transport.</li><li><strong>Nylon Webbing Handles:</strong> 1\" brown strap handles for lightweight durability.</li><li><strong>Quality Materials:</strong> ¾\" plywood walls, ¼\" plywood tray panels, solid tongue-and-groove pine lid, and stainless steel hinges.</li></ul><br><strong>Specifications:</strong><ul><li>Exterior: 14” W × 10” L × 7” H</li><li>Interior: 11” W × 9” L × 5.5” H</li><li>Main Tray: 10.5” × 8” × 2”</li><li>Sliding Tray: Full width, 1” deep</li><li>Lot No.: FC-UTILITY-V01</li></ul><br>⸻<br><br>This crate is built for those who need adaptable storage that performs. Whether used for ammo, a pistol kit, tools, first-aid gear, or emergency preparedness, the V01 sets the foundation for the entire Utility Series.<br><br><strong>BUILT BY:</strong> Steven Tauriello"
 }
 }
