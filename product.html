@@ -148,6 +148,11 @@
 const params = new URLSearchParams(location.search);
 let sku = params.get('sku') || (location.hash ? location.hash.slice(1) : '');
 
+// Optional: default SKU for dev testing
+if (!sku && ['localhost','127.0.0.1'].includes(location.hostname)) {
+  sku = 'FC-RM-400';
+  history.replaceState(null, '', location.pathname + '#' + sku);
+}
 
 // Default to Branch Collection (FC-CLASSIC) — no redirect
 if (!sku) {
