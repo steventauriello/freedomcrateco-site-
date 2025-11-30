@@ -2407,9 +2407,18 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   100% { transform: scale(1); }
 }
 /* Let action buttons be clickable even with an overlay link on the card */
-.card .overlay-link { pointer-events: none; z-index: 1; }
+.card .overlay-link {
+  pointer-events: auto;     /* allow clicks on the overlay */
+  z-index: 1;               /* under buttons, over card background */
+}
+
 .card .actions,
-.card .actions * { pointer-events: auto; position: relative; z-index: 2; }
+.card .actions * {
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;               /* buttons stay above the overlay */
+}
+
 /* --- Giveaway page mobile overflow fix --- */
 @media (max-width:640px){
   html, body {
