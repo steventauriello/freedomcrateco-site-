@@ -68,7 +68,7 @@ window.getStripeLinkForCart = function(cartItems){
 // Sitewide Promo / Discount Config
 // ================================
 window.FC_PROMO = {
-  active: true,               // turn sale on/off
+  active: false,               // turn sale on/off
   percentOff: 15,             // how much off
   label: "HOLIDAY SALE — 15% Off All Ammo Boxes!",
 
