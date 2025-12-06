@@ -68,7 +68,7 @@ window.getStripeLinkForCart = function(cartItems){
 // Sitewide Promo / Discount Config
 // ================================
 window.FC_PROMO = {
-  active: true,   // manual ON/OFF
+  active: false,   // manual ON/OFF
   percentOff: 10,
   label: "THANKSGIVING DAY SALE — 10% Off All Ammo Boxes!",
 
