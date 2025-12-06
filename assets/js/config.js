@@ -68,19 +68,19 @@ window.getStripeLinkForCart = function(cartItems){
 // Sitewide Promo / Discount Config
 // ================================
 window.FC_PROMO = {
-  active: true,   // manual ON/OFF
-  percentOff: 10,
-  label: "CYBER WEEK SALE — 10% Off All Ammo Boxes!",
- 
-  // ✅ Fixed end date for this sale (set this to when you REALLY want it to stop)
-  // Format: YYYY-MM-DDTHH:MM:SS-05:00  (for Eastern time)
-  endsAt: "2025-11-28T23:59:00-05:00",
+  active: true,               // turn sale on/off
+  percentOff: 15,             // how much off
+  label: "HOLIDAY SALE — 15% Off All Ammo Boxes!",
 
-  // Optional fallback if endsAt is removed in a future sale
-  autoExpireDays: 7,
+  // ❌ Don't use a fixed end date for normal sales
+  // endsAt: "",              // leave this blank or remove it
 
-  _activatedAt: null
+  // ✅ Use “how many days from start”
+  autoExpireDays: 4,          // sale lasts 4 days
+
+  _activatedAt: null          // let the code set this on first load
 };
+
 
 // ================================
 // Ensure promo has a timestamp if turned on
