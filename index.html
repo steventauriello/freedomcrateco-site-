@@ -50,6 +50,32 @@
   .green-link{ color:var(--brand, #2ecc71); text-decoration:none; font-weight:600; }
   .green-link:hover, .green-link:focus{ text-decoration:underline; }
   .custom-link{ margin-top:.5rem; }
+
+  .promo-form{
+    margin:1.25rem auto 0;
+    max-width:420px;
+    display:flex;
+    gap:.5rem;
+    align-items:center;
+  }
+  .promo-form input{
+    flex:1;
+    padding:.5rem .75rem;
+    border-radius:4px;
+    border:1px solid #444;
+    background:#090909;
+    color:#fff;
+    font-size:.95rem;
+  }
+  .promo-form input::placeholder{
+    color:#777;
+  }
+  .promo-message{
+    margin-top:.35rem;
+    font-size:.85rem;
+  }
+  .promo-message.ok{ color:#9be58d; }
+  .promo-message.error{ color:#ff8585; }
 </style>
 
 <!-- Structured Data: Store + key products -->
@@ -458,6 +484,18 @@
         <span class="label">Free US Shipping</span>
       </div>
     </div>
+<!-- Promo code entry (home page) -->
+<form class="promo-form" id="homePromoForm" autocomplete="off" novalidate>
+  <input
+    type="text"
+    id="homePromoInput"
+    name="promo"
+    placeholder="Have a promo code? Enter it here (e.g., FREEDOM1776)"
+    aria-label="Promo code"
+  />
+  <button type="submit" class="btn small">Apply</button>
+</form>
+<p id="homePromoMessage" class="promo-message" aria-live="polite"></p>
 
    <!-- Featured: Freedom Crate Classic -->
 <section class="featured-wrap" aria-label="Freedom Crate Classic">
@@ -819,7 +857,7 @@ if (cfg.endsAt) {
 <script src="assets/js/catalog.js" defer></script>
 
   <!-- Page logic (featured cards) -->
-  <script>
+<script>
   /* --- Freedom Crate Classic: price + image swap + Add/Buy --- */
   (function(){
     const IMG = {
@@ -877,13 +915,20 @@ if (cfg.endsAt) {
       const base      = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
       const latch     = (LATCH_PRICE[getLatch()] || 0);
       const subtotal  = base + latch;
-      const final     = (window.FC_applyPromo ? window.FC_applyPromo(subtotal) : subtotal);
+
+      // Apply stacked promo + coupon
+      let final = subtotal;
+      if (typeof window.FC_applyAllDiscounts === 'function') {
+        final = window.FC_applyAllDiscounts(subtotal);
+      } else if (typeof window.FC_applyPromo === 'function') {
+        final = window.FC_applyPromo(subtotal);
+      }
 
       priceEl.textContent = fmt(final);
 
       const promoActive = !!(window.FC_PROMO && window.FC_PROMO.active && final < subtotal);
 
-      // Toggle tiny “Sale” pill
+      // Sale pill
       if (saleEl) {
         saleEl.hidden = !promoActive;
         if (promoActive && window.FC_PROMO?.label) {
@@ -893,13 +938,22 @@ if (cfg.endsAt) {
         }
       }
 
-      // Update the “Blank / With stencil” breakdown to match sale pricing
+      // Update price breakdown (blank vs stencil)
       if (breakdownEl) {
-        const rawBlank   = BLANK_PRICE;
-        const rawBranch  = BRANCH_PRICE;
-        if (promoActive && window.FC_applyPromo) {
+        const rawBlank  = BLANK_PRICE;
+        const rawBranch = BRANCH_PRICE;
+
+        if (typeof window.FC_applyAllDiscounts === "function") {
+          const saleBlank  = window.FC_applyAllDiscounts(rawBlank);
+          const saleBranch = window.FC_applyAllDiscounts(rawBranch);
+
+          breakdownEl.textContent =
+            `Blank ${fmt(saleBlank)} • With stencil ${fmt(saleBranch)}`;
+
+        } else if (promoActive && typeof window.FC_applyPromo === "function") {
           const saleBlank  = window.FC_applyPromo(rawBlank);
           const saleBranch = window.FC_applyPromo(rawBranch);
+
           breakdownEl.textContent =
             `Blank ${fmt(saleBlank)} • With stencil ${fmt(saleBranch)}`;
         } else {
@@ -948,15 +1002,17 @@ if (cfg.endsAt) {
     updateImage();
     calcTotal();
 
-    // 🔔 Recalculate when global promo changes (on/off)
+    // Recalculate on promo or coupon change
     window.addEventListener('fc:promo-updated', calcTotal);
+    window.addEventListener('fc:coupon-updated', calcTotal);
   })();
 </script>
 
 
 
 
- <script>
+
+<script>
 /* --- Rangemaster 400: image/price swap + Add/Buy (hardware fixed to Black) --- */
 (function(){
   const pkgSel   = document.getElementById('rm400-package');
@@ -971,13 +1027,24 @@ if (cfg.endsAt) {
   const fmt   = n => '$' + Number(n).toFixed(2);
   const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
 
+  function applyAll(raw){
+    if (typeof window.FC_applyAllDiscounts === 'function') {
+      return window.FC_applyAllDiscounts(raw);   // promo + coupon stacked
+    }
+    if (typeof window.FC_applyPromo === 'function') {
+      return window.FC_applyPromo(raw);          // fallback: promo only
+    }
+    return raw;
+  }
+
   function updateView(){
     const pkg   = getPkg();
-    const raw   = Number(pkg.dataset.price) || 0; // full pre-promo price
-    const final = (window.FC_applyPromo ? window.FC_applyPromo(raw) : raw);
+    const raw   = Number(pkg.dataset.price) || 0;  // full pre-promo price
+    const final = applyAll(raw);
 
     priceEl.textContent = fmt(final);
 
+    // Only show the "Sale" pill when a sitewide promo is active (not coupon-only)
     const promoActive = !!(window.FC_PROMO && window.FC_PROMO.active && final < raw);
     if (saleEl) {
       saleEl.hidden = !promoActive;
@@ -1002,7 +1069,7 @@ if (cfg.endsAt) {
   function buildSkuName(){
     const pkg   = getPkg();
     const raw   = Number(pkg.dataset.price) || 0;
-    const final = (window.FC_applyPromo ? window.FC_applyPromo(raw) : raw);
+    const final = applyAll(raw);
     return {
       sku:   `${pkg.dataset.sku}-${HW.code}`,
       name:  `${pkg.text} • ${HW.name}`,
@@ -1043,10 +1110,12 @@ if (cfg.endsAt) {
   // Initial render
   updateView();
 
-  // 🔔 Recalculate when global promo changes (on/off)
+  // Recalculate on promo or coupon change (sitewide sale + Freedom Mode)
   window.addEventListener('fc:promo-updated', updateView);
+  window.addEventListener('fc:coupon-updated', updateView);
 })();
 </script>
+
 
 
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>

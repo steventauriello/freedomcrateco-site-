@@ -151,3 +151,89 @@ window.FC_initPromoTimestamp();
 
 // Notify page scripts
 window.dispatchEvent(new CustomEvent('fc:promo-updated'));
+
+// ---------------------------------------------------------------------------
+// Simple coupon system (stacked on top of FC_PROMO)
+// ---------------------------------------------------------------------------
+
+// Hard-coded coupon definitions for now.
+// Codes are case-insensitive.
+window.FC_COUPONS = {
+  FREEDOM1776: {
+    code: "FREEDOM1776",
+    percentOff: 15,
+    label: "Freedom 1776 — 15% off your cart",
+    // NOTE: maxUses is not enforced globally without a backend.
+    maxUses: 50
+  },
+  FRIENDS25: {
+    code: "FRIENDS25",
+    percentOff: 25,
+    label: "Friends & Family — 25% off your cart",
+    maxUses: null
+  }
+};
+
+
+(function () {
+  const KEY = "fcc_coupon_v1";
+
+  function readActive() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || !parsed.code) return null;
+      const def = window.FC_COUPONS[String(parsed.code).toUpperCase()];
+      if (!def) return null;
+      return { code: def.code, percentOff: def.percentOff, label: def.label || def.code };
+    } catch (err) {
+      console.warn("[FC] Failed to read coupon from storage", err);
+      return null;
+    }
+  }
+
+  function writeActive(code) {
+    if (!code) {
+      localStorage.removeItem(KEY);
+      return null;
+    }
+    const def = window.FC_COUPONS[String(code).toUpperCase()];
+    if (!def) return null;
+    localStorage.setItem(KEY, JSON.stringify({ code: def.code }));
+    return { code: def.code, percentOff: def.percentOff, label: def.label || def.code };
+  }
+
+  // Public helpers
+  window.FC_getActiveCoupon = function () {
+    return readActive();
+  };
+
+  // Set or clear coupon. Returns the active coupon object or null.
+  window.FC_setActiveCoupon = function (code) {
+    const coupon = writeActive(code || null);
+    window.dispatchEvent(new CustomEvent("fc:coupon-updated", { detail: coupon }));
+    return coupon;
+  };
+
+  // Apply global promo *then* coupon (for product cards, etc).
+  window.FC_applyAllDiscounts = function (rawPrice) {
+    let price = Number(rawPrice || 0);
+
+    // 1) Global sale promo (your existing logic)
+    if (typeof window.FC_applyPromo === "function") {
+      price = window.FC_applyPromo(price);
+    }
+
+    // 2) Coupon on top of that
+    const coupon = readActive();
+    if (coupon && coupon.percentOff) {
+      const pct = Math.max(0, Math.min(100, Number(coupon.percentOff) || 0));
+      price = price - (price * pct / 100);
+    }
+
+    // Round to cents
+    return Math.round(price * 100) / 100;
+  };
+})();
+

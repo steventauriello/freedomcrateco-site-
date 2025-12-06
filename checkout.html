@@ -128,7 +128,6 @@
   </div>
 </div>
 
-
     <div id="cartContainer" class="cart-card" aria-live="polite"></div>
 
     <div class="totals" id="totals" hidden>
@@ -137,6 +136,20 @@
     <span>Shipping</span>
     <span class="chip chip-free">FREE</span>
   </div>
+</div>
+<!-- Checkout promo code -->
+<div class="promo-area" id="checkoutPromoArea">
+  <form class="promo-form" id="checkoutPromoForm" autocomplete="off" novalidate>
+    <input
+      type="text"
+      id="checkoutPromoInput"
+      name="promo"
+      placeholder="Have a promo code? Enter it here (e.g., FREEDOM1776)"
+      aria-label="Promo code"
+    />
+    <button type="submit" class="btn small">Apply</button>
+  </form>
+  <p id="checkoutPromoMessage" class="promo-message" aria-live="polite"></p>
 </div>
 
     <div class="muted" role="note" aria-label="Returns policy">
@@ -194,6 +207,54 @@
     const totalsBox  = document.getElementById('totals');
     const actionsBox = document.getElementById('actions');
     const stripeBtn  = document.getElementById('stripe-pay');
+   
+ // ----- Simple coupon system (front-end only) -----
+    const COUPON_KEY = 'fcc_coupon_v1';
+
+    // Define the codes you actually want to use:
+    // Adjust labels / percentOff exactly how you want.
+    const COUPONS = {
+      'FREEDOM1776': {
+        label: 'Freedom Mode',
+        percentOff: 10
+      },
+      'FREEDOMMODE': {
+        label: 'Freedom Mode',
+        percentOff: 10
+      }
+      // Add more codes here if you want:
+      // 'BLACKFRIDAY': { label: 'Black Friday', percentOff: 15 },
+    };
+
+    function FC_getActiveCoupon() {
+      try {
+        const raw = localStorage.getItem(COUPON_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        const code = String(parsed.code || '').toUpperCase();
+        const def = COUPONS[code];
+        if (!def) return null;
+        return { code, ...def };
+      } catch {
+        return null;
+      }
+    }
+
+    function setActiveCoupon(code) {
+      const upper = String(code || '').toUpperCase();
+      const def = COUPONS[upper];
+      if (!def) {
+        localStorage.removeItem(COUPON_KEY);
+        return null;
+      }
+      localStorage.setItem(COUPON_KEY, JSON.stringify({ code: upper }));
+      return { code: upper, ...def };
+    }
+
+    function clearActiveCoupon() {
+      localStorage.removeItem(COUPON_KEY);
+    }
+
 
     const fmt = (n) => '$' + (Number(n || 0)).toFixed(2);
     const escapeHtml = (s) => String(s).replace(/[&<>"']/g, m => (
@@ -270,10 +331,26 @@ remove.innerHTML = `
         remove.addEventListener('click', () => removeItem(item.sku));
       });
 
-      subtotalEl.textContent = fmt(cartTotal(readCart()));
+            // --- subtotal with coupon applied ---
+      const rawSubtotal = cartTotal(readCart());
+      const activeCoupon = FC_getActiveCoupon();
+      let discountAmt = 0;
+
+      if (activeCoupon && activeCoupon.percentOff) {
+        const pct = Math.max(0, Math.min(100, Number(activeCoupon.percentOff) || 0));
+        discountAmt = (rawSubtotal * pct) / 100;
+      }
+
+      const finalSubtotal = rawSubtotal - discountAmt;
+
+      subtotalEl.textContent = fmt(finalSubtotal);
+
       totalsBox.hidden = false;
       actionsBox.hidden = false;
+
+      // Rebuild PayPal buttons so they see the latest discount
       setupPayPal();
+
     }
 
     // ---------- PayPal ----------
@@ -305,17 +382,30 @@ remove.innerHTML = `
 
       const itemTotal = items.reduce((sum, it) => sum + (Number(it.unit_amount.value) * Number(it.quantity)), 0).toFixed(2);
 
+// --- Apply cart-level coupon discount ---
+let discountAmount = 0;
+const activeCoupon = (typeof FC_getActiveCoupon === "function")
+  ? FC_getActiveCoupon()
+  : null;
+
+if (activeCoupon && activeCoupon.percentOff) {
+  const pct = Math.max(0, Math.min(100, Number(activeCoupon.percentOff) || 0));
+  discountAmount = ((Number(itemTotal) * pct) / 100).toFixed(2);
+}
+
       return {
-        description: 'Freedom Crate Co. order',
-        amount: {
-          currency_code: 'USD',
-          value: itemTotal,
-          breakdown: {
-            item_total: { currency_code: 'USD', value: itemTotal }
-          }
-        },
-        items
-      };
+  description: 'Freedom Crate Co. order',
+  amount: {
+    currency_code: 'USD',
+    value: (Number(itemTotal) - Number(discountAmount)).toFixed(2),
+    breakdown: {
+      item_total: { currency_code: 'USD', value: itemTotal },
+      discount:   { currency_code: 'USD', value: discountAmount }
+    }
+  },
+  items
+};
+
     }
 
     function setupPayPal(){
@@ -353,24 +443,73 @@ remove.innerHTML = `
     }
 
     // ---------- Stripe redirect ----------
-    stripeBtn?.addEventListener('click', async () => {
-      try {
-        const res = await fetch('/.netlify/functions/create-checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items: readCart() })
-        });
-        const data = await res.json();
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          alert('Stripe checkout failed. Please try again.');
-        }
-      } catch (err) {
-        console.error('Stripe error', err);
-        alert('Stripe checkout failed.');
-      }
+stripeBtn?.addEventListener('click', async () => {
+  try {
+    // Grab the active coupon (Freedom Mode / promo) if there is one
+    const coupon = (typeof FC_getActiveCoupon === 'function')
+      ? FC_getActiveCoupon()
+      : null;
+
+    const res = await fetch('/.netlify/functions/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: readCart(),
+        coupon // <= send coupon to the Netlify function
+      })
     });
+
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert('Stripe checkout failed. Please try again.');
+    }
+  } catch (err) {
+    console.error('Stripe error', err);
+    alert('Stripe checkout failed.');
+  }
+});
+    
+  // ----- Promo form wiring -----
+    const promoForm = document.getElementById('checkoutPromoForm');
+    const promoInput = document.getElementById('checkoutPromoInput');
+    const promoMsg   = document.getElementById('checkoutPromoMessage');
+
+    if (promoForm && promoInput && promoMsg) {
+      promoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const raw = (promoInput.value || '').trim().toUpperCase();
+
+        if (!raw) {
+          clearActiveCoupon();
+          promoMsg.textContent = 'Enter a promo code to apply.';
+          render();
+          return;
+        }
+
+        const applied = setActiveCoupon(raw);
+
+        if (!applied) {
+          promoMsg.textContent = 'That code is not valid.';
+          promoForm.classList.add('promo-error');
+        } else {
+          promoMsg.textContent = `${applied.code} applied — ${applied.percentOff}% off your cart.`;
+          promoForm.classList.remove('promo-error');
+        }
+
+        // Re-render to update totals and PayPal
+        render();
+      });
+
+      // On load, if a coupon is already stored, show it
+      const existing = FC_getActiveCoupon();
+      if (existing) {
+        promoInput.value = existing.code;
+        promoMsg.textContent = `${existing.code} applied — ${existing.percentOff}% off your cart.`;
+      }
+    }
+
 
     document.addEventListener('DOMContentLoaded', render);
     window.addEventListener('cart:updated', render);
