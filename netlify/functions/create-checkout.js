@@ -3,6 +3,20 @@ import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+/** 🔐 Allowed coupon codes live here */
+const COUPONS = {
+  FREEDOM1776: {
+    label: 'Freedom 1776',
+    percentOff: 15,
+  },
+  FAMILY2026: {
+    label: 'Family 2026',
+    percentOff: 35,
+  },
+  // 👉 Add more later like:
+  // VIP20: { label: 'VIP 20', percentOff: 20 },
+};
+
 /** Basic CORS so local/preview works */
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -24,7 +38,7 @@ export async function handler(event) {
   try {
     // Accept:
     //   1) raw array: [ ...items ]
-    //   2) object: { items:[...], coupon:{ code, percentOff } }
+    //   2) object: { items:[...], coupon:{ code } }
     const body = JSON.parse(event.body || '{}');
 
     let items;
@@ -41,22 +55,19 @@ export async function handler(event) {
       return json(400, { error: 'No items provided' });
     }
 
-    // ---- Coupon / percent-off handling ----
+    // ---- Coupon / percent-off handling (server-authoritative) ----
     let percentOff = 0;
     let couponCode = '';
 
-    if (coupon && typeof coupon === 'object') {
-      if (coupon.code) couponCode = String(coupon.code);
+    if (coupon && typeof coupon === 'object' && coupon.code) {
+      const rawCode = String(coupon.code).trim();
+      const norm    = rawCode.toUpperCase(); // case-insensitive
+      couponCode    = norm;
 
-      const rawPct = Number(
-        coupon.percentOff ??
-        coupon.percent_off ??
-        coupon.percent
-      );
-
-      if (Number.isFinite(rawPct) && rawPct > 0) {
-        // clamp 0–100
-        percentOff = Math.min(100, Math.max(0, rawPct));
+      const def = COUPONS[norm];
+      if (def && Number.isFinite(def.percentOff) && def.percentOff > 0) {
+        // clamp 0–100 just in case
+        percentOff = Math.min(100, Math.max(0, def.percentOff));
       }
     }
 
@@ -90,11 +101,11 @@ export async function handler(event) {
             images: img ? [img] : undefined,
             metadata: {
               sku: String(i.sku || ''),
-              ...(percentOff > 0 ? { coupon_percent: String(percentOff) } : {})
-            }
-          }
+              ...(percentOff > 0 ? { coupon_percent: String(percentOff) } : {}),
+            },
+          },
         },
-        quantity: qty
+        quantity: qty,
       };
     });
 
@@ -112,7 +123,7 @@ export async function handler(event) {
       site: 'freedomcrateco',
       skus: items.map(i => i?.sku).filter(Boolean).join(','),
       ...(couponCode ? { coupon_code: couponCode } : {}),
-      ...(percentOff > 0 ? { coupon_percent: String(percentOff) } : {})
+      ...(percentOff > 0 ? { coupon_percent: String(percentOff) } : {}),
     };
 
     const session = await stripe.checkout.sessions.create({
@@ -120,12 +131,12 @@ export async function handler(event) {
       line_items,
       // Apple Pay / Google Pay are auto-enabled in Checkout when using 'card'
       payment_method_types: ['card', 'link'],
-      allow_promotion_codes: true, // set to false if you DON'T want Stripe coupons stacking
+      allow_promotion_codes: true, // Stripe-owned coupons can still be used if you want
       shipping_address_collection: { allowed_countries: ['US'] },
       billing_address_collection: 'auto',
       success_url: `${origin}/order-success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url:  `${origin}/checkout.html`,
-      metadata
+      metadata,
     });
 
     return json(200, { url: session.url });

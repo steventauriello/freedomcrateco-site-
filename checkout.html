@@ -213,18 +213,23 @@
 
     // Define the codes you actually want to use:
     // Adjust labels / percentOff exactly how you want.
-    const COUPONS = {
+        const COUPONS = {
       'FREEDOM1776': {
-        label: 'Freedom Mode',
-        percentOff: 10
+        label: 'Freedom 1776',
+        percentOff: 15
       },
       'FREEDOMMODE': {
         label: 'Freedom Mode',
-        percentOff: 10
+        percentOff: 15   // or 10 if you want this one to stay 10%
+      },
+      'FAMILY2026': {
+        label: 'Family 2026',
+        percentOff: 35
       }
       // Add more codes here if you want:
       // 'BLACKFRIDAY': { label: 'Black Friday', percentOff: 15 },
     };
+
 
     function FC_getActiveCoupon() {
       try {

@@ -163,14 +163,14 @@ window.FC_COUPONS = {
     code: "FREEDOM1776",
     percentOff: 15,
     label: "Freedom 1776 — 15% off your cart",
-    // NOTE: maxUses is not enforced globally without a backend.
     maxUses: 50
   },
-  FRIENDS25: {
-    code: "FRIENDS25",
-    percentOff: 25,
-    label: "Friends & Family — 25% off your cart",
-    maxUses: null
+
+  FAMILY2026: {
+    code: "FAMILY2026",
+    percentOff: 35,
+    label: "family2026 — 35% off your cart",
+    maxUses: null       // unlimited usage unless you want a cap
   }
 };
 

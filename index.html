@@ -484,18 +484,6 @@
         <span class="label">Free US Shipping</span>
       </div>
     </div>
-<!-- Promo code entry (home page) -->
-<form class="promo-form" id="homePromoForm" autocomplete="off" novalidate>
-  <input
-    type="text"
-    id="homePromoInput"
-    name="promo"
-    placeholder="Have a promo code? Enter it here (e.g., FREEDOM1776)"
-    aria-label="Promo code"
-  />
-  <button type="submit" class="btn small">Apply</button>
-</form>
-<p id="homePromoMessage" class="promo-message" aria-live="polite"></p>
 
    <!-- Featured: Freedom Crate Classic -->
 <section class="featured-wrap" aria-label="Freedom Crate Classic">
@@ -911,57 +899,62 @@ if (cfg.endsAt) {
       return latchInputs.find(x => x.checked)?.value || 'Stainless';
     }
 
-    function calcTotal(){
-      const base      = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
-      const latch     = (LATCH_PRICE[getLatch()] || 0);
-      const subtotal  = base + latch;
+    // 🔒 Sitewide promo ONLY (ignores coupons)
+    function applySitewidePromo(raw){
+      const cfg = window.FC_PROMO || {};
+      const pct = Number(cfg.percentOff) || 0;
+      const hasHelper = (typeof window.FC_isPromoActiveNow === 'function');
+      const active    = hasHelper ? window.FC_isPromoActiveNow() : !!cfg.active;
 
-      // Apply stacked promo + coupon
-      let final = subtotal;
-      if (typeof window.FC_applyAllDiscounts === 'function') {
-        final = window.FC_applyAllDiscounts(subtotal);
-      } else if (typeof window.FC_applyPromo === 'function') {
-        final = window.FC_applyPromo(subtotal);
-      }
+      if (!active || pct <= 0) return raw;
+
+      const discounted = raw * (1 - pct / 100);
+      return Math.round(discounted * 100) / 100;
+    }
+
+    function calcTotal(){
+      const base     = (branch.value === 'blank') ? BLANK_PRICE : BRANCH_PRICE;
+      const latch    = (LATCH_PRICE[getLatch()] || 0);
+      const subtotal = base + latch;
+
+      // ✅ Card shows sitewide promo *only* (no Freedom Mode coupon)
+      const final = applySitewidePromo(subtotal);
 
       priceEl.textContent = fmt(final);
 
-      const promoActive = !!(window.FC_PROMO && window.FC_PROMO.active && final < subtotal);
+      const hasHelper  = (typeof window.FC_isPromoActiveNow === 'function');
+      const promoOn    = hasHelper ? window.FC_isPromoActiveNow() : !!(window.FC_PROMO && window.FC_PROMO.active);
+      const promoActive = promoOn && final < subtotal;
 
-      // Sale pill
-      if (saleEl) {
-        saleEl.hidden = !promoActive;
-        if (promoActive && window.FC_PROMO?.label) {
-          saleEl.title = window.FC_PROMO.label;
-        } else {
-          saleEl.removeAttribute('title');
-        }
-      }
 
-      // Update price breakdown (blank vs stencil)
-      if (breakdownEl) {
-        const rawBlank  = BLANK_PRICE;
-        const rawBranch = BRANCH_PRICE;
-
-        if (typeof window.FC_applyAllDiscounts === "function") {
-          const saleBlank  = window.FC_applyAllDiscounts(rawBlank);
-          const saleBranch = window.FC_applyAllDiscounts(rawBranch);
-
-          breakdownEl.textContent =
-            `Blank ${fmt(saleBlank)} • With stencil ${fmt(saleBranch)}`;
-
-        } else if (promoActive && typeof window.FC_applyPromo === "function") {
-          const saleBlank  = window.FC_applyPromo(rawBlank);
-          const saleBranch = window.FC_applyPromo(rawBranch);
-
-          breakdownEl.textContent =
-            `Blank ${fmt(saleBlank)} • With stencil ${fmt(saleBranch)}`;
-        } else {
-          breakdownEl.textContent =
-            `Blank ${fmt(rawBlank)} • With stencil ${fmt(rawBranch)}`;
-        }
-      }
+  // Sale pill
+  if (saleEl) {
+    saleEl.hidden = !promoActive;
+    if (promoActive && window.FC_PROMO?.label) {
+      saleEl.title = window.FC_PROMO.label;
+    } else {
+      saleEl.removeAttribute('title');
     }
+  }
+
+  // Update price breakdown (blank vs stencil)
+  if (breakdownEl) {
+    const rawBlank  = BLANK_PRICE;
+    const rawBranch = BRANCH_PRICE;
+
+        if (promoActive) {
+      const saleBlank  = applySitewidePromo(rawBlank);
+      const saleBranch = applySitewidePromo(rawBranch);
+
+      breakdownEl.textContent =
+        `Blank ${fmt(saleBlank)} • With stencil ${fmt(saleBranch)}`;
+    } else {
+
+      breakdownEl.textContent =
+        `Blank ${fmt(rawBlank)} • With stencil ${fmt(rawBranch)}`;
+    }
+  }
+}
 
     function buildSkuName(){
       const bVal = branch.value;
@@ -1002,9 +995,9 @@ if (cfg.endsAt) {
     updateImage();
     calcTotal();
 
-    // Recalculate on promo or coupon change
-    window.addEventListener('fc:promo-updated', calcTotal);
-    window.addEventListener('fc:coupon-updated', calcTotal);
+    // Recalculate on sitewide promo change only
+window.addEventListener('fc:promo-updated', calcTotal);
+// no coupon listener here
   })();
 </script>
 
@@ -1024,27 +1017,31 @@ if (cfg.endsAt) {
   if (!pkgSel || !priceEl || !imgEl) return;
 
   const HW    = { name: 'Black Toggle Latches', code: 'BLK' };
-  const fmt   = n => '$' + Number(n).toFixed(2);
+    const fmt   = n => '$' + Number(n).toFixed(2);
   const getPkg = () => pkgSel.options[pkgSel.selectedIndex];
 
-  function applyAll(raw){
-    if (typeof window.FC_applyAllDiscounts === 'function') {
-      return window.FC_applyAllDiscounts(raw);   // promo + coupon stacked
-    }
-    if (typeof window.FC_applyPromo === 'function') {
-      return window.FC_applyPromo(raw);          // fallback: promo only
-    }
-    return raw;
+  // 🔒 Sitewide promo ONLY (ignores coupons)
+  function applySitewidePromo(raw){
+    const cfg = window.FC_PROMO || {};
+    const pct = Number(cfg.percentOff) || 0;
+    const hasHelper = (typeof window.FC_isPromoActiveNow === 'function');
+    const active    = hasHelper ? window.FC_isPromoActiveNow() : !!cfg.active;
+
+    if (!active || pct <= 0) return raw;
+
+    const discounted = raw * (1 - pct / 100);
+    return Math.round(discounted * 100) / 100;
   }
 
   function updateView(){
     const pkg   = getPkg();
-    const raw   = Number(pkg.dataset.price) || 0;  // full pre-promo price
-    const final = applyAll(raw);
+    const raw   = Number(pkg.dataset.price) || 0;   // base list price
+    const final = applySitewidePromo(raw);
+
 
     priceEl.textContent = fmt(final);
 
-    // Only show the "Sale" pill when a sitewide promo is active (not coupon-only)
+    // Only show "Sale" pill when a sitewide promo is active
     const promoActive = !!(window.FC_PROMO && window.FC_PROMO.active && final < raw);
     if (saleEl) {
       saleEl.hidden = !promoActive;
@@ -1055,6 +1052,7 @@ if (cfg.endsAt) {
       }
     }
 
+    // Swap image based on selected package
     const next = pkg.dataset.img;
     if (next){
       const tmp = new Image();
@@ -1066,16 +1064,17 @@ if (cfg.endsAt) {
     }
   }
 
-  function buildSkuName(){
+   function buildSkuName(){
     const pkg   = getPkg();
     const raw   = Number(pkg.dataset.price) || 0;
-    const final = applyAll(raw);
+    const final = applySitewidePromo(raw);
     return {
       sku:   `${pkg.dataset.sku}-${HW.code}`,
       name:  `${pkg.text} • ${HW.name}`,
       price: final
     };
   }
+
 
   const addToCartSafe = (sku, name, price, qty, meta) =>
     (typeof window.addToCart === 'function')
@@ -1110,11 +1109,12 @@ if (cfg.endsAt) {
   // Initial render
   updateView();
 
-  // Recalculate on promo or coupon change (sitewide sale + Freedom Mode)
+  // Recalculate on sitewide promo changes only
   window.addEventListener('fc:promo-updated', updateView);
-  window.addEventListener('fc:coupon-updated', updateView);
+  // no coupon listener here
 })();
 </script>
+
 
 
 
