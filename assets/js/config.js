@@ -68,10 +68,10 @@ window.getStripeLinkForCart = function(cartItems){
 // Sitewide Promo / Discount Config
 // ================================
 window.FC_PROMO = {
-  active: false,   // manual ON/OFF
+  active: true,   // manual ON/OFF
   percentOff: 10,
-  label: "THANKSGIVING DAY SALE — 10% Off All Ammo Boxes!",
-
+  label: "CYBER WEEK SALE — 10% Off All Ammo Boxes!",
+ 
   // ✅ Fixed end date for this sale (set this to when you REALLY want it to stop)
   // Format: YYYY-MM-DDTHH:MM:SS-05:00  (for Eastern time)
   endsAt: "2025-11-28T23:59:00-05:00",
