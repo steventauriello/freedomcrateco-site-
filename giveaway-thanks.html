@@ -24,14 +24,80 @@
   <meta name="twitter:image" content="https://freedomcrateco.com/assets/img/branch-collection-marines.jpg" />
 
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <style>
-    /* Page-scoped helpers only */
-    .hero-about { text-align:center; padding: 2rem 1rem 1rem; }
-    .hero-about .lede { max-width: 60ch; margin: .5rem auto 0; opacity:.9; }
-    .btn-row { display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap; }
-    .btn.ghost { background: transparent; border:1px solid rgba(255,255,255,.25); }
-    .gallery-grid img { width:100%; height:auto; display:block; } /* prevent sideways scroll */
-  </style>
+<style>
+  /* Page-scoped helpers only */
+  .hero-about { text-align:center; padding: 2rem 1rem 1rem; }
+  .hero-about .lede { max-width: 60ch; margin: .5rem auto 0; opacity:.9; }
+  .btn-row { display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap; }
+  .btn.ghost { background: transparent; border:1px solid rgba(255,255,255,.25); }
+  .gallery-grid img { width:100%; height:auto; display:block; } /* prevent sideways scroll */
+
+  /* ---- New success-page styles ---- */
+  .success-hero {
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .success-icon {
+    font-size: 3.5rem;
+    margin-bottom: .5rem;
+    animation: success-pop .35s ease-out;
+  }
+
+  @keyframes success-pop {
+    0%   { transform: scale(.5); opacity: 0; }
+    100% { transform: scale(1);  opacity: 1; }
+  }
+
+  .success-hero .sub {
+    opacity: .85;
+  }
+
+  .lede-note {
+    margin-top: .3rem;
+    opacity: .75;
+    font-size: .95rem;
+  }
+
+  .hero-buttons .btn {
+    font-size: 1.02rem;
+    padding: .6rem 1.2rem;
+    min-width: 180px;
+  }
+
+  .improved-card {
+    margin-top: .75rem;
+    padding: 1.5rem;
+    border-radius: .75rem;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 0 24px rgba(0,0,0,.18);
+  }
+
+  .improved-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .improved-grid figure {
+    background: rgba(255,255,255,.04);
+    border-radius: .5rem;
+    padding: .75rem;
+    border: 1px solid rgba(255,255,255,.08);
+    text-align: center;
+    box-shadow: 0 0 16px rgba(0,0,0,.16);
+  }
+
+  .improved-grid figcaption {
+    margin-top: .4rem;
+    font-size: .95rem;
+    opacity: .9;
+  }
+</style>
+
+
 </head>
 <body class="giveaway-thanks">
   <header class="site-header">
@@ -46,52 +112,61 @@
     </nav>
   </header>
 
-  <main class="container">
-    <section class="hero-about">
-      <h1>Thank You for Entering!</h1>
-      <p class="lede">
-        Your entry for the Freedom Crate Co. monthly <strong>Veteran Giveaway</strong> has been received.
-        Each month, we select one U.S. veteran to receive a handcrafted <strong>Branch Collection</strong> ammo box.
-      </p>
-      <p><em>Winners are notified by email at the end of each month.</em></p>
-    </section>
+<main class="container">
+  <section class="hero-about success-hero">
+    <div class="success-icon">🎉</div>
+    <h1>Thank You for Entering!</h1>
 
-    <section class="about-card" id="branch-collection">
-      <h2>The Branch Collection</h2>
-       <p>
-    Each Branch Collection crate is rugged, handcrafted, and stenciled with pride. 
-    If your entry is selected, you’ll receive the crate from the branch you chose when submitting your entry.
-  </p>
-      <div class="gallery-grid">
-        <figure>
-          <img src="assets/img/army.jpg" alt="Army Branch Collection ammo box" loading="lazy" decoding="async">
-          <figcaption>Army</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/img/navy.jpg" alt="Navy Branch Collection ammo box" loading="lazy" decoding="async">
-          <figcaption>Navy</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/img/marines.jpg" alt="Marines Branch Collection ammo box" loading="lazy" decoding="async">
-          <figcaption>Marines</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/img/airforce.jpg" alt="Air Force Branch Collection ammo box" loading="lazy" decoding="async">
-          <figcaption>Air Force</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/img/coastguard.jpg" alt="Coast Guard Branch Collection ammo box" loading="lazy" decoding="async">
-          <figcaption>Coast Guard</figcaption>
-        </figure>
-      </div>
+    <p class="lede">
+      Your entry for the Freedom Crate Co. monthly 
+      <strong>Veteran Giveaway</strong> has been received.
+    </p>
 
-      <div class="btn-row" style="margin-top:1rem">
-        <a class="btn" href="gallery.html">Browse the Gallery →</a>
-        <!-- Jump to the featured Branch Collection card on the home page -->
-        <a class="btn ghost" href="/#classic-box">See Branch Collection Details</a>
-      </div>
-    </section>
-  </main>
+    <p class="lede sub">
+      Each month, we select one U.S. veteran to receive a handcrafted 
+      <strong>Branch Collection</strong> ammo box.
+    </p>
+
+    <p class="lede-note"><em>Winners are notified by email at the end of each month.</em></p>
+
+    <div class="btn-row hero-buttons">
+      <a class="btn" href="gallery.html">Browse the Gallery →</a>
+      <a class="btn ghost" href="/#classic-box">See Branch Collection</a>
+    </div>
+  </section>
+
+  <section class="about-card improved-card" id="branch-collection">
+    <h2>Featured Branch Crates</h2>
+
+    <p style="margin-top:-.25rem; opacity:.9;">
+      These are the handcrafted crate styles eligible for this month’s giveaway.
+    </p>
+
+    <div class="gallery-grid improved-grid">
+      <figure>
+        <img src="assets/img/army.jpg" alt="Army Branch Collection ammo box">
+        <figcaption>U.S. Army</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/navy.jpg" alt="Navy Branch Collection ammo box">
+        <figcaption>U.S. Navy</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/marines.jpg" alt="Marine Corps Branch Collection ammo box">
+        <figcaption>U.S. Marine Corps</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/airforce.jpg" alt="Air Force Branch Collection ammo box">
+        <figcaption>U.S. Air Force</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/coastguard.jpg" alt="Coast Guard Branch Collection ammo box">
+        <figcaption>U.S. Coast Guard</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
 
   <footer class="site-footer">
     <div class="container">
