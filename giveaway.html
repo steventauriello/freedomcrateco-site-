@@ -198,12 +198,16 @@ figure{ margin: 0 auto 1rem; }
               <textarea id="story" name="story" placeholder="Share a brief service highlight or why this veteran should be featured."></textarea>
             </div>
 
-            <div class="field">
-              <label class="check">
-                <input type="checkbox" id="agree" name="agree" required>
-                I’m 18+ and agree to the giveaway rules (below).<span class="req">*</span>
-              </label>
-            </div>
+                      <div class="field">
+            <label class="check">
+              <input type="checkbox" id="agree" name="agree" required>
+              I’m 18+ and agree to the giveaway rules (below).<span class="req">*</span>
+            </label>
+          </div>
+
+          <!-- Cloudflare Turnstile human check -->
+          <div class="cf-turnstile"
+               data-sitekey="0x4AAAAAACFhp9YbsEvyyz9x">
           </div>
 
           <div class="actions">
@@ -213,6 +217,7 @@ figure{ margin: 0 auto 1rem; }
 
           <p id="successMsg">✅ Entry received! Redirecting…</p>
         </form>
+
       </article>
 
       <!-- Right: Info / Rules -->
