@@ -276,6 +276,8 @@ figure{ margin: 0 auto 1rem; }
   const emailError = document.getElementById('emailError');
   if (!form) return;
 
+  const submitBtn = form.querySelector('button[type="submit"]');
+
   form.addEventListener('submit', async (e) => {
     emailError.textContent = '';
 
@@ -298,7 +300,7 @@ figure{ margin: 0 auto 1rem; }
       return;
     }
 
-        // Check domain validity
+    // Check domain validity
     const domain = email.split('@')[1];
     if (!domain || !domain.includes('.')) {
       e.preventDefault();
@@ -321,6 +323,10 @@ figure{ margin: 0 auto 1rem; }
 
     // If all good, continue with form submission
     e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
     const fd = new FormData(form);
     // Add Turnstile token explicitly so the Netlify function sees it
     fd.append('cf-turnstile-response', turnstileToken);
@@ -334,7 +340,10 @@ figure{ margin: 0 auto 1rem; }
 
       let ok = res.ok;
       let data = {};
-      try { data = await res.json(); ok = ok && (data.ok !== false); } catch(_) {}
+      try {
+        data = await res.json();
+        ok = ok && (data.ok !== false);
+      } catch (_) {}
 
       if (ok) {
         successMsg.style.display = 'block';
@@ -346,6 +355,10 @@ figure{ margin: 0 auto 1rem; }
     } catch (err) {
       alert('⚠️ Network error — please try again.');
       console.error(err);
+    } finally {
+      // Re-enable button if no redirect happened
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Entry';
     }
   });
 })();
