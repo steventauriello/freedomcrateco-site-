@@ -263,6 +263,9 @@ figure{ margin: 0 auto 1rem; }
   <!-- Announcer (for a11y patterns used elsewhere) -->
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
+<!-- Cloudflare Turnstile script -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <!-- Submit handler: posts to Netlify function, then redirects -->
  <script>
 (function () {
@@ -295,7 +298,7 @@ figure{ margin: 0 auto 1rem; }
       return;
     }
 
-    // Check domain validity
+        // Check domain validity
     const domain = email.split('@')[1];
     if (!domain || !domain.includes('.')) {
       e.preventDefault();
@@ -304,15 +307,31 @@ figure{ margin: 0 auto 1rem; }
       return;
     }
 
+    // ✅ Get Cloudflare Turnstile token
+    const turnstileToken =
+      window.turnstile && window.turnstile.getResponse
+        ? window.turnstile.getResponse()
+        : '';
+
+    if (!turnstileToken) {
+      e.preventDefault();
+      alert('Please complete the human verification before submitting.');
+      return;
+    }
+
     // If all good, continue with form submission
     e.preventDefault();
     const fd = new FormData(form);
+    // Add Turnstile token explicitly so the Netlify function sees it
+    fd.append('cf-turnstile-response', turnstileToken);
+
     try {
       const res = await fetch(form.action, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams([...fd.entries()])
       });
+
       let ok = res.ok;
       let data = {};
       try { data = await res.json(); ok = ok && (data.ok !== false); } catch(_) {}
