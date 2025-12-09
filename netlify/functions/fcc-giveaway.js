@@ -107,19 +107,10 @@ exports.handler = async (event) => {
   }
   // --- End Turnstile verification ---
 
-    const email = String(payload.email || '').trim().toLowerCase();
-  const confirmEmail = String(payload.confirm_email || '').trim().toLowerCase();
-
-  // Basic syntax check
+  const email = String(payload.email || '').trim().toLowerCase();
   if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
     return respond(400, { ok: false, error: 'Valid email required' }, origin);
   }
-
-  // Require confirm_email and make sure it matches
-  if (!confirmEmail || email !== confirmEmail) {
-    return respond(400, { ok: false, error: 'Emails must match' }, origin);
-  }
-
 
   // Map your form fields -> table columns
   const notesParts = [];
