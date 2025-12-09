@@ -35,7 +35,7 @@
   "FC-RB-1000": {
     "status": "active",
     "title": "Freedom Crate 1000",
-    "price": 100,
+    "price": 78,
     "qty": 2,
     "image_url": "assets/img/fc-1000-front-closed.jpg",
     "images": [
@@ -105,7 +105,7 @@
   "FC-9MM-ARMOR": {
   "status": "active",
   "title": "Handcrafted 9mm Wooden Ammo Box – Military Style Storage – Armor Core",
-  "price": 80.00,
+  "price": 75.00,
   "qty": 1,
   "image_url": "assets/img/fc9mm_armor_01.jpg",
   "images": [
@@ -135,7 +135,7 @@
 "FC-GADSDEN-1217": {
   "status": "active",
   "title": "Limited Edition Gadsden Ammo Box – Bazooka Green Pine – Lot FC-1217-1775-01",
-  "price": 80.0,
+  "price": 75.00,
   "qty": 1,
   "image_url": "assets/img/fc_gadsden_bazooka_03.jpg",
   "images": [
@@ -188,7 +188,7 @@
 "FC-UTILITY-V01": {
   "status": "active",
   "title": "Freedom Crate Utility Series – V01 Modular Dual-Tray Storage Crate",
-  "price": 70.00,
+  "price": 75.00,
   "qty": 1,
   "image_url": "assets/img/fc_gunkit_02.JPG",
   "images": [
