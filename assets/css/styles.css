@@ -2379,7 +2379,7 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   width: 100%; height: 100%;
   display: grid; place-items: center;
   border-radius: inherit;
-  animation: flyPop 650ms cubic-bezier(.2,1,.3,1);
+  animation: flyPop 900ms cubic-bezier(.2,1,.3,1);
   transform: scale(1.1);
 }
 

@@ -487,8 +487,98 @@
     updatePrice();
 
     // Recalc if promo toggles
-    window.addEventListener('fc:promo-updated', updatePrice);
+       window.addEventListener('fc:promo-updated', updatePrice);
   })();
 </script>
+
+<!-- Fly-to-cart animation for the AR-15 artwork page -->
+<script>
+  (function () {
+    const CART_LINK_SEL  = '.nav .cart-link';
+    const CART_COUNT_SEL = '.nav .cart-link .cart-count';
+    const INCREMENT_BADGE = false; // cart.js controls badge count
+
+    function updateCartCount(qty) {
+      if (!INCREMENT_BADGE) return;
+      const badge = document.querySelector(CART_COUNT_SEL);
+      if (!badge) return;
+      const current = parseInt(badge.textContent || '0', 10) || 0;
+      badge.textContent = current + (qty || 1);
+    }
+
+    function flyToCart(fromEl, qty) {
+      const cartLink = document.querySelector(CART_LINK_SEL);
+      if (!fromEl || !cartLink) {
+        updateCartCount(qty);
+        return;
+      }
+
+      const badge = document.querySelector(CART_COUNT_SEL) || cartLink;
+
+      const fromRect   = fromEl.getBoundingClientRect();
+      const targetRect = badge.getBoundingClientRect();
+
+      const startX = fromRect.left + fromRect.width / 2;
+      const startY = fromRect.top  + fromRect.height / 2;
+      const endX   = targetRect.left + targetRect.width / 2;
+      const endY   = targetRect.top  + targetRect.height / 2;
+
+      const dx = endX - startX;
+      const dy = endY - startY;
+
+      const flyer = document.createElement('div');
+      flyer.className = 'fly-to-cart';
+      flyer.innerHTML = '<span class="fly-dot">+' + (qty || 1) + '</span>';
+
+      Object.assign(flyer.style, {
+        position: 'fixed',
+        left: (startX - 20) + 'px',
+        top: (startY - 20) + 'px',
+        width: '40px',
+        height: '40px',
+        borderRadius: '9999px',
+        pointerEvents: 'none',
+        zIndex: 9999
+      });
+
+           // Start position variables for CSS transform
+      flyer.style.setProperty('--fx', '0px');
+      flyer.style.setProperty('--fy', '0px');
+      flyer.style.setProperty('--dx', dx + 'px');
+      flyer.style.setProperty('--dy', dy + 'px');
+
+      // No custom transition here – let CSS .fly-to-cart control timing
+      document.body.appendChild(flyer);
+
+
+// Let the +1 bubble pop/hover briefly before it starts flying
+setTimeout(function () {
+  flyer.classList.add('end');
+}, 400); // try 400–600ms for a nice pause
+
+
+      flyer.addEventListener(
+        'transitionend',
+        function () {
+          flyer.remove();
+          updateCartCount(qty);
+          cartLink.classList.add('cart-pop');
+          setTimeout(function () {
+            cartLink.classList.remove('cart-pop');
+          }, 350);
+        },
+        { once: true }
+      );
+    }
+
+    // Called by your existing AR-15 add button logic:
+    window.flashAddToCart = function (triggerEl, qtyOverride) {
+      var qty = Number.isFinite(qtyOverride) ? qtyOverride : 1;
+      flyToCart(triggerEl || document.body, qty);
+    };
+  })();
+</script>
+
 </body>
 </html>
+
