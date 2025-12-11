@@ -1,19 +1,21 @@
 // assets/js/util.js
+// Global "Add to Cart" blip helper so all pages can use it
 (function () {
   'use strict';
 
-  const CART_KEY = 'cart';
+  function flashAddToCart(button) {
+    if (!button) return;
+    button.classList.remove('btn-blip');
+    button.offsetWidth;
+    button.classList.add('btn-blip');
+  }
 
-  window.readCart = function readCart() {
-    try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
-    catch { return []; }
-  };
-
-  window.setCart = function setCart(cart) {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart || []));
-    window.dispatchEvent(new Event('cart:updated'));
-  };
+  if (typeof window.flashAddToCart !== 'function') {
+    window.flashAddToCart = flashAddToCart;
+  }
 })();
+
+
 // Auto-set active nav link based on current page
 (function () {
   // Normalize current page (handle "/" + query + hash)

@@ -456,15 +456,21 @@
     sizeEl.addEventListener('change', function(){ updateImage(); updatePrice(); });
     frameEl.addEventListener('change', function(){ updateImage(); updatePrice(); });
 
-    addBtn.addEventListener('click', function(){
-      const v = buildVariant();
-      addToCartSafe(v.sku, v.name, v.price, 1, {
-        image: imgEl.src,
-        size: v.sizeText,
-        frame: v.frameText,
-        kind: 'wall-art'
-      });
-    });
+  addBtn.addEventListener('click', function(){
+  const v = buildVariant();
+  addToCartSafe(v.sku, v.name, v.price, 1, {
+    image: imgEl.src,
+    size: v.sizeText,
+    frame: v.frameText,
+    kind: 'wall-art'
+  });
+
+  // Trigger the same little blip animation used on all other product cards
+  if (typeof window.flashAddToCart === 'function') {
+    window.flashAddToCart(addBtn);
+  }
+});
+
 
     buyBtn.addEventListener('click', function(){
       const v = buildVariant();
@@ -484,6 +490,5 @@
     window.addEventListener('fc:promo-updated', updatePrice);
   })();
 </script>
-
 </body>
 </html>
