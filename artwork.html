@@ -1,6 +1,4 @@
 
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -285,6 +283,444 @@
     </aside>
 
   </section>
+
+  <!-- INLINE ZOOM / PAN VIEWER -->
+  <section class="artwork-copy-card artwork-zoom-card" aria-label="Explore the AR-15 blueprint up close">
+    <h2>Explore the blueprint up close</h2>
+    <p class="fc-note">
+      Use your mouse wheel to zoom in and out, then click and drag to pan around the full AR-15 blueprint.
+    </p>
+
+    <div class="art-zoom-viewer js-art-zoom-viewer">
+      <img
+        src="assets/img/ar15-blueprint-full-print-zoom.jpeg"
+        alt="Full AR-15 Rifle Blueprint – zoomable"
+        class="art-zoom-image"
+        width="5472"
+        height="4104"
+      >
+    </div>
+  </section>
+
+  
+  <!-- STORY / LONG COPY -->
+  <section class="artwork-copy-card" id="ar15-story">
+    <h2>The AR-15, Eugene Stoner, and this blueprint</h2>
+    <p>
+      This blueprint-style artwork was designed entirely from scratch, the result of countless hours of research and design to ensure that anyone who hangs it on their wall—and anyone who sees it—gains a newfound appreciation for <strong>Eugene Stoner</strong>, the visionary behind the AR platform.
+    </p>
+    <p>
+      The AR-15’s story begins with Stoner’s work at Armalite, where he developed the rifle before Colt Firearms acquired the design for a small royalty. The name “AR” stands for <strong>Armalite Rifle</strong>, a detail often overlooked. This piece not only showcases the intricate technical details of the AR-15 but also honors its history, giving Eugene Stoner the recognition he deserves.
+    </p>
+    <p>
+      While searching for an AR-15 blueprint, you’ll find a lot of designs that look cool but don’t really tell the story—missing the specs, the engineering, and the rich history behind this legendary firearm. That’s what inspired this piece: something that pulls it all together in one place.
+    </p>
+
+    <h3>What’s on the blueprint</h3>
+    <ul>
+      <li>Detailed schematic design with labeled components and measurements.</li>
+      <li>Bullet velocity callouts and key technical specs.</li>
+      <li>Historical notes that give Eugene Stoner his well-earned credit.</li>
+      <li>Clean, modern blueprint aesthetic designed to look sharp framed on any wall.</li>
+    </ul>
+
+    <h3>Perfect for</h3>
+    <ul>
+      <li><strong>Man Caves &amp; Gun Rooms</strong> – a bold statement piece and instant conversation starter.</li>
+      <li><strong>Gifts for Gun Owners</strong> – husbands, dads, veterans, and friends who love firearms.</li>
+      <li><strong>Office or Workshop Decor</strong> – subtle but unmistakably pro-2A and patriotic.</li>
+    </ul>
+
+    <h3>Print &amp; framing details</h3>
+    <ul>
+      <li>Available in three sizes: 12×16, 16×20, and 18×24.</li>
+      <li>Three frame options: black, red oak, or white.</li>
+      <li>Printed on premium-quality matte paper for a sharp, vibrant finish.</li>
+      <li>Made to order and shipped securely so it arrives ready to hang.</li>
+    </ul>
+
+    <p class="muted">
+      This product is made especially for you as soon as you place an order, which is why it takes a bit longer to deliver.
+      Making products on demand instead of in bulk helps reduce overproduction, so thank you for making thoughtful purchasing decisions.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="badge">US Veteran-Inspired • Florida-Built</span>
+  </div>
+</footer>
+
+<!-- Scripts needed for cart + promo logic (same stack you tested) -->
+<script src="assets/js/config.js"></script>
+<script src="assets/js/util.js" defer></script>
+<script src="assets/js/inventory.js" defer></script>
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+
+<!-- AR-15 artwork page logic (unchanged from the working version) -->
+<script>
+  (function(){
+    const IMG = {
+      "18x24:black":  "assets/img/ar15-blueprint-black-18x24.jpg",
+      "16x20:black":  "assets/img/ar15-blueprint-black-16x20.jpg",
+      "12x16:black":  "assets/img/ar15-blueprint-black-12x16.jpg",
+      "18x24:redoak": "assets/img/ar15-blueprint-redoak-18x24.jpg",
+      "16x20:redoak": "assets/img/ar15-blueprint-redoak-16x20.jpg",
+      "12x16:redoak": "assets/img/ar15-blueprint-redoak-12x16.jpg",
+      "18x24:white":  "assets/img/ar15-blueprint-white-18x24.jpg",
+      "16x20:white":  "assets/img/ar15-blueprint-white-16x20.jpg",
+      "12x16:white":  "assets/img/ar15-blueprint-white-12x16.jpg"
+    };
+
+    const SIZE_PRICE = {
+      "12x16": 45,
+      "16x20": 55,
+      "18x24": 65
+    };
+
+    const imgEl   = document.getElementById('ar15-image');
+    const sizeEl  = document.getElementById('ar15-size');
+    const frameEl = document.getElementById('ar15-frame');
+    const priceEl = document.getElementById('ar15-price');
+    const saleEl  = document.getElementById('ar15-sale');
+    const addBtn  = document.getElementById('ar15-add');
+    const buyBtn  = document.getElementById('ar15-buy');
+
+    if (!imgEl || !sizeEl || !frameEl || !priceEl || !addBtn || !buyBtn) return;
+
+    const fmt = n => '$' + Number(n).toFixed(2);
+    const slug = s => String(s).toLowerCase()
+      .replace(/[^a-z0-9]+/g,'-')
+      .replace(/(^-|-$)/g,'');
+
+    // Sitewide promo only (no coupons)
+    function applySitewidePromo(raw){
+      const cfg = window.FC_PROMO || {};
+      const pct = Number(cfg.percentOff) || 0;
+      const hasHelper = (typeof window.FC_isPromoActiveNow === 'function');
+      const active    = hasHelper ? window.FC_isPromoActiveNow() : !!cfg.active;
+      if (!active || pct <= 0) return raw;
+      const discounted = raw * (1 - pct / 100);
+      return Math.round(discounted * 100) / 100;
+    }
+
+    function updateImage(){
+      const key = sizeEl.value + ':' + frameEl.value;
+      const src = IMG[key] || IMG['18x24:black'];
+
+      const sizeText  = sizeEl.options[sizeEl.selectedIndex]?.text || sizeEl.value;
+      const frameText = frameEl.options[frameEl.selectedIndex]?.text || frameEl.value;
+
+      imgEl.classList.add('is-loading');
+      const tmp = new Image();
+      tmp.onload = function(){
+        imgEl.src = src;
+        imgEl.alt = 'AR-15 Rifle Blueprint Wall Art — ' + sizeText + ', ' + frameText;
+        requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
+      };
+      tmp.src = src;
+    }
+
+    function updatePrice(){
+      const base = SIZE_PRICE[sizeEl.value] || 0;
+      const final = applySitewidePromo(base);
+      priceEl.textContent = fmt(final);
+
+      const hasHelper = (typeof window.FC_isPromoActiveNow === 'function');
+      const active    = hasHelper ? window.FC_isPromoActiveNow() : !!(window.FC_PROMO && window.FC_PROMO.active);
+      const onSale    = active && final < base;
+
+      if (saleEl) {
+        saleEl.hidden = !onSale;
+        if (onSale && window.FC_PROMO?.label) {
+          saleEl.title = window.FC_PROMO.label;
+        } else {
+          saleEl.removeAttribute('title');
+        }
+      }
+    }
+
+    function buildVariant(){
+      const sizeText  = sizeEl.options[sizeEl.selectedIndex]?.text || sizeEl.value;
+      const frameText = frameEl.options[frameEl.selectedIndex]?.text || frameEl.value;
+      const price = Number(priceEl.textContent.replace(/[^0-9.]/g,'')) || 0;
+
+      const sku  = 'ar15-blueprint-' + slug(sizeEl.value) + '-' + slug(frameEl.value);
+      const name = 'AR-15 Rifle Blueprint Wall Art — ' + sizeText + ' • ' + frameText;
+
+      return { sku, name, price, sizeText, frameText };
+    }
+
+    function addToCartSafe(sku, name, price, qty, meta){
+      if (typeof window.addToCart === 'function') {
+        window.addToCart(sku, name, price, qty, meta);
+      } else {
+        console.warn('addToCart not ready');
+      }
+    }
+
+    function buyNowSafe(sku, name, price, qty, meta){
+      if (typeof window.buyNow === 'function') {
+        window.buyNow(sku, name, price, qty, meta);
+      } else {
+        console.warn('buyNow not ready');
+      }
+    }
+
+    sizeEl.addEventListener('change', function(){ updateImage(); updatePrice(); });
+    frameEl.addEventListener('change', function(){ updateImage(); updatePrice(); });
+
+  addBtn.addEventListener('click', function(){
+  const v = buildVariant();
+  addToCartSafe(v.sku, v.name, v.price, 1, {
+    image: imgEl.src,
+    size: v.sizeText,
+    frame: v.frameText,
+    kind: 'wall-art'
+  });
+
+  // Trigger the same little blip animation used on all other product cards
+  if (typeof window.flashAddToCart === 'function') {
+    window.flashAddToCart(addBtn);
+  }
+});
+
+
+    buyBtn.addEventListener('click', function(){
+      const v = buildVariant();
+      buyNowSafe(v.sku, v.name, v.price, 1, {
+        image: imgEl.src,
+        size: v.sizeText,
+        frame: v.frameText,
+        kind: 'wall-art'
+      });
+    });
+
+    // Initial render
+    updateImage();
+    updatePrice();
+
+    // Recalc if promo toggles
+       window.addEventListener('fc:promo-updated', updatePrice);
+  })();
+</script>
+
+<!-- Fly-to-cart animation for the AR-15 artwork page -->
+<script>
+  (function () {
+    const CART_LINK_SEL  = '.nav .cart-link';
+    const CART_COUNT_SEL = '.nav .cart-link .cart-count';
+    const INCREMENT_BADGE = false; // cart.js controls badge count
+
+    function updateCartCount(qty) {
+      if (!INCREMENT_BADGE) return;
+      const badge = document.querySelector(CART_COUNT_SEL);
+      if (!badge) return;
+      const current = parseInt(badge.textContent || '0', 10) || 0;
+      badge.textContent = current + (qty || 1);
+    }
+
+    function flyToCart(fromEl, qty) {
+      const cartLink = document.querySelector(CART_LINK_SEL);
+      if (!fromEl || !cartLink) {
+        updateCartCount(qty);
+        return;
+      }
+
+      const badge = document.querySelector(CART_COUNT_SEL) || cartLink;
+
+      const fromRect   = fromEl.getBoundingClientRect();
+      const targetRect = badge.getBoundingClientRect();
+
+      const startX = fromRect.left + fromRect.width / 2;
+      const startY = fromRect.top  + fromRect.height / 2;
+      const endX   = targetRect.left + targetRect.width / 2;
+      const endY   = targetRect.top  + targetRect.height / 2;
+
+      const dx = endX - startX;
+      const dy = endY - startY;
+
+      const flyer = document.createElement('div');
+      flyer.className = 'fly-to-cart';
+      flyer.innerHTML = '<span class="fly-dot">+' + (qty || 1) + '</span>';
+
+      Object.assign(flyer.style, {
+        position: 'fixed',
+        left: (startX - 20) + 'px',
+        top: (startY - 20) + 'px',
+        width: '40px',
+        height: '40px',
+        borderRadius: '9999px',
+        pointerEvents: 'none',
+        zIndex: 9999
+      });
+
+           // Start position variables for CSS transform
+      flyer.style.setProperty('--fx', '0px');
+      flyer.style.setProperty('--fy', '0px');
+      flyer.style.setProperty('--dx', dx + 'px');
+      flyer.style.setProperty('--dy', dy + 'px');
+
+      // No custom transition here – let CSS .fly-to-cart control timing
+      document.body.appendChild(flyer);
+
+
+// Let the +1 bubble pop/hover briefly before it starts flying
+setTimeout(function () {
+  flyer.classList.add('end');
+}, 400); // try 400–600ms for a nice pause
+
+
+      flyer.addEventListener(
+        'transitionend',
+        function () {
+          flyer.remove();
+          updateCartCount(qty);
+          cartLink.classList.add('cart-pop');
+          setTimeout(function () {
+            cartLink.classList.remove('cart-pop');
+          }, 350);
+        },
+        { once: true }
+      );
+    }
+
+    // Called by your existing AR-15 add button logic:
+    window.flashAddToCart = function (triggerEl, qtyOverride) {
+      var qty = Number.isFinite(qtyOverride) ? qtyOverride : 1;
+      flyToCart(triggerEl || document.body, qty);
+    };
+  })();
+</script>
+<!-- Inline zoom / pan logic for artwork viewer (mouse + touch) -->
+<script>
+  (function () {
+    const viewers = document.querySelectorAll('.js-art-zoom-viewer');
+    if (!viewers.length) return;
+
+    viewers.forEach(function (viewer) {
+      const img = viewer.querySelector('.art-zoom-image');
+      if (!img) return;
+
+      let scale     = 1;
+      const minScale = 1;
+      const maxScale = 4;
+
+      let posX = 0;
+      let posY = 0;
+
+      let startX = 0;
+      let startY = 0;
+      let isDragging = false;
+
+      // Pinch state
+      let isPinching = false;
+      let pinchStartDist = 0;
+      let pinchStartScale = 1;
+
+      function applyTransform() {
+        img.style.transform =
+          'translate(' + posX + 'px,' + posY + 'px) scale(' + scale + ')';
+      }
+
+      /* ---- MOUSE: wheel zoom ---- */
+      viewer.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.15 : -0.15;
+        scale = Math.min(maxScale, Math.max(minScale, scale + delta));
+        applyTransform();
+      }, { passive: false });
+
+      /* ---- MOUSE: drag pan ---- */
+      function onMouseDown(e) {
+        e.preventDefault();
+        isDragging = true;
+        viewer.classList.add('dragging');
+        startX = e.clientX - posX;
+        startY = e.clientY - posY;
+      }
+
+      function onMouseMove(e) {
+        if (!isDragging || isPinching) return;
+        posX = e.clientX - startX;
+        posY = e.clientY - startY;
+        applyTransform();
+      }
+
+      function onMouseUp() {
+        if (!isDragging) return;
+        isDragging = false;
+        viewer.classList.remove('dragging');
+      }
+
+      img.addEventListener('mousedown', onMouseDown);
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+
+      /* ---- TOUCH HELPERS ---- */
+      function distance(t1, t2) {
+        const dx = t2.clientX - t1.clientX;
+        const dy = t2.clientY - t1.clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      /* ---- TOUCH: start (one-finger drag or two-finger pinch) ---- */
+      viewer.addEventListener('touchstart', function (e) {
+        if (e.touches.length === 1) {
+          // single-finger drag
+          const t = e.touches[0];
+          isDragging = true;
+          isPinching = false;
+          viewer.classList.add('dragging');
+          startX = t.clientX - posX;
+          startY = t.clientY - posY;
+        } else if (e.touches.length === 2) {
+          // pinch to zoom
+          isDragging = false;
+          viewer.classList.remove('dragging');
+          isPinching = true;
+          pinchStartDist = distance(e.touches[0], e.touches[1]);
+          pinchStartScale = scale;
+        }
+      }, { passive: false });
+
+      /* ---- TOUCH: move ---- */
+      viewer.addEventListener('touchmove', function (e) {
+        if (isPinching && e.touches.length === 2) {
+          e.preventDefault();
+          const newDist = distance(e.touches[0], e.touches[1]);
+          const factor = newDist / (pinchStartDist || newDist);
+          scale = Math.min(maxScale, Math.max(minScale, pinchStartScale * factor));
+          applyTransform();
+        } else if (isDragging && e.touches.length === 1) {
+          e.preventDefault();
+          const t = e.touches[0];
+          posX = t.clientX - startX;
+          posY = t.clientY - startY;
+          applyTransform();
+        }
+      }, { passive: false });
+
+      /* ---- TOUCH: end / cancel ---- */
+      function endTouch() {
+        isDragging = false;
+        isPinching = false;
+        viewer.classList.remove('dragging');
+      }
+
+      viewer.addEventListener('touchend', endTouch);
+      viewer.addEventListener('touchcancel', endTouch);
+    });
+  })();
+</script>
+
+
+</body>
+</html>
+
 
   <!-- STORY / LONG COPY -->
   <section class="artwork-copy-card" id="ar15-story">
