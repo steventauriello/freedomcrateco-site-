@@ -137,6 +137,14 @@
     height: 300px;
   }
 }
+.art-zoom-viewer img{
+  max-width: none;
+  display: block;
+  cursor: grab;
+}
+.art-zoom-viewer img:active{
+  cursor: grabbing;
+}
 
 
   </style>
@@ -294,7 +302,7 @@
 <button
   type="button"
   class="fc-btn btn btn-outline js-view-artwork"
-  data-view="assets/img/ar15-blueprint-full-print-zoom-master.jpeg"
+  data-view="/assets/img/ar15-blueprint-full-print-zoom-master.jpeg"
   data-title="AR-15 Blueprint"
 >
   View Up Close
@@ -335,7 +343,7 @@
 
    <div class="art-zoom-viewer js-art-zoom-viewer tiny-zoom-container">
   <img
-    src="assets/img/ar15-blueprint-full-print-zoom-master.jpeg"
+    src="/assets/img/ar15-blueprint-full-print-zoom-master.jpeg"
     alt="Full AR-15 Rifle Blueprint – zoomable"
     class="art-zoom-image tiny-zoom-target"
     width="5472"
@@ -638,8 +646,7 @@ setTimeout(function () {
     };
   })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/tiny-zoom/dist/tiny-zoom.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -649,19 +656,38 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  function initZoom(img) {
-    if (typeof tinyZoom !== "function") {
-      console.warn("tinyZoom not loaded");
-      return;
-    }
+  let pz;
 
-    tinyZoom(img, {
-      wheelZoom: true,
-      pinchZoom: true,
-      dragPan: true,
-      maxScale: 6
+function initZoom(img) {
+  if (typeof Panzoom !== "function") {
+    console.warn("Panzoom not loaded");
+    return;
+  }
+
+  // Destroy previous instance (important when swapping images)
+  if (pz && typeof pz.destroy === "function") {
+    pz.destroy();
+  }
+
+  // Allow image to exceed container so panning works
+  img.style.maxWidth = "none";
+  img.style.maxHeight = "none";
+
+  // Create Panzoom instance
+  pz = Panzoom(img, {
+    maxScale: 6,
+    contain: "outside"
+  });
+
+  // Enable wheel zoom on the viewer window
+  const viewerWrap = img.closest(".js-art-zoom-viewer");
+  if (viewerWrap) {
+    viewerWrap.addEventListener("wheel", pz.zoomWithWheel, {
+      passive: false
     });
   }
+}
+
 
   function setViewer(src, title) {
     const oldImg = viewerWrap.querySelector("img");
@@ -684,7 +710,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize zoom on page load
   const initialImg = viewerWrap.querySelector("img");
-  if (initialImg) initZoom(initialImg);
+  if (initialImg) {
+  if (initialImg.complete) {
+    initZoom(initialImg);
+  } else {
+    initialImg.addEventListener("load", () => initZoom(initialImg), { once: true });
+    initialImg.addEventListener("error", () => {
+  console.warn("Zoom image failed to load:", initialImg.src);
+}, { once: true });
+
+  }
+}
+
 
   // View Up Close buttons on product cards
   document.querySelectorAll(".js-view-artwork").forEach(btn => {
