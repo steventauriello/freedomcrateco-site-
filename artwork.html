@@ -107,6 +107,38 @@
     .artwork-meta-list {
       margin:.75rem 0 0 1.25rem;
     }
+/* TinyZoom required styles */
+.tiny-zoom-container {
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.tiny-zoom-target {
+  transform-origin: 0 0;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+/* Main viewer "window" sizing */
+.art-zoom-viewer{
+  max-width: 900px;     /* window width on desktop */
+  height: 420px;        /* window height */
+  margin: 0 auto;       /* center it */
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.25);
+}
+
+/* Mobile: make it shorter so it doesn't dominate */
+@media (max-width: 900px){
+  .art-zoom-viewer{
+    max-width: 100%;
+    height: 300px;
+  }
+}
+
+
   </style>
 
   <!-- Optional: Org JSON-LD like About page -->
@@ -258,6 +290,16 @@
             <button id="ar15-buy" class="fc-btn btn" type="button">Buy Now</button>
           </div>
 
+<!-- View artwork in main zoom viewer -->
+<button
+  type="button"
+  class="fc-btn btn btn-outline js-view-artwork"
+  data-view="assets/img/ar-15-blueprint-full-print-zoom-master.jpeg"
+  data-title="AR-15 Blueprint"
+>
+  View Up Close
+</button>
+
           <p class="fc-note">
             Printed on demand and shipped securely in protective packaging.
           </p>
@@ -291,18 +333,19 @@
       Use your mouse wheel to zoom in and out, then click and drag to pan around the full AR-15 blueprint.
     </p>
 
-    <div class="art-zoom-viewer js-art-zoom-viewer">
-      <img
-        src="assets/img/ar15-blueprint-full-print-zoom.jpeg"
-        alt="Full AR-15 Rifle Blueprint – zoomable"
-        class="art-zoom-image"
-        width="5472"
-        height="4104"
-      >
-    </div>
+   <div class="art-zoom-viewer js-art-zoom-viewer tiny-zoom-container">
+  <img
+    src="assets/img/ar-15-blueprint-full-print-zoom-master.jpeg"
+    alt="Full AR-15 Rifle Blueprint – zoomable"
+    class="art-zoom-image tiny-zoom-target"
+    width="5472"
+    height="4104"
+  >
+</div>
+
   </section>
 
-  
+
   <!-- STORY / LONG COPY -->
   <section class="artwork-copy-card" id="ar15-story">
     <h2>The AR-15, Eugene Stoner, and this blueprint</h2>
@@ -595,128 +638,74 @@ setTimeout(function () {
     };
   })();
 </script>
-<!-- Inline zoom / pan logic for artwork viewer (mouse + touch) -->
+<script src="https://cdn.jsdelivr.net/npm/tiny-zoom/dist/tiny-zoom.min.js"></script>
+
 <script>
-  (function () {
-    const viewers = document.querySelectorAll('.js-art-zoom-viewer');
-    if (!viewers.length) return;
+document.addEventListener("DOMContentLoaded", function () {
 
-    viewers.forEach(function (viewer) {
-      const img = viewer.querySelector('.art-zoom-image');
-      if (!img) return;
+  const viewerWrap = document.querySelector(".js-art-zoom-viewer");
+  if (!viewerWrap) {
+    console.warn("Artwork viewer not found");
+    return;
+  }
 
-      let scale     = 1;
-      const minScale = 1;
-      const maxScale = 4;
+  function initZoom(img) {
+    if (typeof tinyZoom !== "function") {
+      console.warn("tinyZoom not loaded");
+      return;
+    }
 
-      let posX = 0;
-      let posY = 0;
-
-      let startX = 0;
-      let startY = 0;
-      let isDragging = false;
-
-      // Pinch state
-      let isPinching = false;
-      let pinchStartDist = 0;
-      let pinchStartScale = 1;
-
-      function applyTransform() {
-        img.style.transform =
-          'translate(' + posX + 'px,' + posY + 'px) scale(' + scale + ')';
-      }
-
-      /* ---- MOUSE: wheel zoom ---- */
-      viewer.addEventListener('wheel', function (e) {
-        e.preventDefault();
-        const delta = e.deltaY < 0 ? 0.15 : -0.15;
-        scale = Math.min(maxScale, Math.max(minScale, scale + delta));
-        applyTransform();
-      }, { passive: false });
-
-      /* ---- MOUSE: drag pan ---- */
-      function onMouseDown(e) {
-        e.preventDefault();
-        isDragging = true;
-        viewer.classList.add('dragging');
-        startX = e.clientX - posX;
-        startY = e.clientY - posY;
-      }
-
-      function onMouseMove(e) {
-        if (!isDragging || isPinching) return;
-        posX = e.clientX - startX;
-        posY = e.clientY - startY;
-        applyTransform();
-      }
-
-      function onMouseUp() {
-        if (!isDragging) return;
-        isDragging = false;
-        viewer.classList.remove('dragging');
-      }
-
-      img.addEventListener('mousedown', onMouseDown);
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
-
-      /* ---- TOUCH HELPERS ---- */
-      function distance(t1, t2) {
-        const dx = t2.clientX - t1.clientX;
-        const dy = t2.clientY - t1.clientY;
-        return Math.sqrt(dx * dx + dy * dy);
-      }
-
-      /* ---- TOUCH: start (one-finger drag or two-finger pinch) ---- */
-      viewer.addEventListener('touchstart', function (e) {
-        if (e.touches.length === 1) {
-          // single-finger drag
-          const t = e.touches[0];
-          isDragging = true;
-          isPinching = false;
-          viewer.classList.add('dragging');
-          startX = t.clientX - posX;
-          startY = t.clientY - posY;
-        } else if (e.touches.length === 2) {
-          // pinch to zoom
-          isDragging = false;
-          viewer.classList.remove('dragging');
-          isPinching = true;
-          pinchStartDist = distance(e.touches[0], e.touches[1]);
-          pinchStartScale = scale;
-        }
-      }, { passive: false });
-
-      /* ---- TOUCH: move ---- */
-      viewer.addEventListener('touchmove', function (e) {
-        if (isPinching && e.touches.length === 2) {
-          e.preventDefault();
-          const newDist = distance(e.touches[0], e.touches[1]);
-          const factor = newDist / (pinchStartDist || newDist);
-          scale = Math.min(maxScale, Math.max(minScale, pinchStartScale * factor));
-          applyTransform();
-        } else if (isDragging && e.touches.length === 1) {
-          e.preventDefault();
-          const t = e.touches[0];
-          posX = t.clientX - startX;
-          posY = t.clientY - startY;
-          applyTransform();
-        }
-      }, { passive: false });
-
-      /* ---- TOUCH: end / cancel ---- */
-      function endTouch() {
-        isDragging = false;
-        isPinching = false;
-        viewer.classList.remove('dragging');
-      }
-
-      viewer.addEventListener('touchend', endTouch);
-      viewer.addEventListener('touchcancel', endTouch);
+    tinyZoom(img, {
+      wheelZoom: true,
+      pinchZoom: true,
+      dragPan: true,
+      maxScale: 6
     });
-  })();
-</script>
+  }
 
+  function setViewer(src, title) {
+    const oldImg = viewerWrap.querySelector("img");
+    if (!oldImg) return;
+
+    // Clone wipes TinyZoom state clean
+    const newImg = oldImg.cloneNode(true);
+    newImg.src = src;
+    newImg.alt = (title || "Artwork") + " – zoomable";
+
+    oldImg.replaceWith(newImg);
+    initZoom(newImg);
+
+    // Bring user to viewer
+    viewerWrap.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  // Initialize zoom on page load
+  const initialImg = viewerWrap.querySelector("img");
+  if (initialImg) initZoom(initialImg);
+
+  // View Up Close buttons on product cards
+  document.querySelectorAll(".js-view-artwork").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const src = btn.getAttribute("data-view");
+      const title = btn.getAttribute("data-title");
+      if (src) setViewer(src, title);
+    });
+  });
+
+  // Optional: gallery thumbnail selectors
+  document.querySelectorAll(".js-artwork-thumb").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const src = btn.getAttribute("data-full");
+      const title = btn.getAttribute("data-title");
+      if (src) setViewer(src, title);
+    });
+  });
+
+});
+</script>
 
 </body>
 </html>
