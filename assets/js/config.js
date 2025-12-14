@@ -114,27 +114,26 @@ window.FC_initPromoTimestamp = function () {
 // ================================
 window.FC_isPromoActiveNow = function () {
   const cfg = window.FC_PROMO;
-
-  // Manual switch OFF → always OFF
-  if (!cfg.active) return false;
+  if (!cfg || !cfg.active) return false;
 
   const now = new Date();
 
-  // ✅ If a fixed end date is set, use that
+  // Fixed end date mode
   if (cfg.endsAt) {
     const end = new Date(cfg.endsAt);
     return now < end;
   }
 
-  // 🔙 Fallback: old autoExpireDays logic if no endsAt
-  if (!cfg._activatedAt) {
-    cfg._activatedAt = new Date().toISOString();
-    return true;
-  }
+  // Auto-expire mode (12 days from activation)
+  const days = Number(cfg.autoExpireDays || 0);
+  if (!days) return true; // no duration set = treat as on
+
+  // IMPORTANT: do NOT set _activatedAt here (no resets!)
+  if (!cfg._activatedAt) return true; // banner can show; countdown code should hide if missing
 
   const activatedAt = new Date(cfg._activatedAt);
   const msSince = now - activatedAt;
-  const msLimit = cfg.autoExpireDays * 24 * 60 * 60 * 1000;
+  const msLimit = days * 24 * 60 * 60 * 1000;
 
   return msSince <= msLimit;
 };
