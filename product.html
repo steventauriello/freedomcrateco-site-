@@ -278,43 +278,32 @@ media.forEach((m, i) => {
   thumbs.appendChild(t);
 });
 
+// Unified arrow + thumbnail navigation
+const prevBtn = document.querySelector('.gallery .gallery-arrow.prev');
+const nextBtn = document.querySelector('.gallery .gallery-arrow.next');
+let idx = 0;
 
-    // Arrow / cycling controls
-    const prevBtn = document.querySelector('.gallery .gallery-arrow.prev');
-    const nextBtn = document.querySelector('.gallery .gallery-arrow.next');
-    const thumbEls = Array.from(thumbs.querySelectorAll('img'));
-    let idx = 0;
+function showAt(i){
+  const n = media.length;
+  if (!n) return;
+  idx = (i % n + n) % n;
 
-    function show(i){
-      const n = thumbEls.length;
-      if (!n) return;
-      idx = (i % n + n) % n;
-      const t = thumbEls[idx];
-      const src = t.dataset.full || t.src;
-      const alt = t.alt || `Photo ${idx+1}`;
-      const tmp = new Image();
-      tmp.onload = () => { setHero(src, alt); };
-      tmp.src = src;
-      thumbEls.forEach((el,j) => el.classList.toggle('is-active', j === idx));
-    }
+  const m = media[idx];
+  if (m.kind === 'youtube') showVideo(m.id);
+  else showImage(m.src, P.title);
 
-    if (prevBtn && nextBtn && thumbEls.length){
-      prevBtn.addEventListener('click', () => show(idx - 1));
-      nextBtn.addEventListener('click', () => show(idx + 1));
+  Array.from(thumbs.children).forEach((el,j) =>
+    el.classList.toggle('is-active', j === idx)
+  );
+}
 
-      // keyboard support (left/right) when gallery has focus
-      const galleryEl = document.querySelector('.gallery');
-      if (galleryEl) {
-        galleryEl.setAttribute('tabindex','0');
-        galleryEl.addEventListener('keydown', (e) => {
-          if (e.key === 'ArrowLeft')  { e.preventDefault(); show(idx - 1); }
-          if (e.key === 'ArrowRight') { e.preventDefault(); show(idx + 1); }
-        });
-      }
+if (prevBtn && nextBtn && media.length){
+  prevBtn.addEventListener('click', () => showAt(idx - 1));
+  nextBtn.addEventListener('click', () => showAt(idx + 1));
+}
 
-      // init
-      show(0);
-    }
+// Init
+showAt(0);
 
     // Stock badge
     let qty = Number(P.qty ?? 0);
