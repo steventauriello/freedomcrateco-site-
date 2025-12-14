@@ -68,15 +68,15 @@ window.getStripeLinkForCart = function(cartItems){
 // Sitewide Promo / Discount Config
 // ================================
 window.FC_PROMO = {
-  active: false,               // turn sale on/off
+  active: true,               // turn sale on/off
   percentOff: 15,             // how much off
-  label: "HOLIDAY SALE — 15% Off All Ammo Boxes!",
+  label: "12 DAYS OF CHRISTMAS — 15% Off Sitewide",
 
   // ❌ Don't use a fixed end date for normal sales
   // endsAt: "",              // leave this blank or remove it
 
   // ✅ Use “how many days from start”
-  autoExpireDays: 4,          // sale lasts 4 days
+  autoExpireDays: 12,          // sale lasts 12 days
 
   _activatedAt: null          // let the code set this on first load
 };

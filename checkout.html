@@ -161,14 +161,10 @@
 
   <main class="container cart-wrap" id="main">
     <h1>Your Cart</h1>
-    <!-- Free Shipping callout -->
-<div class="free-ship-callout" role="note" aria-label="Free shipping">
-  <span class="free-ship-icon" aria-hidden="true">🚚</span>
-  <div>
-    <strong>Free Shipping</strong> on all orders — no minimum.
-    <span class="free-ship-sub">Tracked delivery via USPS.</span>
-  </div>
-</div>
+    <p class="shipping-note">
+  Free shipping on all orders · Tracked via USPS
+</p>
+
 
     <div id="cartContainer" class="cart-card" aria-live="polite"></div>
 
@@ -186,7 +182,7 @@
       type="text"
       id="checkoutPromoInput"
       name="promo"
-      placeholder="Promo / gift code (e.g., FREEDOM1776)"
+      placeholder="Promo / gift code"
       aria-label="Promo code"
     />
     <button type="submit" class="btn small">Apply</button>
