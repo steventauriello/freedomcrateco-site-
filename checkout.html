@@ -96,6 +96,48 @@
   .stripe-btn {
     width: 100%;        /* button fills container */
   }
+/* === Promo Code Emphasis === */
+.promo-area {
+  margin-top: 1rem;
+}
+
+.promo-form {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  padding: .75rem;
+  border: 1.5px solid rgba(255,255,255,.85);
+  border-radius: .6rem;
+  background: rgba(255,255,255,.03);
+
+  max-width: 460px;   /* 👈 controls width */
+  margin: 0 auto;     /* 👈 centers it */
+}
+
+
+.promo-form input {
+  flex: 1;
+  min-width: 0; /* allows flex input to shrink correctly */
+  padding: .55rem .6rem;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: .35rem;
+  color: #fff;
+}
+
+.promo-form input::placeholder {
+  color: rgba(255,255,255,.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.promo-message {
+  margin-top: .35rem;
+  font-size: .9rem;
+  opacity: .85;
+}
+
 </style>
 </head>
 <body>
@@ -144,7 +186,7 @@
       type="text"
       id="checkoutPromoInput"
       name="promo"
-      placeholder="Have a promo code? Enter it here (e.g., FREEDOM1776)"
+      placeholder="Promo / gift code (e.g., FREEDOM1776)"
       aria-label="Promo code"
     />
     <button type="submit" class="btn small">Apply</button>
