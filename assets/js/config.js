@@ -72,13 +72,9 @@ window.FC_PROMO = {
   percentOff: 15,             // how much off
   label: "12 DAYS OF CHRISTMAS — 15% Off Sitewide",
 
-  // ❌ Don't use a fixed end date for normal sales
-  // endsAt: "",              // leave this blank or remove it
-
-  // ✅ Use “how many days from start”
-  autoExpireDays: 12,          // sale lasts 12 days
-
-  _activatedAt: null          // let the code set this on first load
+  // ONE global end moment for everyone
+  // Ends at 11:59:59 PM Eastern on Christmas Day
+  endsAt: "2025-12-26T04:59:59.000Z"
 };
 
 
@@ -155,8 +151,7 @@ window.FC_applyPromo = function (price) {
   return Math.round(discounted * 100) / 100;
 };
 
-// Run timestamp initializer
-window.FC_initPromoTimestamp();
+// window.FC_initPromoTimestamp(); // not used for fixed-end sales
 
 // Notify page scripts
 window.dispatchEvent(new CustomEvent('fc:promo-updated'));
