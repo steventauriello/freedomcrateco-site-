@@ -95,6 +95,24 @@
     font-size: .95rem;
     opacity: .9;
   }
+
+/* Branch Collection image links */
+.branch-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.branch-link img {
+  border-radius: .4rem;
+  transition: transform .15s ease, filter .15s ease;
+}
+
+.branch-link:hover img {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
 </style>
 
 
@@ -143,27 +161,42 @@
     </p>
 
     <div class="gallery-grid improved-grid">
-      <figure>
-        <img src="assets/img/army.jpg" alt="Army Branch Collection ammo box">
-        <figcaption>U.S. Army</figcaption>
-      </figure>
-      <figure>
-        <img src="assets/img/navy.jpg" alt="Navy Branch Collection ammo box">
-        <figcaption>U.S. Navy</figcaption>
-      </figure>
-      <figure>
-        <img src="assets/img/marines.jpg" alt="Marine Corps Branch Collection ammo box">
-        <figcaption>U.S. Marine Corps</figcaption>
-      </figure>
-      <figure>
-        <img src="assets/img/airforce.jpg" alt="Air Force Branch Collection ammo box">
-        <figcaption>U.S. Air Force</figcaption>
-      </figure>
-      <figure>
-        <img src="assets/img/coastguard.jpg" alt="Coast Guard Branch Collection ammo box">
-        <figcaption>U.S. Coast Guard</figcaption>
-      </figure>
-    </div>
+  <figure>
+    <a href="/#classic-box" class="branch-link" aria-label="Shop Branch Collection — U.S. Army">
+      <img src="assets/img/army.jpg" alt="Army Branch Collection ammo box">
+      <figcaption>U.S. Army</figcaption>
+    </a>
+  </figure>
+
+  <figure>
+    <a href="/#classic-box" class="branch-link" aria-label="Shop Branch Collection — U.S. Navy">
+      <img src="assets/img/navy.jpg" alt="Navy Branch Collection ammo box">
+      <figcaption>U.S. Navy</figcaption>
+    </a>
+  </figure>
+
+  <figure>
+    <a href="/#classic-box" class="branch-link" aria-label="Shop Branch Collection — U.S. Marine Corps">
+      <img src="assets/img/marines.jpg" alt="Marine Corps Branch Collection ammo box">
+      <figcaption>U.S. Marine Corps</figcaption>
+    </a>
+  </figure>
+
+  <figure>
+    <a href="/#classic-box" class="branch-link" aria-label="Shop Branch Collection — U.S. Air Force">
+      <img src="assets/img/airforce.jpg" alt="Air Force Branch Collection ammo box">
+      <figcaption>U.S. Air Force</figcaption>
+    </a>
+  </figure>
+
+  <figure>
+    <a href="/#classic-box" class="branch-link" aria-label="Shop Branch Collection — U.S. Coast Guard">
+      <img src="assets/img/coastguard.jpg" alt="Coast Guard Branch Collection ammo box">
+      <figcaption>U.S. Coast Guard</figcaption>
+    </a>
+  </figure>
+</div>
+
   </section>
 </main>
 
