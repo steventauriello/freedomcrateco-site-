@@ -48,15 +48,19 @@
     .gallery-arrow.next{ right: 8px; }
     .gallery .thumbs img.is-active{ outline: 2px solid var(--brand); outline-offset: 2px; }
   
-/* Product video iframe */
+/* === Product overview video (constrained + vertical) === */
+.pd-video-wrap{
+  max-width: 420px;          /* controls video size */
+  margin: 20px auto 0;       /* center under gallery */
+}
+
 .pd-video{
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 9 / 16;      /* vertical / Shorts */
   border: 0;
   border-radius: 10px;
   background: #000;
   display: block;
-  margin-bottom: 10px;
 }
 
 /* Video thumb marker */
