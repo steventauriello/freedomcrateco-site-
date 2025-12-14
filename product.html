@@ -47,7 +47,24 @@
     .gallery-arrow.prev{ left: 8px; }
     .gallery-arrow.next{ right: 8px; }
     .gallery .thumbs img.is-active{ outline: 2px solid var(--brand); outline-offset: 2px; }
-  </style>
+  
+/* Product video iframe */
+.pd-video{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 10px;
+  background: #000;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Video thumb marker */
+.gallery .thumbs img.is-video{
+  outline: 2px solid rgba(255,255,255,.25);
+}
+
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -197,19 +214,70 @@ if (!P) {
     priceEl.textContent = '$' + Number(P.price || 0).toFixed(2);
     if (P.note) noteEl.textContent = P.note;
 
-    // Images
-    const imgs = toImgArray(P.images);
-    if (!imgs.length) imgs.push(ensurePath(P.image_url));
-    const setHero = (src, alt) => { hero.src = src; hero.alt = alt || P.title; };
-    setHero(imgs[0], P.title);
+    // Media (video + images)
+const media = [];
 
-    thumbs.innerHTML = '';
-    imgs.forEach((src, i) => {
-      const t = document.createElement('img');
-      t.src = src; t.alt = `${P.title} ${i+1}`;
-      t.addEventListener('click', () => show(i));
-      thumbs.appendChild(t);
-    });
+// Add video first if present
+if (P.video && P.video.type === 'youtube' && P.video.id) {
+  media.push({
+    kind: 'youtube',
+    id: P.video.id,
+    thumb: `https://img.youtube.com/vi/${encodeURIComponent(P.video.id)}/hqdefault.jpg`,
+    label: P.video.label || 'Video'
+  });
+}
+
+// Add images
+const imgs = toImgArray(P.images);
+if (!imgs.length) imgs.push(ensurePath(P.image_url));
+imgs.forEach(src => media.push({ kind: 'image', src }));
+
+// Prepare hero elements
+const videoFrame = document.createElement('iframe');
+videoFrame.className = 'pd-video';
+videoFrame.hidden = true;
+videoFrame.setAttribute('allowfullscreen', '');
+videoFrame.setAttribute(
+  'allow',
+  'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+);
+hero.parentNode.appendChild(videoFrame);
+
+const showImage = (src, alt) => {
+  hero.hidden = false;
+  videoFrame.hidden = true;
+  videoFrame.src = '';
+  hero.src = src;
+  hero.alt = alt || P.title;
+};
+
+const showVideo = (id) => {
+  hero.hidden = true;
+  videoFrame.hidden = false;
+  videoFrame.src = `https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0`;
+};
+
+// Initial hero
+if (media[0].kind === 'youtube') showVideo(media[0].id);
+else showImage(media[0].src, P.title);
+
+// Thumbnails
+thumbs.innerHTML = '';
+media.forEach((m, i) => {
+  const t = document.createElement('img');
+  if (m.kind === 'youtube') {
+    t.src = m.thumb;
+    t.alt = m.label;
+    t.classList.add('is-video');
+    t.addEventListener('click', () => showVideo(m.id));
+  } else {
+    t.src = m.src;
+    t.alt = `${P.title} ${i+1}`;
+    t.addEventListener('click', () => showImage(m.src, `Photo ${i+1}`));
+  }
+  thumbs.appendChild(t);
+});
+
 
     // Arrow / cycling controls
     const prevBtn = document.querySelector('.gallery .gallery-arrow.prev');
