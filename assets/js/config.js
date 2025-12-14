@@ -83,19 +83,29 @@ window.FC_PROMO = {
 
 
 // ================================
-// Ensure promo has a timestamp if turned on
+// Ensure promo has a timestamp if turned on (PERSISTED)
 // ================================
 window.FC_initPromoTimestamp = function () {
   const cfg = window.FC_PROMO;
+  const KEY = "fcc_promo_activatedAt_v1";
 
   if (cfg.active) {
-    // If promo just turned on and no timestamp exists → set it
-    if (!cfg._activatedAt) {
-      cfg._activatedAt = new Date().toISOString();
+    // Try to reuse a saved timestamp so refresh doesn't reset the countdown
+    let stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) {}
+
+    if (stored) {
+      cfg._activatedAt = stored;
+      return;
     }
+
+    // First activation: set + persist
+    cfg._activatedAt = cfg._activatedAt || new Date().toISOString();
+    try { localStorage.setItem(KEY, cfg._activatedAt); } catch (e) {}
   } else {
-    // If promo is OFF → clear timestamp
+    // Promo OFF: clear timestamp everywhere
     cfg._activatedAt = null;
+    try { localStorage.removeItem(KEY); } catch (e) {}
   }
 };
 
