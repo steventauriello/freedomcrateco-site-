@@ -2779,3 +2779,23 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   transform: translate(0px, 0px) scale(1);
   transition: transform 60ms linear;
 }
+/* === Product Card: YouTube Short Indicator === */
+.product-card .img {
+  position: relative;
+}
+
+.product-card .video-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 18px;
+  z-index: 6;
+  pointer-events: none;
+}

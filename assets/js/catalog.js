@@ -85,7 +85,9 @@
       const soldOut  = qty <= 0 && !isComing;
       const priceRaw = Number(p.price) || 0;
       const priceFinal = (window.FC_applyPromo ? window.FC_applyPromo(priceRaw) : priceRaw);
-      const imgUrl   = ensureImagePath(p.image_url || p.image || p.img);
+      const imgUrl = (p.video && p.video.type === 'youtube' && p.video.id)
+  ? `https://img.youtube.com/vi/${encodeURIComponent(p.video.id)}/hqdefault.jpg`
+  : ensureImagePath(p.image_url || p.image || p.img);
       const link     = p.link || `product.html?sku=${encodeURIComponent(sku)}`;
 
       // Price HTML (shows "was" when promo active and discounted)
@@ -108,12 +110,16 @@
       card.dataset.qty = qty; // useful for CSS hooks
 
       // Image block (keep only the ribbon for sold out)
-      const imgBlock = `
-        <a class="img" href="${escapeHtml(link)}" aria-label="${escapeHtml(title)}">
-          ${soldOut ? `<div class="soldout">Sold Out</div>` : ''}
-          <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(title)}" loading="lazy">
-        </a>
-      `;
+      const hasVideo = !!(p.video && p.video.type === 'youtube' && p.video.id);
+
+const imgBlock = `
+  <a class="img" href="${escapeHtml(link)}" aria-label="${escapeHtml(title)}">
+    ${soldOut ? `<div class="soldout">Sold Out</div>` : ''}
+    ${hasVideo ? `<span class="video-badge" aria-hidden="true">▶</span>` : ''}
+    <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(title)}" loading="lazy">
+  </a>
+`;
+
 
       // Stock row:
       // - Coming soon: nothing
