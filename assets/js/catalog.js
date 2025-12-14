@@ -85,9 +85,14 @@
       const soldOut  = qty <= 0 && !isComing;
       const priceRaw = Number(p.price) || 0;
       const priceFinal = (window.FC_applyPromo ? window.FC_applyPromo(priceRaw) : priceRaw);
-      const imgUrl = (p.video && p.video.type === 'youtube' && p.video.id)
-  ? `https://img.youtube.com/vi/${encodeURIComponent(p.video.id)}/hqdefault.jpg`
-  : ensureImagePath(p.image_url || p.image || p.img);
+     const imgUrl = ensureImagePath(
+  p.card_image ||
+  p.image_url ||
+  p.image ||
+  p.img ||
+  (Array.isArray(p.images) ? p.images[0] : '')
+);
+
       const link     = p.link || `product.html?sku=${encodeURIComponent(sku)}`;
 
       // Price HTML (shows "was" when promo active and discounted)
