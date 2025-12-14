@@ -213,72 +213,58 @@ if (!P) {
     descEl.innerHTML = allowSafeHTML(P.description || '');
     priceEl.textContent = '$' + Number(P.price || 0).toFixed(2);
     if (P.note) noteEl.textContent = P.note;
-
-    // Media (video + images)
+// Media (images only) + persistent overview video (not part of carousel)
 const media = [];
 
-// Add video first if present
-if (P.video && P.video.type === 'youtube' && P.video.id) {
-  media.push({
-    kind: 'youtube',
-    id: P.video.id,
-    thumb: `https://img.youtube.com/vi/${encodeURIComponent(P.video.id)}/hqdefault.jpg`,
-    label: P.video.label || 'Video'
-  });
-}
+// --- ensure escapeHtml exists (fallback if your file doesn't already define it) ---
+const _escapeHtml = (typeof escapeHtml === 'function')
+  ? escapeHtml
+  : (s='') => String(s)
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'","&#39;");
 
-// Add images
+// --- Add images to carousel ---
 const imgs = toImgArray(P.images);
 if (!imgs.length) imgs.push(ensurePath(P.image_url));
-imgs.forEach(src => media.push({ kind: 'image', src }));
+imgs.forEach(src => media.push({ src }));
 
-// Prepare hero elements
-const videoFrame = document.createElement('iframe');
-videoFrame.className = 'pd-video';
-videoFrame.hidden = true;
-videoFrame.setAttribute('allowfullscreen', '');
-videoFrame.setAttribute(
-  'allow',
-  'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-);
-hero.parentNode.appendChild(videoFrame);
+// --- Persistent overview video (always visible, below gallery) ---
+if (P.video && P.video.type === 'youtube' && P.video.id) {
+  // Avoid duplicates if something re-runs
+  if (!document.querySelector('.pd-video-section')) {
+    const section = document.createElement('section');
+    section.className = 'pd-video-section';
 
+    section.innerHTML = `
+      <div class="pd-video-title">${_escapeHtml(P.video.label || 'Overview Video')}</div>
+      <div class="pd-video-wrap">
+        <iframe
+          class="pd-video"
+          src="https://www.youtube.com/embed/${encodeURIComponent(P.video.id)}?rel=0&playsinline=1"
+          title="${_escapeHtml(P.video.label || 'Product video')}"
+          loading="lazy"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    `;
+
+    document.querySelector('.gallery')?.insertAdjacentElement('afterend', section);
+  }
+}
+
+// --- Hero image helper (image only) ---
 const showImage = (src, alt) => {
   hero.hidden = false;
-  videoFrame.hidden = true;
-  videoFrame.src = '';
   hero.src = src;
   hero.alt = alt || P.title;
 };
 
-const showVideo = (id) => {
-  hero.hidden = true;
-  videoFrame.hidden = false;
-  videoFrame.src = `https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0`;
-};
-
-// Initial hero
-if (media[0].kind === 'youtube') showVideo(media[0].id);
-else showImage(media[0].src, P.title);
-
-// Thumbnails
+// --- Thumbnails + unified nav (images only) ---
 thumbs.innerHTML = '';
-media.forEach((m, i) => {
-  const t = document.createElement('img');
-  if (m.kind === 'youtube') {
-    t.src = m.thumb;
-    t.alt = m.label;
-    t.classList.add('is-video');
-    t.addEventListener('click', () => showVideo(m.id));
-  } else {
-    t.src = m.src;
-    t.alt = `${P.title} ${i+1}`;
-    t.addEventListener('click', () => showImage(m.src, `Photo ${i+1}`));
-  }
-  thumbs.appendChild(t);
-});
-
-// Unified arrow + thumbnail navigation
 const prevBtn = document.querySelector('.gallery .gallery-arrow.prev');
 const nextBtn = document.querySelector('.gallery .gallery-arrow.next');
 let idx = 0;
@@ -286,16 +272,24 @@ let idx = 0;
 function showAt(i){
   const n = media.length;
   if (!n) return;
+
   idx = (i % n + n) % n;
-
   const m = media[idx];
-  if (m.kind === 'youtube') showVideo(m.id);
-  else showImage(m.src, P.title);
 
-  Array.from(thumbs.children).forEach((el,j) =>
+  showImage(m.src, `${P.title} ${idx + 1}`);
+
+  Array.from(thumbs.children).forEach((el, j) =>
     el.classList.toggle('is-active', j === idx)
   );
 }
+
+media.forEach((m, i) => {
+  const t = document.createElement('img');
+  t.src = m.src;
+  t.alt = `${P.title} ${i + 1}`;
+  t.addEventListener('click', () => showAt(i));
+  thumbs.appendChild(t);
+});
 
 if (prevBtn && nextBtn && media.length){
   prevBtn.addEventListener('click', () => showAt(idx - 1));
@@ -305,14 +299,14 @@ if (prevBtn && nextBtn && media.length){
 // Init
 showAt(0);
 
-    // Stock badge
-    let qty = Number(P.qty ?? 0);
-    if (qty <= 0) {
-      stockEl.textContent = 'Out of stock';
-      stockEl.hidden = false;
-      addBtn.disabled = true;
-      buyBtn.disabled = true;
-    }
+// Stock badge
+let qty = Number(P.qty ?? 0);
+if (qty <= 0) {
+  stockEl.textContent = 'Out of stock';
+  stockEl.hidden = false;
+  addBtn.disabled = true;
+  buyBtn.disabled = true;
+}
 
     // Inject SEO meta dynamically
     const metaDesc = document.querySelector('meta[name="description"]');
