@@ -68,6 +68,50 @@
   outline: 2px solid rgba(255,255,255,.25);
 }
 
+/* === Product page text contrast fix === */
+
+/* Main product copy */
+.product-details,
+.product-details p,
+.product-details li {
+  color: #eaeaea;        /* near-white, readable */
+  line-height: 1.6;
+}
+
+/* Section headers (Features, Specs, etc.) */
+.product-details h2,
+.product-details h3 {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Meta text (SKU, small notes) */
+.product-details .sku,
+.product-details .meta {
+  color: rgba(255,255,255,.75);
+  font-size: 0.9rem;
+}
+
+/* Bullet markers */
+.product-details ul li::marker {
+  color: rgba(255,255,255,.6);
+}
+/* === Product page: override muted text inside product detail === */
+.product-detail .muted{
+  color: rgba(255,255,255,.82) !important;  /* brighter but still “secondary” */
+}
+
+.product-detail .product-description{
+  color: #eaeaea !important;                /* readable body copy */
+}
+
+.product-detail h1,
+.product-detail h2,
+.product-detail h3{
+  color: #fff;
+}
+
+
 </style>
 </head>
 <body>
