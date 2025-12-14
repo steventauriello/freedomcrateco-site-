@@ -191,6 +191,13 @@
   "price": 75.00,
   "qty": 1,
   "image_url": "assets/img/fc_gunkit_02.JPG",
+
+  "video": {
+    "type": "youtube",
+    "id": "iIn1dj__pwo",
+    "label": "30-Second Overview"
+  },
+
   "images": [
     "assets/img/fc_gunkit_01.JPG",
     "assets/img/fc_gunkit_02.JPG",
@@ -203,9 +210,10 @@
     "assets/img/fc_gunkit_11.jpg",
     "assets/img/fc_gunkit_12.jpg",
     "assets/img/fc_gunkit_13.jpg",
-  "assets/img/LOCKABLE LATCHES_.PNG",
+    "assets/img/LOCKABLE LATCHES_.PNG",
     "assets/img/favicon.png"
   ],
+
   "tags": [
     "utility-series",
     "ammo-box",
@@ -213,6 +221,7 @@
     "modular-storage",
     "freedom-crate"
   ],
+
   "description": "Handcrafted by Freedom Crate Co. — Supporting America’s Heroes. A portion of every sale helps fund The Final Salute Project, gifting custom keepsake boxes to recently retired U.S. veterans. ⚒️<br><br>The Freedom Crate Utility Series – V01 is the first in our modular gear-storage lineup, built to organize ammo, tools, pistol accessories, and first-aid equipment with rugged reliability and real-wood craftsmanship. Featuring a dual-tray system, reinforced construction, and a mission-ready layout, this crate is designed for everyday use whether at the range, in the workshop, or on standby for emergencies.<br><br>⸻<br><br><strong>Features:</strong><ul><li><strong>Dual-Tray System:</strong> A full-width sliding tray (1\" deep) and a removable main tray (2\" deep) for modular organization.</li><li><strong>Bottom Storage Zone:</strong> 2\" deep compartment beneath the trays — perfect for boxed ammo or larger gear.</li><li><strong>Heavy-Duty Toggle Latch:</strong> Front-mounted latch keeps the lid secure during transport.</li><li><strong>Nylon Webbing Handles:</strong> 1\" brown strap handles for lightweight durability.</li><li><strong>Quality Materials:</strong> ¾\" plywood walls, ¼\" plywood tray panels, solid tongue-and-groove pine lid, and stainless steel hinges.</li></ul><br><strong>Specifications:</strong><ul><li>Exterior: 14” W × 10” L × 7” H</li><li>Interior: 11” W × 9” L × 5.5” H</li><li>Main Tray: 10.5” × 8” × 2”</li><li>Sliding Tray: Full width, 1” deep</li><li>Lot No.: FC-UTILITY-V01</li></ul><br>⸻<br><br>This crate is built for those who need adaptable storage that performs. Whether used for ammo, a pistol kit, tools, first-aid gear, or emergency preparedness, the V01 sets the foundation for the entire Utility Series.<br><br><strong>BUILT BY:</strong> Steven Tauriello"
 }
 }
