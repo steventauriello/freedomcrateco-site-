@@ -426,6 +426,16 @@
       "12x16:white":  "assets/img/ar15-blueprint-white-12x16.jpg"
     };
 
+<!-- =========================================================
+  👉 EDIT ARTWORK PRICES HERE 👈
+  This block controls the BASE price for the AR-15 blueprint
+  artwork by size (before any sitewide promo or discount).
+
+  If you want to change the artwork price, DO IT HERE.
+  You will also want to update the "Sizes" note above
+  so the displayed text matches these values.
+========================================================= -->
+
     const SIZE_PRICE = {
       "12x16": 45,
       "16x20": 55,
@@ -664,29 +674,52 @@ function initZoom(img) {
     return;
   }
 
+  // Need naturalWidth/Height to calculate fit scale
+  if (!img.complete || !img.naturalWidth) {
+    img.addEventListener("load", () => initZoom(img), { once: true });
+    return;
+  }
+
   // Destroy previous instance (important when swapping images)
   if (pz && typeof pz.destroy === "function") {
     pz.destroy();
   }
 
-  // Allow image to exceed container so panning works
+  // Reset transform so we don't inherit an old zoom state
+  img.style.transform = "none";
+
+  // Allow image to exceed container so panning works AFTER zooming in
   img.style.maxWidth = "none";
   img.style.maxHeight = "none";
 
-  // Create Panzoom instance
+  const viewerWrap = img.closest(".js-art-zoom-viewer");
+  const ww = viewerWrap ? viewerWrap.clientWidth : 0;
+  const wh = viewerWrap ? viewerWrap.clientHeight : 0;
+  const iw = img.naturalWidth;
+  const ih = img.naturalHeight;
+
+  // Fit-to-window scale so it starts "normal"
+  const fitScale = (ww && wh && iw && ih) ? Math.min(ww / iw, wh / ih) : 1;
+
   pz = Panzoom(img, {
     maxScale: 6,
+    minScale: fitScale,
     contain: "outside"
   });
 
-  // Enable wheel zoom on the viewer window
-  const viewerWrap = img.closest(".js-art-zoom-viewer");
+  // Start at fitted view
+  pz.zoom(fitScale, { animate: false });
+  pz.pan(0, 0, { animate: false });
+
+  // Enable wheel zoom (avoid stacking listeners)
   if (viewerWrap) {
-    viewerWrap.addEventListener("wheel", pz.zoomWithWheel, {
-      passive: false
-    });
+    viewerWrap.onwheel = (e) => {
+      e.preventDefault();
+      pz.zoomWithWheel(e);
+    };
   }
 }
+
 
 
   function setViewer(src, title) {
