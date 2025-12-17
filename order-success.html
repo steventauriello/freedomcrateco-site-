@@ -121,5 +121,29 @@
       });
     })();
   </script>
+<script>
+(function () {
+  if (typeof gtag !== "function") return;
+
+  // Prevent double-firing on refresh/back
+  if (sessionStorage.getItem("ga4_purchase_fired")) return;
+
+  const params = new URLSearchParams(location.search);
+
+  // Stripe uses session_id, PayPal uses orderId
+  const transactionId =
+    params.get("session_id") ||
+    params.get("orderId") ||
+    ("order_" + Date.now());
+
+  gtag("event", "purchase", {
+    transaction_id: transactionId,
+    currency: "USD"
+  });
+
+  sessionStorage.setItem("ga4_purchase_fired", "true");
+})();
+</script>
+
 </body>
 </html>
