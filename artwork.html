@@ -257,7 +257,7 @@
         <div class="fc-controls">
           <h2>Choose your size &amp; frame</h2>
           <p class="fc-note">
-            Select your print size and frame color. Pricing updates automatically and any active sitewide promo will apply.
+            Select your print size and frame color. 
           </p>
 
           <!-- Print size -->
@@ -297,7 +297,7 @@
               </strong>
             </div>
             <small class="fc-note">
-              Sizes: 12×16 — $45 • 16×20 — $55 • 18×24 — $65 (before any sitewide sale).
+              Sizes: 12×16 — $45 • 16×20 — $55 • 18×24 — $65 
             </small>
           </div>
 
@@ -435,15 +435,12 @@
       "12x16:white":  "assets/img/ar15-blueprint-white-12x16.jpg"
     };
 
-<!-- =========================================================
+/* =========================================================
   👉 EDIT ARTWORK PRICES HERE 👈
   This block controls the BASE price for the AR-15 blueprint
   artwork by size (before any sitewide promo or discount).
+========================================================= */
 
-  If you want to change the artwork price, DO IT HERE.
-  You will also want to update the "Sizes" note above
-  so the displayed text matches these values.
-========================================================= -->
 
     const SIZE_PRICE = {
       "12x16": 45,
@@ -467,16 +464,7 @@
       .replace(/(^-|-$)/g,'');
 
     // Sitewide promo only (no coupons)
-    function applySitewidePromo(raw){
-      const cfg = window.FC_PROMO || {};
-      const pct = Number(cfg.percentOff) || 0;
-      const hasHelper = (typeof window.FC_isPromoActiveNow === 'function');
-      const active    = hasHelper ? window.FC_isPromoActiveNow() : !!cfg.active;
-      if (!active || pct <= 0) return raw;
-      const discounted = raw * (1 - pct / 100);
-      return Math.round(discounted * 100) / 100;
-    }
-
+    
     function updateImage(){
       const key = sizeEl.value + ':' + frameEl.value;
       const src = IMG[key] || IMG['18x24:black'];
@@ -496,7 +484,10 @@
 
     function updatePrice(){
       const base = SIZE_PRICE[sizeEl.value] || 0;
-      const final = applySitewidePromo(base);
+      const final = (typeof window.FC_applyPromo === "function")
+  ? window.FC_applyPromo(base)
+  : base;
+
       priceEl.textContent = fmt(final);
 
       const hasHelper = (typeof window.FC_isPromoActiveNow === 'function');
