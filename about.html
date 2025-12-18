@@ -100,20 +100,83 @@
     });
   })();
 </script>
+<style>
+  
+/* FORCE About page hero into left / center / right layout */
+  .about-hero-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr 320px;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .about-hero-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about-hero-content {
+    text-align: center;
+  }
+
+  /* Mobile stack */
+  @media (max-width: 900px) {
+    .about-hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-hero-content {
+      text-align: left;
+    }
+  }
+</style>
+
 
 <main class="container">
 
   <!-- HERO -->
-  <section class="hero-about">
-    <h1>Freedom Crate Co.</h1>
-    <p class="lede">Handcrafted ammo & range boxes built by a family in Florida — rooted in American history, veteran-inspired craftsmanship, and a mission to make rugged gear that lasts.</p>
-    <div class="badge-row">
-      <span class="badge">Florida-built</span>
-      <span class="badge">Veteran-inspired</span>
-      <span class="badge">Small-batch</span>
-      <span class="badge">Free Shipping</span>
+  <section class="about-hero">
+  <div class="about-hero-grid">
+
+    <!-- Left image -->
+    <div class="about-hero-img left">
+      <img
+  src="/assets/img/gadsden-american-flag-side.JPG"
+  alt="Handcrafted wooden ammo box with distressed American flag stencil"
+  loading="lazy"
+  style="max-width:280px; max-height:220px; width:auto; height:auto;">
     </div>
-  </section>
+
+    <!-- Center content (your existing text) -->
+    <div class="about-hero-content">
+      <h1>Freedom Crate Co.</h1>
+
+      <p class="lede">
+        Handcrafted ammo &amp; range boxes built by a family in Florida — rooted
+        in American history, veteran-inspired craftsmanship, and a mission to
+        make rugged gear that lasts.
+      </p>
+
+      <div class="hero-badges">
+        <span>Florida-built</span>
+        <span>Veteran-inspired</span>
+        <span>Small-batch</span>
+        <span>Free Shipping</span>
+      </div>
+    </div>
+
+    <!-- Right image -->
+    <div class="about-hero-img right">
+      <img
+  src="/assets/img/claymore-m18a1-front-open.JPG"
+  alt="M18A1 Claymore-style wooden ammo crate open with military stenciling"
+  loading="lazy"
+  style="max-width:280px; max-height:220px; width:auto; height:auto;">
+    </div>
+
+  </div>
+</section>
+
 
   <!-- OUR STORY -->
   <section class="about-card" id="our-story">
