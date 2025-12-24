@@ -274,5 +274,23 @@
   "alt": "Front of Gadsden crate with Don't Tread On Me stencil",
   "caption": "Bold Gadsden snake and DON'T TREAD ON ME front graphic",
   "tags": ["One-of-One", "Shop/Studio"]
+},
+{
+  "src": "assets/img/utility-v01-crate-front-custom.jpg",
+  "alt": "Freedom Crate Utility Series V01 modular storage crate front view",
+  "caption": "Utility Series V01 modular storage crate — customized build",
+  "tags": ["Utility Series V01", "Featured Product", "Custom Build"]
+},
+{
+  "src": "assets/img/utility-v01-crate-back-custom.jpg",
+  "alt": "Back of Utility Series V01 crate showing hinge hardware and construction",
+  "caption": "Rear view highlighting hinge hardware on Utility Series V01 crate",
+  "tags": ["Utility Series V01", "Detail", "Craftsmanship"]
+},
+{
+  "src": "assets/img/utility-v01-crate-interior-dual-tray.jpg",
+  "alt": "Interior of Utility Series V01 modular dual-tray storage crate",
+  "caption": "Dual-tray interior layout of the Utility Series V01 modular crate",
+  "tags": ["Utility Series V01", "Interior", "Modular Design"]
 }
 ]
