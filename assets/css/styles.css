@@ -2799,4 +2799,26 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   z-index: 6;
   pointer-events: none;
 }
+/* === MOBILE NAV RESET (final) === */
+@media (max-width: 640px) {
+  .site-header .nav {
+    display: flex !important;
+    flex-direction: column;      /* stack the links */
+    align-items: center;         /* center them */
+    justify-content: center;
+    flex-wrap: nowrap;           /* no wrapping weirdness */
+    gap: 4px;
+  }
 
+  .site-header .nav a {
+    margin: 0 !important;        /* kill the 20px left margin */
+    padding: 6px 10px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .site-header .nav .cart-link {
+    margin-left: 0 !important;   /* stop forcing Cart to the far right */
+    order: 0 !important;
+  }
+}
