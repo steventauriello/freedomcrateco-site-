@@ -446,6 +446,40 @@ series_of_numbers. (eBay)</span>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
   <script src="assets/js/reviews.js" defer></script>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="badge">Handcrafted in Florida • Built by hand, built to last</span>
+    <p class="muted">Rugged, practical, and made to be used.</p>
+    <p class="muted">
+      <a href="/giveaway.html" class="footer-link">🎖 Enter our Monthly Veteran Box Giveaway</a>
+    </p>
+
+    <hr class="footer-divider" />
+
+    <p class="footer-links">
+      <a href="/faq.html" class="footer-link-small">FAQ</a>
+      <span class="footer-sep">•</span>
+      <a href="/about.html#contact" class="footer-link-small">Contact</a>
+      <span class="footer-sep">•</span>
+      <a href="/privacy.html" class="footer-link-small">Privacy Policy</a>
+      <span class="footer-sep">•</span>
+      <a href="/terms.html" class="footer-link-small">Terms</a>
+    </p>
+
+    <p class="footer-copy">
+      © <span id="fc-year"></span> Freedom Crate Co. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var y = document.getElementById('fc-year');
+    if (y) y.textContent = new Date().getFullYear();
+  })();
+</script>
+
 </body>
 </html>
 
