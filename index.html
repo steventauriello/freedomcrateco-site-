@@ -641,6 +641,99 @@
   </div>
 </section>
 
+    <!-- Featured: Caliber Collection -->
+<section class="featured-wrap" aria-label="Caliber Collection">
+  <div class="featured-card" id="caliber-card">
+
+    <!-- LEFT COLUMN: image + More details -->
+    <div class="fc-media-col">
+      <div class="fc-media">
+        <a href="#" id="cc-link" aria-label="View photos & details for Caliber Collection">
+          <img
+            id="cc-image"
+            src="assets/img/blank.jpg"
+            alt="Caliber Collection ammo box preview"
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="800">
+        </a>
+      </div>
+      <p class="more-details">
+        <a id="cc-details-link" href="product.html?sku=CAL-9-BLK-BASE">
+          More details →
+        </a>
+      </p>
+    </div>
+
+    <!-- RIGHT COLUMN: controls -->
+    <div class="fc-controls">
+      <h2>Caliber Collection</h2>
+      <p class="fc-note">Choose your caliber, hardware, and interior liner.</p>
+
+      <!-- Caliber -->
+      <label class="fc-field" for="cc-caliber">
+        <span class="fc-label">Caliber</span>
+        <div class="fc-select-wrap">
+          <select id="cc-caliber" name="caliber" class="fc-select">
+            <option value="9mm" selected>9mm</option>
+            <option value="556">5.56 / .223</option>
+            <option value="308">.308 / 7.62×51</option>
+          </select>
+        </div>
+      </label>
+
+      <!-- Hardware -->
+      <label class="fc-field" for="cc-hardware">
+        <span class="fc-label">Hardware</span>
+        <div class="fc-select-wrap">
+          <select id="cc-hardware" name="hardware" class="fc-select">
+            <option value="BLK" selected>Black Toggle Latches (lockable)</option>
+            <option value="SS">Stainless Toggle Latches (lockable)</option>
+          </select>
+        </div>
+      </label>
+
+      <!-- Base vs Armor Core -->
+      <label class="fc-field" for="cc-liner">
+        <span class="fc-label">Interior</span>
+        <div class="fc-select-wrap">
+          <select id="cc-liner" name="liner" class="fc-select">
+            <option value="BASE" selected>Standard wood (no liner)</option>
+            <option value="ARMOR">Armor Core interior (+$20)</option>
+          </select>
+        </div>
+      </label>
+
+      <!-- Pricing -->
+      <div class="fc-row">
+        <div class="price-row">
+          <strong>
+            Total:
+            <span id="cc-price" class="price" aria-live="polite">$79.99</span>
+            <span id="cc-sale" class="sale-badge" hidden>
+              <img src="assets/img/saletag.svg" alt="" class="sale-icon">
+              Sale
+            </span>
+          </strong>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="fc-row">
+        <button id="cc-add" class="fc-btn btn add-to-cart" type="button">Add to Cart</button>
+        <button id="cc-buy" class="fc-btn btn" type="button">Buy Now</button>
+      </div>
+
+      <p class="fc-note">
+        Free shipping. Ships in protective packaging; some orders may ship in 2 packages.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
 
         <!-- Product grid (small cards) -->
     <section id="products" class="grid" aria-live="polite"></section>
@@ -1105,6 +1198,229 @@ window.addEventListener('fc:promo-updated', calcTotal);
   // Recalculate on sitewide promo changes only
   window.addEventListener('fc:promo-updated', updateView);
   // no coupon listener here
+})();
+</script>
+
+<script>
+/* --- Caliber Collection: image/price swap + Add/Buy --- */
+(function(){
+  const card = document.getElementById('caliber-card');
+  if (!card) return;
+
+  // --- CONFIG ----------------------------------------------------
+
+  // Base prices BEFORE Armor Core upcharge (raw list prices)
+  // 🔧 Adjust these to your real per-caliber base prices
+  const CC_BASE_PRICES = {
+    '9mm': 79.99,
+    '556': 79.99,
+    '308': 79.99
+  };
+
+  // Armor Core upcharge (+$20)
+  const CC_ARMOR_UPCHARGE = 20;
+
+  // Image map for (caliber, hardware) → image src
+  // For now everything points to blank.jpg; update later to real photos
+  const CC_IMAGE_MAP = {
+  '9mm': {
+    'BLK': 'assets/img/caliber-collection-9mm-black.JPG',
+    'SS':  'assets/img/caliber-collection-9mm-stainless.JPG'
+  },
+  '556': {
+    'BLK': 'assets/img/caliber-collection-556-black.JPG',
+    'SS':  'assets/img/caliber-collection-556-stainless.JPG'
+  },
+  '308': {  // <— matches the option value ".308 / 7.62×51"
+    'BLK': 'assets/img/caliber-collection-762-black.JPG',
+    'SS':  'assets/img/caliber-collection-762-stainless.JPG'
+  }
+};
+
+  // Optional: where "More details" goes per caliber
+  const CC_DETAIL_LINKS = {
+    '9mm': 'product.html?sku=CAL-9-BLK-BASE',
+    '556': 'product.html?sku=CAL-556-BLK-BASE',
+    '308': 'product.html?sku=CAL-308-BLK-BASE'
+  };
+
+  // --- ELEMENTS --------------------------------------------------
+
+  const caliberEl      = card.querySelector('#cc-caliber');
+  const hardwareEl     = card.querySelector('#cc-hardware');
+  const linerEl        = card.querySelector('#cc-liner');
+  const priceEl        = card.querySelector('#cc-price');
+  const saleEl         = card.querySelector('#cc-sale');
+  const imgEl          = card.querySelector('#cc-image');
+  const linkEl         = card.querySelector('#cc-link');
+  const detailsLinkEl  = card.querySelector('#cc-details-link');
+  const addBtn         = card.querySelector('#cc-add');
+  const buyBtn         = card.querySelector('#cc-buy');
+
+  if (!caliberEl || !hardwareEl || !linerEl || !priceEl || !imgEl) return;
+
+  // --- HELPERS ---------------------------------------------------
+
+  const fmt = n => '$' + Number(n || 0).toFixed(2);
+
+  function getState(){
+    return {
+      caliber:  caliberEl.value,
+      hardware: hardwareEl.value,
+      liner:    linerEl.value   // BASE or ARMOR
+    };
+  }
+
+  function getBasePrice(caliber, liner){
+    const base = Number(CC_BASE_PRICES[caliber] || 0);
+    const armorExtra = (liner === 'ARMOR') ? CC_ARMOR_UPCHARGE : 0;
+    return base + armorExtra;
+  }
+
+  // 🔒 Sitewide promo ONLY (same as Classic/RM400 – ignores coupons)
+  function applySitewidePromo(raw){
+    const cfg = window.FC_PROMO || {};
+    const pct = Number(cfg.percentOff) || 0;
+    const hasHelper = (typeof window.FC_isPromoActiveNow === 'function');
+    const active    = hasHelper ? window.FC_isPromoActiveNow() : !!cfg.active;
+
+    if (!active || pct <= 0) return raw;
+
+    const discounted = raw * (1 - pct / 100);
+    return Math.round(discounted * 100) / 100;
+  }
+
+  function niceCaliber(cal){
+    if (cal === '9mm') return '9mm';
+    if (cal === '556') return '5.56 / .223';
+    return '.308 / 7.62×51';
+  }
+
+  function niceHardware(hw){
+    return (hw === 'BLK') ? 'Black hardware' : 'Stainless hardware';
+  }
+
+  function niceLiner(liner){
+    return (liner === 'ARMOR')
+      ? 'Armor Core interior'
+      : 'Standard wood (no liner)';
+  }
+
+  function buildSku(caliber, hardware, liner){
+    // Pattern: CAL-9-BLK-BASE, CAL-556-SS-ARMOR, etc.
+    const calCode = (caliber === '9mm') ? '9'
+                   : (caliber === '556') ? '556'
+                   : '308';
+    return `CAL-${calCode}-${hardware}-${liner}`;
+  }
+
+  function updateView(){
+    const { caliber, hardware, liner } = getState();
+
+    // Raw list price
+    const raw = getBasePrice(caliber, liner);
+
+    // Display price: sitewide promo only
+    const final = applySitewidePromo(raw);
+    priceEl.textContent = fmt(final);
+
+    // Sale pill visibility (same logic as Classic/RM400)
+    const promoOn = !!(window.FC_PROMO && window.FC_PROMO.active);
+    const promoActive = promoOn && final < raw;
+    if (saleEl) {
+      saleEl.hidden = !promoActive;
+      if (promoActive && window.FC_PROMO?.label) {
+        saleEl.title = window.FC_PROMO.label;
+      } else {
+        saleEl.removeAttribute('title');
+      }
+    }
+
+    // Image swap
+    const imgSrc =
+      (CC_IMAGE_MAP[caliber] && CC_IMAGE_MAP[caliber][hardware])
+        ? CC_IMAGE_MAP[caliber][hardware]
+        : 'assets/img/blank.jpg';
+
+    const tmp = new Image();
+    tmp.onload = () => {
+      imgEl.src = imgSrc;
+      imgEl.alt = `Caliber Collection — ${niceCaliber(caliber)} • ${niceHardware(hardware)}`;
+    };
+    tmp.src = imgSrc;
+
+    // Details link (per caliber) – base variant by default
+    const href = CC_DETAIL_LINKS[caliber] || CC_DETAIL_LINKS['9mm'];
+    if (detailsLinkEl) detailsLinkEl.href = href;
+    if (linkEl) linkEl.href = href;
+  }
+
+  function buildMeta(){
+    const { caliber, hardware, liner } = getState();
+    return {
+      caliber:  niceCaliber(caliber),
+      hardware: niceHardware(hardware),
+      interior: niceLiner(liner),
+      image:    imgEl ? imgEl.src : undefined
+    };
+  }
+
+  function buildSkuNamePrice(){
+    const { caliber, hardware, liner } = getState();
+    const raw   = getBasePrice(caliber, liner);
+    const final = applySitewidePromo(raw);  // same as other feature cards
+    const sku   = buildSku(caliber, hardware, liner);
+    const name  = `Caliber Collection — ${niceCaliber(caliber)}`;
+    return { sku, name, price: final };
+  }
+
+  const addToCartSafe = (sku, name, price, qty, meta) =>
+    (typeof window.addToCart === 'function')
+      ? window.addToCart(sku, name, price, qty, meta)
+      : console.warn('[Caliber] Cart not ready');
+
+  const buyNowSafe = (sku, name, price, qty, meta) =>
+    (typeof window.buyNow === 'function')
+      ? window.buyNow(sku, name, price, qty, meta)
+      : console.warn('[Caliber] Cart not ready');
+
+  // --- EVENTS ----------------------------------------------------
+
+  ['change', 'input'].forEach(evt => {
+    caliberEl.addEventListener(evt, updateView);
+    hardwareEl.addEventListener(evt, updateView);
+    linerEl.addEventListener(evt, updateView);
+  });
+
+  if (addBtn) {
+    addBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuNamePrice();
+      const meta = buildMeta();
+      addToCartSafe(sku, name, price, 1, meta);
+    });
+  }
+
+  if (buyBtn) {
+    buyBtn.addEventListener('click', () => {
+      const { sku, name, price } = buildSkuNamePrice();
+      const meta = buildMeta();
+      buyNowSafe(sku, name, price, 1, meta);
+    });
+  }
+
+  // Recalculate when sitewide promo changes (match Classic/RM400 behavior)
+  window.addEventListener('fc:promo-updated', updateView);
+
+  // Preload combo images (like RM400 does)
+  Object.values(CC_IMAGE_MAP).forEach(byHardware => {
+    Object.values(byHardware).forEach(src => {
+      const im = new Image();
+      im.src = src;
+    });
+  });
+
+  // Initial render
+  updateView();
 })();
 </script>
 

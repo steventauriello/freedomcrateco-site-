@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Caliber Collection – Freedom Crate Co.</title>
+  <meta name="description" content="Freedom Crate Co. Caliber Collection – handcrafted wooden ammo boxes sized for 9mm, 5.56, and 7.62 / .308, with your choice of hardware and interior liner." />
+
+  <link rel="canonical" href="https://freedomcrateco.com/caliber-collection.html" />
+  <meta name="robots" content="index,follow,max-image-preview:large">
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <style>
+    .product-page {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .gallery-main {
+      position: relative;
+    }
+    .gallery-main img {
+      width: 100%;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .lightbox.open {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* Details / copy */
+    .cc-details {
+      margin-top: 1.25rem;
+    }
+    .cc-details h2 {
+      margin: 1.5rem 0 .5rem;
+    }
+    .cc-details ul {
+      margin: .5rem 0 1rem 1.2rem;
+    }
+    .cc-details li {
+      margin: .25rem 0;
+    }
+
+    .cc-cta {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      align-items: center;
+    }
+    .cc-cta .btn {
+      margin-right: .5rem;
+    }
+
+    /* Bottom photo strip */
+    .desc-photos {
+      margin-top: 1.5rem;
+    }
+    .desc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+    }
+    .desc-thumb {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: zoom-in;
+      display: block;
+    }
+    .desc-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.15);
+      transition: transform .15s ease;
+    }
+    .desc-thumb img:hover {
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 780px){
+      .desc-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      }
+      .cc-cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Simple header (same style as Branch page) -->
+  <header class="site-header">
+    <a class="brand" href="/">
+      <img src="assets/img/logo.png" alt="Freedom Crate Co. Logo">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/">Shop</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Custom Orders</a>
+      <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
+    </nav>
+  </header>
+
+  <main class="product-page">
+    <h1>Caliber Collection</h1>
+    <p class="muted">
+      Handcrafted wooden ammo boxes sized for your favorite calibers — 9mm, 5.56, and 7.62 / .308 —
+      with your choice of black or stainless hardware and optional Armor Core interior liner.
+      Built in Florida, built for real use at the range.
+    </p>
+
+    <!-- Gallery: main hero image -->
+    <div class="gallery" aria-label="Caliber Collection photos">
+      <div class="gallery-main">
+        <img
+          id="cc-hero"
+          src="assets/img/caliber-collection-9mm-black.jpg"
+          alt="Caliber Collection 9mm box with black hardware"
+          tabindex="0">
+      </div>
+    </div>
+
+    <!-- Bottom photos -->
+    <section class="desc-photos" aria-label="More Caliber Collection photos">
+      <div class="desc-grid">
+        <!-- 9mm -->
+        <button class="desc-thumb" data-full="assets/img/caliber-collection-9mm-black.jpg" aria-label="9mm Caliber Collection with black hardware, large view">
+          <img loading="lazy" src="assets/img/caliber-collection-9mm-black.jpg" alt="Caliber Collection 9mm box with black hardware">
+        </button>
+        <button class="desc-thumb" data-full="assets/img/caliber-collection-9mm-stainless.jpg" aria-label="9mm Caliber Collection with stainless hardware, large view">
+          <img loading="lazy" src="assets/img/caliber-collection-9mm-stainless.jpg" alt="Caliber Collection 9mm box with stainless hardware">
+        </button>
+
+        <!-- 5.56 -->
+        <button class="desc-thumb" data-full="assets/img/caliber-collection-556-black.jpg" aria-label="5.56 Caliber Collection with black hardware, large view">
+          <img loading="lazy" src="assets/img/caliber-collection-556-black.jpg" alt="Caliber Collection 5.56 box with black hardware">
+        </button>
+        <button class="desc-thumb" data-full="assets/img/caliber-collection-556-stainless.jpg" aria-label="5.56 Caliber Collection with stainless hardware, large view">
+          <img loading="lazy" src="assets/img/caliber-collection-556-stainless.jpg" alt="Caliber Collection 5.56 box with stainless hardware">
+        </button>
+
+        <!-- 7.62 -->
+        <button class="desc-thumb" data-full="assets/img/caliber-collection-762-black.jpg" aria-label="7.62 / .308 Caliber Collection with black hardware, large view">
+          <img loading="lazy" src="assets/img/caliber-collection-762-black.jpg" alt="Caliber Collection 7.62 / .308 box with black hardware">
+        </button>
+        <button class="desc-thumb" data-full="assets/img/caliber-collection-762-stainless.jpg" aria-label="7.62 / .308 Caliber Collection with stainless hardware, large view">
+          <img loading="lazy" src="assets/img/caliber-collection-762-stainless.jpg" alt="Caliber Collection 7.62 / .308 box with stainless hardware">
+        </button>
+      </div>
+    </section>
+
+    <!-- Details / specs -->
+    <section class="cc-details" aria-label="Caliber Collection details">
+      <h2>Specifications</h2>
+      <ul>
+        <li><strong>Interior dimensions:</strong> 11″ W × 8¼″ L × 5½″ D (fits loose rounds, boxed ammo, and mags)</li>
+        <li><strong>Exterior dimensions:</strong> Approx. 14″ W × 9½″ L × 7″ H</li>
+        <li><strong>Construction:</strong> ¾″ exterior-grade plywood walls with reinforced legs and lid rails</li>
+        <li><strong>Bottom panel:</strong> ¼″ sanded plywood, glued and screwed for strength</li>
+        <li><strong>Lid:</strong> Reinforced solid-wood top with support rails for stacking</li>
+        <li><strong>Finish:</strong> Ultra-flat service green (range-ready, low-glare finish)</li>
+        <li><strong>Hardware:</strong> Your choice of black steel or stainless steel lockable toggle latches</li>
+        <li><strong>Hinges:</strong> Stainless steel rear hinges</li>
+        <li><strong>Handles:</strong> Heavy-duty nylon webbing, routed through the legs so it can’t pull out</li>
+        <li><strong>Calibers sized for:</strong> 9mm, 5.56, and 7.62 / .308</li>
+        <li><strong>Interior liner:</strong> Standard wood or optional Armor Core interior PolyShield for extra protection.</li>
+      </ul>
+
+      <h2>Built to work at the range</h2>
+      <ul>
+        <li>Leg design keeps the box up off wet ground and protects the lid when stacking.</li>
+        <li>Reinforced lid rails give you a solid “bench” surface for mags, tools, or a notebook.</li>
+        <li>Handles are integrated into the legs so the webbing can’t wiggle loose or rip out over time.</li>
+        <li>Armor Core interior option resists oil and solvent, making wipe-downs quick and easy.</li>
+        <li>Each box is sprayed, stenciled, and finished by hand in Florida.</li>
+        <li>Free U.S. shipping; some orders may ship in two packages (both tracking numbers provided).</li>
+      </ul>
+
+      <div class="cc-cta">
+        <a href="/" class="btn">Shop Caliber Collection Options</a>
+        <small class="muted">
+          Use the Caliber Collection card on the home page to choose your caliber, hardware, and liner,
+          then add to cart. This page is here to show photos and full details.
+        </small>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="close" aria-label="Close" id="lbClose">×</button>
+    <img id="lbImg" alt="">
+  </div>
+
+  <!-- Core helpers -->
+  <script src="assets/js/util.js" defer></script>
+  <script src="assets/js/cart.js" defer></script>
+
+  <script>
+  (function(){
+    const hero   = document.getElementById('cc-hero');
+    const lb     = document.getElementById('lightbox');
+    const lbImg  = document.getElementById('lbImg');
+    const lbClose= document.getElementById('lbClose');
+
+    function openLB(src, alt){
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+    }
+    function closeLB(){
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden','true');
+      lbImg.src = '';
+    }
+
+    hero.addEventListener('click', () => openLB(hero.src, hero.alt));
+    hero.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLB(hero.src, hero.alt);
+      }
+    });
+
+    const grid = document.querySelector('.desc-grid');
+    grid?.addEventListener('click', (e) => {
+      const btn = e.target.closest('.desc-thumb');
+      if (!btn) return;
+      const full = btn.getAttribute('data-full');
+      const alt  = btn.querySelector('img')?.getAttribute('alt') || '';
+      hero.src = full;
+      hero.alt = alt;
+      openLB(full, alt);
+    });
+
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) closeLB();
+    });
+    lbClose.addEventListener('click', closeLB);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLB();
+    });
+  })();
+  </script>
+</body>
+</html>
