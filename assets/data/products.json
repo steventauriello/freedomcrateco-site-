@@ -107,13 +107,12 @@
   "title": "Handcrafted 9mm Wooden Ammo Box – Military Style Storage – Armor Core",
   "price": 80.00,
   "qty": 1,
-  "image_url": "assets/img/fc9mm_armor_01.jpg",
+  "image_url": "assets/img/caliber-collection-9mm-stainless.jpg",
   "images": [
-    "assets/img/fc9mm_armor_01.jpg",
-    "assets/img/fc9mm_armor_02.jpg",
+    "assets/img/caliber-collection-9mm-stainless.jpg",
+    "assets/img/caliber-collection-9mm-stainless-armorcore.jpg",
     "assets/img/fc9mm_armor_03.jpg",
     "assets/img/fc9mm_armor_04.jpg",
-    "assets/img/fc9mm_armor_05.jpg",
     "assets/img/fc9mm_armor_06.jpg",
     "assets/img/fc9mm_armor_07.jpg",
     "assets/img/fc9mm_armor_08.jpg",
@@ -121,8 +120,7 @@
     "assets/img/fc9mm_armor_10.jpg",
     "assets/img/fc9mm_armor_11.jpg",
     "assets/img/locking-latches.jpg",
-    "assets/img/armor-core-main.png",
-    "assets/img/fc9mm_armor_12.png"
+    "assets/img/armor-core-main.png"
   ],
   "tags": [
     "9mm",
