@@ -133,7 +133,7 @@
 "FC-GADSDEN-1217": {
   "status": "active",
   "title": "Limited Edition Gadsden Ammo Box – Bazooka Green Pine – Lot FC-1217-1775-01",
-  "price": 85.00,
+  "price": 80.00,
   "qty": 1,
   "image_url": "assets/img/fc_gadsden_bazooka_03.jpg",
   "images": [
@@ -159,7 +159,7 @@
 "FC-ZOMBIE-01": {
   "status": "active",
   "title": "Freedom Crate Classic Bazooka Green Slide-Top – Handcrafted Wooden Ammo Box",
-  "price": 70.00,
+  "price": 65.00,
   "qty": 1,
   "image_url": "assets/img/fc-zombie-02.jpg",
   "images": [
@@ -186,7 +186,7 @@
 "FC-UTILITY-V01": {
   "status": "active",
   "title": "Freedom Crate Utility Series – V01 Modular Dual-Tray Storage Crate",
-  "price": 80.00,
+  "price": 75.00,
   "qty": 1,
 
   "card_image": "assets/img/freedom-crate-utility-v01-dual-tray-card.jpg",
