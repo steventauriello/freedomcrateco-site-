@@ -646,25 +646,30 @@
   <div class="featured-card" id="caliber-card">
 
     <!-- LEFT COLUMN: image + More details -->
-    <div class="fc-media-col">
-      <div class="fc-media">
-        <a href="#" id="cc-link" aria-label="View photos & details for Caliber Collection">
-          <img
-            id="cc-image"
-            src="assets/img/blank.jpg"
-            alt="Caliber Collection ammo box preview"
-            loading="lazy"
-            decoding="async"
-            width="1200"
-            height="800">
-        </a>
-      </div>
-      <p class="more-details">
-        <a id="cc-details-link" href="product.html?sku=CAL-9-BLK-BASE">
-          More details →
-        </a>
-      </p>
-    </div>
+<div class="fc-media-col">
+  <div class="fc-media">
+    <a href="caliber-collection.html#9mm"
+       id="cc-link"
+       aria-label="View photos & details for Caliber Collection">
+      <img
+        id="cc-image"
+        src="assets/img/blank.jpg"
+        alt="Caliber Collection ammo box preview"
+        loading="lazy"
+        decoding="async"
+        width="1200"
+        height="800">
+    </a>
+  </div>
+
+  <p class="more-details">
+    <a id="cc-details-link"
+       href="caliber-collection.html#9mm">
+      More details →
+    </a>
+  </p>
+</div>
+
 
     <!-- RIGHT COLUMN: controls -->
     <div class="fc-controls">
@@ -1210,7 +1215,6 @@ window.addEventListener('fc:promo-updated', calcTotal);
   // --- CONFIG ----------------------------------------------------
 
   // Base prices BEFORE Armor Core upcharge (raw list prices)
-  // 🔧 Adjust these to your real per-caliber base prices
   const CC_BASE_PRICES = {
     '9mm': 79.99,
     '556': 79.99,
@@ -1220,28 +1224,43 @@ window.addEventListener('fc:promo-updated', calcTotal);
   // Armor Core upcharge (+$20)
   const CC_ARMOR_UPCHARGE = 20;
 
-  // Image map for (caliber, hardware) → image src
-  // For now everything points to blank.jpg; update later to real photos
-  const CC_IMAGE_MAP = {
-  '9mm': {
-    'BLK': 'assets/img/caliber-collection-9mm-black.JPG',
-    'SS':  'assets/img/caliber-collection-9mm-stainless.JPG'
-  },
-  '556': {
-    'BLK': 'assets/img/caliber-collection-556-black.JPG',
-    'SS':  'assets/img/caliber-collection-556-stainless.JPG'
-  },
-  '308': {  // <— matches the option value ".308 / 7.62×51"
-    'BLK': 'assets/img/caliber-collection-762-black.JPG',
-    'SS':  'assets/img/caliber-collection-762-stainless.JPG'
-  }
-};
+  // Image map for (caliber, hardware) → image src (STANDARD WOOD)
+  const CC_IMAGE_MAP_BASE = {
+    '9mm': {
+      'BLK': 'assets/img/caliber-collection-9mm-black.JPG',
+      'SS':  'assets/img/caliber-collection-9mm-stainless.JPG'
+    },
+    '556': {
+      'BLK': 'assets/img/caliber-collection-556-black.JPG',
+      'SS':  'assets/img/caliber-collection-556-stainless.JPG'
+    },
+    '308': {  // .308 / 7.62×51
+      'BLK': 'assets/img/caliber-collection-762-black.JPG',
+      'SS':  'assets/img/caliber-collection-762-stainless.JPG'
+    }
+  };
+
+  // Image map for Armor Core (open, lined boxes)
+  const CC_IMAGE_MAP_ARMOR = {
+    '9mm': {
+      'BLK': 'assets/img/caliber-collection-9mm-black-armorcore.JPG',
+      'SS':  'assets/img/caliber-collection-9mm-stainless-armorcore.JPG'
+    },
+    '556': {
+      'BLK': 'assets/img/caliber-collection-556-black-armorcore.JPG',
+      'SS':  'assets/img/caliber-collection-556-stainless-armorcore.JPG'
+    },
+    '308': {
+      'BLK': 'assets/img/caliber-collection-762-black-armorcore.JPG',
+      'SS':  'assets/img/caliber-collection-762-stainless-armorcore.JPG'
+    }
+  };
 
   // Optional: where "More details" goes per caliber
   const CC_DETAIL_LINKS = {
-    '9mm': 'product.html?sku=CAL-9-BLK-BASE',
-    '556': 'product.html?sku=CAL-556-BLK-BASE',
-    '308': 'product.html?sku=CAL-308-BLK-BASE'
+    '9mm': 'caliber-collection.html#9mm',
+    '556': 'caliber-collection.html#556',
+    '308': 'caliber-collection.html#308'
   };
 
   // --- ELEMENTS --------------------------------------------------
@@ -1265,9 +1284,9 @@ window.addEventListener('fc:promo-updated', calcTotal);
 
   function getState(){
     return {
-      caliber:  caliberEl.value,
-      hardware: hardwareEl.value,
-      liner:    linerEl.value   // BASE or ARMOR
+      caliber:  caliberEl.value,   // '9mm' | '556' | '308'
+      hardware: hardwareEl.value,  // 'BLK' | 'SS'
+      liner:    linerEl.value      // 'BASE' | 'ARMOR'
     };
   }
 
@@ -1277,7 +1296,7 @@ window.addEventListener('fc:promo-updated', calcTotal);
     return base + armorExtra;
   }
 
-  // 🔒 Sitewide promo ONLY (same as Classic/RM400 – ignores coupons)
+  // Sitewide promo ONLY (same as Classic/RM400 – ignores coupons)
   function applySitewidePromo(raw){
     const cfg = window.FC_PROMO || {};
     const pct = Number(cfg.percentOff) || 0;
@@ -1336,23 +1355,26 @@ window.addEventListener('fc:promo-updated', calcTotal);
       }
     }
 
+    // Choose which image map to use based on liner
+    const imgMap = (liner === 'ARMOR') ? CC_IMAGE_MAP_ARMOR : CC_IMAGE_MAP_BASE;
+
     // Image swap
     const imgSrc =
-      (CC_IMAGE_MAP[caliber] && CC_IMAGE_MAP[caliber][hardware])
-        ? CC_IMAGE_MAP[caliber][hardware]
+      (imgMap[caliber] && imgMap[caliber][hardware])
+        ? imgMap[caliber][hardware]
         : 'assets/img/blank.jpg';
 
     const tmp = new Image();
     tmp.onload = () => {
       imgEl.src = imgSrc;
-      imgEl.alt = `Caliber Collection — ${niceCaliber(caliber)} • ${niceHardware(hardware)}`;
+      imgEl.alt = `Caliber Collection — ${niceCaliber(caliber)} • ${niceHardware(hardware)} • ${niceLiner(liner)}`;
     };
     tmp.src = imgSrc;
 
     // Details link (per caliber) – base variant by default
     const href = CC_DETAIL_LINKS[caliber] || CC_DETAIL_LINKS['9mm'];
     if (detailsLinkEl) detailsLinkEl.href = href;
-    if (linkEl) linkEl.href = href;
+    if (linkEl)        linkEl.href        = href;
   }
 
   function buildMeta(){
@@ -1411,11 +1433,13 @@ window.addEventListener('fc:promo-updated', calcTotal);
   // Recalculate when sitewide promo changes (match Classic/RM400 behavior)
   window.addEventListener('fc:promo-updated', updateView);
 
-  // Preload combo images (like RM400 does)
-  Object.values(CC_IMAGE_MAP).forEach(byHardware => {
-    Object.values(byHardware).forEach(src => {
-      const im = new Image();
-      im.src = src;
+  // Preload combo images (base + armor)
+  [CC_IMAGE_MAP_BASE, CC_IMAGE_MAP_ARMOR].forEach(map => {
+    Object.values(map).forEach(byHardware => {
+      Object.values(byHardware).forEach(src => {
+        const im = new Image();
+        im.src = src;
+      });
     });
   });
 
