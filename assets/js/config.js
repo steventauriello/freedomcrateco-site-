@@ -195,7 +195,7 @@ CRATE10: {
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       if (!parsed || !parsed.code) return null;
-      const def = window.FC_COUPONS[String(parsed.code).toUpperCase()];
+      const def = window.FC_COUPONS[String(parsed.code).trim().toUpperCase()];
       if (!def) return null;
       return { code: def.code, percentOff: def.percentOff, label: def.label || def.code };
     } catch (err) {
@@ -209,7 +209,7 @@ CRATE10: {
       localStorage.removeItem(KEY);
       return null;
     }
-    const def = window.FC_COUPONS[String(code).toUpperCase()];
+    const def = window.FC_COUPONS[String(code).trim().toUpperCase()];
     if (!def) return null;
     localStorage.setItem(KEY, JSON.stringify({ code: def.code }));
     return { code: def.code, percentOff: def.percentOff, label: def.label || def.code };
