@@ -174,14 +174,14 @@ const imgBlock = `
         if (window.flashAddToCart) window.flashAddToCart(addBtn, 1);
 
         // Use discounted price
-        safeCall(window.addToCart)(sku, title, priceFinal, 1, { image: imgUrl });
+        safeCall(window.addToCart)(sku, title, priceRaw, 1, { image: imgUrl });
       });
 
       if (buyBtn) buyBtn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         // Use discounted price
-        safeCall(window.buyNow)(sku, title, priceFinal, 1, { image: imgUrl });
+        safeCall(window.buyNow)(sku, title, priceRaw, 1, { image: imgUrl });
       });
 
       listEl.appendChild(card);
