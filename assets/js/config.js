@@ -69,93 +69,190 @@
     }
   };
 
-  // ================================
-  // Sitewide Promo (GLOBAL SALE)
-  // ================================
-  // NOTE:
-  // - This is for automatic sitewide promos (banner + price slashes).
-  // - Coupons are separate and can stack unless you block stacking.
-  window.FC_PROMO = window.FC_PROMO || {
-    active: false, // turn sale on/off
-    percentOff: 15,
-    label: "12 DAYS OF CHRISTMAS — 15% Off Sitewide",
+ /* =========================
+   Freedom Crate Co. PROMOS
+   ========================= */
 
-    // ONE global end moment for everyone (ISO string).
-    // Example: Ends at 11:59:59 PM Eastern on Christmas Day
-    endsAt: "2025-12-26T04:59:59.000Z"
+/**
+ * Global sale toggle (sitewide sale mode).
+ * If you want a timed sale, set startsAt / endsAt (ISO strings).
+ * If you want manual only, leave startsAt/endsAt null and just set active:true/false.
+ */
+window.FC_PROMO = {
+  active: false,                 // 🔥 master switch
+  percentOff: 15,               // ✅ 15% OFF
+  code: null,                   // auto-applies, no code required
+  label: "15% Off Sitewide",
+  startsAt: null,
+  endsAt: null,
 
-    // Optional alt mode:
-    // autoExpireDays: 12,
-    // _activatedAt: null
-  };
+  bannerText: "15% Off Sitewide — Limited Time"
+};
 
-  // Ensure promo has a timestamp if turned on (PERSISTED)
-  window.FC_initPromoTimestamp = function () {
-    const cfg = window.FC_PROMO;
-    const KEY = "fcc_promo_activatedAt_v1";
+/** Returns true if the global promo is currently active (including time window). */
+window.FC_isPromoActive = function FC_isPromoActive() {
+  const p = window.FC_PROMO;
+  if (!p || !p.active) return false;
 
-    if (cfg.active) {
-      let stored = null;
-      try { stored = localStorage.getItem(KEY); } catch (e) {}
+  const now = Date.now();
 
-      if (stored) {
-        cfg._activatedAt = stored;
-        return;
-      }
+  if (p.startsAt) {
+    const start = Date.parse(p.startsAt);
+    if (!Number.isNaN(start) && now < start) return false;
+  }
 
-      cfg._activatedAt = cfg._activatedAt || new Date().toISOString();
-      try { localStorage.setItem(KEY, cfg._activatedAt); } catch (e) {}
-    } else {
-      cfg._activatedAt = null;
-      try { localStorage.removeItem(KEY); } catch (e) {}
-    }
-  };
+  if (p.endsAt) {
+    const end = Date.parse(p.endsAt);
+    if (!Number.isNaN(end) && now > end) return false;
+  }
 
-  // Check if promo should be active right now
-  window.FC_isPromoActiveNow = function () {
-    const cfg = window.FC_PROMO;
-    if (!cfg || !cfg.active) return false;
+  return true;
+};
+// ======================================================
+// Back-compat helpers (used by catalog.js + product cards)
+// ======================================================
 
-    const now = new Date();
+// Alias used by newer scripts
+window.FC_isPromoActiveNow = window.FC_isPromoActive;
 
-    // Fixed end date mode
-    if (cfg.endsAt) {
-      const end = new Date(cfg.endsAt);
-      return now < end;
-    }
+// Apply ONLY the sitewide percentOff promo
+// (no coupons, no stacking)
+window.FC_applyPromo = function FC_applyPromo(price) {
+  const base = Number(price || 0);
+  if (!window.FC_isPromoActiveNow()) return base;
 
-    // Auto-expire mode
-    const days = Number(cfg.autoExpireDays || 0);
-    if (!days) return true;
+  const p = window.FC_PROMO || {};
+  const pct = Number(p.percentOff || 0);
+  if (!pct) return base;
 
-    if (!cfg._activatedAt) return true;
+  const discounted = base * (1 - pct / 100);
+  return Math.round(discounted * 100) / 100;
+};
 
-    const activatedAt = new Date(cfg._activatedAt);
-    const msSince = now - activatedAt;
-    const msLimit = days * 24 * 60 * 60 * 1000;
 
-    return msSince <= msLimit;
-  };
-
-  // Apply promo discount (respects auto-expire)
-  window.FC_applyPromo = function (price) {
-    const base = Number(price || 0);
-
-    if (!window.FC_isPromoActiveNow()) return base;
-
-    const cfg = window.FC_PROMO;
-    const discounted = base - (base * (cfg.percentOff / 100));
-
-    return Math.round(discounted * 100) / 100;
-  };
-
-  // If you ever switch to auto-expire promos, enable this:
-  // window.FC_initPromoTimestamp();
-
-  // Notify page scripts that promo config exists/changed
+/**
+ * Optional: promo-code layer (your checkout promo input uses these)
+ * - If FC_PROMO.code is set, the user must enter it to activate the promo.
+ * - If FC_PROMO.code is null, the promo can auto-apply when FC_PROMO.active is true.
+ */
+window.FC_getActiveCoupon = function FC_getActiveCoupon() {
   try {
-    window.dispatchEvent(new CustomEvent("fc:promo-updated"));
-  } catch (e) {}
+    const raw = localStorage.getItem("fc_active_coupon");
+    return raw ? JSON.parse(raw) : null;
+  } catch (_) {
+    return null;
+  }
+};
+
+window.FC_setActiveCoupon = function FC_setActiveCoupon(codeOrNull) {
+  // Clear
+  if (!codeOrNull) {
+    localStorage.removeItem("fc_active_coupon");
+    return null;
+  }
+
+  const raw = String(codeOrNull).trim().toUpperCase();
+  if (!raw) {
+    localStorage.removeItem("fc_active_coupon");
+    return null;
+  }
+
+  // If you want the global promo to require a code:
+  // - set FC_PROMO.code = "CRATE10" (for example)
+  // - then only that code activates the sitewide percentOff
+  const p = window.FC_PROMO;
+
+  if (p && p.code && raw !== String(p.code).toUpperCase()) {
+    // invalid
+    return null;
+  }
+
+  // Store a normalized coupon object
+  const coupon = {
+    code: raw,
+    percentOff: (p && p.percentOff) ? Number(p.percentOff) : 0,
+    label: (p && p.label) ? p.label : `${raw} applied`,
+    type: "percent"
+  };
+
+  try {
+    localStorage.setItem("fc_active_coupon", JSON.stringify(coupon));
+  } catch (_) {}
+
+  return coupon;
+};
+
+/** Internal: is the promo allowed right now (active + time window)? */
+function FC_promoAllowedNow() {
+  return window.FC_isPromoActive();
+}
+
+/** Internal: should promo apply automatically, or only with a code? */
+function FC_shouldApplyPromo() {
+  const p = window.FC_PROMO;
+  if (!FC_promoAllowedNow()) return false;
+
+  // If promo requires a code, only apply when that code is stored as active coupon
+  if (p && p.code) {
+    const c = window.FC_getActiveCoupon && window.FC_getActiveCoupon();
+    return !!(c && c.code && String(c.code).toUpperCase() === String(p.code).toUpperCase());
+  }
+
+  // Otherwise, auto-apply when promo is active
+  return true;
+}
+
+/** Apply % off to a number (safe). */
+function FC_applyPercentOff(value, percentOff) {
+  const n = Number(value || 0);
+  const pct = Number(percentOff || 0);
+  if (!n || pct <= 0) return n;
+  const discounted = n * (1 - pct / 100);
+  return Math.max(0, discounted);
+}
+
+/**
+ * ✅ MAIN: apply ALL discounts to a cart total (used by checkout/cart/PayPal total).
+ * Right now you only have global percent-off; later you can stack additional rules here.
+ */
+window.FC_applyAllDiscounts = function FC_applyAllDiscounts(total) {
+  let out = Number(total || 0);
+
+  if (FC_shouldApplyPromo()) {
+    out = FC_applyPercentOff(out, window.FC_PROMO.percentOff);
+  }
+
+  return out;
+};
+
+/**
+ * ✅ NEW: apply discounts to a SINGLE unit price (for “was/now” UI)
+ * This is what your product cards + cart line items should use to show the sale price.
+ */
+window.FC_applyDiscountsToUnitPrice = function FC_applyDiscountsToUnitPrice(unitPrice) {
+  let out = Number(unitPrice || 0);
+
+  if (FC_shouldApplyPromo()) {
+    out = FC_applyPercentOff(out, window.FC_PROMO.percentOff);
+  }
+
+  return out;
+};
+
+/** Convenience for rendering “sale messaging” text anywhere. */
+window.FC_getPromoLabel = function FC_getPromoLabel() {
+  if (!FC_shouldApplyPromo()) return "";
+  const p = window.FC_PROMO;
+  return p && p.label ? p.label : `${p.percentOff}% off`;
+};
+
+/** Convenience: banner text. */
+window.FC_getPromoBannerText = function FC_getPromoBannerText() {
+  if (!FC_shouldApplyPromo()) return "";
+  const p = window.FC_PROMO;
+  return p && p.bannerText ? p.bannerText : window.FC_getPromoLabel();
+};
+
 
   // ================================
   // Coupon system (stacked on top of FC_PROMO unless blocked)
