@@ -431,17 +431,26 @@ return {
     // ---------- Stripe redirect ----------
 stripeBtn?.addEventListener('click', async () => {
   try {
-    // Grab the active coupon (Freedom Mode / promo) if there is one
+    const cart = readCart();
+
+    // Compute the exact total shown on the page (sale + coupon rules)
+    const rawSubtotal = cartTotal(cart);
+    const finalTotal = (typeof window.FC_applyAllDiscounts === "function")
+      ? window.FC_applyAllDiscounts(rawSubtotal)
+      : rawSubtotal;
+
+    // Also grab coupon for reference (optional)
     const coupon = (typeof window.FC_getActiveCoupon === 'function')
-  ? window.FC_getActiveCoupon()
-  : null;
+      ? window.FC_getActiveCoupon()
+      : null;
 
     const res = await fetch('/.netlify/functions/create-checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        items: readCart(),
-        coupon // <= send coupon to the Netlify function
+        items: cart,
+        coupon,
+        finalTotal: Number(finalTotal.toFixed(2)) // 👈 send final discounted total
       })
     });
 
@@ -456,6 +465,7 @@ stripeBtn?.addEventListener('click', async () => {
     alert('Stripe checkout failed.');
   }
 });
+
     
 // ----- Promo form wiring -----
 const promoForm  = document.getElementById('checkoutPromoForm');
