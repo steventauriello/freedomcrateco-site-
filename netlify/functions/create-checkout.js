@@ -9,7 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Sitewide promo (match your FC_PROMO)
 const SITEWIDE_PROMO = {
-  active: false,            // 🔥 master switch (set true when running the sale)
+  active: true,            // 🔥 master switch (set true when running the sale)
   percentOff: 15,           // e.g. 15% off
   startsAt: null,           // e.g. "2026-01-24T00:00:00-05:00" or null
   endsAt: null              // e.g. "2026-02-01T23:59:59-05:00" or null

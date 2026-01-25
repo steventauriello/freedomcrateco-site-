@@ -79,7 +79,7 @@
  * If you want manual only, leave startsAt/endsAt null and just set active:true/false.
  */
 window.FC_PROMO = {
-  active: false,                 // 🔥 master switch
+  active: true,                 // 🔥 master switch
   percentOff: 15,               // ✅ 15% OFF
   code: null,                   // auto-applies, no code required
   label: "15% Off Sitewide",
