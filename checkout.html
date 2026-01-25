@@ -433,18 +433,24 @@ stripeBtn?.addEventListener('click', async () => {
   try {
     const cart = readCart();
 
+    // Compute the exact total shown on the page (sale + coupon rules)
+    const rawSubtotal = cartTotal(cart);
+    const finalTotal = (typeof window.FC_applyAllDiscounts === "function")
+      ? window.FC_applyAllDiscounts(rawSubtotal)
+      : rawSubtotal;
+
+    // Also grab coupon for reference (optional)
     const coupon = (typeof window.FC_getActiveCoupon === 'function')
       ? window.FC_getActiveCoupon()
       : null;
-
-    const couponCode = coupon?.code ? String(coupon.code).trim() : "";
 
     const res = await fetch('/.netlify/functions/create-checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         items: cart,
-        couponCode // ✅ server will apply ALL rules
+        coupon,
+        finalTotal: Number(finalTotal.toFixed(2)) // 👈 send final discounted total
       })
     });
 
@@ -452,7 +458,7 @@ stripeBtn?.addEventListener('click', async () => {
     if (data.url) {
       window.location.href = data.url;
     } else {
-      alert(data?.error || 'Stripe checkout failed. Please try again.');
+      alert('Stripe checkout failed. Please try again.');
     }
   } catch (err) {
     console.error('Stripe error', err);
