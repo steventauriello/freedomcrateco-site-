@@ -321,21 +321,13 @@ remove.innerHTML = `
       });
 
             // --- subtotal with coupon applied ---
-    const rawSubtotal = cartTotal(readCart()); // already includes sitewide sale via item.price
+     const rawSubtotal = cartTotal(readCart());
 
-let finalSubtotal = rawSubtotal;
-
-// Apply coupon ONLY (if active)
-const c = (typeof window.FC_getActiveCoupon === 'function')
-  ? window.FC_getActiveCoupon()
-  : null;
-
-if (c && c.percentOff) {
-  finalSubtotal = rawSubtotal * (1 - (Number(c.percentOff) / 100));
-}
+const finalSubtotal = (typeof window.FC_applyAllDiscounts === "function")
+  ? window.FC_applyAllDiscounts(rawSubtotal)
+  : rawSubtotal;
 
 subtotalEl.textContent = fmt(finalSubtotal);
-
 
 
       totalsBox.hidden = false;
@@ -377,17 +369,9 @@ subtotalEl.textContent = fmt(finalSubtotal);
 
 const itemTotalNum = Number(itemTotal);
 
-// itemTotalNum already includes site-wide sale via item.price
-let finalTotalNum = itemTotalNum;
-
-// Apply coupon ONLY (if active)
-const c = (typeof window.FC_getActiveCoupon === 'function')
-  ? window.FC_getActiveCoupon()
-  : null;
-
-if (c && c.percentOff) {
-  finalTotalNum = itemTotalNum * (1 - (Number(c.percentOff) / 100));
-}
+const finalTotalNum = (typeof window.FC_applyAllDiscounts === "function")
+  ? window.FC_applyAllDiscounts(itemTotalNum)
+  : itemTotalNum;
 
 const discountAmount = Math.max(0, itemTotalNum - finalTotalNum).toFixed(2);
 
