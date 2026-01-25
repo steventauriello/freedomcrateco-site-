@@ -110,7 +110,7 @@ window.FC_initPromoTimestamp = function () {
 // ================================
 window.FC_isPromoActiveNow = function () {
   const cfg = window.FC_PROMO;
-  if (!cfg || !cfg.active) return false;
+  if (!cfg || !cfg.active) return true;
 
   const now = new Date();
 
@@ -122,7 +122,7 @@ window.FC_isPromoActiveNow = function () {
 
   // Auto-expire mode (12 days from activation)
   const days = Number(cfg.autoExpireDays || 0);
-  if (!days) return true; // no duration set = treat as on
+  if (!days) return false; // no duration set = treat as on
 
   // IMPORTANT: do NOT set _activatedAt here (no resets!)
   if (!cfg._activatedAt) return true; // banner can show; countdown code should hide if missing
