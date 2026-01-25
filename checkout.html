@@ -244,6 +244,58 @@
     const actionsBox = document.getElementById('actions');
     const stripeBtn  = document.getElementById('stripe-pay');
    
+ // ----- Simple coupon system (front-end only) -----
+    const COUPON_KEY = 'fcc_coupon_v1';
+
+    // Define the codes you actually want to use:
+    // Adjust labels / percentOff exactly how you want.
+        const COUPONS = {
+      'FREEDOM1776': {
+        label: 'Freedom 1776',
+        percentOff: 15
+      },
+      'FREEDOMMODE': {
+        label: 'Freedom Mode',
+        percentOff: 15   // or 10 if you want this one to stay 10%
+      },
+      'FAMILY2026': {
+        label: 'Family 2026',
+        percentOff: 35
+      }
+      // Add more codes here if you want:
+      // 'BLACKFRIDAY': { label: 'Black Friday', percentOff: 15 },
+    };
+
+
+    function FC_getActiveCoupon() {
+      try {
+        const raw = localStorage.getItem(COUPON_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        const code = String(parsed.code || '').toUpperCase();
+        const def = COUPONS[code];
+        if (!def) return null;
+        return { code, ...def };
+      } catch {
+        return null;
+      }
+    }
+
+    function setActiveCoupon(code) {
+      const upper = String(code || '').toUpperCase();
+      const def = COUPONS[upper];
+      if (!def) {
+        localStorage.removeItem(COUPON_KEY);
+        return null;
+      }
+      localStorage.setItem(COUPON_KEY, JSON.stringify({ code: upper }));
+      return { code: upper, ...def };
+    }
+
+    function clearActiveCoupon() {
+      localStorage.removeItem(COUPON_KEY);
+    }
+
 
     const fmt = (n) => '$' + (Number(n || 0)).toFixed(2);
     const escapeHtml = (s) => String(s).replace(/[&<>"']/g, m => (
@@ -321,14 +373,18 @@ remove.innerHTML = `
       });
 
             // --- subtotal with coupon applied ---
-     const rawSubtotal = cartTotal(readCart());
+      const rawSubtotal = cartTotal(readCart());
+      const activeCoupon = FC_getActiveCoupon();
+      let discountAmt = 0;
 
-const finalSubtotal = (typeof window.FC_applyAllDiscounts === "function")
-  ? window.FC_applyAllDiscounts(rawSubtotal)
-  : rawSubtotal;
+      if (activeCoupon && activeCoupon.percentOff) {
+        const pct = Math.max(0, Math.min(100, Number(activeCoupon.percentOff) || 0));
+        discountAmt = (rawSubtotal * pct) / 100;
+      }
 
-subtotalEl.textContent = fmt(finalSubtotal);
+      const finalSubtotal = rawSubtotal - discountAmt;
 
+      subtotalEl.textContent = fmt(finalSubtotal);
 
       totalsBox.hidden = false;
       actionsBox.hidden = false;
@@ -367,28 +423,27 @@ subtotalEl.textContent = fmt(finalSubtotal);
 
       const itemTotal = items.reduce((sum, it) => sum + (Number(it.unit_amount.value) * Number(it.quantity)), 0).toFixed(2);
 
-const itemTotalNum = Number(itemTotal);
+// --- Apply cart-level coupon discount ---
+let discountAmount = 0;
+const activeCoupon = (typeof FC_getActiveCoupon === "function")
+  ? FC_getActiveCoupon()
+  : null;
 
-const finalTotalNum = (typeof window.FC_applyAllDiscounts === "function")
-  ? window.FC_applyAllDiscounts(itemTotalNum)
-  : itemTotalNum;
-
-const discountAmount = Math.max(0, itemTotalNum - finalTotalNum).toFixed(2);
-
-      const breakdown = {
-  item_total: { currency_code: 'USD', value: itemTotal }
-};
-
-if (Number(discountAmount) > 0) {
-  breakdown.discount = { currency_code: 'USD', value: discountAmount };
+if (activeCoupon && activeCoupon.percentOff) {
+  const pct = Math.max(0, Math.min(100, Number(activeCoupon.percentOff) || 0));
+  discountAmount = ((Number(itemTotal) * pct) / 100).toFixed(2);
 }
-return {
+
+      return {
   description: 'Freedom Crate Co. order',
- amount: {
-  currency_code: 'USD',
-  value: finalTotalNum.toFixed(2),
-  breakdown: breakdown
-},
+  amount: {
+    currency_code: 'USD',
+    value: (Number(itemTotal) - Number(discountAmount)).toFixed(2),
+    breakdown: {
+      item_total: { currency_code: 'USD', value: itemTotal },
+      discount:   { currency_code: 'USD', value: discountAmount }
+    }
+  },
   items
 };
 
@@ -432,9 +487,9 @@ return {
 stripeBtn?.addEventListener('click', async () => {
   try {
     // Grab the active coupon (Freedom Mode / promo) if there is one
-    const coupon = (typeof window.FC_getActiveCoupon === 'function')
-  ? window.FC_getActiveCoupon()
-  : null;
+    const coupon = (typeof FC_getActiveCoupon === 'function')
+      ? FC_getActiveCoupon()
+      : null;
 
     const res = await fetch('/.netlify/functions/create-checkout', {
       method: 'POST',
@@ -457,66 +512,49 @@ stripeBtn?.addEventListener('click', async () => {
   }
 });
     
-// ----- Promo form wiring -----
-const promoForm  = document.getElementById('checkoutPromoForm');
-const promoInput = document.getElementById('checkoutPromoInput');
-const promoMsg   = document.getElementById('checkoutPromoMessage');
+  // ----- Promo form wiring -----
+    const promoForm = document.getElementById('checkoutPromoForm');
+    const promoInput = document.getElementById('checkoutPromoInput');
+    const promoMsg   = document.getElementById('checkoutPromoMessage');
 
-function formatCouponMessage(c) {
-  if (!c) return '';
-  return c.label ? c.label : `${c.code} applied — ${c.percentOff}% off your cart.`;
-}
+    if (promoForm && promoInput && promoMsg) {
+      promoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const raw = (promoInput.value || '').trim().toUpperCase();
 
-if (promoForm && promoInput && promoMsg) {
-  promoForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+        if (!raw) {
+          clearActiveCoupon();
+          promoMsg.textContent = 'Enter a promo code to apply.';
+          render();
+          return;
+        }
 
-    const raw = (promoInput.value || '').trim().toUpperCase();
+        const applied = setActiveCoupon(raw);
 
-    if (typeof window.FC_setActiveCoupon !== 'function') {
-      promoMsg.textContent = 'Promo system not available right now.';
-      return;
+        if (!applied) {
+          promoMsg.textContent = 'That code is not valid.';
+          promoForm.classList.add('promo-error');
+        } else {
+          promoMsg.textContent = `${applied.code} applied — ${applied.percentOff}% off your cart.`;
+          promoForm.classList.remove('promo-error');
+        }
+
+        // Re-render to update totals and PayPal
+        render();
+      });
+
+      // On load, if a coupon is already stored, show it
+      const existing = FC_getActiveCoupon();
+      if (existing) {
+        promoInput.value = existing.code;
+        promoMsg.textContent = `${existing.code} applied — ${existing.percentOff}% off your cart.`;
+      }
     }
 
-    // Clear coupon
-    if (!raw) {
-      window.FC_setActiveCoupon(null);
-      promoMsg.textContent = 'Enter a promo code to apply.';
-      promoForm.classList.remove('promo-error');
-      render();
-      return;
-    }
 
-    // Apply coupon
-    const applied = window.FC_setActiveCoupon(raw);
-
-    if (!applied) {
-      promoMsg.textContent = 'That code is not valid.';
-      promoForm.classList.add('promo-error');
-    } else {
-      promoMsg.textContent = formatCouponMessage(applied);
-      promoForm.classList.remove('promo-error');
-    }
-
-    render(); // updates totals + rebuilds PayPal buttons
-  });
-
-  // On load, if a coupon is already stored, show it
-  const existing = (typeof window.FC_getActiveCoupon === 'function')
-    ? window.FC_getActiveCoupon()
-    : null;
-
-  if (existing) {
-    promoInput.value = existing.code;
-    promoMsg.textContent = formatCouponMessage(existing);
-    promoForm.classList.remove('promo-error');
-  }
-}
-
-  document.addEventListener('DOMContentLoaded', render);
-window.addEventListener('cart:updated', render);
-window.addEventListener('storage', render);
-
+    document.addEventListener('DOMContentLoaded', render);
+    window.addEventListener('cart:updated', render);
+    window.addEventListener('storage', render);
   })();
   </script>
 </body>
