@@ -175,14 +175,7 @@ window.FC_COUPONS = {
     percentOff: 35,
     label: "family2026 — 35% off your cart",
     maxUses: null       // unlimited usage unless you want a cap
-  },
-
-CRATE10: {
-  code: "CRATE10",
-  percentOff: 10,
-  label: "Returning Customer — 10% off your next order",
-  maxUses: null
-}
+  }
 };
 
 
@@ -228,27 +221,23 @@ CRATE10: {
   };
 
   // Apply global promo *then* coupon (for product cards, etc).
- window.FC_applyAllDiscounts = function (rawPrice) {
-  let price = Number(rawPrice || 0);
+  window.FC_applyAllDiscounts = function (rawPrice) {
+    let price = Number(rawPrice || 0);
 
-  const coupon = readActive();
-  const couponCode = coupon?.code ? String(coupon.code).toUpperCase() : "";
+    // 1) Global sale promo (your existing logic)
+    if (typeof window.FC_applyPromo === "function") {
+      price = window.FC_applyPromo(price);
+    }
 
-  // CRATE10 must NOT stack with sitewide promo
-  const blockSitewidePromo = (couponCode === "CRATE10");
+    // 2) Coupon on top of that
+    const coupon = readActive();
+    if (coupon && coupon.percentOff) {
+      const pct = Math.max(0, Math.min(100, Number(coupon.percentOff) || 0));
+      price = price - (price * pct / 100);
+    }
 
-  // Apply sitewide promo only if allowed
-  if (!blockSitewidePromo && typeof window.FC_applyPromo === "function") {
-    price = window.FC_applyPromo(price);
-  }
-
-  // Apply coupon
-  if (coupon && coupon.percentOff) {
-    const pct = Math.max(0, Math.min(100, Number(coupon.percentOff) || 0));
-    price = price - (price * pct / 100);
-  }
-
-  return Math.round(price * 100) / 100;
-};
+    // Round to cents
+    return Math.round(price * 100) / 100;
+  };
 })();
 
