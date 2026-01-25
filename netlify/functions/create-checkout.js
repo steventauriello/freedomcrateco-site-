@@ -19,7 +19,7 @@ const COUPONS = {
 
 /** 🔥 Sitewide sale (Stripe-side) */
 const SITEWIDE_PROMO = {
-  active: true,
+  active: false,
   percentOff: 15,
 };
 
