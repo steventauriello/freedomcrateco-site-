@@ -17,6 +17,12 @@ const COUPONS = {
   // VIP20: { label: 'VIP 20', percentOff: 20 },
 };
 
+/** 🔥 Sitewide sale (Stripe-side) */
+const SITEWIDE_PROMO = {
+  active: true,
+  percentOff: 15,
+};
+
 /** Basic CORS so local/preview works */
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -56,8 +62,12 @@ export async function handler(event) {
     }
 
     // ---- Coupon / percent-off handling (server-authoritative) ----
-    let percentOff = 0;
-    let couponCode = '';
+let percentOff = SITEWIDE_PROMO.active
+  ? SITEWIDE_PROMO.percentOff
+  : 0;
+
+let couponCode = '';
+
 
     if (coupon && typeof coupon === 'object' && coupon.code) {
       const rawCode = String(coupon.code).trim();
