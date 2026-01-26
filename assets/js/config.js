@@ -68,7 +68,7 @@ window.getStripeLinkForCart = function(cartItems){
 // Sitewide Promo / Discount Config
 // ================================
 window.FC_PROMO = {
-  active: true,               // turn sale on/off
+  active: false,               // turn sale on/off
   percentOff: 15,             // how much off
   label: "12 DAYS OF CHRISTMAS — 15% Off Sitewide",
 
