@@ -9,6 +9,10 @@ const COUPONS = {
     label: 'Freedom 1776',
     percentOff: 15,
   },
+  CRATE10: {
+    label: 'Crate 10',
+    percentOff: 10,
+  },
   FAMILY2026: {
     label: 'Family 2026',
     percentOff: 35,
@@ -62,12 +66,11 @@ export async function handler(event) {
     }
 
     // ---- Coupon / percent-off handling (server-authoritative) ----
-let percentOff = SITEWIDE_PROMO.active
-  ? SITEWIDE_PROMO.percentOff
-  : 0;
+    let percentOff = SITEWIDE_PROMO.active
+      ? SITEWIDE_PROMO.percentOff
+      : 0;
 
-let couponCode = '';
-
+    let couponCode = '';
 
     if (coupon && typeof coupon === 'object' && coupon.code) {
       const rawCode = String(coupon.code).trim();

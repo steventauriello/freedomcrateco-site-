@@ -69,24 +69,25 @@ window.getStripeLinkForCart = function(cartItems){
 // ================================
 window.FC_PROMO = {
   active: false,               // turn sale on/off
-  percentOff: 15,             // how much off
-  label: "12 DAYS OF CHRISTMAS — 15% Off Sitewide",
+  percentOff: 15,              // how much off
+  label: "15% Off Sitewide",
 
-  // ONE global end moment for everyone
-  // Ends at 11:59:59 PM Eastern on Christmas Day
-  endsAt: "2025-12-26T04:59:59.000Z"
+  // OPTIONAL: fixed end moment (recommended for real sales)
+  // endsAt: "2025-12-26T04:59:59.000Z"
+
+  // OPTIONAL: auto-expire mode (days from activation)
+  // autoExpireDays: 12
 };
-
 
 // ================================
 // Ensure promo has a timestamp if turned on (PERSISTED)
+// (used only if you choose autoExpireDays mode)
 // ================================
 window.FC_initPromoTimestamp = function () {
   const cfg = window.FC_PROMO;
   const KEY = "fcc_promo_activatedAt_v1";
 
   if (cfg.active) {
-    // Try to reuse a saved timestamp so refresh doesn't reset the countdown
     let stored = null;
     try { stored = localStorage.getItem(KEY); } catch (e) {}
 
@@ -95,11 +96,9 @@ window.FC_initPromoTimestamp = function () {
       return;
     }
 
-    // First activation: set + persist
     cfg._activatedAt = cfg._activatedAt || new Date().toISOString();
     try { localStorage.setItem(KEY, cfg._activatedAt); } catch (e) {}
   } else {
-    // Promo OFF: clear timestamp everywhere
     cfg._activatedAt = null;
     try { localStorage.removeItem(KEY); } catch (e) {}
   }
@@ -107,10 +106,11 @@ window.FC_initPromoTimestamp = function () {
 
 // ================================
 // Check if promo should be active *right now*
+// (fixed-end OR auto-expire OR manual-on)
 // ================================
 window.FC_isPromoActiveNow = function () {
   const cfg = window.FC_PROMO;
-  if (!cfg || !cfg.active) return true;
+  if (!cfg || !cfg.active) return false; // ✅ correct toggle behavior
 
   const now = new Date();
 
@@ -120,48 +120,39 @@ window.FC_isPromoActiveNow = function () {
     return now < end;
   }
 
-  // Auto-expire mode (12 days from activation)
+  // Auto-expire mode (N days from activation)
   const days = Number(cfg.autoExpireDays || 0);
-  if (!days) return false; // no duration set = treat as on
+  if (days > 0) {
+    if (!cfg._activatedAt) return true;
+    const activatedAt = new Date(cfg._activatedAt);
+    const msSince = now - activatedAt;
+    const msLimit = days * 24 * 60 * 60 * 1000;
+    return msSince <= msLimit;
+  }
 
-  // IMPORTANT: do NOT set _activatedAt here (no resets!)
-  if (!cfg._activatedAt) return true; // banner can show; countdown code should hide if missing
-
-  const activatedAt = new Date(cfg._activatedAt);
-  const msSince = now - activatedAt;
-  const msLimit = days * 24 * 60 * 60 * 1000;
-
-  return msSince <= msLimit;
+  // Manual mode: active === true and no end rules
+  return true;
 };
 
 // ================================
-// Apply promo discount (respects auto-expire)
+// Apply promo discount (respects expiration logic)
 // ================================
 window.FC_applyPromo = function (price) {
   const base = Number(price || 0);
-
-  // Do not discount if promo expired or inactive
-  if (!window.FC_isPromoActiveNow()) {
-    return base;
-  }
+  if (!window.FC_isPromoActiveNow()) return base;
 
   const cfg = window.FC_PROMO;
   const discounted = base - (base * (cfg.percentOff / 100));
-
   return Math.round(discounted * 100) / 100;
 };
-
-// window.FC_initPromoTimestamp(); // not used for fixed-end sales
 
 // Notify page scripts
 window.dispatchEvent(new CustomEvent('fc:promo-updated'));
 
-// ---------------------------------------------------------------------------
-// Simple coupon system (stacked on top of FC_PROMO)
-// ---------------------------------------------------------------------------
 
-// Hard-coded coupon definitions for now.
-// Codes are case-insensitive.
+// ---------------------------------------------------------------------------
+// Simple coupon system (STACKS on top of FC_PROMO)
+// ---------------------------------------------------------------------------
 window.FC_COUPONS = {
   FREEDOM1776: {
     code: "FREEDOM1776",
@@ -170,14 +161,20 @@ window.FC_COUPONS = {
     maxUses: 50
   },
 
+  CRATE10: {
+    code: "CRATE10",
+    percentOff: 10,
+    label: "CRATE10 — 10% off your cart",
+    maxUses: null
+  },
+
   FAMILY2026: {
     code: "FAMILY2026",
     percentOff: 35,
     label: "family2026 — 35% off your cart",
-    maxUses: null       // unlimited usage unless you want a cap
+    maxUses: null
   }
 };
-
 
 (function () {
   const KEY = "fcc_coupon_v1";
@@ -208,36 +205,34 @@ window.FC_COUPONS = {
     return { code: def.code, percentOff: def.percentOff, label: def.label || def.code };
   }
 
-  // Public helpers
   window.FC_getActiveCoupon = function () {
     return readActive();
   };
 
-  // Set or clear coupon. Returns the active coupon object or null.
   window.FC_setActiveCoupon = function (code) {
     const coupon = writeActive(code || null);
     window.dispatchEvent(new CustomEvent("fc:coupon-updated", { detail: coupon }));
     return coupon;
   };
 
-  // Apply global promo *then* coupon (for product cards, etc).
+  // ✅ Live-style stacking: promo first, then coupon on top
   window.FC_applyAllDiscounts = function (rawPrice) {
     let price = Number(rawPrice || 0);
 
-    // 1) Global sale promo (your existing logic)
+    // 1) Sitewide promo first
     if (typeof window.FC_applyPromo === "function") {
       price = window.FC_applyPromo(price);
     }
 
-    // 2) Coupon on top of that
+    // 2) Coupon stacks on top
     const coupon = readActive();
     if (coupon && coupon.percentOff) {
       const pct = Math.max(0, Math.min(100, Number(coupon.percentOff) || 0));
       price = price - (price * pct / 100);
     }
 
-    // Round to cents
     return Math.round(price * 100) / 100;
   };
 })();
+
 
