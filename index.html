@@ -945,12 +945,30 @@ if (cfg.endsAt) {
   /* --- Freedom Crate Classic: price + image swap + Add/Buy --- */
   (function(){
     const IMG = {
-      blank:      "assets/img/branch-collection-blank.jpg",
-      army:       "assets/img/branch-collection-army.jpg",
-      marines:    "assets/img/branch-collection-marines.jpg",
-      navy:       "assets/img/branch-collection-navy.jpg",
-      airforce:   "assets/img/branch-collection-airforce.jpg",
-      coastguard: "assets/img/branch-collection-coastguard.jpg"
+      blank: {
+        Stainless: "assets/img/branch-collection-blank-stainless.JPEG",
+        Black:     "assets/img/branch-collection-blank-black.JPEG"
+      },
+      army: {
+        Stainless: "assets/img/branch-collection-army-stainless.JPEG",
+        Black:     "assets/img/branch-collection-army-black.JPEG"
+      },
+      marines: {
+        Stainless: "assets/img/branch-collection-marines-stainless.JPEG",
+        Black:     "assets/img/branch-collection-marines-black.JPEG"
+      },
+      navy: {
+        Stainless: "assets/img/branch-collection-navy-stainless.JPEG",
+        Black:     "assets/img/branch-collection-navy-black.JPEG"
+      },
+      airforce: {
+        Stainless: "assets/img/branch-collection-airforce-stainless.JPEG",
+        Black:     "assets/img/branch-collection-airforce-black.JPEG"
+      },
+      coastguard: {
+        Stainless: "assets/img/branch-collection-coastguard-stainless.JPEG",
+        Black:     "assets/img/branch-collection-coastguard-black.JPEG"
+      }
     };
 
     const BRANCH_PRICE = 64.99;
@@ -965,35 +983,46 @@ if (cfg.endsAt) {
     const addBtn      = document.getElementById('sb-add');
     const buyBtn      = document.getElementById('sb-buy');
     const latchInputs = Array.from(document.querySelectorAll('.sb-latch'));
-
-    const fmt  = n => '$' + Number(n).toFixed(2);
+    
+function getLatch(){
+  const picked = latchInputs.find(r => r.checked);
+  return (picked && picked.value) ? picked.value : 'Stainless';
+}
+    
+const fmt  = n => '$' + Number(n).toFixed(2);
     const slug = s => String(s).toLowerCase()
       .replace(/[^a-z0-9]+/g,'-')
       .replace(/(^-|-$)/g,'');
 
     // Preload images
-    Object.values(IMG).forEach(src => { const im = new Image(); im.src = src; });
+    Object.values(IMG).forEach(byHw => {
+  Object.values(byHw).forEach(src => {
+    const im = new Image();
+    im.src = src;
+  });
+});
 
     function updateImage(){
-      const val   = branch.value;
-      const src   = IMG[val] || IMG.blank;
-      const label = branch.options[branch.selectedIndex]?.text || 'Blank';
+  const val = branch.value;
+  const hw  = getLatch(); // "Stainless" or "Black"
 
-      imgEl.classList.add('is-loading');
-      const tmp = new Image();
-      tmp.onload = () => {
-        imgEl.src = src;
-        imgEl.alt = (val === 'blank')
-          ? 'Freedom Crate Classic (no stencil)'
-          : `Freedom Crate Classic — ${label}`;
-        requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
-      };
-      tmp.src = src;
-    }
+  const branchMap = IMG[val] || IMG.blank;              // object
+  const src       = branchMap[hw] || IMG.blank.Stainless; // string
 
-    function getLatch(){
-      return latchInputs.find(x => x.checked)?.value || 'Stainless';
-    }
+  const label = branch.options[branch.selectedIndex]?.text || 'Blank';
+
+  imgEl.classList.add('is-loading');
+  const tmp = new Image();
+  tmp.onload = () => {
+    imgEl.src = src;
+    imgEl.alt = (val === 'blank')
+      ? `Freedom Crate Classic (no stencil) • ${hw} hardware`
+      : `Freedom Crate Classic — ${label} • ${hw} hardware`;
+
+    requestAnimationFrame(() => imgEl.classList.remove('is-loading'));
+  };
+  tmp.src = src;
+}
 
     // 🔒 Sitewide promo ONLY (ignores coupons)
     function applySitewidePromo(raw){
@@ -1075,7 +1104,10 @@ if (cfg.endsAt) {
       updateImage();
       calcTotal();
     });
-    latchInputs.forEach(r => r.addEventListener('change', calcTotal));
+    latchInputs.forEach(r => r.addEventListener('change', () => {
+  updateImage();
+  calcTotal();
+}));
 
     addBtn.addEventListener('click', () => {
       const { sku, name, price } = buildSkuName();
