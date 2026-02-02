@@ -2660,11 +2660,38 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   gap: 0.35rem;
 }
 
+/* === Engineering Notebook: search bar === */
+.en-search-bar {
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
 .en-search-bar label {
   font-weight: 600;
-  .en-search-bar label {
-  font-weight: 600;
   color: #4da3ff;
+}
+
+.en-search-input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #0e1013;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.en-search-input::placeholder {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .en-search-bar,
+  .en-search-input {
+    width: 100%;
+  }
 }
 
 
@@ -2799,26 +2826,59 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   z-index: 6;
   pointer-events: none;
 }
-/* === MOBILE NAV RESET (final) === */
+/* ===== FINAL MOBILE HEADER OVERRIDE (put at END) ===== */
 @media (max-width: 640px) {
-  .site-header .nav {
-    display: flex !important;
-    flex-direction: column;      /* stack the links */
-    align-items: center;         /* center them */
-    justify-content: center;
-    flex-wrap: nowrap;           /* no wrapping weirdness */
-    gap: 4px;
+  html, body { overflow-x: hidden; }
+
+  /* Keep header from overflowing */
+  .site-header,
+  .header-inner { max-width: 100%; overflow-x: hidden; }
+
+  /* Make nav a grid: wraps cleanly */
+  .site-header .nav{
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px 8px;
+    width: 100%;
+    align-items: center;
+    justify-items: center;
   }
 
-  .site-header .nav a {
-    margin: 0 !important;        /* kill the 20px left margin */
-    padding: 6px 10px;
-    font-size: 0.95rem;
-    white-space: nowrap;
+  /* tiny phones */
+  @media (max-width: 390px){
+    .site-header .nav{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
-  .site-header .nav .cart-link {
-    margin-left: 0 !important;   /* stop forcing Cart to the far right */
-    order: 0 !important;
+  /* compact links */
+  .site-header .nav a{
+    margin: 0 !important;
+    padding: 6px 8px !important;
+    font-size: .92rem;
+    text-align: center;
+    line-height: 1.2;
+    white-space: normal;          /* prevents overflow */
   }
+  .site-header .nav a::before{ content: none !important; }
+
+  /* cart at end, no big flag */
+  .site-header .nav .cart-link{
+    order: 99;
+    justify-self: end;
+    margin: 0 !important;
+  }
+  .site-header .nav .cart-link .flag{ display: none !important; }
+
+  /* hide hamburger if you’re not using off-canvas */
+  .menu-btn{ display: none !important; }
+
+  /* logo: don’t push width */
+  :root{ --logo-x: 0px !important; --logo-h: 72px !important; }
+  .site-header .brand{ margin-right: auto !important; }
 }
