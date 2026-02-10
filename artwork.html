@@ -306,8 +306,9 @@
               </strong>
             </div>
             <small class="fc-note">
-              Sizes: 12×16 — $59 • 16×20 — $75 • 18×24 — $89 
-            </small>
+  16×20 — $75 • 18×24 — $89 • 24×36 — $114
+</small>
+
           </div>
 
           <!-- Buttons -->
@@ -351,6 +352,119 @@
     </aside>
 
   </section>
+
+<!-- =========================
+     DECLARATION FOUNDERS — FEATURE CARD
+========================= -->
+<section class="artwork-layout" aria-label="Declaration wall art options and details">
+
+  <!-- LEFT: feature-style product card -->
+  <div class="artwork-card">
+
+    <div class="product-callout">
+      🏛️ <strong>Patriotic Classic</strong> — Founding Document
+    </div>
+
+    <div class="featured-card" id="decl-card">
+
+      <div class="fc-media-col">
+        <div class="fc-media">
+          <img
+            id="decl-image"
+            src="assets/img/declaration-founders-black-18x24-solo.jpg"
+            alt="Declaration of Independence Founders Wall Art — 18×24, black frame"
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="800">
+        </div>
+      </div>
+
+      <div class="fc-controls">
+        <h2>Declaration of Independence — Founders Wall Art</h2>
+
+        <p class="fc-note">
+          A timeless Declaration print featuring America’s Founding Fathers and the most iconic words in U.S. history.
+        </p>
+
+        <!-- Print size -->
+        <label class="fc-field" for="decl-size">
+          <span class="fc-label">Print size</span>
+          <div class="fc-select-wrap">
+            <select id="decl-size" class="fc-select">
+  <option value="24x36">24″ × 36″ (large wall)</option>
+  <option value="18x24">18″ × 24″</option>
+  <option value="16x20">16″ × 20″</option>
+</select>
+          </div>
+        </label>
+
+        <!-- Frame color -->
+        <label class="fc-field" for="decl-frame">
+          <span class="fc-label">Frame color</span>
+          <div class="fc-select-wrap">
+            <select id="decl-frame" class="fc-select">
+              <option value="black">Black frame</option>
+              <option value="redoak">Red oak frame</option>
+              <option value="white">White frame</option>
+            </select>
+          </div>
+        </label>
+
+        <!-- Pricing -->
+        <div class="fc-row">
+          <strong>
+            Total:
+            <span id="decl-price" class="price">$89.00</span>
+            <span id="decl-sale" class="sale-badge" hidden>
+              <img src="assets/img/saletag.svg" alt="" class="sale-icon">
+              Sale
+            </span>
+          </strong>
+          <small class="fc-note">
+            16×20 — $75 • 18×24 — $89
+          </small>
+        </div>
+
+        <!-- Buttons -->
+        <div class="fc-row">
+          <button id="decl-add" class="fc-btn btn add-to-cart" type="button">Add to Cart</button>
+          <button id="decl-buy" class="fc-btn btn" type="button">Buy Now</button>
+        </div>
+
+        <!-- Zoom -->
+        <button
+          type="button"
+          class="fc-btn btn btn-outline js-view-artwork"
+          data-view="/assets/img/declaration-founders-full-print-zoom-master.jpeg"
+          data-title="Declaration of Independence — Founders"
+        >
+          View Up Close
+        </button>
+
+        <p class="fc-note">
+          Printed on demand • Free U.S. shipping • Ready to hang
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: quick details -->
+  <aside class="artwork-copy-card" aria-label="Declaration quick details">
+    <h2>Quick Details</h2>
+    <ul class="artwork-meta-list">
+      <li><strong>Document:</strong> Declaration of Independence</li>
+      <li><strong>Figures:</strong> Principal Founding Fathers</li>
+      <li><strong>Style:</strong> Historical parchment aesthetic</li>
+      <li><strong>Sizes:</strong> 16×20, 18×24</li>
+      <li><strong>Frames:</strong> Black, Red Oak, White</li>
+      <li><strong>Finish:</strong> Premium matte art print</li>
+      <li><strong>Shipping:</strong> Free U.S. shipping</li>
+    </ul>
+  </aside>
+
+</section>
+
 
   <!-- INLINE ZOOM / PAN VIEWER -->
   <section class="artwork-copy-card artwork-zoom-card" aria-label="Explore the AR-15 blueprint up close">
@@ -446,10 +560,11 @@
 
 
     const SIZE_PRICE = {
-      "12x16": 59,
-      "16x20": 75,
-      "18x24": 89
-    };
+  "16x20": 75,
+  "18x24": 89,
+  "24x36": 114
+};
+
 
     const imgEl   = document.getElementById('ar15-image');
     const sizeEl  = document.getElementById('ar15-size');
@@ -572,12 +687,156 @@
   })();
 </script>
 
+<!-- DECLARATION FOUNDERS ARTWORK LOGIC (size shows "person" scale) -->
+<script>
+(function () {
+
+  // SOLO (nice clean mockups) — used on initial load + when frame changes
+const IMG_SOLO = {
+  "24x36:black":  "assets/img/declaration-founders-black-24x36-solo.jpg",
+  "24x36:redoak": "assets/img/declaration-founders-redoak-24x36-solo.jpg",
+  "24x36:white":  "assets/img/declaration-founders-white-24x36-solo.jpg",
+
+  "18x24:black":  "assets/img/declaration-founders-black-18x24-solo.jpg",
+  "18x24:redoak": "assets/img/declaration-founders-redoak-18x24-solo.jpg",
+  "18x24:white":  "assets/img/declaration-founders-white-18x24-solo.jpg",
+
+  "16x20:black":  "assets/img/declaration-founders-black-16x20-solo.jpg",
+  "16x20:redoak": "assets/img/declaration-founders-redoak-16x20-solo.jpg",
+  "16x20:white":  "assets/img/declaration-founders-white-16x20-solo.jpg"
+};
+
+
+  const SIZE_PRICE = {
+    "16x20": 75,
+    "18x24": 89
+  };
+
+  const imgEl   = document.getElementById("decl-image");
+  const sizeEl  = document.getElementById("decl-size");
+  const frameEl = document.getElementById("decl-frame");
+  const priceEl = document.getElementById("decl-price");
+  const saleEl  = document.getElementById("decl-sale");
+  const addBtn  = document.getElementById("decl-add");
+  const buyBtn  = document.getElementById("decl-buy");
+
+  if (!imgEl || !sizeEl || !frameEl || !priceEl || !addBtn || !buyBtn) return;
+
+  const fmt = n => "$" + Number(n).toFixed(2);
+  const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+
+  // Track what type of preview we’re currently showing
+  // - "solo" on initial load
+  // - "person" after user changes size (so they see scale)
+  let previewMode = "solo";
+
+  function getKey() {
+    return `${sizeEl.value}:${frameEl.value}`;
+  }
+
+  function updateImage() {
+    const key = getKey();
+    const src = (previewMode === "person" ? IMG_PERSON[key] : IMG_SOLO[key])
+             || IMG_SOLO["18x24:black"]; // safe fallback
+
+    const sizeText  = sizeEl.options[sizeEl.selectedIndex]?.text || sizeEl.value;
+    const frameText = frameEl.options[frameEl.selectedIndex]?.text || frameEl.value;
+    const modeText  = (previewMode === "person") ? "scale preview" : "mockup";
+
+    imgEl.src = src;
+    imgEl.alt = `Declaration of Independence — Founders Wall Art — ${sizeText}, ${frameText} (${modeText})`;
+  }
+
+  function updatePrice() {
+    const base = SIZE_PRICE[sizeEl.value] || 0;
+    const final = (typeof window.FC_applyPromo === "function")
+      ? window.FC_applyPromo(base)
+      : base;
+
+    priceEl.textContent = fmt(final);
+
+    const hasHelper = (typeof window.FC_isPromoActiveNow === "function");
+    const active = hasHelper ? window.FC_isPromoActiveNow() : !!(window.FC_PROMO && window.FC_PROMO.active);
+    const onSale = active && final < base;
+
+    if (saleEl) {
+      saleEl.hidden = !onSale;
+      if (onSale && window.FC_PROMO?.label) saleEl.title = window.FC_PROMO.label;
+      else saleEl.removeAttribute("title");
+    }
+  }
+
+  function buildVariant() {
+    const sizeText  = sizeEl.options[sizeEl.selectedIndex]?.text || sizeEl.value;
+    const frameText = frameEl.options[frameEl.selectedIndex]?.text || frameEl.value;
+    const price = Number(priceEl.textContent.replace(/[^0-9.]/g,'')) || 0;
+
+    const sku  = "decl-founders-" + slug(sizeEl.value) + "-" + slug(frameEl.value);
+    const name = "Declaration of Independence — Founders Wall Art — " + sizeText + " • " + frameText;
+
+    return { sku, name, price, sizeText, frameText };
+  }
+
+  // ✅ Size change = show PERSON images (scale reference) + update price
+  sizeEl.addEventListener("change", function(){
+    previewMode = "person";
+    updateImage();
+    updatePrice();
+  });
+
+  // ✅ Frame change = show SOLO images (clean mockup), but still matches selected size
+  frameEl.addEventListener("change", function(){
+    previewMode = "solo";
+    updateImage();
+    // price doesn’t change with frame, but it’s fine to keep it consistent:
+    updatePrice();
+  });
+
+  addBtn.addEventListener("click", function(){
+    const v = buildVariant();
+    if (typeof window.addToCart === "function") {
+      window.addToCart(v.sku, v.name, v.price, 1, {
+        image: imgEl.src,
+        size: v.sizeText,
+        frame: v.frameText,
+        kind: "wall-art"
+      });
+    }
+    if (typeof window.flashAddToCart === "function") {
+      window.flashAddToCart(addBtn);
+    }
+  });
+
+  buyBtn.addEventListener("click", function(){
+    const v = buildVariant();
+    if (typeof window.buyNow === "function") {
+      window.buyNow(v.sku, v.name, v.price, 1, {
+        image: imgEl.src,
+        size: v.sizeText,
+        frame: v.frameText,
+        kind: "wall-art"
+      });
+    }
+  });
+
+  // Initial render (clean solo mockup)
+  updateImage();
+  updatePrice();
+
+  // Promo changes
+  window.addEventListener("fc:promo-updated", updatePrice);
+
+})();
+</script>
+
+
+
 <!-- Fly-to-cart animation for the AR-15 artwork page -->
 <script>
-  (function () {
-    const CART_LINK_SEL  = '.nav .cart-link';
-    const CART_COUNT_SEL = '.nav .cart-link .cart-count';
-    const INCREMENT_BADGE = false; // cart.js controls badge count
+ (function () {
+  const CART_LINK_SEL  = '.nav .cart-link';
+  const CART_COUNT_SEL = '#cartCount';
+  const INCREMENT_BADGE = false; // cart.js controls badge count
 
     function updateCartCount(qty) {
       if (!INCREMENT_BADGE) return;
