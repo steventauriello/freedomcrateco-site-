@@ -167,8 +167,8 @@
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "USD",
-    "lowPrice": "59.00",
-    "highPrice": "89.00",
+    "lowPrice": "55.00",
+    "highPrice": "75.00",
     "offerCount": 9,
     "availability": "https://schema.org/InStock",
     "itemCondition": "https://schema.org/NewCondition",
@@ -298,7 +298,7 @@
             <div class="price-row">
               <strong>
                 Total:
-                <span id="ar15-price" class="price" aria-live="polite">$89.00</span>
+                <span id="ar15-price" class="price" aria-live="polite">$75.00</span>
                 <span id="ar15-sale" class="sale-badge" hidden>
                   <img src="assets/img/saletag.svg" alt="" class="sale-icon">
                   Sale
@@ -306,7 +306,7 @@
               </strong>
             </div>
             <small class="fc-note">
-  16×20 — $75 • 18×24 — $89 • 24×36 — $114
+  12×16 — $55 • 16×20 — $65 • 18×24 — $75
 </small>
 
           </div>
@@ -415,15 +415,16 @@
         <div class="fc-row">
           <strong>
             Total:
-            <span id="decl-price" class="price">$89.00</span>
+            <span id="decl-price" class="price">$125.00</span>
             <span id="decl-sale" class="sale-badge" hidden>
               <img src="assets/img/saletag.svg" alt="" class="sale-icon">
               Sale
             </span>
           </strong>
           <small class="fc-note">
-            16×20 — $75 • 18×24 — $89
-          </small>
+  16×20 — $65 • 18×24 — $75 • 24×36 — $125
+</small>
+
         </div>
 
         <!-- Buttons -->
@@ -456,7 +457,7 @@
       <li><strong>Document:</strong> Declaration of Independence</li>
       <li><strong>Figures:</strong> Principal Founding Fathers</li>
       <li><strong>Style:</strong> Historical parchment aesthetic</li>
-      <li><strong>Sizes:</strong> 16×20, 18×24</li>
+      <li><strong>Sizes:</strong> 16×20, 18×24, 24×36</li>
       <li><strong>Frames:</strong> Black, Red Oak, White</li>
       <li><strong>Finish:</strong> Premium matte art print</li>
       <li><strong>Shipping:</strong> Free U.S. shipping</li>
@@ -467,11 +468,12 @@
 
 
   <!-- INLINE ZOOM / PAN VIEWER -->
-  <section class="artwork-copy-card artwork-zoom-card" aria-label="Explore the AR-15 blueprint up close">
-    <h2>Explore the blueprint up close</h2>
-    <p class="fc-note">
-      Use your mouse wheel to zoom in and out, then click and drag to pan around the full AR-15 blueprint.
-    </p>
+  <section class="artwork-copy-card artwork-zoom-card" aria-label="Explore artwork up close">
+  <h2 id="viewerTitle">Explore the artwork up close</h2>
+  <p class="fc-note" id="viewerDesc">
+    Use your mouse wheel to zoom in and out, then click and drag to pan around the artwork.
+  </p>
+
 
    <div class="art-zoom-viewer js-art-zoom-viewer tiny-zoom-container">
   <img
@@ -528,6 +530,60 @@
     </p>
   </section>
 
+<!-- STORY / LONG COPY -->
+<section class="artwork-copy-card" id="decl-story" hidden>
+  <h2>The Declaration of Independence & this artwork</h2>
+
+  <p>
+    This piece was designed to feel like a museum-style wall print — something you don’t just hang,
+    but actually <strong>read</strong>, <strong>study</strong>, and <strong>appreciate up close</strong>.
+    The goal was to bring the spirit of 1776 into a clean, timeless presentation that looks powerful
+    in any room.
+  </p>
+
+  <p>
+    Featuring the iconic “We hold these truths to be self-evident…” passage, this artwork honors the
+    ideas that shaped the United States: <strong>unalienable rights</strong>, <strong>liberty</strong>,
+    and the belief that government derives its power from the consent of the governed.
+    The aged parchment aesthetic and classic typography give it a reverent, historical presence — without
+    looking overly busy or “poster-like.”
+  </p>
+
+  <p>
+    Beneath the text, the Founding Fathers are presented as a visual reminder that these were not just words —
+    they were a line in the sand, written by real men, at real risk, in a real moment that changed history.
+  </p>
+
+  <h3>What’s on the print</h3>
+  <ul>
+    <li>The most recognizable passage from the Declaration of Independence, designed to be readable up close.</li>
+    <li>A classic parchment look that feels historic, warm, and timeless when framed.</li>
+    <li>Founding Father imagery to reinforce the “museum print” feel and historical context.</li>
+    <li>Clean layout and spacing so the piece looks premium on the wall (not cluttered).</li>
+  </ul>
+
+  <h3>Perfect for</h3>
+  <ul>
+    <li><strong>Patriotic homes & offices</strong> — a statement piece with meaning.</li>
+    <li><strong>Classrooms, libraries, and study spaces</strong> — encourages reading and discussion.</li>
+    <li><strong>History lovers & veterans</strong> — an intentional gift that honors American foundations.</li>
+    <li><strong>Entryways & living rooms</strong> — a centerpiece print that sparks conversation.</li>
+  </ul>
+
+  <h3>Print &amp; framing details</h3>
+  <ul>
+    <li>Available in 16×20, 18×24, and 24×36.</li>
+    <li>Frame options: black, red oak, or white.</li>
+    <li>Premium matte paper for a clean, non-glare finish.</li>
+    <li>Printed and framed to order, packaged securely, and shipped ready to hang.</li>
+  </ul>
+
+  <p class="muted">
+    This product is made especially for you as soon as you place an order.
+    Producing items on demand helps reduce overproduction — thank you for making a thoughtful purchase.
+  </p>
+</section>
+
 </main>
 
 <!-- Scripts needed for cart + promo logic (same stack you tested) -->
@@ -553,17 +609,18 @@
     };
 
 /* =========================================================
-  👉 EDIT ARTWORK PRICES HERE 👈
+  👉 EDIT AR-15 ARTWORK PRICES HERE 👈
   This block controls the BASE price for the AR-15 blueprint
   artwork by size (before any sitewide promo or discount).
 ========================================================= */
 
 
     const SIZE_PRICE = {
-  "16x20": 75,
-  "18x24": 89,
-  "24x36": 114
+  "12x16": 55,
+  "16x20": 65,
+  "18x24": 75
 };
+
 
 
     const imgEl   = document.getElementById('ar15-image');
@@ -706,11 +763,26 @@ const IMG_SOLO = {
   "16x20:white":  "assets/img/declaration-founders-white-16x20-solo.jpg"
 };
 
+// PERSON (customer scale preview) — shown when size changes
+const IMG_PERSON = {
+  "24x36:black":  "assets/img/declaration-founders-black-24x36-person.jpg",
+  "24x36:redoak": "assets/img/declaration-founders-redoak-24x36-person.jpg",
+  "24x36:white":  "assets/img/declaration-founders-white-24x36-person.jpg",
+
+  "18x24:black":  "assets/img/declaration-founders-black-18x24-person.jpg",
+  "18x24:redoak": "assets/img/declaration-founders-redoak-18x24-person.jpg",
+  "18x24:white":  "assets/img/declaration-founders-white-18x24-person.jpg",
+
+  "16x20:black":  "assets/img/declaration-founders-black-16x20-person.jpg",
+  "16x20:redoak": "assets/img/declaration-founders-redoak-16x20-person.jpg",
+  "16x20:white":  "assets/img/declaration-founders-white-16x20-person.jpg"
+};
 
   const SIZE_PRICE = {
-    "16x20": 75,
-    "18x24": 89
-  };
+  "16x20": 65,
+  "18x24": 75,
+  "24x36": 125
+};
 
   const imgEl   = document.getElementById("decl-image");
   const sizeEl  = document.getElementById("decl-size");
@@ -729,6 +801,7 @@ const IMG_SOLO = {
   // - "solo" on initial load
   // - "person" after user changes size (so they see scale)
   let previewMode = "solo";
+  let hasSeenPersonPreview = false;
 
   function getKey() {
     return `${sizeEl.value}:${frameEl.value}`;
@@ -779,18 +852,20 @@ const IMG_SOLO = {
 
   // ✅ Size change = show PERSON images (scale reference) + update price
   sizeEl.addEventListener("change", function(){
-    previewMode = "person";
-    updateImage();
-    updatePrice();
-  });
+  previewMode = "person";
+  hasSeenPersonPreview = true;
+  updateImage();
+  updatePrice();
+});
 
   // ✅ Frame change = show SOLO images (clean mockup), but still matches selected size
   frameEl.addEventListener("change", function(){
-    previewMode = "solo";
-    updateImage();
-    // price doesn’t change with frame, but it’s fine to keep it consistent:
-    updatePrice();
-  });
+  // If the shopper has already seen the scale preview,
+  // keep them in PERSON mode while they flip frame colors.
+  previewMode = hasSeenPersonPreview ? "person" : "solo";
+  updateImage();
+  updatePrice();
+});
 
   addBtn.addEventListener("click", function(){
     const v = buildVariant();
@@ -918,7 +993,7 @@ setTimeout(function () {
     };
   })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -975,33 +1050,65 @@ function initZoom(img) {
 
   // Enable wheel zoom (avoid stacking listeners)
   if (viewerWrap) {
-    viewerWrap.onwheel = (e) => {
-      e.preventDefault();
-      pz.zoomWithWheel(e);
-    };
+    viewerWrap.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  pz.zoomWithWheel(e);
+}, { passive: false });
   }
 }
 
 
 
   function setViewer(src, title) {
-    const oldImg = viewerWrap.querySelector("img");
-    if (!oldImg) return;
+  const oldImg = viewerWrap.querySelector("img");
+  if (!oldImg) return;
 
-    // Clone wipes TinyZoom state clean
-    const newImg = oldImg.cloneNode(true);
-    newImg.src = src;
-    newImg.alt = (title || "Artwork") + " – zoomable";
+  // Clone wipes zoom state clean
+  const newImg = oldImg.cloneNode(true);
+  newImg.src = src;
+  newImg.alt = (title || "Artwork") + " – zoomable";
 
-    oldImg.replaceWith(newImg);
-    initZoom(newImg);
+  oldImg.replaceWith(newImg);
+  initZoom(newImg);
 
-    // Bring user to viewer
-    viewerWrap.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+  // 🔄 UPDATE VIEWER TITLE + DESCRIPTION
+  const h = document.getElementById("viewerTitle");
+  const p = document.getElementById("viewerDesc");
+
+  const t = title || "Artwork";
+
+// 🔁 Toggle story sections below the viewer
+const arStory   = document.getElementById("ar15-story");
+const declStory = document.getElementById("decl-story");
+
+const isAR   = /ar-?15/i.test(t) || /ar15/i.test(src);
+const isDecl = /declaration/i.test(t) || /declaration-founders/i.test(src);
+
+if (arStory) arStory.hidden = !isAR;
+if (declStory) declStory.hidden = !isDecl;
+
+  if (h) h.textContent = `Explore: ${t}`;
+
+  if (p) {
+    if (/ar-?15/i.test(t) || /ar15/i.test(src)) {
+      p.textContent =
+        "Use your mouse wheel to zoom in and out, then click and drag to pan around the full AR-15 blueprint.";
+    } else if (/declaration/i.test(t) || /declaration-founders/i.test(src)) {
+      p.textContent =
+        "Use your mouse wheel to zoom in and out, then click and drag to pan across the Declaration artwork to read it up close.";
+    } else {
+      p.textContent =
+        "Use your mouse wheel to zoom in and out, then click and drag to pan around the artwork.";
+    }
   }
+
+  // Bring user to viewer
+  viewerWrap.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
 
   // Initialize zoom on page load
   const initialImg = viewerWrap.querySelector("img");
