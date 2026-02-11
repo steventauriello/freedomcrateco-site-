@@ -437,7 +437,7 @@
         <button
           type="button"
           class="fc-btn btn btn-outline js-view-artwork"
-          data-view="/assets/img/declaration-founders-full-print-zoom-master.jpeg"
+          data-view="DECL"
           data-title="Declaration of Independence — Founders"
         >
           View Up Close
@@ -1057,7 +1057,12 @@ function initZoom(img) {
   }
 }
 
-
+// Declaration viewer size map
+const VIEW_DECL = {
+  "16x20": "/assets/img/declaration-founders-view-16x20.jpg",
+  "18x24": "/assets/img/declaration-founders-view-18x24.jpg",
+  "24x36": "/assets/img/declaration-founders-view-24x36.jpg"
+};
 
   function setViewer(src, title) {
   const oldImg = viewerWrap.querySelector("img");
@@ -1124,15 +1129,27 @@ if (declStory) declStory.hidden = !isDecl;
   }
 }
 
-
   // View Up Close buttons on product cards
   document.querySelectorAll(".js-view-artwork").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const src = btn.getAttribute("data-view");
-      const title = btn.getAttribute("data-title");
-      if (src) setViewer(src, title);
-    });
+  btn.addEventListener("click", () => {
+    const viewKey = btn.getAttribute("data-view");
+    const title = btn.getAttribute("data-title");
+
+    // If this is the Declaration button
+    if (viewKey === "DECL") {
+      const size = document.getElementById("decl-size").value;
+      const src = VIEW_DECL[size] || VIEW_DECL["18x24"];
+      setViewer(src, title);
+      return;
+    }
+
+    // Otherwise use direct image path
+    if (viewKey) {
+      setViewer(viewKey, title);
+    }
   });
+});
+
 
   // Optional: gallery thumbnail selectors
   document.querySelectorAll(".js-artwork-thumb").forEach(btn => {
