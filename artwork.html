@@ -391,10 +391,11 @@
         <label class="fc-field" for="decl-size">
           <span class="fc-label">Print size</span>
           <div class="fc-select-wrap">
-            <select id="decl-size" class="fc-select">
+           <select id="decl-size" class="fc-select">
   <option value="24x36">24″ × 36″ (large wall)</option>
   <option value="18x24">18″ × 24″</option>
   <option value="16x20">16″ × 20″</option>
+  <option value="12x16">12″ × 16″ (compact)</option>
 </select>
           </div>
         </label>
@@ -422,7 +423,7 @@
             </span>
           </strong>
           <small class="fc-note">
-  16×20 — $65 • 18×24 — $75 • 24×36 — $125
+  12×16 — $55 • 16×20 — $65 • 18×24 — $75 • 24×36 — $125
 </small>
 
         </div>
@@ -457,7 +458,7 @@
       <li><strong>Document:</strong> Declaration of Independence</li>
       <li><strong>Figures:</strong> Principal Founding Fathers</li>
       <li><strong>Style:</strong> Historical parchment aesthetic</li>
-      <li><strong>Sizes:</strong> 16×20, 18×24, 24×36</li>
+      <li><strong>Sizes:</strong> 12×16, 16×20, 18×24, 24×36</li>
       <li><strong>Frames:</strong> Black, Red Oak, White</li>
       <li><strong>Finish:</strong> Premium matte art print</li>
       <li><strong>Shipping:</strong> Free U.S. shipping</li>
@@ -572,7 +573,7 @@
 
   <h3>Print &amp; framing details</h3>
   <ul>
-    <li>Available in 16×20, 18×24, and 24×36.</li>
+    <li>Available in 12×16, 16×20, 18×24, and 24×36.</li>
     <li>Frame options: black, red oak, or white.</li>
     <li>Premium matte paper for a clean, non-glare finish.</li>
     <li>Printed and framed to order, packaged securely, and shipped ready to hang.</li>
@@ -760,7 +761,11 @@ const IMG_SOLO = {
 
   "16x20:black":  "assets/img/declaration-founders-black-16x20-solo.jpg",
   "16x20:redoak": "assets/img/declaration-founders-redoak-16x20-solo.jpg",
-  "16x20:white":  "assets/img/declaration-founders-white-16x20-solo.jpg"
+  "16x20:white":  "assets/img/declaration-founders-white-16x20-solo.jpg",
+
+  "12x16:black":  "assets/img/declaration-founders-black-12x16-solo.jpg",
+  "12x16:redoak": "assets/img/declaration-founders-redoak-12x16-solo.jpg",
+  "12x16:white":  "assets/img/declaration-founders-white-12x16-solo.jpg"
 };
 
 // PERSON (customer scale preview) — shown when size changes
@@ -775,10 +780,15 @@ const IMG_PERSON = {
 
   "16x20:black":  "assets/img/declaration-founders-black-16x20-person.jpg",
   "16x20:redoak": "assets/img/declaration-founders-redoak-16x20-person.jpg",
-  "16x20:white":  "assets/img/declaration-founders-white-16x20-person.jpg"
+  "16x20:white":  "assets/img/declaration-founders-white-16x20-person.jpg",
+
+  "12x16:black":  "assets/img/declaration-founders-black-12x16-person.jpg",
+  "12x16:redoak": "assets/img/declaration-founders-redoak-12x16-person.jpg",
+  "12x16:white":  "assets/img/declaration-founders-white-12x16-person.jpg"
 };
 
   const SIZE_PRICE = {
+  "12x16": 55,
   "16x20": 65,
   "18x24": 75,
   "24x36": 125
@@ -1059,11 +1069,11 @@ function initZoom(img) {
 
 // Declaration viewer size map
 const VIEW_DECL = {
+  "12x16": "/assets/img/declaration-founders-view-16x20.jpg",
   "16x20": "/assets/img/declaration-founders-view-16x20.jpg",
   "18x24": "/assets/img/declaration-founders-view-18x24.jpg",
   "24x36": "/assets/img/declaration-founders-view-24x36.jpg"
 };
-
   function setViewer(src, title) {
   const oldImg = viewerWrap.querySelector("img");
   if (!oldImg) return;
