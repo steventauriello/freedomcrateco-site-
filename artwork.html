@@ -1080,7 +1080,7 @@ const VIEW_DECL = {
 
   // Clone wipes zoom state clean
   const newImg = oldImg.cloneNode(true);
-  newImg.src = src;
+  newImg.src = src; 
   newImg.alt = (title || "Artwork") + " – zoomable";
 
   oldImg.replaceWith(newImg);
