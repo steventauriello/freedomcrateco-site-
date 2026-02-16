@@ -429,7 +429,7 @@
 
       <h3>Why it’s different</h3>
       <p class="note-small">
-        This isn’t a random template. The layout was built piece-by-piece — designed to feel like a real technical print
+        This layout was built piece-by-piece — with real techinical data designed to feel like a real technical print
         while still looking clean on a wall.
       </p>
 
@@ -454,6 +454,34 @@
   </section>
 
 </main>
+<!-- Lightbox -->
+<div class="fc-lightbox" id="ar15-lightbox" aria-hidden="true">
+  <div class="fc-lightbox__dialog" role="dialog" aria-modal="true" aria-label="Image preview">
+
+    <div class="fc-lightbox__imgwrap">
+      <img class="fc-lightbox__img" id="ar15-lightbox-img" src="" alt="">
+    </div>
+
+    <div class="fc-lightbox__topbar">
+      <div class="fc-lightbox__caption" id="ar15-lightbox-caption">
+        Image preview
+      </div>
+
+      <button class="fc-lightbox__btn" type="button" id="ar15-lightbox-close" aria-label="Close">
+        ✕ Close
+      </button>
+        </div>
+
+    <!-- NEW: Prev / Next arrows -->
+    <div class="fc-lightbox__nav">
+      <button type="button" id="ar15-lightbox-prev" aria-label="Previous image">‹</button>
+      <button type="button" id="ar15-lightbox-next" aria-label="Next image">›</button>
+    </div>
+
+  </div>
+</div>
+
+
 
 <!-- Scripts needed for cart + promo logic -->
 <script src="assets/js/config.js"></script>
@@ -583,7 +611,7 @@
     });
   });
 /* ===========================
-   Thumbnail lightbox
+   Thumbnail lightbox (with arrows)
 =========================== */
 const thumbsWrap = document.getElementById('ar15-thumbs');
 const lb = document.getElementById('ar15-lightbox');
@@ -591,53 +619,135 @@ const lbImg = document.getElementById('ar15-lightbox-img');
 const lbClose = document.getElementById('ar15-lightbox-close');
 const lbCaption = document.getElementById('ar15-lightbox-caption');
 
+const lbPrev = document.getElementById('ar15-lightbox-prev');
+const lbNext = document.getElementById('ar15-lightbox-next');
 
-function openLightbox(src, alt){
+let lbItems = [];
+let lbIndex = 0;
+
+function setLightboxIndex(i){
+  if (!lbItems.length) return;
+
+  // wrap around
+  if (i < 0) i = lbItems.length - 1;
+  if (i >= lbItems.length) i = 0;
+
+  lbIndex = i;
+
+  const item = lbItems[lbIndex];
+  if (!item) return;
+
+  lbImg.src = item.src;
+  lbImg.alt = item.alt || 'AR-15 Blueprint preview';
+
+  if (lbCaption) lbCaption.textContent = item.alt || 'Image preview';
+}
+
+function openLightboxAt(i){
   if (!lb || !lbImg) return;
 
-  lbImg.src = src;
-  lbImg.alt = alt || 'AR-15 Blueprint preview';
-
-  if (lbCaption) {
-    lbCaption.textContent = alt || 'AR-15 Blueprint preview';
-  }
+  setLightboxIndex(i);
 
   lb.classList.add('is-open');
-  lb.setAttribute('aria-hidden','false');
+  lb.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox(){
   if (!lb || !lbImg) return;
+
   lb.classList.remove('is-open');
-  lb.setAttribute('aria-hidden','true');
+  lb.setAttribute('aria-hidden', 'true');
   lbImg.src = '';
   document.body.style.overflow = '';
 }
 
-if (thumbsWrap && lb) {
+function nextImage(){ setLightboxIndex(lbIndex + 1); }
+function prevImage(){ setLightboxIndex(lbIndex - 1); }
+
+// Build the list of images from the thumbnails
+if (thumbsWrap) {
+  const imgs = Array.from(thumbsWrap.querySelectorAll('img'));
+  lbItems = imgs.map(img => ({
+    src: img.getAttribute('data-full') || img.getAttribute('src'),
+    alt: img.getAttribute('alt') || ''
+  }));
+
   thumbsWrap.addEventListener('click', function(e){
     const t = e.target;
     if (!t || t.tagName !== 'IMG') return;
-    const full = t.getAttribute('data-full') || t.getAttribute('src');
-    const alt  = t.getAttribute('alt') || '';
-    openLightbox(full, alt);
+
+    const clickedSrc = t.getAttribute('data-full') || t.getAttribute('src');
+    const idx = lbItems.findIndex(x => x.src === clickedSrc);
+    openLightboxAt(idx >= 0 ? idx : 0);
+  });
+}
+// Build the list of images from the thumbnails
+if (thumbsWrap) {
+  const imgs = Array.from(thumbsWrap.querySelectorAll('img'));
+  lbItems = imgs.map(img => ({
+    src: img.getAttribute('data-full') || img.getAttribute('src'),
+    alt: img.getAttribute('alt') || ''
+  }));
+
+  thumbsWrap.addEventListener('click', function(e){
+    const t = e.target;
+    if (!t || t.tagName !== 'IMG') return;
+
+    const clickedSrc = t.getAttribute('data-full') || t.getAttribute('src');
+    const idx = lbItems.findIndex(x => x.src === clickedSrc);
+    openLightboxAt(idx >= 0 ? idx : 0);
   });
 }
 
+// Optional: clicking the main product image opens lightbox at current selection
+if (imgEl && lbItems.length) {
+  imgEl.style.cursor = 'zoom-in';
+  imgEl.addEventListener('click', function () {
+    // open at the "zoom" image if it exists, otherwise first image
+    const zoomIdx = lbItems.findIndex(x => (x.src || '').includes('ar15-blueprint-zoom'));
+    openLightboxAt(zoomIdx >= 0 ? zoomIdx : 0);
+  });
+}
+
+
+// Buttons
 if (lbClose) lbClose.addEventListener('click', closeLightbox);
 
-// click outside the panel closes
+if (lbPrev) lbPrev.addEventListener('click', function(e){
+  e.stopPropagation();
+  prevImage();
+});
+
+if (lbNext) lbNext.addEventListener('click', function(e){
+  e.stopPropagation();
+  nextImage();
+});
+
+// Click outside closes
 if (lb) {
   lb.addEventListener('click', function(e){
     if (e.target === lb) closeLightbox();
   });
 }
 
-// Esc closes
+// Optional: clicking the big image goes next
+if (lbImg) {
+  lbImg.addEventListener('click', function(e){
+    e.stopPropagation();
+    nextImage();
+  });
+}
+
+// Keyboard controls
 document.addEventListener('keydown', function(e){
-  if (e.key === 'Escape' && lb && lb.classList.contains('is-open')) closeLightbox();
+  if (!lb || !lb.classList.contains('is-open')) return;
+
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'ArrowLeft') prevImage();
 });
+
 
   updateImage();
   updatePrice();
@@ -763,27 +873,7 @@ document.addEventListener('keydown', function(e){
     var y = document.getElementById('fc-year');
     if (y) y.textContent = new Date().getFullYear();
   })();
+
 </script>
-
-<!-- Lightbox -->
-<div class="fc-lightbox" id="ar15-lightbox" aria-hidden="true">
-  <div class="fc-lightbox__dialog" role="dialog" aria-modal="true" aria-label="Image preview">
-
-    <div class="fc-lightbox__imgwrap">
-      <img class="fc-lightbox__img" id="ar15-lightbox-img" src="" alt="">
-    </div>
-
-    <div class="fc-lightbox__topbar">
-      <div class="fc-lightbox__caption" id="ar15-lightbox-caption">
-        Image preview
-      </div>
-
-      <button class="fc-lightbox__btn" type="button" id="ar15-lightbox-close" aria-label="Close">
-        ✕ Close
-      </button>
-    </div>
-  </div>
-</div>
-
 </body>
 </html>
