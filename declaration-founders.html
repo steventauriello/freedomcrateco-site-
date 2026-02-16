@@ -90,7 +90,151 @@
 
     .meta-list{ margin:.75rem 0 0 1.25rem; }
     .note-small{ font-size:.9rem; opacity:.9; }
-    .divider{ height:1px; background:rgba(255,255,255,.08); margin:1rem 0; border:0; }
+        .divider{ height:1px; background:rgba(255,255,255,.08); margin:1rem 0; border:0; }
+
+/* =========================================================
+   Artwork lifestyle thumbnail row
+========================================================= */
+.art-thumb-row{
+  display:flex;
+  gap:.5rem;
+  margin-top:.75rem;
+  overflow-x:auto;
+  padding:0 0 .25rem;
+}
+
+.art-thumb-row img{
+  width:72px;
+  height:72px;
+  object-fit:cover;
+  border-radius:.5rem;
+  border:1px solid rgba(255,255,255,.12);
+  cursor:pointer;
+  opacity:.92;
+  transition:transform .12s ease, opacity .12s ease, border-color .12s ease;
+}
+
+.art-thumb-row img:hover{
+  transform:translateY(-1px);
+  opacity:1;
+  border-color:rgba(255,255,255,.25);
+}
+
+/* =========================================================
+   Lightbox (click thumbnails to view large)
+========================================================= */
+.fc-lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.82);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  padding:1rem;
+}
+
+.fc-lightbox.is-open{ display:flex; }
+
+.fc-lightbox__dialog{
+  position:relative;
+  width:min(1100px, 96vw);
+  max-height:92vh;
+  border-radius:1rem;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(12,12,12,.95);
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+}
+
+.fc-lightbox__imgwrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#0b0b0b;
+}
+
+.fc-lightbox__img{
+  width:100%;
+  height:auto;
+  max-height:92vh;
+  object-fit:contain;
+  display:block;
+}
+
+.fc-lightbox__topbar{
+  position:absolute;
+  top:.5rem;
+  left:.5rem;
+  right:.5rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.5rem;
+  pointer-events:none;
+}
+
+.fc-lightbox__caption{
+  pointer-events:auto;
+  font-size:.9rem;
+  opacity:.9;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.12);
+  padding:.35rem .6rem;
+  border-radius:.75rem;
+  max-width:70%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.fc-lightbox__btn{
+  pointer-events:auto;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(0,0,0,.35);
+  color:#fff;
+  border-radius:.75rem;
+  padding:.35rem .6rem;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+}
+
+.fc-lightbox__btn:hover{
+  border-color:rgba(255,255,255,.28);
+  background:rgba(0,0,0,.5);
+}
+
+.fc-lightbox__nav{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  pointer-events:none;
+}
+
+.fc-lightbox__nav button{
+  pointer-events:auto;
+  margin:0 .5rem;
+  width:44px;
+  height:44px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(0,0,0,.35);
+  color:#fff;
+  cursor:pointer;
+}
+
+.fc-lightbox__nav button:hover{
+  border-color:rgba(255,255,255,.28);
+  background:rgba(0,0,0,.5);
+}
+
+@media (max-width: 520px){
+  .fc-lightbox__caption{ max-width:58%; }
+}
   </style>
 
   <!-- Product JSON-LD -->
@@ -185,13 +329,34 @@
         <div class="fc-media-col">
           <div class="fc-media">
             <img
-              id="decl-image"
-              src="assets/img/declaration-founders-black-16x20-solo.jpg"
-              alt="Declaration of Independence — Founders Wall Art — 18×24, black frame (mockup)"
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="800">
+  id="decl-image"
+  src="assets/img/declaration-founders-black-16x20-solo.jpg"
+  alt="Declaration of Independence — Founders Wall Art — 16×20, black frame (mockup)"
+  loading="lazy"
+  decoding="async"
+  width="1200"
+  height="800">
+
+<!-- Lifestyle / zoom thumbnails -->
+<div class="art-thumb-row" id="decl-thumbs">
+  <!-- You can swap these filenames to whatever you uploaded -->
+  <img src="assets/img/declaration-founders-lifestyle-01.jpg"
+       alt="Declaration Founders lifestyle mockup 1"
+       data-full="assets/img/declaration-founders-lifestyle-01.jpg">
+
+  <img src="assets/img/declaration-founders-lifestyle-02.jpg"
+       alt="Declaration Founders lifestyle mockup 2"
+       data-full="assets/img/declaration-founders-lifestyle-02.jpg">
+
+  <img src="assets/img/declaration-founders-lifestyle-03.jpg"
+       alt="Declaration Founders lifestyle mockup 3"
+       data-full="assets/img/declaration-founders-lifestyle-03.jpg">
+
+    <img src="assets/img/declaration-founders-zoom-hires.jpg"
+       alt="Declaration Founders high resolution zoom"
+       data-full="assets/img/declaration-founders-zoom-hires.jpg">
+</div>
+
           </div>
         </div>
 
@@ -294,6 +459,27 @@
   </section>
 
 </main>
+
+<!-- Lightbox -->
+<div class="fc-lightbox" id="decl-lightbox" aria-hidden="true">
+  <div class="fc-lightbox__dialog" role="dialog" aria-modal="true" aria-label="Image preview">
+
+    <div class="fc-lightbox__imgwrap">
+      <img class="fc-lightbox__img" id="decl-lightbox-img" src="" alt="">
+    </div>
+
+    <div class="fc-lightbox__topbar">
+      <div class="fc-lightbox__caption" id="decl-lightbox-caption">Image preview</div>
+      <button class="fc-lightbox__btn" type="button" id="decl-lightbox-close" aria-label="Close">✕ Close</button>
+    </div>
+
+    <div class="fc-lightbox__nav">
+      <button type="button" id="decl-lightbox-prev" aria-label="Previous image">‹</button>
+      <button type="button" id="decl-lightbox-next" aria-label="Next image">›</button>
+    </div>
+
+  </div>
+</div>
 
 <!-- Scripts needed for cart + promo logic -->
 <script src="assets/js/config.js"></script>
@@ -464,6 +650,124 @@
       console.warn("buyNow not ready");
     }
   });
+
+/* ===========================
+   DECLARATION Lightbox
+=========================== */
+
+const thumbsWrap = document.getElementById('decl-thumbs');
+const lb = document.getElementById('decl-lightbox');
+const lbImg = document.getElementById('decl-lightbox-img');
+const lbClose = document.getElementById('decl-lightbox-close');
+const lbCaption = document.getElementById('decl-lightbox-caption');
+const lbPrev = document.getElementById('decl-lightbox-prev');
+const lbNext = document.getElementById('decl-lightbox-next');
+
+let lbItems = [];
+let lbIndex = 0;
+
+function setLightboxIndex(i){
+  if (!lbItems.length) return;
+
+  if (i < 0) i = lbItems.length - 1;
+  if (i >= lbItems.length) i = 0;
+
+  lbIndex = i;
+
+  const item = lbItems[lbIndex];
+  if (!item) return;
+
+  lbImg.src = item.src;
+  lbImg.alt = item.alt || 'Declaration preview';
+
+  if (lbCaption) lbCaption.textContent = item.alt || 'Image preview';
+}
+
+function openLightboxAt(i){
+  if (!lb || !lbImg) return;
+
+  setLightboxIndex(i);
+
+  lb.classList.add('is-open');
+  lb.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(){
+  if (!lb || !lbImg) return;
+
+  lb.classList.remove('is-open');
+  lb.setAttribute('aria-hidden', 'true');
+  lbImg.src = '';
+  document.body.style.overflow = '';
+}
+
+function nextImage(){ setLightboxIndex(lbIndex + 1); }
+function prevImage(){ setLightboxIndex(lbIndex - 1); }
+
+if (thumbsWrap) {
+  const imgs = Array.from(thumbsWrap.querySelectorAll('img'));
+  lbItems = imgs.map(img => ({
+    src: img.getAttribute('data-full') || img.getAttribute('src'),
+    alt: img.getAttribute('alt') || ''
+  }));
+
+  thumbsWrap.addEventListener('click', function(e){
+    const t = e.target;
+    if (!t || t.tagName !== 'IMG') return;
+
+    const clickedSrc = t.getAttribute('data-full') || t.getAttribute('src');
+    const idx = lbItems.findIndex(x => x.src === clickedSrc);
+    openLightboxAt(idx >= 0 ? idx : 0);
+  });
+}
+
+// Clicking main product image opens lightbox
+if (imgEl && lbItems.length) {
+  imgEl.style.cursor = 'zoom-in';
+  imgEl.addEventListener('click', function () {
+    const zoomIdx = lbItems.findIndex(x => (x.src || '').includes('zoom'));
+    openLightboxAt(zoomIdx >= 0 ? zoomIdx : 0);
+  });
+}
+
+// Buttons
+if (lbClose) lbClose.addEventListener('click', closeLightbox);
+
+if (lbPrev) lbPrev.addEventListener('click', function(e){
+  e.stopPropagation();
+  prevImage();
+});
+
+if (lbNext) lbNext.addEventListener('click', function(e){
+  e.stopPropagation();
+  nextImage();
+});
+
+// Click outside closes
+if (lb) {
+  lb.addEventListener('click', function(e){
+    if (e.target === lb) closeLightbox();
+  });
+}
+
+// Click big image to go next
+if (lbImg) {
+  lbImg.addEventListener('click', function(e){
+    e.stopPropagation();
+    nextImage();
+  });
+}
+
+// Keyboard controls
+document.addEventListener('keydown', function(e){
+  if (!lb || !lb.classList.contains('is-open')) return;
+
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'ArrowLeft') prevImage();
+});
+
 
   // Initial render
   updateImage();

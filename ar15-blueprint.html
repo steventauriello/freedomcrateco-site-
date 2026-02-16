@@ -682,23 +682,6 @@ if (thumbsWrap) {
     openLightboxAt(idx >= 0 ? idx : 0);
   });
 }
-// Build the list of images from the thumbnails
-if (thumbsWrap) {
-  const imgs = Array.from(thumbsWrap.querySelectorAll('img'));
-  lbItems = imgs.map(img => ({
-    src: img.getAttribute('data-full') || img.getAttribute('src'),
-    alt: img.getAttribute('alt') || ''
-  }));
-
-  thumbsWrap.addEventListener('click', function(e){
-    const t = e.target;
-    if (!t || t.tagName !== 'IMG') return;
-
-    const clickedSrc = t.getAttribute('data-full') || t.getAttribute('src');
-    const idx = lbItems.findIndex(x => x.src === clickedSrc);
-    openLightboxAt(idx >= 0 ? idx : 0);
-  });
-}
 
 // Optional: clicking the main product image opens lightbox at current selection
 if (imgEl && lbItems.length) {
