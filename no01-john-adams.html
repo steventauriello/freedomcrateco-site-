@@ -250,15 +250,15 @@
   "category":"Wall Art",
   "url":"https://freedomcrateco.com/no01-john-adams.html",
   "offers":{
-    "@type":"AggregateOffer",
-    "priceCurrency":"USD",
-    "lowPrice":"55.00",
-    "highPrice":"125.00",
-    "offerCount":12,
-    "availability":"https://schema.org/InStock",
-    "itemCondition":"https://schema.org/NewCondition",
-    "url":"https://freedomcrateco.com/no01-john-adams.html"
-  }
+  "@type":"AggregateOffer",
+  "priceCurrency":"USD",
+  "lowPrice":"65.00",
+  "highPrice":"125.00",
+  "offerCount":9,
+  "availability":"https://schema.org/InStock",
+  "itemCondition":"https://schema.org/NewCondition",
+  "url":"https://freedomcrateco.com/no01-john-adams.html"
+}
 }
   </script>
 </head>
@@ -370,10 +370,9 @@
             <span class="fc-label">Print size</span>
             <div class="fc-select-wrap">
               <select id="wwbn01-size" name="size" class="fc-select">
-                <option value="12x16">12&quot; × 16&quot; (compact)</option>
-                <option value="16x20" selected>16&quot; × 20&quot; (popular)</option>
-                <option value="18x24">18&quot; × 24&quot;</option>
-                <option value="24x36">24&quot; × 36&quot; (statement)</option>
+               <option value="16x20" selected>16&quot; × 20&quot; (popular)</option>
+               <option value="18x24">18&quot; × 24&quot;</option>
+               <option value="24x36">24&quot; × 36&quot; (statement)</option>
               </select>
             </div>
           </label>
@@ -402,7 +401,7 @@
                 </span>
               </strong>
             </div>
-            <small class="fc-note">12×16 — $55 • 16×20 — $65 • 18×24 — $75 • 24×36 — $125</small>
+            <small class="fc-note">16×20 — $65 • 18×24 — $75 • 24×36 — $125</small>
           </div>
 
           <!-- Buttons -->
@@ -423,7 +422,7 @@
         <li><strong>Series:</strong> The Words That Built a Nation</li>
         <li><strong>Edition:</strong> No. 01 (John Adams)</li>
         <li><strong>Style:</strong> Clean, bold, “statement piece” patriotic layout</li>
-        <li><strong>Sizes:</strong> 12×16, 16×20, 18×24, 24×36</li>
+        <li><strong>Sizes:</strong> 16×20, 18×24, 24×36</li>
         <li><strong>Frames:</strong> Black, Red Oak, or White</li>
         <li><strong>Finish:</strong> Premium matte art print</li>
         <li><strong>Shipping:</strong> Free U.S. shipping (print-on-demand)</li>
@@ -495,10 +494,7 @@
 
   // SOLO = clean mockup (default + when frame changes before they’ve checked size)
   const IMG_SOLO = {
-    "12x16:black":  BASE + "wwbn-no01-john-adams-black-12x16-front.jpg",
-    "12x16:redoak": BASE + "wwbn-no01-john-adams-redoak-12x16-front.jpg",
-    "12x16:white":  BASE + "wwbn-no01-john-adams-white-12x16-front.jpg",
-
+    
     "16x20:black":  BASE + "wwbn-no01-john-adams-black-16x20-front.jpg",
     "16x20:redoak": BASE + "wwbn-no01-john-adams-redoak-16x20-front.jpg",
     "16x20:white":  BASE + "wwbn-no01-john-adams-white-16x20-front.jpg",
@@ -514,10 +510,6 @@
 
   // PERSON = scale preview (shown after size change, and kept while they change frames)
   const IMG_PERSON = {
-    "12x16:black":  BASE + "wwbn-no01-john-adams-black-12x16-person.jpg",
-    "12x16:redoak": BASE + "wwbn-no01-john-adams-redoak-12x16-person.jpg",
-    "12x16:white":  BASE + "wwbn-no01-john-adams-white-12x16-person.jpg",
-
     "16x20:black":  BASE + "wwbn-no01-john-adams-black-16x20-person.jpg",
     "16x20:redoak": BASE + "wwbn-no01-john-adams-redoak-16x20-person.jpg",
     "16x20:white":  BASE + "wwbn-no01-john-adams-white-16x20-person.jpg",
@@ -532,11 +524,11 @@
   };
 
   const SIZE_PRICE = {
-    "12x16": 55,
-    "16x20": 65,
-    "18x24": 75,
-    "24x36": 125
-  };
+  "16x20": 65,
+  "18x24": 75,
+  "24x36": 125
+};
+
 
   const imgEl   = document.getElementById("wwbn01-image");
   const sizeEl  = document.getElementById("wwbn01-size");
