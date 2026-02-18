@@ -198,7 +198,7 @@
 
 
   <!-- Modern Stripe button -->
-  <div class="stripe-wrap">
+    <div class="stripe-wrap">
     <button id="stripe-pay" class="stripe-btn" type="button" aria-label="Pay with card — powered by Stripe">
       <span class="stripe-ico" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
@@ -218,9 +218,23 @@
       </span>
     </button>
 
+    <!-- ✅ Trust badges under Stripe button -->
+    <div class="pay-badges" aria-label="Express payment options (when available)">
+      <span class="pay-badge apple" title="Apple Pay" aria-label="Apple Pay">
+        <span class="pay-badge-icon" aria-hidden="true"></span>
+        <span class="pay-badge-text">Pay</span>
+      </span>
+
+      <span class="pay-badge gpay" title="Google Pay" aria-label="Google Pay">
+        <span class="gpay-g">G</span><span class="gpay-pay">Pay</span>
+      </span>
+    </div>
+
     <div class="stripe-trust" aria-label="Payments processed securely by Stripe">
       <span>Powered by</span>
       <strong class="stripe-word">Stripe</strong>
+      <span class="dot-sep" aria-hidden="true">·</span>
+      <span>Apple Pay &amp; Google Pay when available</span>
     </div>
   </div>
 </div>
