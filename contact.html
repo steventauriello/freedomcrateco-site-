@@ -67,6 +67,33 @@
   </script>
 
   <link rel="stylesheet" href="assets/css/styles.css" />
+
+<style>
+  /* Contact page only */
+  #customOrderForm .full { 
+    display: block;
+  }
+
+  /* Bigger notes box (no 100% width) */
+  #customOrderForm #details {
+    width: 520px;        /* adjust */
+    max-width: 100%;
+    min-height: 240px;   /* taller */
+  }
+
+  /* Force Custom Details section to stack nicely */
+  #customOrderForm .full label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  /* Put button BELOW the textarea */
+  #customOrderForm .actions {
+    display: block;
+    margin-top: 12px;
+  }
+</style>
+
 </head>
 <body>
  <header class="site-header">
@@ -190,10 +217,19 @@
       </div>
 
       <div class="full">
-        <label for="details">Custom Details</label>
-        <textarea id="details" name="details" rows="5"
-          placeholder="Describe your customization (stencils, name, rank, initials, dates, colors, hardware, etc.). If you need multiple stencils, note how many (+$10/extra stencil)."></textarea>
-      </div>
+  <label for="details">Custom Details (Please Include)</label>
+  <textarea id="details" name="details" rows="7" required
+    placeholder="Please include:
+
+• Intended use (range, display, toolbox, gift, etc.)
+• If fully custom: approximate size (L × W × H)
+• Stencil wording (exact text) + how many stencil placements (+$10 each extra placement)
+• Color preferences (OD green, black, etc.)
+• Hardware preference (black or stainless)
+• Any deadline (if applicable)
+
+The more detail you provide, the faster we can quote accurately."></textarea>
+</div>
 
       <div class="actions">
         <button type="submit" class="btn">Send Request</button>
@@ -218,8 +254,11 @@
         classicWrap.hidden = !needsBranchOptions;
         [branchEl, hardwareEl].forEach(el => {
           el.disabled = !needsBranchOptions;
-          el.required = needsBranchOptions;
-          if (!needsBranchOptions) el.value = '';
+          el.required = (needsBranchOptions && el !== branchEl);
+          if (!needsBranchOptions) {
+  if (el === branchEl) el.value = 'blank';
+  else el.value = '';
+}
         });
       }
 
