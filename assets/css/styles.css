@@ -316,9 +316,13 @@ textarea { min-height: 140px; resize: vertical; }
 /* === Title Strip === */
 .site-title-strip { text-align: center; margin: 20px auto; }
 .site-title-strip h1 {
-  font-size: 3rem; font-weight: 900; margin: 0 0 0.5rem 0;
+  font-size: clamp(3.25rem, 6.5vw, 5.5rem);
+  font-weight: 900;
+  margin: 0 0 0.5rem 0;
   font-family: "Black Ops One", system-ui, sans-serif;
-  letter-spacing: 2px; text-transform: uppercase;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1.05;
 }
 .site-title-strip p { font-size: 1.25rem; margin: 5px 0 0 0; font-weight: 400; }
 .site-title-strip .slogan {
