@@ -293,7 +293,7 @@
   "price": 69.99,
   "qty": 3,
 
- "image_url": "assets/img/mini-recon-03-divider.JPG",
+ "image_url":  "assets/img/mini-recon-slide-top-detail.JPG",
 "images": [
   "assets/img/mini-recon-03-divider.JPG",
   "assets/img/mini-recon-01-main.JPG",
@@ -308,7 +308,6 @@
   "assets/img/mini-recon-dimensions-height.JPG",
   "assets/img/mini-recon-dimensions-depth.JPG",
   "assets/img/mini-recon-slide-top-action.JPG",
-  "assets/img/mini-recon-slide-top-detail.JPG",
   "assets/img/final-salute-project-01.JPG",
   "assets/img/final-salute-project-02.JPG",
   "assets/img/freedom-crate-co-logo-seal.JPG"
