@@ -293,7 +293,7 @@
   "price": 69.99,
   "qty": 3,
 
-  "image_url": "assets/img/mini-recon-03-divider.JPG",
+ "image_url": "assets/img/mini-recon-03-divider.JPG",
 "images": [
   "assets/img/mini-recon-03-divider.JPG",
   "assets/img/mini-recon-01-main.JPG",
@@ -301,7 +301,9 @@
   "assets/img/mini-recon-06-interior.JPG",
   "assets/img/mini-recon-04-side.JPG",
   "assets/img/mini-recon-05-angle.JPG",
-  "assets/img/mini-recon-07-closed.JPG"
+  "assets/img/mini-recon-07-closed.JPG",
+  "assets/img/mini-recon-08-lifestyle-gear.JPG",
+  "assets/img/mini-recon-09-lifestyle-storage.JPG"
 ],
 
   "tags": [
