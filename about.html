@@ -44,6 +44,44 @@
       display:inline-block; padding:.6rem .9rem; border-radius:.5rem; text-decoration:none;
       border:1px solid rgba(255,255,255,.16);
     }
+/* Final Salute section with logo */
+.fsp-grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 24px;
+  align-items: center;
+}
+
+.fsp-content {
+  min-width: 0;
+}
+
+.fsp-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fsp-logo img {
+  max-width: 220px;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 800px) {
+  .fsp-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fsp-logo {
+    margin-top: 12px;
+  }
+
+  .fsp-logo img {
+    max-width: 180px;
+  }
+}
+
   </style>
 
   <!-- Optional: basic JSON-LD for org -->
@@ -198,45 +236,54 @@
 
 <!-- FINAL SALUTE PROJECT -->
 <section class="about-card" id="final-salute-project">
-  <h2>The Final Salute Project</h2>
+  <div class="fsp-grid">
 
-  <p>
-    <strong>The Final Salute Project</strong> is our give-back mission dedicated to honoring U.S. military service
-    across generations. We provide <strong>handcrafted keepsake crates</strong> for veterans, retirees, and families
-    preserving the memory of loved ones who served — whether recently retired or long since passed.
-    Every crate is built to the same standard as our retail boxes — rugged, repairable, and made to last.
-  </p>
+    <div class="fsp-content">
+      <h2>The Final Salute Project</h2>
 
-  <p>
-    Each crate may be <strong>personalized</strong> with name, rank, branch insignia, service dates, and an optional
-    inscription under the lid. Some crates celebrate a lifetime of service; others serve as memorial pieces for
-    families honoring parents, grandparents, and fallen heroes.
-  </p>
+      <p>
+        <strong>The Final Salute Project</strong> is our give-back mission dedicated to honoring U.S. military service
+        across generations. We provide <strong>handcrafted keepsake crates</strong> for veterans, retirees, and families
+        preserving the memory of loved ones who served — whether recently retired or long since passed.
+        Every crate is built to the same standard as our retail boxes — rugged, repairable, and made to last.
+      </p>
 
-  <p>
-    <strong>How it’s funded:</strong> The project is supported through a mix of <em>community donations</em> and a
-    defined portion of <em>Freedom Crate Co.</em> proceeds. As support grows, we aim to expand both recognition gifts
-    and memorial tributes nationwide.
-  </p>
+      <p>
+        Each crate may be <strong>personalized</strong> with name, rank, branch insignia, service dates, and an optional
+        inscription under the lid. Some crates celebrate a lifetime of service; others serve as memorial pieces for
+        families honoring parents, grandparents, and fallen heroes.
+      </p>
 
-  <ul>
-    <li><strong>Purpose:</strong> Honor U.S. military service through recognition and memorial keepsake crates.</li>
-    <li><strong>Personalization:</strong> Name, rank, branch, service details, and optional inscription.</li>
-    <li><strong>Funding:</strong> Donor support + a share of Freedom Crate Co. proceeds.</li>
-    <li><strong>Vision:</strong> Preserve service stories for families and future generations.</li>
-  </ul>
+      <p>
+        <strong>How it’s funded:</strong> The project is supported through a mix of <em>community donations</em> and a
+        defined portion of <em>Freedom Crate Co.</em> proceeds. As support grows, we aim to expand both recognition gifts
+        and memorial tributes nationwide.
+      </p>
 
-  <div class="cta-row">
-    <a class="btn" href="/giveaway.html">Apply / Nominate a Veteran or Memorial</a>
-    <a class="btn" href="/transparency.html">See How Funds Are Allocated</a>
+      <ul>
+        <li><strong>Purpose:</strong> Honor U.S. military service through recognition and memorial keepsake crates.</li>
+        <li><strong>Personalization:</strong> Name, rank, branch, service details, and optional inscription.</li>
+        <li><strong>Funding:</strong> Donor support + a share of Freedom Crate Co. proceeds.</li>
+        <li><strong>Vision:</strong> Preserve service stories for families and future generations.</li>
+      </ul>
+
+      <div class="cta-row">
+        <a class="btn" href="/giveaway.html">Apply / Nominate a Veteran or Memorial</a>
+        <a class="btn" href="/transparency.html">See How Funds Are Allocated</a>
+      </div>
+
+      <p class="muted" style="margin-top:.5rem;">
+        Note: We are actively formalizing a dedicated nonprofit structure for The Final Salute Project and will update
+        this page with status and documentation as it progresses.
+      </p>
+    </div>
+
+    <div class="fsp-logo">
+      <img src="/assets/img/final-salute-project-logo.png" alt="The Final Salute Project Logo">
+    </div>
+
   </div>
-
-  <p class="muted" style="margin-top:.5rem;">
-    Note: We are actively formalizing a dedicated nonprofit structure for The Final Salute Project and will update
-    this page with status and documentation as it progresses.
-  </p>
 </section>
-
 
   <!-- MISSION & VALUES -->
   <section class="about-card" id="our-mission">
