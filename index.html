@@ -70,12 +70,120 @@
   .promo-form input::placeholder{
     color:#777;
   }
-  .promo-message{
+    .promo-message{
     margin-top:.35rem;
     font-size:.85rem;
   }
   .promo-message.ok{ color:#9be58d; }
   .promo-message.error{ color:#ff8585; }
+
+  .trust-reviews{
+    margin-top:1rem;
+    padding:1rem 1rem .95rem;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+    background:rgba(255,255,255,.03);
+  }
+  .trust-reviews .stars{
+    font-size:1rem;
+    font-weight:800;
+    line-height:1.3;
+    color:#fff;
+    margin:0 0 .35rem 0;
+  }
+  .trust-reviews .stars .gold{
+    color:#f5c451;
+    letter-spacing:.04em;
+  }
+  .trust-reviews .source{
+    margin:0 0 .5rem 0;
+    font-size:.92rem;
+    color:rgba(255,255,255,.78);
+  }
+  .trust-reviews .snippet{
+    margin:0;
+    font-size:.95rem;
+    color:#fff;
+    line-height:1.5;
+  }
+    .trust-reviews .proof{
+    margin:.55rem 0 0 0;
+    font-size:.88rem;
+    color:#9be58d;
+    font-weight:700;
+    line-height:1.4;
+  }
+
+  .trust-link{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+  }
+
+    .trust-link:hover .trust-reviews,
+  .trust-link:focus .trust-reviews{
+    border-color:rgba(255,255,255,.18);
+    background:rgba(255,255,255,.06);
+    transform:translateY(-2px);
+    transition:all .15s ease;
+    cursor:pointer;
+  }
+
+  .hero-proof-link{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+  margin:1rem auto 0;
+  text-align:center;
+}
+
+.hero-proof{
+  padding:0;
+  border:none;
+  background:none;
+  box-shadow:none;
+}
+
+.hero-proof strong{
+  display:block;
+  font-size:1.2rem;
+  font-weight:900;
+  color:#fff;
+  line-height:1.4;
+  letter-spacing:.02em;
+}
+
+.hero-proof .stars{
+  color:#f5c451;
+  letter-spacing:.08em;
+}
+
+.hero-proof .sub{
+  display:block;
+  margin-top:.35rem;
+  font-size:.95rem;
+  color:rgba(255,255,255,.8);
+}
+
+.hero-proof .verified{
+  color:#2ecc71;
+  font-weight:700;
+}
+
+.hero-proof-link:hover .hero-proof{
+  transform:translateY(-1px);
+  opacity:.9;
+}
+
+@media (max-width:640px){
+  .hero-proof strong{
+    font-size:1.05rem;
+  }
+
+  .hero-proof .sub{
+    font-size:.9rem;
+  }
+}
 </style>
 
 <!-- Structured Data: Store + key products -->
@@ -464,10 +572,23 @@
 
   <main class="container" id="main">
     <!-- Title strip -->
-    <div class="site-title-strip" role="region" aria-label="Site title">
+        <div class="site-title-strip" role="region" aria-label="Site title">
       <h1>Freedom Crate Co.</h1>
       <p>Handcrafted Ammo &amp; Range Boxes</p>
       <p class="slogan">Made For The People By The People</p>
+
+     <a href="reviews.html" class="hero-proof-link" aria-label="Read customer reviews">
+  <div class="hero-proof">
+    <strong>
+      <span class="stars">★★★★★</span>
+      100% Positive Feedback Across Etsy &amp; eBay
+    </strong>
+    <span class="sub">
+      5.0★ Etsy Rating • <span class="verified">Verified Buyers</span>
+    </span>
+  </div>
+</a>
+
       <div class="hero-ship" aria-label="Free US Shipping">
        
       </div>
@@ -540,12 +661,19 @@
 </div>
 
 
-
-
-      <div class="fc-row">
+            <div class="fc-row">
         <button id="sb-add" class="fc-btn btn" type="button">Add to Cart</button>
         <button id="sb-buy" class="fc-btn btn" type="button">Buy Now</button>
       </div>
+
+            <a href="reviews.html#branch-review-1" class="trust-link">
+        <div class="trust-reviews" aria-label="Branch Collection customer review">
+          <p class="stars"><span class="gold">★★★★★</span> 5-Star Rated</p>
+          <p class="source">100% positive feedback across our Etsy and eBay stores</p>
+          <p class="snippet">“Well-packaged, on-time delivery, and courteous, helpful customer service.”</p>
+          <p class="proof">Click to read the full review →</p>
+        </div>
+      </a>
 
       <p class="custom-link">
         <a href="contact.html#custom" class="custom-stencil-btn">Want Custom Stenciling? Click here →</a>
@@ -626,9 +754,18 @@
         <button id="rm400-buy" class="fc-btn btn" type="button">Buy Now</button>
       </div>
 
-      <!-- Notes -->
+            <!-- Notes -->
       <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
       <p class="fc-note">Armor Core = interior PolyShield (oil/chemical resistant). Battle Guard = exterior PolyShield (scratch/dent resistant).</p>
+
+            <a href="reviews.html#rm400-review-1" class="trust-link">
+        <div class="trust-reviews" aria-label="Rangemaster 400 customer review">
+          <p class="stars"><span class="gold">★★★★★</span> 5-Star Rated</p>
+          <p class="source">100% positive feedback across our Etsy and eBay stores</p>
+          <p class="snippet">“This is a great item! It arrived perfectly packed and is high-quality!”</p>
+          <p class="proof">Click to read the full review →</p>
+        </div>
+      </a>
     </div>
 
   </div>
@@ -723,9 +860,18 @@
         <button id="cc-buy" class="fc-btn btn" type="button">Buy Now</button>
       </div>
 
-      <p class="fc-note">
+            <p class="fc-note">
         Free shipping. Ships in protective packaging; some orders may ship in 2 packages.
       </p>
+
+            <a href="reviews.html#caliber-review-2" class="trust-link">
+        <div class="trust-reviews" aria-label="Caliber Collection customer review">
+          <p class="stars"><span class="gold">★★★★★</span> 5-Star Rated</p>
+          <p class="source">100% positive feedback across our Etsy and eBay stores</p>
+          <p class="snippet">“Amazing product and just as described. Came very well shipped with great packaging/care.”</p>
+          <p class="proof">Click to read the full review →</p>
+        </div>
+      </a>
     </div>
 
   </div>

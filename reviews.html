@@ -67,11 +67,24 @@
       .review-card .review-photo { display: block; justify-self: start; }
       .review-card .photo-toggle { display: none; }
     }
-    /* Stars/name line */
+        /* Stars/name line */
     .review-card .meta {
       display: block;
       margin-bottom: .25rem;
       opacity: .9;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .review-card:target {
+      border: 1px solid #f5c451;
+      background: rgba(245,196,81,.08);
+      border-radius: 12px;
+      padding: 1rem;
+      transition: all .3s ease;
+      scroll-margin-top: 110px;
     }
   </style>
 </head>
@@ -143,8 +156,8 @@
         </a>
       </div>
 
-      <!-- davbigredone -->
-      <div class="review-card has-photo">
+                  <!-- davbigredone -->
+      <div id="branch-review-1" class="review-card has-photo">
         <div class="review-content">
           <span class="meta">★★★★★ — davbigredone. (eBay)</span>
           <p>“Super seller, my items arrived in well-packaged boxes and on-time delivery. The seller was very kind and offered to combine shipping which really helped my situation.  
@@ -183,8 +196,22 @@
           <img src="assets/img/josh-review.jpg" alt="Josh's Freedom Crate Co. Footlocker" loading="lazy" width="320" height="240">
         </a>
       </div>
+<div id="caliber-review-2" class="review-card has-photo">
+  <div class="review-content">
+    <span class="meta">★★★★★ — dirtbikerider94. (eBay)</span>
+    <p>“Amazing product and just as described. Came very well shipped with great packaging/care. Felt it was a great value and would definitely be on the lookout for more!!”</p>
+    <p style="opacity:.85; font-size:.95rem; margin-top:.25rem;">
+      <strong>Product:</strong>
+      5.56 NATO / .223 Ammo Box — Armor Core — Stainless Hardware — Caliber Collection
+    </p>
+    <a class="photo-toggle" href="assets/img/caliber-review-dirtbikerider94.jpg" target="_blank" rel="noopener">See photo</a>
+  </div>
+  <a class="review-photo" href="assets/img/caliber-review-dirtbikerider94.jpg" target="_blank" rel="noopener">
+    <img src="assets/img/caliber-review-dirtbikerider94.jpg" alt="dirtbikerider94 Caliber Collection review screenshot" loading="lazy" width="320" height="240">
+  </a>
+</div>
 
-<div class="review-card has-photo">
+<div id="caliber-review-1" class="review-card has-photo">
   <div class="review-content">
     <span class="meta">★★★★★ — 
 series_of_numbers. (eBay)</span>
@@ -196,8 +223,7 @@ series_of_numbers. (eBay)</span>
   </a>
 </div>
 
-
-<div class="review-card has-photo">
+<div id="rm400-review-1" class="review-card has-photo">
   <div class="review-content">
     <span class="meta">★★★★★ — Name/Handle. (eBay)</span>
     <p>“This is a great item! It arrive perfectly packed and is high-quality!”</p>
