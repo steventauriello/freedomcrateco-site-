@@ -46,7 +46,20 @@
 <link rel="stylesheet" href="assets/css/styles.css" />
 <style>
   /* small helpers specific to this page */
-  .stencil-text{ font-family:"Black Ops One",system-ui,sans-serif; letter-spacing:.02em; }
+  .stencil-text{
+  margin:0 0 .55rem 0;
+  line-height:1;
+}
+
+.stencil-text .feature-link{
+  display:inline-block;
+  font-family:"Black Ops One",system-ui,sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-size:clamp(2.1rem, 4.2vw, 3rem);
+  line-height:1;
+  font-weight:400;
+}
   .green-link{ color:var(--brand, #2ecc71); text-decoration:none; font-weight:600; }
   .green-link:hover, .green-link:focus{ text-decoration:underline; }
   .custom-link{ margin-top:.5rem; }
@@ -614,9 +627,10 @@
 
     <!-- RIGHT COLUMN: controls (unchanged) -->
     <div class="fc-controls">
-      <h2><a class="feature-link" href="branch-collection.html">Freedom Crate Classic</a></h2>
-      <div class="branch-label"><a class="feature-link" href="branch-collection.html">Branch Collection</a></div>
-      <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
+  <h2 class="stencil-text">
+    <a class="feature-link" href="branch-collection.html">BRANCH COLLECTION</a>
+  </h2>
+  <p class="fc-note">Choose your branch to preview the stencil instantly.</p>
 
       <label class="fc-label" for="sb-branch">Branch stencil</label>
       <div class="fc-select-wrap">
@@ -667,13 +681,13 @@
       </div>
 
             <a href="reviews.html#branch-review-1" class="trust-link">
-        <div class="trust-reviews" aria-label="Branch Collection customer review">
-          <p class="stars"><span class="gold">★★★★★</span> 5-Star Rated</p>
-          <p class="source">100% positive feedback across our Etsy and eBay stores</p>
-          <p class="snippet">“Well-packaged, on-time delivery, and courteous, helpful customer service.”</p>
-          <p class="proof">Click to read the full review →</p>
-        </div>
-      </a>
+  <div class="trust-reviews" aria-label="Branch Collection customer review">
+    <p class="stars"><span class="gold">★★★★★</span> 5-Star Rated</p>
+    <p class="source">— davbigredone. (eBay)</p>
+    <p class="snippet">“Well-packaged, on-time delivery, and courteous, helpful customer service.”</p>
+    <p class="proof">Click to read the full review →</p>
+  </div>
+</a>
 
       <p class="custom-link">
         <a href="contact.html#custom" class="custom-stencil-btn">Want Custom Stenciling? Click here →</a>
@@ -758,14 +772,14 @@
       <p class="fc-note">Free shipping. Some orders ship in 2 packages; both tracking numbers provided.</p>
       <p class="fc-note">Armor Core = interior PolyShield (oil/chemical resistant). Battle Guard = exterior PolyShield (scratch/dent resistant).</p>
 
-            <a href="reviews.html#rm400-review-1" class="trust-link">
-        <div class="trust-reviews" aria-label="Rangemaster 400 customer review">
-          <p class="stars"><span class="gold">★★★★★</span> 5-Star Rated</p>
-          <p class="source">100% positive feedback across our Etsy and eBay stores</p>
-          <p class="snippet">“This is a great item! It arrived perfectly packed and is high-quality!”</p>
-          <p class="proof">Click to read the full review →</p>
-        </div>
-      </a>
+           <a href="reviews.html#rm400-review-1" class="trust-link">
+  <div class="trust-reviews" aria-label="Rangemaster 400 customer review">
+    <p class="stars"><span class="gold">★★★★★</span> 5-Star Rated</p>
+    <p class="source">— cjjones702012. (eBay)</p>
+    <p class="snippet">“This is a great item! It arrived perfectly packed and is high-quality!”</p>
+    <p class="proof">Click to read the full review →</p>
+  </div>
+</a>
     </div>
 
   </div>
@@ -865,13 +879,13 @@
       </p>
 
             <a href="reviews.html#caliber-review-2" class="trust-link">
-        <div class="trust-reviews" aria-label="Caliber Collection customer review">
-          <p class="stars"><span class="gold">★★★★★</span> 5-Star Rated</p>
-          <p class="source">100% positive feedback across our Etsy and eBay stores</p>
-          <p class="snippet">“Amazing product and just as described. Came very well shipped with great packaging/care.”</p>
-          <p class="proof">Click to read the full review →</p>
-        </div>
-      </a>
+  <div class="trust-reviews" aria-label="Caliber Collection customer review">
+    <p class="stars"><span class="gold">★★★★★</span> 5-Star Rated</p>
+    <p class="source">— dirtbikerider94. (eBay)</p>
+    <p class="snippet">“Amazing product and just as described. Came very well shipped with great packaging/care.”</p>
+    <p class="proof">Click to read the full review →</p>
+  </div>
+</a>
     </div>
 
   </div>
