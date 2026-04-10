@@ -202,55 +202,65 @@
   margin:1rem 0 1.25rem;
 }
 
+.home-trust-shell{
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+  padding:.8rem .9rem;
+}
+
 .home-trust-grid{
   display:grid;
   grid-template-columns:repeat(3, minmax(0, 1fr));
-  gap:.7rem;
+  gap:.75rem 1rem;
 }
 
-.home-trust-card{
-  padding:.75rem .7rem;
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:10px;
-  background:rgba(255,255,255,.025);
-  text-align:center;
-  min-height:100%;
+.home-trust-item{
+  display:flex;
+  align-items:flex-start;
+  gap:.65rem;
+  min-width:0;
 }
 
 .home-trust-icon{
-  width:42px;
-  height:42px;
-  margin:0 auto .45rem;
+  flex:0 0 36px;
+  width:36px;
+  height:36px;
   display:grid;
   place-items:center;
   border-radius:999px;
   background:rgba(46,204,113,.10);
   border:1px solid rgba(46,204,113,.18);
   color:#9be58d;
+  margin:0;
 }
 
 .home-trust-icon svg{
-  width:20px;
-  height:20px;
+  width:18px;
+  height:18px;
   display:block;
 }
 
-.home-trust-card h2,
-.home-trust-card h3{
-  margin:0 0 .22rem 0;
-  font-size:.92rem;
+.home-trust-copy{
+  min-width:0;
+}
+
+.home-trust-copy h2,
+.home-trust-copy h3{
+  margin:0 0 .16rem 0;
+  font-size:.9rem;
   line-height:1.2;
   color:#fff;
 }
 
-.home-trust-card p{
+.home-trust-copy p{
   margin:0;
-  font-size:.8rem;
+  font-size:.79rem;
   line-height:1.3;
   color:rgba(255,255,255,.78);
 }
 
-.home-trust-card strong{
+.home-trust-copy strong{
   color:#fff;
 }
 
@@ -265,15 +275,31 @@
     margin:.9rem 0 1.1rem;
   }
 
-  .home-trust-grid{
-    grid-template-columns:1fr;
-    gap:.65rem;
+  .home-trust-shell{
+    padding:.75rem .8rem;
   }
 
-  .home-trust-card{
-    padding:.8rem .75rem;
+  .home-trust-grid{
+    grid-template-columns:1fr;
+    gap:.7rem;
   }
-}</style>
+
+  .home-trust-item{
+    gap:.6rem;
+  }
+
+  .home-trust-icon{
+    flex-basis:34px;
+    width:34px;
+    height:34px;
+  }
+
+  .home-trust-icon svg{
+    width:17px;
+    height:17px;
+  }
+}
+</style>
 
 <!-- Structured Data: Store + key products -->
 <script type="application/ld+json">
@@ -970,76 +996,90 @@
 
 
        <section class="home-trust" aria-label="Why shop Freedom Crate Co.">
-  <div class="home-trust-grid">
+  <div class="home-trust-shell">
+    <div class="home-trust-grid">
 
-    <article class="home-trust-card">
-      <div class="home-trust-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"></path>
-          <path d="M9.5 12.5l1.8 1.8 3.7-4"></path>
-        </svg>
-      </div>
-      <h2>Built By Hand</h2>
-      <p>Handcrafted in Florida. Built for real use.</p>
-    </article>
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"></path>
+            <path d="M9.5 12.5l1.8 1.8 3.7-4"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h2>Built By Hand</h2>
+          <p>Handcrafted in Florida. Built for real use.</p>
+        </div>
+      </article>
 
-    <article class="home-trust-card">
-      <div class="home-trust-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 7L12 3 4 7"></path>
-          <path d="M20 7v10l-8 4-8-4V7"></path>
-          <path d="M12 3v18"></path>
-          <path d="M4 7l8 4 8-4"></path>
-        </svg>
-      </div>
-      <h3>Free U.S. Shipping</h3>
-      <p>No surprise shipping charges at checkout.</p>
-    </article>
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 7L12 3 4 7"></path>
+            <path d="M20 7v10l-8 4-8-4V7"></path>
+            <path d="M12 3v18"></path>
+            <path d="M4 7l8 4 8-4"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>Free U.S. Shipping</h3>
+          <p>No surprise shipping charges at checkout.</p>
+        </div>
+      </article>
 
-    <article class="home-trust-card">
-      <div class="home-trust-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 21s-7-4.35-7-11a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 6.65-7 11-7 11z"></path>
-        </svg>
-      </div>
-      <h3>Veteran-Inspired</h3>
-      <p>Every order helps support the <strong>Final Salute Project</strong>.</p>
-    </article>
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s-7-4.35-7-11a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 6.65-7 11-7 11z"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>Veteran-Inspired</h3>
+          <p>Every order helps support the <strong>Final Salute Project</strong>.</p>
+        </div>
+      </article>
 
-    <article class="home-trust-card">
-      <div class="home-trust-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 7h13"></path>
-          <path d="M3 12h18"></path>
-          <path d="M3 17h11"></path>
-          <path d="M18 6l3 3-3 3"></path>
-        </svg>
-      </div>
-      <h3>14-Day Returns</h3>
-      <p>Eligible non-custom items can be returned within 14 days.</p>
-    </article>
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 7h13"></path>
+            <path d="M3 12h18"></path>
+            <path d="M3 17h11"></path>
+            <path d="M18 6l3 3-3 3"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>14-Day Returns</h3>
+          <p>Eligible non-custom items can be returned within 14 days.</p>
+        </div>
+      </article>
 
-    <article class="home-trust-card">
-      <div class="home-trust-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="10" rx="2"></rect>
-          <path d="M7 11V8a5 5 0 0 1 10 0v3"></path>
-        </svg>
-      </div>
-      <h3>Lockable Hardware</h3>
-      <p>Featured boxes include lockable latch setups.</p>
-    </article>
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+            <path d="M7 11V8a5 5 0 0 1 10 0v3"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>Lockable Hardware</h3>
+          <p>Featured boxes include lockable latch setups.</p>
+        </div>
+      </article>
 
-    <article class="home-trust-card">
-      <div class="home-trust-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.5L12 14.8 7.2 17l.9-5.5L4.2 7.7l5.4-.8L12 2z"></path>
-        </svg>
-      </div>
-      <h3>Verified Reviews</h3>
-      <p>Backed by real 5-star Etsy and eBay feedback.</p>
-    </article>
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.5L12 14.8 7.2 17l.9-5.5L4.2 7.7l5.4-.8L12 2z"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>Verified Reviews</h3>
+          <p>Backed by real 5-star Etsy and eBay feedback.</p>
+        </div>
+      </article>
 
+    </div>
   </div>
 </section>
 
