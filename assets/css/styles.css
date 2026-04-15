@@ -2886,4 +2886,11 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   :root{ --logo-x: 0px !important; --logo-h: 72px !important; }
   .site-header .brand{ margin-right: auto !important; }
 }
+/* === Gallery page image fix (FINAL OVERRIDE) === */
+#galleryGrid img {
+  width: 100%;
+  height: 200px;        /* makes them taller */
+  object-fit: cover;    /* keeps clean grid look */
+  display: block;
+}
 
