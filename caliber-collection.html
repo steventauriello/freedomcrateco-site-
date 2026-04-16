@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Wood Ammo Boxes | 5.56, .223, 9mm & .308 Wooden Ammo Boxes | Freedom Crate Co.</title>
-  <meta name="description" content="Shop handcrafted wood ammo boxes for 5.56, .223, 9mm, and 7.62 / .308. Freedom Crate Co. builds rugged wooden ammo boxes in Florida with durable hardware and optional Armor Core interior protection." />liber Collection crates are built in Florida with rugged hardware and optional Armor Core interior protection." />
+  <meta name="description" content="Shop handcrafted wood ammo boxes for 5.56, .223, 9mm, and 7.62 / .308. Freedom Crate Co. builds rugged wooden ammo boxes in Florida with durable hardware and optional Armor Core interior protection." />
 
   <link rel="canonical" href="https://freedomcrateco.com/caliber-collection.html" />
   <meta name="robots" content="index,follow,max-image-preview:large">
@@ -394,7 +394,7 @@ Looking for a specific caliber? Our wood ammo boxes are built for:
 <ul>
   <li><strong>5.56 / .223 Ammo Boxes</strong> – Ideal for AR-15 storage and range use</li>
   <li><strong>9mm Ammo Boxes</strong> – Compact handgun storage with organized access</li>
-  <li><strong>7.62 / .308 Ammo Boxes</strong> – Built for larger rifle calibers</li>
+  <li><a href="caliber-collection.html?variant=308"><strong>7.62 / .308 Ammo Boxes</strong></a> – Built for larger rifle calibers</li>
 </ul>
 
 <p>
@@ -510,55 +510,95 @@ Need a dedicated AR-15 setup?
   <script src="assets/js/cart.js" defer></script>
 
   <script>
-  (function(){
-    const hero    = document.getElementById('cc-hero');
-    const lb      = document.getElementById('lightbox');
-    const lbImg   = document.getElementById('lbImg');
-    const lbClose = document.getElementById('lbClose');
+(function(){
+  const hero    = document.getElementById('cc-hero');
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lbImg');
+  const lbClose = document.getElementById('lbClose');
 
-    function openLB(src, alt){
-      lbImg.src = src;
-      lbImg.alt = alt || '';
-      lb.classList.add('open');
-      lb.setAttribute('aria-hidden','false');
-    }
-    function closeLB(){
-      lb.classList.remove('open');
-      lb.setAttribute('aria-hidden','true');
-      lbImg.src = '';
+  function openLB(src, alt){
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden','false');
+  }
+
+  function closeLB(){
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    lbImg.src = '';
+  }
+
+  function setHero(src, alt){
+    if (!hero || !src) return;
+    hero.src = src;
+    hero.alt = alt || '';
+  }
+
+  function loadVariantFromUrl(){
+    const params = new URLSearchParams(window.location.search);
+    const variant = params.get('variant');
+
+    if (!variant) return;
+
+    if (variant === '308') {
+      setHero(
+        'assets/img/caliber-collection-762-stainless.JPG',
+        'Caliber Collection 7.62 / .308 ammo crate with stainless hardware'
+      );
     }
 
-    if (hero) {
-      hero.addEventListener('click', () => openLB(hero.src, hero.alt));
-      hero.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openLB(hero.src, hero.alt);
-        }
-      });
+    if (variant === '556') {
+      setHero(
+        'assets/img/caliber-collection-556-stainless.JPG',
+        'Caliber Collection 5.56 / .223 ammo crate with stainless hardware'
+      );
     }
 
-    const grid = document.querySelector('.desc-grid');
-    grid?.addEventListener('click', (e) => {
-      const btn = e.target.closest('.desc-thumb');
-      if (!btn) return;
-      const full = btn.getAttribute('data-full');
-      const alt  = btn.querySelector('img')?.getAttribute('alt') || '';
-      if (full) {
-        hero.src = full;
-        hero.alt = alt;
-        openLB(full, alt);
+    if (variant === '9mm') {
+      setHero(
+        'assets/img/caliber-collection-9mm-stainless.JPG',
+        'Caliber Collection 9mm ammo crate with stainless hardware'
+      );
+    }
+  }
+
+  loadVariantFromUrl();
+
+  if (hero) {
+    hero.addEventListener('click', () => openLB(hero.src, hero.alt));
+    hero.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLB(hero.src, hero.alt);
       }
     });
+  }
 
-    lb.addEventListener('click', (e) => {
-      if (e.target === lb) closeLB();
-    });
-    lbClose.addEventListener('click', closeLB);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeLB();
-    });
-  })();
-  </script>
+  const grid = document.querySelector('.desc-grid');
+  grid?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.desc-thumb');
+    if (!btn) return;
+
+    const full = btn.getAttribute('data-full');
+    const alt  = btn.querySelector('img')?.getAttribute('alt') || '';
+
+    if (full) {
+      setHero(full, alt);
+      openLB(full, alt);
+    }
+  });
+
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb) closeLB();
+  });
+
+  lbClose.addEventListener('click', closeLB);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLB();
+  });
+})();
+</script>
 </body>
 </html>
