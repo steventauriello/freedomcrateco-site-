@@ -12,10 +12,13 @@
 
 
   <link rel="stylesheet" href="assets/css/styles.css" />
+<style>
 
-  <style>
-    .product-page {
-      max-width: 900px;
+html {
+  scroll-behavior: smooth;
+}
+
+.product-page {      max-width: 900px;
       margin: 2rem auto;
       padding: 1rem;
     }
@@ -125,7 +128,107 @@
         align-items: flex-start;
       }
     }
-  </style>
+/* Buy section styling */
+.cc-buy-grid{
+  display:grid;
+  gap:1rem;
+  margin-top:1rem;
+}
+
+.cc-buy-card{
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  padding:.9rem;
+  background:#12151c;
+  color:#fff;
+}
+.cc-buy-card h3{
+  margin:0 0 .35rem;
+  color:#fff;
+}
+
+.cc-buy-card .muted{
+  color:#b8c0d0;
+  margin-bottom:.85rem;
+  max-width:none;
+}
+
+.cc-buy-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.75rem;
+  align-items:center;
+}
+
+.cc-buy-thumb{
+  width:100%;
+  max-width:220px;
+  border-radius:10px;
+  display:block;
+  margin:0 0 .85rem;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.cc-buy-card .btn{
+  margin-right:0;
+}
+.cc-buy-images{
+  display:flex;
+  gap:.75rem;
+  margin-bottom:.75rem;
+  flex-wrap:wrap;
+}
+
+.cc-buy-img{
+  flex:0 0 auto;
+  width:140px;
+}
+
+.cc-buy-img img{
+  width:100%;
+  height:80px;
+  object-fit:cover;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.08);
+  display:block;
+}
+
+.cc-buy-img span{
+  display:block;
+  font-size:.75rem;
+  color:#b8c0d0;
+  margin-top:.25rem;
+  text-align:center;
+}
+
+@media (max-width:780px){
+  .cc-buy-row{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}  
+.cart-toast{
+  position:fixed;
+  left:50%;
+  bottom:24px;
+  transform:translateX(-50%) translateY(20px);
+  background:#1f7a3d;
+  color:#fff;
+  padding:.85rem 1.1rem;
+  border-radius:10px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+  font-weight:700;
+  z-index:10000;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
+}
+
+.cart-toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+</style>
 </head>
 <body>
   <!-- Simple header (same style as Branch page) -->
@@ -392,15 +495,10 @@ Looking for a specific caliber? Our wood ammo boxes are built for:
 </p>
 
 <ul>
-  <li><strong>5.56 / .223 Ammo Boxes</strong> – Ideal for AR-15 storage and range use</li>
-  <li><strong>9mm Ammo Boxes</strong> – Compact handgun storage with organized access</li>
-  <li><a href="caliber-collection.html?variant=308"><strong>7.62 / .308 Ammo Boxes</strong></a> – Built for larger rifle calibers</li>
+  <li><a href="#cc-556"><strong>5.56 / .223 Ammo Boxes</strong></a> – Ideal for AR-15 storage and range use</li>
+  <li><a href="#cc-9mm"><strong>9mm Ammo Boxes</strong></a> – Compact handgun storage with organized access</li>
+  <li><a href="#cc-308"><strong>7.62 / .308 Ammo Boxes</strong></a> – Built for larger rifle calibers</li>
 </ul>
-
-<p>
-Need a dedicated AR-15 setup?
-<a href="ammo-box-for-ar15.html">View our AR-15 ammo box options</a>.
-</p>
       <h2>Handcrafted ammo crates with a mission</h2>
       <p>
         Each Caliber Collection crate is built one at a time in Florida by Freedom Crate Co. —
@@ -486,16 +584,68 @@ Need a dedicated AR-15 setup?
 
       <p class="muted">
         BUILT BY: <strong>Steven Tauriello</strong><br>
-        MODEL FAMILY: <strong>Caliber Collection – Black Ops Edition</strong>
+        MODEL FAMILY: <strong>Caliber Collection</strong>
       </p>
 
-      <div class="cc-cta">
-        <a href="/" class="btn">Shop Caliber Collection Options</a>
-        <small class="muted">
-          Use the Caliber Collection card on the home page to choose your caliber, hardware, and interior liner,
-          then add to cart. This page is here to show real photos and full build details.
-        </small>
+<h2>Choose Your Caliber Collection Box</h2>
+
+<div class="cc-buy-grid">
+
+  <div class="cc-buy-card" id="cc-9mm">
+    <h3>9mm Ammo Boxes</h3>
+
+    <div class="cc-buy-images">
+      <div class="cc-buy-img">
+        <img src="assets/img/caliber-collection-9mm-black.JPG" alt="9mm ammo box black hardware">
+        <span>Black Hardware</span>
+        <button class="btn" type="button" data-cc-action="add" data-caliber="9mm" data-hardware="BLK">Add to Cart</button>
       </div>
+
+      <div class="cc-buy-img">
+        <img src="assets/img/caliber-collection-9mm-stainless.JPG" alt="9mm ammo box stainless hardware">
+        <span>Stainless Hardware</span>
+        <button class="btn" type="button" data-cc-action="add" data-caliber="9mm" data-hardware="SS">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cc-buy-card" id="cc-556">
+    <h3>5.56 / .223 Ammo Boxes</h3>
+
+    <div class="cc-buy-images">
+      <div class="cc-buy-img">
+        <img src="assets/img/caliber-collection-556-black.JPG" alt="5.56 ammo box black hardware">
+        <span>Black Hardware</span>
+        <button class="btn" type="button" data-cc-action="add" data-caliber="556" data-hardware="BLK">Add to Cart</button>
+      </div>
+
+      <div class="cc-buy-img">
+        <img src="assets/img/caliber-collection-556-stainless.JPG" alt="5.56 ammo box stainless hardware">
+        <span>Stainless Hardware</span>
+        <button class="btn" type="button" data-cc-action="add" data-caliber="556" data-hardware="SS">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cc-buy-card" id="cc-308">
+    <h3>7.62 / .308 Ammo Boxes</h3>
+
+    <div class="cc-buy-images">
+      <div class="cc-buy-img">
+        <img src="assets/img/caliber-collection-762-black.JPG" alt=".308 ammo box black hardware">
+        <span>Black Hardware</span>
+        <button class="btn" type="button" data-cc-action="add" data-caliber="308" data-hardware="BLK">Add to Cart</button>
+      </div>
+
+      <div class="cc-buy-img">
+        <img src="assets/img/caliber-collection-762-stainless.JPG" alt=".308 ammo box stainless hardware">
+        <span>Stainless Hardware</span>
+        <button class="btn" type="button" data-cc-action="add" data-caliber="308" data-hardware="SS">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+</div>
     </section>
   </main>
 
@@ -506,9 +656,118 @@ Need a dedicated AR-15 setup?
   </div>
 
   <!-- Core helpers -->
+<div class="cart-toast" id="cartToast" aria-live="polite">Item has been added to cart</div>
   <script src="assets/js/util.js" defer></script>
-  <script src="assets/js/cart.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script>
+(function(){
+  const BASE_PRICES = {
+    '9mm': 79.99,
+    '556': 79.99,
+    '308': 79.99
+  };
 
+  const IMAGE_MAP = {
+    '9mm': {
+      'BLK': 'assets/img/caliber-collection-9mm-black.JPG',
+      'SS':  'assets/img/caliber-collection-9mm-stainless.JPG'
+    },
+    '556': {
+      'BLK': 'assets/img/caliber-collection-556-black.JPG',
+      'SS':  'assets/img/caliber-collection-556-stainless.JPG'
+    },
+    '308': {
+      'BLK': 'assets/img/caliber-collection-762-black.JPG',
+      'SS':  'assets/img/caliber-collection-762-stainless.JPG'
+    }
+  };
+
+  let toastTimer;
+
+  function showCartToast(message){
+    const toast = document.getElementById('cartToast');
+    if (!toast) return;
+
+    toast.textContent = message || 'Item has been added to cart';
+    toast.classList.add('show');
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2200);
+  }
+
+  function applySitewidePromo(raw){
+    const cfg = window.FC_PROMO || {};
+    const pct = Number(cfg.percentOff) || 0;
+    const hasHelper = (typeof window.FC_isPromoActiveNow === 'function');
+    const active = hasHelper ? window.FC_isPromoActiveNow() : !!cfg.active;
+
+    if (!active || pct <= 0) return raw;
+
+    const discounted = raw * (1 - pct / 100);
+    return Math.round(discounted * 100) / 100;
+  }
+
+  function niceCaliber(caliber){
+    if (caliber === '9mm') return '9mm';
+    if (caliber === '556') return '5.56 / .223';
+    return '.308 / 7.62×51';
+  }
+
+  function niceHardware(hardware){
+    return hardware === 'BLK'
+      ? 'Black Toggle Latches'
+      : 'Stainless Toggle Latches';
+  }
+
+  function buildSku(caliber, hardware){
+    const calCode = caliber === '9mm' ? '9' : caliber;
+    return `CAL-${calCode}-${hardware}-BASE`;
+  }
+
+  function buildItem(caliber, hardware){
+    const raw = Number(BASE_PRICES[caliber] || 0);
+    const price = applySitewidePromo(raw);
+    const sku = buildSku(caliber, hardware);
+    const name = `Caliber Collection — ${niceCaliber(caliber)} • ${niceHardware(hardware)}`;
+    const image = (IMAGE_MAP[caliber] && IMAGE_MAP[caliber][hardware]) || 'assets/img/blank.jpg';
+
+    return {
+      sku,
+      name,
+      price,
+      meta: {
+        caliber: niceCaliber(caliber),
+        hardware: niceHardware(hardware),
+        interior: 'Standard wood (no liner)',
+        image
+      }
+    };
+  }
+
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('[data-cc-action]');
+    if (!btn) return;
+
+    const caliber = btn.getAttribute('data-caliber');
+    const hardware = btn.getAttribute('data-hardware');
+    const action = btn.getAttribute('data-cc-action');
+
+    const item = buildItem(caliber, hardware);
+
+    if (action === 'add') {
+      if (typeof window.addToCart === 'function') {
+        window.addToCart(item.sku, item.name, item.price, 1, item.meta);
+        showCartToast('Item has been added to cart');
+      } else {
+        console.warn('[Caliber details] addToCart not ready');
+      }
+    }
+  });
+})();
+</script>
   <script>
 (function(){
   const hero    = document.getElementById('cc-hero');
