@@ -869,5 +869,36 @@
   })();
 </script>
 
+<!-- Cookie Notice -->
+<div id="cookie-notice" class="cookie-notice" hidden>
+  <div class="cookie-notice-inner">
+    <p>
+      We use cookies to improve your experience, analyze site traffic, and support advertising/remarketing.
+      By clicking “Accept,” you agree to our use of cookies.
+      <a href="/privacy.html">Privacy Policy</a>
+    </p>
+    <button id="cookie-accept-btn" type="button">Accept</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  const notice = document.getElementById('cookie-notice');
+  const btn = document.getElementById('cookie-accept-btn');
+  const accepted = localStorage.getItem('fcc_cookie_accept');
+
+  if (!accepted && notice) {
+    notice.hidden = false;
+  }
+
+  if (btn) {
+    btn.addEventListener('click', function () {
+      localStorage.setItem('fcc_cookie_accept', 'yes');
+      if (notice) notice.hidden = true;
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

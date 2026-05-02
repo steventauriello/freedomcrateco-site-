@@ -453,7 +453,7 @@
 <main class="container" id="main">
   <section class="site-title-strip" aria-label="Page title">
     <h1>Privacy Policy</h1>
-    <p class="muted">Last updated: November 14, 2025</p>
+    <p class="muted">Last updated: May 2, 2026</p>
   </section>
 
   <section class="page-section">
@@ -498,16 +498,23 @@
 
   <section class="page-section">
     <h2>3. Cookies and Tracking Technologies</h2>
-    <p>
-      We use cookies and similar technologies to operate and improve our website,
-      remember your preferences, and understand how visitors use our pages.
-    </p>
-    <p>Cookies may be used for purposes such as:</p>
-    <ul>
-      <li>Keeping items in your cart while you browse</li>
-      <li>Remembering certain settings or preferences</li>
-      <li>Analytics and performance (for example, Google Analytics / GA4)</li>
-    </ul>
+<p>
+  We use cookies and similar technologies to operate and improve our website,
+  remember your preferences, understand how visitors use our pages, and measure the effectiveness
+  of our advertising.
+</p>
+<p>Cookies and tracking technologies may be used for purposes such as:</p>
+<ul>
+  <li>Keeping items in your cart while you browse</li>
+  <li>Remembering certain settings or preferences</li>
+  <li>Analytics and performance, including Google Analytics / GA4</li>
+  <li>Advertising and remarketing, including tools such as the Meta Pixel, which may help us show relevant ads to people who have visited our website</li>
+</ul>
+<p>
+  Third-party services such as Google and Meta may use cookies or similar technologies to collect
+  information about your activity on our website and across other websites or apps. This information may
+  be used for analytics, ad measurement, and personalized advertising.
+</p>
     <p>
       You can adjust your browser settings to refuse cookies or to alert you when cookies are being sent.
       If you disable cookies, some parts of the site may not function properly.
@@ -942,5 +949,39 @@ setTimeout(() => {
   }, { passive:true });
 })();
 </script>
+
+<!-- Cookie Notice -->
+<div id="cookie-notice" class="cookie-notice" hidden>
+  <div class="cookie-notice-inner">
+    <p>
+      We use cookies to improve your experience, analyze site traffic, and support advertising/remarketing.
+      By clicking “Accept,” you agree to our use of cookies.
+      <a href="/privacy.html">Privacy Policy</a>
+    </p>
+    <button id="cookie-accept-btn" type="button">Accept</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  const notice = document.getElementById('cookie-notice');
+  const btn = document.getElementById('cookie-accept-btn');
+  const accepted = localStorage.getItem('fcc_cookie_accept');
+
+  // Show banner if not accepted yet
+  if (!accepted && notice) {
+    notice.hidden = false;
+  }
+
+  // Handle accept click
+  if (btn) {
+    btn.addEventListener('click', function () {
+      localStorage.setItem('fcc_cookie_accept', 'yes');
+      if (notice) notice.hidden = true;
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
