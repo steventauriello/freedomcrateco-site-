@@ -2,105 +2,95 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- Homepage -->
   <url>
     <loc>https://freedomcrateco.com/</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-
-    <!-- Army Edition -->
-    <image:image>
-      <image:loc>https://freedomcrateco.com/assets/img/army.jpg</image:loc>
-      <image:title>Freedom Crate Co. — Army Edition Handcrafted Ammo Box</image:title>
-      <image:caption>Handcrafted wooden ammo box with U.S. Army stencil, built in Florida by Freedom Crate Co.</image:caption>
-    </image:image>
-
-    <!-- 9mm Box -->
-    <image:image>
-      <image:loc>https://freedomcrateco.com/assets/img/9mm-box.JPG</image:loc>
-      <image:title>Freedom Crate Co. — 9mm Edition Wooden Ammo Box</image:title>
-      <image:caption>Compact 9mm ammo storage box, handcrafted in Florida with rugged wood and precision stenciling.</image:caption>
-    </image:image>
-
-    <!-- 5.56 Box -->
-    <image:image>
-      <image:loc>https://freedomcrateco.com/assets/img/556-box.JPG</image:loc>
-      <image:title>Freedom Crate Co. — 5.56 NATO Edition Wooden Ammo Box</image:title>
-      <image:caption>Durable wooden ammo box designed for 5.56 NATO, built tough for range and storage use.</image:caption>
-    </image:image>
   </url>
 
-  <!-- Branch Collection -->
   <url>
-    <loc>https://freedomcrateco.com/branch-collection</loc>
-    <lastmod>2025-11-02</lastmod>
+    <loc>https://freedomcrateco.com/branch-collection.html</loc>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Rangemaster 400 -->
+  <url>
+    <loc>https://freedomcrateco.com/caliber-collection.html</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <url>
     <loc>https://freedomcrateco.com/product.html?sku=FC-RM-400</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Reviews -->
   <url>
-    <loc>https://freedomcrateco.com/reviews.html</loc>
-    <lastmod>2025-11-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://freedomcrateco.com/product.html?sku=FC-CAL-9MM</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
-  <!-- Gallery -->
+  <url>
+    <loc>https://freedomcrateco.com/product.html?sku=FC-CAL-556</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://freedomcrateco.com/product.html?sku=FC-CAL-762</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <url>
     <loc>https://freedomcrateco.com/gallery.html</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
 
-  <!-- Contact -->
-  <url>
-    <loc>https://freedomcrateco.com/contact.html</loc>
-    <lastmod>2025-11-02</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- About -->
   <url>
     <loc>https://freedomcrateco.com/about.html</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
-  <!-- Monthly Veteran Giveaway -->
   <url>
-    <loc>https://freedomcrateco.com/giveaway.html</loc>
-    <lastmod>2025-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://freedomcrateco.com/reviews.html</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
-  <!-- Transparency -->
+  <url>
+    <loc>https://freedomcrateco.com/giveaway.html</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <url>
     <loc>https://freedomcrateco.com/transparency.html</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
-  <!-- AI metadata file -->
   <url>
-    <loc>https://freedomcrateco.com/site-ai.json</loc>
-    <lastmod>2025-11-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <loc>https://freedomcrateco.com/contact.html</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
 
 </urlset>
