@@ -8,13 +8,246 @@
 <meta name="description" content="Shop handcrafted wood ammo boxes built for storage, range use, and real-world durability. Freedom Crate Co. builds rugged wooden ammo boxes and military-style ammo crates in Florida." />
 
 <link rel="stylesheet" href="assets/css/styles.css" />
+
+<style>
+  .ammo-hero {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 40px;
+    align-items: center;
+    padding: 50px 0 35px;
+  }
+
+  .ammo-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4.8rem);
+    line-height: 1;
+    margin-bottom: 18px;
+  }
+
+  .ammo-hero p {
+    font-size: 1.15rem;
+    max-width: 650px;
+  }
+
+  .ammo-hero-img {
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 18px 45px rgba(0,0,0,.35);
+    background: #111;
+  }
+
+  .ammo-hero-img img {
+    width: 100%;
+    display: block;
+  }
+
+  .ammo-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 22px 0;
+  }
+
+  .ammo-badges span {
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.06);
+    padding: 9px 13px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: .9rem;
+  }
+
+  .ammo-section {
+    margin-top: 55px;
+  }
+
+  .ammo-section h2 {
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    margin-bottom: 18px;
+  }
+
+  .ammo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 25px;
+  }
+
+  .ammo-card {
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 14px 35px rgba(0,0,0,.22);
+  }
+
+  .ammo-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ammo-card-body {
+    padding: 20px;
+  }
+
+  .ammo-card h3 {
+    margin: 0 0 8px;
+    font-size: 1.3rem;
+  }
+
+  .ammo-card p {
+    color: #b9c0cf;
+    margin-bottom: 16px;
+  }
+
+  .feature-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.feature-box {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(34,197,94,.22), rgba(255,255,255,.055)),
+    #15161a;
+  border: 1px solid rgba(34,197,94,.35);
+  border-radius: 20px;
+  padding: 24px 22px;
+  box-shadow: 0 18px 38px rgba(0,0,0,.28);
+}
+
+.feature-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(34,197,94,.35), transparent 42%);
+  pointer-events: none;
+}
+
+.feature-box::after {
+  content: "✓";
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(34,197,94,.22);
+  border: 1px solid rgba(34,197,94,.55);
+  color: #7cff9b;
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+.feature-box strong {
+  position: relative;
+  z-index: 1;
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.feature-box span {
+  position: relative;
+  z-index: 1;
+  color: #cfd6e6;
+  font-size: .98rem;
+  line-height: 1.55;
+}
+
+  .ammo-photo-band {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 28px;
+  }
+
+  .ammo-photo-band img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 0 14px 35px rgba(0,0,0,.25);
+}
+.photo-card {
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 18px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.28);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.photo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px rgba(0,0,0,.38);
+}
+
+.photo-card img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 18px;
+}
+
+.photo-card-content {
+  padding-top: 18px;
+}
+
+.photo-card-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.photo-card-content p {
+  color: #cfd6e6;
+  line-height: 1.6;
+}
+  .ammo-callout {
+    margin-top: 55px;
+    padding: 35px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(43, 168, 89, .22), rgba(255,255,255,.06));
+    border: 1px solid rgba(255,255,255,.15);
+  }
+
+  .ammo-links ul {
+    columns: 2;
+  }
+
+  @media (max-width: 850px) {
+    .ammo-hero,
+    .ammo-grid,
+    .feature-strip,
+    .ammo-photo-band {
+      grid-template-columns: 1fr;
+    }
+
+    .ammo-links ul {
+      columns: 1;
+    }
+  }
+</style>
 </head>
 
 <body>
 
 <header class="site-header">
   <a class="brand" href="/">
-    <img src="assets/img/logo.png">
+    <img src="assets/img/logo.png" alt="Freedom Crate Co. logo">
   </a>
   <nav class="nav">
     <a href="/">Shop</a>
@@ -28,88 +261,188 @@
 
 <main class="product-page">
 
-<h1>Wood Ammo Boxes</h1>
+<section class="ammo-hero">
+  <div>
+    <h1>Wood Ammo Boxes</h1>
+    <p class="muted">
+      Rugged, handcrafted wooden ammo boxes built for real storage, range use, garage organization, and long-term durability. Freedom Crate Co. builds military-style ammo crates in Florida — made to be used, not just displayed.
+    </p>
 
-<p class="muted">
-Looking for rugged, handcrafted wood ammo boxes? Freedom Crate Co. builds military-style wooden ammo boxes and ammo crates designed for real storage, range use, and long-term durability. Built in Florida and made to be used — not just displayed.
-</p>
+    <div class="ammo-badges">
+      <span>Handcrafted in Florida</span>
+      <span>Military-style crate design</span>
+      <span>Caliber-specific options</span>
+      <span>Free U.S. Shipping</span>
+    </div>
 
-<div class="cc-cta">
-  <a class="btn" href="/">Shop All Ammo Boxes</a>
-  <a class="btn" href="caliber-collection.html?variant=556">Shop 5.56 / .223 Boxes</a>
-  <a class="btn" href="caliber-collection.html?variant=308">Shop .308 Boxes</a>
-  <a class="btn" href="caliber-collection.html?variant=9mm">Shop 9mm Boxes</a>
-</div>
-
-<div class="cc-details">
-  <h2>Handcrafted Wood Ammo Boxes Built for Storage and Organization</h2>
-<p>
-  Freedom Crate Co. builds handcrafted wood ammo boxes for shooters, collectors, and anyone who wants a more practical and distinctive alternative to standard metal cans. Our wooden ammo boxes are designed for ammo storage, organization, and long-term use.
-</p>
-<p>
-  Inspired by classic military crates, each box is built to give you more storage space, a cleaner setup, and a better-looking way to organize ammo in the garage, shop, or range room.
-</p>
-
-  <h2>What Makes a Good Ammo Box?</h2>
-<p>
-  A good ammo box should do more than just hold ammo. It should keep your storage organized, make better use of space, stack cleanly, and give you quick access when you need it. The best wood ammo boxes also offer more capacity and a more useful layout than standard metal cans.
-</p>
-
-  <h2>Freedom Crate Co. Wood Ammo Boxes</h2>
-  <ul>
-  <li>Handcrafted wooden construction</li>
-  <li>Larger storage capacity than typical metal ammo cans</li>
-  <li>Stackable design for organized storage</li>
-  <li>Custom stencil options available</li>
-  <li>Built in the USA</li>
-</ul>
-
-  <h2>Shop Our Wood Ammo Boxes</h2>
-  <div class="cc-cta">
-    <a class="btn" href="caliber-collection.html">Caliber Collection</a>
-    <a class="btn" href="product.html?sku=FC-RM-400">RangeMaster 400</a>
+    <div class="cc-cta">
+      <a class="btn" href="/">Shop All Ammo Boxes</a>
+      <a class="btn" href="caliber-collection.html">Shop Caliber Collection</a>
+    </div>
   </div>
 
+  <div class="ammo-hero-img">
+    <img src="assets/img/caliber-collection-main-hero-3.jpg" alt="Handcrafted wooden ammo boxes by Freedom Crate Co.">
+  </div>
+</section>
+
+<section class="ammo-section">
+  <h2>Shop Wood Ammo Boxes by Caliber</h2>
+  <p class="muted">
+    Choose a box built around the way you actually store your ammo — 9mm, 5.56 / .223, .308 / 7.62, range storage, or custom crate builds.
+  </p>
+
+  <div class="ammo-grid">
+    <article class="ammo-card">
+      <img src="assets/img/caliber-collection-9mm-stainless.jpg" alt="9mm wooden ammo box">
+      <div class="ammo-card-body">
+        <h3>9mm Ammo Boxes</h3>
+        <p>Built for organized handgun ammo storage with a rugged military-style look.</p>
+        <a class="btn" href="caliber-collection.html?variant=9mm">Shop 9mm Boxes</a>
+      </div>
+    </article>
+
+    <article class="ammo-card">
+      <img src="assets/img/caliber-collection-556-front.jpg" alt="5.56 and .223 wooden ammo box">
+      <div class="ammo-card-body">
+        <h3>5.56 / .223 Ammo Boxes</h3>
+        <p>Great for AR-15 owners who want clean, high-capacity storage.</p>
+        <a class="btn" href="caliber-collection.html?variant=556">Shop 5.56 Boxes</a>
+      </div>
+    </article>
+
+    <article class="ammo-card">
+      <img src="assets/img/caliber-collection-762-front.jpg" alt=".308 and 7.62 wooden ammo box">
+      <div class="ammo-card-body">
+        <h3>.308 / 7.62 Ammo Boxes</h3>
+        <p>Heavy-duty storage for larger rifle calibers and serious range setups.</p>
+        <a class="btn" href="caliber-collection.html?variant=308">Shop .308 Boxes</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="ammo-section">
+  <h2>Handcrafted Wood Ammo Boxes Built for Storage and Organization</h2>
+  <p>
+    Freedom Crate Co. builds handcrafted wood ammo boxes for shooters, collectors, and anyone who wants a more practical and distinctive alternative to standard metal cans. Our wooden ammo boxes are designed for ammo storage, organization, and long-term use.
+  </p>
+  <p>
+    Inspired by classic military crates, each box gives you more storage space, a cleaner setup, and a better-looking way to organize ammo in the garage, shop, range room, or man cave.
+  </p>
+
+  <div class="feature-strip">
+    <div class="feature-box">
+      <strong>More storage space</strong>
+      <span>Designed to hold more than typical small metal ammo cans.</span>
+    </div>
+    <div class="feature-box">
+      <strong>Stackable crate style</strong>
+      <span>Built for cleaner shelves, garages, and range rooms.</span>
+    </div>
+    <div class="feature-box">
+      <strong>Custom stencil options</strong>
+      <span>Caliber markings and military-inspired layouts available.</span>
+    </div>
+    <div class="feature-box">
+      <strong>Built to be used</strong>
+      <span>Practical storage with a handcrafted American small-business feel.</span>
+    </div>
+  </div>
+</section>
+
+<section class="ammo-section">
+  <h2>Why Choose Wood Over Metal?</h2>
+  <p>
+    Standard metal ammo cans are common, but they are often small, uniform, and limited in how much they can hold. Wood ammo boxes offer a larger, more organized storage solution for shooters who want to store more ammo in fewer containers.
+  </p>
+  <p>
+    They also offer a more distinctive look, more customization, and a better fit for garage storage, ammo room organization, and display.
+  </p>
+
+  <div class="ammo-photo-band">
+
+  <div class="photo-card">
+    <video autoplay muted loop playsinline>
+  <source src="assets/video/Claymore Crate Video.MP4" type="video/mp4">
+</video>
+
+    <div class="photo-card-content">
+      <h3>Slide-Top Storage Design</h3>
+      <p>
+        Compact military-style crate design with practical range and storage functionality.
+      </p>
+    </div>
+  </div>
+
+  <div class="photo-card">
+    <img src="assets/img/armor-core-main.PNG" alt="Armor Core interior wooden ammo box">
+
+    <div class="photo-card-content">
+      <h3>Armor Core™ Interior</h3>
+      <p>
+        Reinforced interior coating system designed for long-term durability and protection.
+      </p>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section class="ammo-section">
+  <h2>Freedom Crate Co. Wood Ammo Boxes</h2>
+  <ul>
+    <li>Handcrafted wooden construction</li>
+    <li>Larger storage capacity than typical metal ammo cans</li>
+    <li>Stackable design for organized ammo storage</li>
+    <li>Custom stencil options available</li>
+    <li>Optional Armor Core™ reinforced interior on select boxes</li>
+    <li>Built by an American small business</li>
+  </ul>
+</section>
+
+<section class="ammo-callout">
+  <h2>Built for Long-Term Ammo Storage</h2>
+  <p>
+    For shooters building a serious storage setup, capacity and organization matter. Our wood ammo boxes are designed to help store more ammo in a cleaner, more accessible way than standard metal cans.
+  </p>
+  <p>
+    Caliber Collection boxes with the optional Armor Core™ interior are especially well-suited for long-term ammo storage, giving you a reinforced interior and a more stable storage system for keeping your setup organized over time.
+  </p>
+
+  <div class="cc-cta">
+    <a class="btn" href="caliber-collection.html">Shop Caliber Collection</a>
+    <a class="btn" href="product.html?sku=FC-RM-400">Shop RangeMaster 400</a>
+  </div>
+</section>
+
+<section class="ammo-section ammo-links">
   <h2>Types of Wooden Ammo Boxes</h2>
   <p>
     We build wooden ammo boxes for multiple calibers and uses, including caliber-specific storage, range organization, and rugged military-style crate builds.
   </p>
   <ul>
-    <li><a href="ammo-box-for-ar15.html">Ammo box for AR-15 (5.56 / .223)</a></li>
+    <li><a href="ammo-box-for-ar15.html">Ammo box for AR-15 / 5.56 / .223</a></li>
     <li><a href="caliber-collection.html?variant=9mm">9mm ammo boxes</a></li>
     <li><a href="caliber-collection.html?variant=308">7.62 / .308 ammo boxes</a></li>
     <li><a href="product.html?sku=FC-RM-400">RangeMaster 400 range box</a></li>
+    <li><a href="contact.html">Custom wooden ammo boxes</a></li>
+    <li><a href="gallery.html">View product gallery</a></li>
   </ul>
+</section>
 
-  <h2>Why Choose Wood Over Metal?</h2>
-<p>
-  Standard metal ammo cans are common, but they are often small, uniform, and limited in how much they can hold. Wood ammo boxes offer a larger, more organized storage solution for shooters who want to store more ammo in fewer containers.
-</p>
-<p>
-  They also offer a more distinctive look, more customization, and a better fit for garage storage, ammo room organization, and man cave display.
-</p>
-
-  <h2>Military-Style Ammo Crates for Real Use</h2>
-  <p>
-    Our boxes are inspired by traditional military crate styling, but built for modern shooters who want durable wood ammo storage with a handcrafted feel. If you have been searching for wooden military boxes, military-style ammo crates, or rugged range storage, this is exactly what Freedom Crate Co. is built around.
-  </p>
-<h2>Built for Long-Term Ammo Storage</h2>
-<p>
-  For shooters building a serious storage setup, capacity and organization matter. Our wood ammo boxes are designed to help store more ammo in a cleaner, more accessible way than standard metal cans.
-</p>
-<p>
-  Caliber Collection boxes with the optional Armor Core™ interior are especially well-suited for long-term ammo storage, giving you a reinforced interior and a more stable storage system for keeping your setup organized over time.
-</p>
-
+<section class="ammo-section">
   <h2>Common Uses</h2>
   <ul>
     <li>Ammo storage</li>
     <li>Range organization</li>
+    <li>Garage and shop storage</li>
     <li>Custom gifts</li>
     <li>Veteran keepsake boxes</li>
-    <li>Garage and man cave display</li>
+    <li>Man cave display</li>
   </ul>
-</div>
+</section>
+
 </main>
 
 </body>
