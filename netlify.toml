@@ -43,3 +43,62 @@
   to   = "/product.html"
   status = 301
   force = true
+[[redirects]]
+  from = "/contact"
+  to   = "/contact.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/gallery"
+  to   = "/gallery.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/artwork"
+  to   = "/artwork.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/giveaway"
+  to   = "/giveaway.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/faq"
+  to   = "/faq.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy"
+  to   = "/privacy.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/terms"
+  to   = "/terms.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/returns"
+  to   = "/returns.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ammo-box"
+  to   = "/ammo-box.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ammo-box-for-ar15"
+  to   = "/ammo-box-for-ar15.html"
+  status = 301
+  force = true
