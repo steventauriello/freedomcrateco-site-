@@ -48,6 +48,7 @@ html, body {
   background: var(--bg);
   color: var(--text);
   font: 16px/1.55 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  scroll-behavior: smooth;
 }
 a { color: var(--link); text-decoration: none; }
 .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
