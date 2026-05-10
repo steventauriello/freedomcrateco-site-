@@ -2966,3 +2966,14 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
     width: 100%;
   }
 }
+/* === Footer link wrapping fix === */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  align-items: center;
+}
+
+.footer-link-small {
+  white-space: nowrap;
+}
