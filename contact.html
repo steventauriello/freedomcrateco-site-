@@ -134,18 +134,21 @@
 </script>
 
   <main class="container" id="main">
-    <h1>Request a Custom Order</h1>
-    <p class="muted">Want a box personalized with your own stencils, colors, or hardware? Fill out the form below and we’ll get back to you.</p>
+    <h1>Request a Custom Project</h1>
+<p class="muted">
+  Request custom ammo and range boxes, personalized Freedom Crate builds, or custom protective wood crates for shipping, storage, transport, and specialized equipment.
+</p>
 
     <!-- Small, upfront pricing note (non-breaking UI) -->
     <aside class="notice" style="margin:.75rem 0 1.25rem;">
-  <strong>Quick customization note:</strong>
-  We primarily offer <strong>custom stenciling</strong> on our existing Freedom Crate designs.  
-  Box sizes and builds are usually made to our standard designs; however, 
-  <strong>full custom builds are available for larger orders or special projects</strong>.
-  If you have a fully custom box idea, describe it below — we’ll review it, confirm what’s possible,
-  and provide a full quote and ETA.  
-  Additional stencil placements are <strong>+$10 each</strong>. Free US shipping.
+  <strong>Custom project note:</strong>
+  Freedom Crate Co. offers two custom project paths:
+  <br><br>
+  <strong>1. Ammo &amp; Range Box Customization</strong> — custom stenciling, colors, hardware preferences, and special Freedom Crate builds.
+  <br>
+  <strong>2. Protective Crate &amp; Transport Solutions</strong> — custom wood crates for shipping, storage, transport, trade show equipment, prototypes, tools, displays, or awkward cargo.
+  <br><br>
+  Tell us what you need below and we’ll review the project, confirm what’s possible, and provide a quote and ETA.
 </aside>
 
     <!-- Netlify form -->
@@ -176,8 +179,18 @@
         <input type="email" id="email" name="email" required />
       </div>
 
+<div>
+  <label for="projectType">Project Type</label>
+  <select id="projectType" name="projectType" required>
+    <option value="">Select one...</option>
+    <option value="ammo-range">Ammo / Range Box Customization</option>
+    <option value="protective-crate">Custom Protective Crate / Shipping Solution</option>
+    <option value="commercial-fabrication">Commercial or Industrial Fabrication Inquiry</option>
+  </select>
+</div>
+
       <div>
-        <label for="boxType">Box Type</label>
+        <label for="boxType">Product / Build Type</label>
         <select id="boxType" name="boxType" required>
           <option value="">Select one...</option>
           <option value="classic">Freedom Crate Classic</option>
@@ -185,6 +198,10 @@
           <option value="footlocker">Footlocker Ammo Box</option>
           <option value="rangemaster400">Rangemaster 400</option>
           <option value="freedomcrate1000">Freedom Crate 1000</option>
+          <option value="protective-shipping-crate">Custom Protective Shipping Crate</option>
+          <option value="trade-show-crate">Trade Show / Display Transport Crate</option>
+          <option value="equipment-crate">Equipment / Prototype Transport Crate</option>
+          <option value="foam-lined-crate">Foam-Lined Protective Crate</option>
           <option value="custom">Other / Fully Custom</option>
         </select>
 
@@ -221,12 +238,23 @@
   <textarea id="details" name="details" rows="7" required
     placeholder="Please include:
 
-• Intended use (range, display, toolbox, gift, etc.)
-• If fully custom: approximate size (L × W × H)
-• Stencil wording (exact text) + how many stencil placements (+$10 each extra placement)
-• Color preferences (OD green, black, etc.)
-• Hardware preference (black or stainless)
-• Any deadline (if applicable)
+For ammo / range box projects:
+• Product or box style
+• Stencil wording and placement
+• Color preferences
+• Hardware preference
+• Quantity needed
+• Deadline, if applicable
+
+For protective crate / shipping projects:
+• What item needs protection or transport
+• Approximate item dimensions and weight
+• Is it being shipped, stored, carried, or reused?
+• Does it need foam, dividers, handles, latches, casters, or tie-down points?
+• How often will it be transported?
+• Any special concerns: fragile, valuable, awkward shape, electronics, moisture, vibration, etc.
+
+The more detail you provide, the faster we can quote accurately."
 
 The more detail you provide, the faster we can quote accurately."></textarea>
 </div>
