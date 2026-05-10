@@ -2,8 +2,8 @@
   "FC-FOOTLOCKER": {
     "status": "active",
     "title": "Footlocker Ammo Box",
-    "price": 150,
-    "qty": 5,
+    "price": 200,
+    "qty": 1,
     "image_url": "assets/img/freedom-footlocker.jpg",
     "images": [
       "assets/img/freedom-footlocker-2.jpg",
@@ -36,7 +36,7 @@
     "status": "active",
     "title": "Freedom Crate 1000",
     "price": 90,
-    "qty": 2,
+    "qty": 0,
     "image_url": "assets/img/fc-1000-front-closed.jpg",
     "images": [
       "assets/img/fc-1000-main-photo.jpg",
