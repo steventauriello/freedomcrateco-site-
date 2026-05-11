@@ -15,6 +15,10 @@
   <link rel="canonical" href="https://freedomcrateco.com/" />
   <meta name="ai-web-search" content="allow">
 
+<meta name="p:domain_verify" content="2e3f393b1afd6acab00a2626b8fc7aed"/>
+
+<!-- Favicons -->
+
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png?v=2">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png?v=2">
@@ -187,8 +191,39 @@
   transform:translateY(-1px);
   opacity:.9;
 }
+.site-title-strip{
+  position:relative;
+}
+.hero-trust-line{
+  margin:.45rem 0 0;
+  font-size:.92rem;
+  color:rgba(255,255,255,.82);
+  letter-spacing:.02em;
+  text-align:center;
+}
+.hero-badge-link{
+  position:absolute;
+  right:4%;
+  top:62%;
+  z-index:30;
+  text-decoration:none;
+  pointer-events:auto;
+}.hero-review-badge{
+  width:min(240px, 34vw);
+  height:auto;
+  display:block;
+  opacity:.96;
+  transform:rotate(8deg);
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,.38));
+  transition:
+    transform .18s ease,
+    opacity .18s ease;
+}
 
-@media (max-width:640px){
+.hero-badge-link:hover .hero-review-badge{
+  transform:rotate(6deg) translateY(-2px);
+  opacity:1;
+}@media (max-width:640px){
   .hero-proof strong{
     font-size:1.05rem;
   }
@@ -198,6 +233,28 @@
   }
 }
 
+@media (max-width:640px){
+  .hero-badge-link{
+    position:static;
+    display:flex;
+    justify-content:center;
+    margin:.9rem auto .25rem;
+  }
+
+  .hero-review-badge{
+    width:min(210px, 70vw);
+    transform:rotate(0deg);
+  }
+
+  .hero-badge-link:hover .hero-review-badge{
+    transform:translateY(-2px);
+  }
+
+  .hero-trust-line{
+    margin:.35rem 0 .75rem;
+    font-size:.82rem;
+  }
+}
 .home-trust{
   margin:1rem 0 1.25rem;
 }
@@ -690,20 +747,23 @@
         <div class="site-title-strip" role="region" aria-label="Site title">
       <h1>Freedom Crate Co.</h1>
       <p>Handcrafted Ammo &amp; Range Boxes</p>
-      <p class="slogan">Made For The People By The People</p>
 
-     <a href="/reviews.html" class="hero-proof-link" aria-label="Read customer reviews">
-  <div class="hero-proof">
-    <strong>
-      <span class="stars">★★★★★</span>
-      100% Positive Feedback Across Etsy &amp; eBay
-    </strong>
-    <span class="sub">
-      5.0★ Etsy Rating • <span class="verified">Verified Buyers</span>
-    </span>
-  </div>
+     <a href="/reviews.html"
+   class="hero-badge-link"
+   aria-label="Read customer reviews">
+
+  <img
+    src="assets/img/positive-feedback-badge.png"
+    alt="100% Positive Feedback Across Etsy and eBay"
+    class="hero-review-badge"
+    loading="lazy"
+    decoding="async">
+
 </a>
 
+<p class="hero-trust-line">
+  Hundreds of handcrafted units sold nationwide.
+</p>
       <div class="hero-ship" aria-label="Free US Shipping">
        
       </div>
