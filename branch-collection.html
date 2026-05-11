@@ -17,8 +17,28 @@
 
     /* Gallery: single column (right-side branch thumbs removed) */
     .gallery { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-    .gallery-main { position: relative; }
-    .gallery-main img { width: 100%; border-radius: 12px; cursor: pointer; }
+    .gallery-main {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #050505;
+}
+
+.gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: opacity .22s ease;
+}
+
+.gallery-main img.is-fading {
+  opacity: 0;
+}
 
     /* Lightbox */
     .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.9); display: none; align-items: center; justify-content: center; z-index: 9999; }
@@ -57,6 +77,108 @@
     .gallery-arrow:hover { background: rgba(0,0,0,.6); }
     .gallery-arrow:focus { outline: 2px solid #fff; outline-offset: 2px; }
 
+.home-trust{
+  margin:1rem 0 1.25rem;
+}
+
+.home-trust-shell{
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+  padding:.8rem .9rem;
+}
+
+.home-trust-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:.75rem 1rem;
+}
+
+.home-trust-item{
+  display:flex;
+  align-items:flex-start;
+  gap:.65rem;
+  min-width:0;
+}
+
+.home-trust-icon{
+  flex:0 0 36px;
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  background:rgba(46,204,113,.10);
+  border:1px solid rgba(46,204,113,.18);
+  color:#9be58d;
+  margin:0;
+}
+
+.home-trust-icon svg{
+  width:18px;
+  height:18px;
+  display:block;
+}
+
+.home-trust-copy{
+  min-width:0;
+}
+
+.home-trust-copy h2,
+.home-trust-copy h3{
+  margin:0 0 .16rem 0;
+  font-size:.9rem;
+  line-height:1.2;
+  color:#fff;
+}
+
+.home-trust-copy p{
+  margin:0;
+  font-size:.79rem;
+  line-height:1.3;
+  color:rgba(255,255,255,.78);
+}
+
+.home-trust-copy strong{
+  color:#fff;
+}
+
+@media (max-width:900px){
+  .home-trust-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width:640px){
+  .home-trust{
+    margin:.9rem 0 1.1rem;
+  }
+
+  .home-trust-shell{
+    padding:.75rem .8rem;
+  }
+
+  .home-trust-grid{
+    grid-template-columns:1fr;
+    gap:.7rem;
+  }
+
+  .home-trust-item{
+    gap:.6rem;
+  }
+
+  .home-trust-icon{
+    flex-basis:34px;
+    width:34px;
+    height:34px;
+  }
+
+  .home-trust-icon svg{
+    width:17px;
+    height:17px;
+  }
+}
+
     @media (max-width: 780px){
       .bc-cta { flex-wrap: wrap; gap:.5rem; }
       .desc-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
@@ -86,7 +208,7 @@
     <!-- Gallery (hero only; arrows cycle bottom photos) -->
     <div class="gallery">
       <div class="gallery-main">
-        <img id="bc-hero" src="assets/img/airforce.jpg" alt="airforce crate – Freedom Crate Classic" tabindex="0">
+        <img id="bc-hero" src="assets/img/BRANCH COLLECTION.jpg" alt="airforce crate – Freedom Crate Classic" tabindex="0">
         <button class="gallery-arrow prev" type="button" aria-label="Previous photo">‹</button>
         <button class="gallery-arrow next" type="button" aria-label="Next photo">›</button>
       </div>
@@ -205,13 +327,104 @@
       </div>
     </section>
 
-    <!-- Details / Specs -->
-    <div class="bc-details">
+<section class="home-trust" aria-label="Branch Collection features">
+  <div class="home-trust-shell">
+    <div class="home-trust-grid">
+
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+            <path d="M7 11V8a5 5 0 0 1 10 0v3"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>Lockable Hardware</h3>
+          <p>Dual lockable toggle latches help secure the lid.</p>
+        </div>
+      </article>
+
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v18"></path>
+            <path d="M5 8h14"></path>
+            <path d="M7 16h10"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>Stainless or Black Steel</h3>
+          <p>Available with stainless steel or black steel hardware.</p>
+        </div>
+      </article>
+
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 7L12 3 4 7"></path>
+            <path d="M20 7v10l-8 4-8-4V7"></path>
+            <path d="M12 3v18"></path>
+            <path d="M4 7l8 4 8-4"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>1,000 Round Capacity</h3>
+          <p>Holds approximately 1,000 rounds of 9mm ammo.</p>
+        </div>
+      </article>
+
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"></path>
+            <path d="M9.5 12.5l1.8 1.8 3.7-4"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>Engineered Wood Build</h3>
+          <p>More consistent than pine, with predictable strength.</p>
+        </div>
+      </article>
+
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 7h13"></path>
+            <path d="M3 12h18"></path>
+            <path d="M3 17h11"></path>
+            <path d="M18 6l3 3-3 3"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>Built for Real Use</h3>
+          <p>Made for range storage, transport, and display.</p>
+        </div>
+      </article>
+
+      <article class="home-trust-item">
+        <div class="home-trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s-7-4.35-7-11a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 6.65-7 11-7 11z"></path>
+          </svg>
+        </div>
+        <div class="home-trust-copy">
+          <h3>Veteran-Inspired</h3>
+          <p>Every order helps support the <strong>Final Salute Project</strong>.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+    
+
+<!-- Details / Specs -->
+<div class="bc-details">
       <h2>Specifications</h2>
       <ul>
         <li><strong>Interior Dimensions:</strong> 11″ W × 8¼″ L × 5½″ D</li>
         <li><strong>Exterior Dimensions:</strong> 14″ W × 9½″ L × 7″ H</li>
-        <li><strong>Construction:</strong> 3/4 UTX exterior-grade plywood for ultra durability</li>
+        <li><strong>Construction:</strong> ¾″ engineered wood for added durability, structural consistency, and predictable strength</li>
         <li><strong>Bottom Panel:</strong> ¼″ sanded plywood</li>
         <li><strong>Lid:</strong> Reinforced ¾″ solid pine tongue-and-groove boards</li>
         <li><strong>Paint:</strong> Ultra-flat OD Green (olive drab camouflage)</li>
@@ -233,12 +446,15 @@
       </ul>
     </div>
 
-   <div class="bc-cta">
-  <strong>Total: <span id="bc-price">$65.00</span></strong>
-  <button id="bc-add" class="btn">Add to Cart</button>
-  <small class="muted">Price shown for stenciled branch. “Blank” is $59.99 (available on main Shop card).</small>
-</div>
+   <div class="bc-cta bc-collection-cta">
+  <a href="/#branch-collection" class="btn">
+    View Branch Collection Options
+  </a>
 
+  <small class="muted">
+    Select branch, hardware style, and pricing from the main shop page.
+  </small>
+</div>
   </main>
 
   <!-- Lightbox -->
@@ -251,122 +467,96 @@
   <script src="assets/js/util.js" defer></script>
   <script src="assets/js/cart.js" defer></script>
 
-  <script>
-  (function(){
-    // --- Gallery + Lightbox (existing behavior)
-    const hero   = document.getElementById('bc-hero');
-    const lb     = document.getElementById('lightbox');
-    const lbImg  = document.getElementById('lbImg');
-    const lbClose= document.getElementById('lbClose');
+ <script>
+(function(){
+  const hero    = document.getElementById('bc-hero');
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lbImg');
+  const lbClose = document.getElementById('lbClose');
+  const thumbs  = Array.from(document.querySelectorAll('.desc-photos .desc-thumb'));
 
-    function openLB(src, alt){ lbImg.src = src; lbImg.alt = alt||''; lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); }
-    function closeLB(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.src=''; }
+  const galleryImages = thumbs.map(btn => {
+    const img = btn.querySelector('img');
+    return {
+      src: btn.getAttribute('data-full') || img?.getAttribute('src') || '',
+      alt: img?.getAttribute('alt') || btn.getAttribute('aria-label') || ''
+    };
+  }).filter(item => item.src);
 
-    hero.addEventListener('click', () => openLB(hero.src, hero.alt));
-    lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
-    lbClose.addEventListener('click', closeLB);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+  let currentIndex = 0;
 
-  // --- Cart wiring (updated pricing: Blank $59.99, Branches $65.00)
-const PRICES = {
-  blank: 59.99,
-  army: 65.00,
-  marines: 65.00,
-  navy: 65.00,
-  airforce: 65.00,
-  coastguard: 65.00
-};
-const SKUS = {
-  blank: 'classic-blank-stainless',
-  army: 'classic-army-stainless',
-  marines: 'classic-marines-stainless',
-  navy: 'classic-navy-stainless',
-  airforce: 'classic-airforce-stainless',
-  coastguard: 'classic-coastguard-stainless'
-};
-
-const priceEl = document.getElementById('bc-price');
-const addBtn  = document.getElementById('bc-add');
-let currentBranch = 'airforce'; // keep default as before
-
-function inferBranchFromHero() {
-  const alt = (hero.alt || '').toLowerCase();
-  for (const k of Object.keys(PRICES)) if (alt.includes(k)) return k;
-  const src = (hero.src || '').toLowerCase();
-  for (const k of Object.keys(PRICES)) if (src.includes(k)) return k;
-  return currentBranch;
-}
-
-function renderPrice() {
-  priceEl.textContent = '$' + (PRICES[currentBranch] || 65).toFixed(2);
-}
-function updateBranchFromHero() {
-  currentBranch = inferBranchFromHero();
-  renderPrice();
-}
-
-addBtn.addEventListener('click', () => {
-  const branch = currentBranch;
-  const sku = SKUS[branch] || SKUS.marines;
-  const name = 'Freedom Crate Classic — ' + (branch === 'blank' ? 'Blank' :
-                branch.charAt(0).toUpperCase() + branch.slice(1)) + ' • Stainless';
-  const price = PRICES[branch] || 65.00;
-
-  if (typeof window.addToCart === 'function') {
-    window.addToCart(sku, name, price, 1, { image: hero.src });
-  } else if (typeof window.addItem === 'function') {
-    window.addItem({ sku, name, price, qty: 1, image: hero.src });
-  } else {
-    alert('Cart is not ready.');
+  function openLB(src, alt){
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden','false');
   }
-});
 
-// initial render
-updateBranchFromHero();
+  function closeLB(){
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    lbImg.src = '';
+  }
 
+  function showImage(index, openLightbox = false){
+  if (!galleryImages.length) return;
 
-    // --- Bottom description photos -> open lightbox AND (optionally) sync hero
-    const desc = document.querySelector('.desc-photos');
-    desc?.addEventListener('click', (e) => {
-      const btn = e.target.closest('.desc-thumb');
-      if(!btn) return;
-      const full = btn.getAttribute('data-full');
-      const alt  = btn.querySelector('img')?.getAttribute('alt') || '';
-      // show in hero (so arrows continue from this)
-      hero.src = full; hero.alt = alt;
-      openLB(full, alt);
-    });
+  currentIndex = ((index % galleryImages.length) + galleryImages.length) % galleryImages.length;
+  const item = galleryImages[currentIndex];
 
-    // --- Arrows cycle through bottom description photos
-    const photos = Array.from(document.querySelectorAll('.desc-photos .desc-thumb img'));
-    function currentIndex(){
-      const hs = (hero.src||'').toLowerCase();
-      let idx = photos.findIndex(p => hs.endsWith((p.getAttribute('src')||'').toLowerCase()));
-      if (idx === -1) idx = 0;
-      return idx;
+  hero.classList.add('is-fading');
+
+  setTimeout(() => {
+    hero.src = item.src;
+    hero.alt = item.alt;
+
+    hero.onload = () => {
+      hero.classList.remove('is-fading');
+    };
+
+    if (openLightbox) openLB(item.src, item.alt);
+  }, 120);
+}
+
+  hero.addEventListener('click', () => openLB(hero.src, hero.alt));
+
+  lb.addEventListener('click', e => {
+    if (e.target === lb) closeLB();
+  });
+
+  lbClose.addEventListener('click', closeLB);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLB();
+
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      showImage(currentIndex - 1);
     }
-    function showIndex(i){
-      if (!photos.length) return;
-      const len = photos.length;
-      const idx = ((i % len) + len) % len;
-      const img = photos[idx];
-      const src = img.getAttribute('src');
-      const alt = img.getAttribute('alt') || '';
-      hero.src = src; hero.alt = alt;
+
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      showImage(currentIndex + 1);
     }
+  });
 
-    const prevBtn = document.querySelector('.gallery-arrow.prev');
-    const nextBtn = document.querySelector('.gallery-arrow.next');
-    prevBtn?.addEventListener('click', e => { e.stopPropagation(); showIndex(currentIndex()-1); });
-    nextBtn?.addEventListener('click', e => { e.stopPropagation(); showIndex(currentIndex()+1); });
-
-    // Keyboard left/right when hero focused
-    document.querySelector('.gallery-main')?.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); showIndex(currentIndex()-1); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); showIndex(currentIndex()+1); }
+  thumbs.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      showImage(index, true);
     });
-  })();
-  </script>
+  });
+
+  document.querySelector('.gallery-arrow.prev')?.addEventListener('click', e => {
+    e.stopPropagation();
+    showImage(currentIndex - 1);
+  });
+
+  document.querySelector('.gallery-arrow.next')?.addEventListener('click', e => {
+    e.stopPropagation();
+    showImage(currentIndex + 1);
+  });
+})();
+</script>
 
 <!-- Cookie Notice -->
 <div id="cookie-notice" class="cookie-notice" hidden>

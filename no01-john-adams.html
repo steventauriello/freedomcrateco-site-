@@ -120,7 +120,61 @@ rican founding-era words. Multiple sizes and frame colors. Free U.S. shipping." 
   opacity:1;
   border-color:rgba(255,255,255,.25);
 }
+.art-hero-window{
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 10;
+  overflow:hidden;
+  border-radius:.75rem;
+  background:#050505;
+}
 
+.art-hero-window img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  cursor:zoom-in;
+  transition:opacity .28s ease-in-out;
+}
+
+.art-hero-window img.is-fading{
+  opacity:0;
+}
+
+.art-gallery-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,.45);
+  color:#fff;
+  border:0;
+  width:40px;
+  height:48px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:28px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:5;
+}
+
+.art-gallery-arrow.prev{ left:8px; }
+.art-gallery-arrow.next{ right:8px; }
+
+.art-gallery-arrow:hover{
+  background:rgba(0,0,0,.6);
+}
+
+@media (max-width:780px){
+  .art-gallery-arrow{
+    width:36px;
+    height:44px;
+    font-size:24px;
+  }
+}
 /* =========================================================
    Lightbox (click thumbnails to view large)
 ========================================================= */
@@ -329,15 +383,20 @@ rican founding-era words. Multiple sizes and frame colors. Free U.S. shipping." 
 
       <div class="featured-card" id="wwbn01-card">
         <div class="fc-media-col">
-                  <div class="fc-media">
-  <img
-    id="wwbn01-image"
-    src="assets/img/wwbn/no01-john-adams/wwbn-no01-john-adams-black-16x20-front.jpg"
-    alt="The Words That Built a Nation — No. 01 (John Adams) — 16×20, black frame (mockup)"
-    loading="lazy"
-    decoding="async"
-    width="1200"
-    height="800">
+                 <div class="fc-media">
+  <div class="art-hero-window">
+    <img
+      id="wwbn01-image"
+      src="assets/img/wwbn/no01-john-adams/wwbn-no01-john-adams-black-16x20-front.jpg"
+      alt="The Words That Built a Nation — No. 01 (John Adams) — 16×20, black frame (mockup)"
+      loading="lazy"
+      decoding="async"
+      width="1200"
+      height="800">
+
+    <button class="art-gallery-arrow prev" type="button" aria-label="Previous artwork image">‹</button>
+    <button class="art-gallery-arrow next" type="button" aria-label="Next artwork image">›</button>
+  </div>
 
   <!-- Lifestyle + Zoom Thumbnails -->
   <div class="art-thumb-row" id="wwbn01-thumbs">
@@ -638,7 +697,7 @@ rican founding-era words. Multiple sizes and frame colors. Free U.S. shipping." 
   });
 
 /* ===========================
-   WWBN01 Lightbox
+   WWBN01 Gallery + Lightbox
 =========================== */
 
 const thumbsWrap = document.getElementById('wwbn01-thumbs');
@@ -652,13 +711,19 @@ const lbNext = document.getElementById('wwbn01-lightbox-next');
 let lbItems = [];
 let lbIndex = 0;
 
+if (thumbsWrap) {
+  const imgs = Array.from(thumbsWrap.querySelectorAll('img'));
+
+  lbItems = imgs.map(img => ({
+    src: img.getAttribute('data-full') || img.getAttribute('src'),
+    alt: img.getAttribute('alt') || ''
+  })).filter(item => item.src);
+}
+
 function setLightboxIndex(i){
   if (!lbItems.length) return;
 
-  if (i < 0) i = lbItems.length - 1;
-  if (i >= lbItems.length) i = 0;
-
-  lbIndex = i;
+  lbIndex = ((i % lbItems.length) + lbItems.length) % lbItems.length;
 
   const item = lbItems[lbIndex];
   if (!item) return;
@@ -673,7 +738,6 @@ function openLightboxAt(i){
   if (!lb || !lbImg) return;
 
   setLightboxIndex(i);
-
   lb.classList.add('is-open');
   lb.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
@@ -688,73 +752,114 @@ function closeLightbox(){
   document.body.style.overflow = '';
 }
 
-function nextImage(){ setLightboxIndex(lbIndex + 1); }
-function prevImage(){ setLightboxIndex(lbIndex - 1); }
+function showGalleryImage(i, openLightbox = false){
+  if (!lbItems.length) return;
+
+  lbIndex = ((i % lbItems.length) + lbItems.length) % lbItems.length;
+
+  const item = lbItems[lbIndex];
+  if (!item) return;
+
+  imgEl.classList.add('is-fading');
+
+  setTimeout(() => {
+    imgEl.onload = () => {
+      requestAnimationFrame(() => {
+        imgEl.classList.remove('is-fading');
+      });
+    };
+
+    imgEl.src = item.src;
+    imgEl.alt = item.alt || 'WWBN preview';
+
+    if (openLightbox) openLightboxAt(lbIndex);
+  }, 180);
+}
+
+function nextImage(){
+  if (lb && lb.classList.contains('is-open')) {
+    setLightboxIndex(lbIndex + 1);
+  } else {
+    showGalleryImage(lbIndex + 1);
+  }
+}
+
+function prevImage(){
+  if (lb && lb.classList.contains('is-open')) {
+    setLightboxIndex(lbIndex - 1);
+  } else {
+    showGalleryImage(lbIndex - 1);
+  }
+}
 
 if (thumbsWrap) {
   const imgs = Array.from(thumbsWrap.querySelectorAll('img'));
-  lbItems = imgs.map(img => ({
-    src: img.getAttribute('data-full') || img.getAttribute('src'),
-    alt: img.getAttribute('alt') || ''
-  }));
 
-  thumbsWrap.addEventListener('click', function(e){
-    const t = e.target;
-    if (!t || t.tagName !== 'IMG') return;
-
-    const clickedSrc = t.getAttribute('data-full') || t.getAttribute('src');
-    const idx = lbItems.findIndex(x => x.src === clickedSrc);
-    openLightboxAt(idx >= 0 ? idx : 0);
+  imgs.forEach((thumb, index) => {
+    thumb.addEventListener('click', function(){
+      showGalleryImage(index, true);
+    });
   });
 }
 
-// Clicking main product image opens lightbox (go to zoom)
-if (imgEl && lbItems.length) {
-  imgEl.style.cursor = 'zoom-in';
-  imgEl.addEventListener('click', function () {
-    const zoomIdx = lbItems.findIndex(x => (x.src || '').includes('zoom-hires'));
-    openLightboxAt(zoomIdx >= 0 ? zoomIdx : 0);
-  });
-}
-
-// Buttons
-if (lbClose) lbClose.addEventListener('click', closeLightbox);
-
-if (lbPrev) lbPrev.addEventListener('click', function(e){
+document.querySelector('.art-gallery-arrow.prev')?.addEventListener('click', function(e){
   e.stopPropagation();
   prevImage();
 });
 
-if (lbNext) lbNext.addEventListener('click', function(e){
+document.querySelector('.art-gallery-arrow.next')?.addEventListener('click', function(e){
   e.stopPropagation();
   nextImage();
 });
 
-// Click outside closes
+if (imgEl && lbItems.length) {
+  imgEl.style.cursor = 'zoom-in';
+  imgEl.addEventListener('click', function () {
+    openLightboxAt(lbIndex);
+  });
+}
+
+if (lbClose) lbClose.addEventListener('click', closeLightbox);
+
+if (lbPrev) lbPrev.addEventListener('click', function(e){
+  e.stopPropagation();
+  setLightboxIndex(lbIndex - 1);
+});
+
+if (lbNext) lbNext.addEventListener('click', function(e){
+  e.stopPropagation();
+  setLightboxIndex(lbIndex + 1);
+});
+
 if (lb) {
   lb.addEventListener('click', function(e){
     if (e.target === lb) closeLightbox();
   });
 }
 
-// Click big image to go next
 if (lbImg) {
   lbImg.addEventListener('click', function(e){
     e.stopPropagation();
-    nextImage();
+    setLightboxIndex(lbIndex + 1);
   });
 }
 
-// Keyboard controls
 document.addEventListener('keydown', function(e){
-  if (!lb || !lb.classList.contains('is-open')) return;
+  if (e.key === 'Escape' && lb && lb.classList.contains('is-open')) {
+    closeLightbox();
+    return;
+  }
 
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowRight') nextImage();
-  if (e.key === 'ArrowLeft') prevImage();
-});
+  if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    nextImage();
+  }
 
-  // Initial render (DEFAULT 16x20 + SOLO mockup)
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    prevImage();
+  }
+});  // Initial render (DEFAULT 16x20 + SOLO mockup)
   sizeEl.value = "16x20";
   frameEl.value = "black";
   previewMode = "solo";
