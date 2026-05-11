@@ -114,10 +114,60 @@
   transition:transform .12s ease, opacity .12s ease, border-color .12s ease;
 }
 
-.art-thumb-row img:hover{
-  transform:translateY(-1px);
-  opacity:1;
-  border-color:rgba(255,255,255,.25);
+.art-hero-window{
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 10;
+  overflow:hidden;
+  border-radius:.75rem;
+  background:#050505;
+}
+
+.art-hero-window img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  cursor:zoom-in;
+  transition:opacity .28s ease-in-out;
+}
+
+.art-hero-window img.is-fading{
+  opacity:0;
+}
+
+.art-gallery-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,.45);
+  color:#fff;
+  border:0;
+  width:40px;
+  height:48px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:28px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:5;
+}
+
+.art-gallery-arrow.prev{ left:8px; }
+.art-gallery-arrow.next{ right:8px; }
+
+.art-gallery-arrow:hover{
+  background:rgba(0,0,0,.6);
+}
+
+@media (max-width:780px){
+  .art-gallery-arrow{
+    width:36px;
+    height:44px;
+    font-size:24px;
+  }
 }
 
 /* =========================================================
@@ -328,14 +378,19 @@
       <div class="featured-card" id="decl-detail-card">
         <div class="fc-media-col">
           <div class="fc-media">
-            <img
-  id="decl-image"
-  src="assets/img/declaration-founders-black-16x20-solo.jpg"
-  alt="Declaration of Independence — Founders Wall Art — 16×20, black frame (mockup)"
-  loading="lazy"
-  decoding="async"
-  width="1200"
-  height="800">
+            <div class="art-hero-window">
+  <img
+    id="decl-image"
+    src="assets/img/declaration-founders-black-16x20-solo.jpg"
+    alt="Declaration of Independence — Founders Wall Art — 16×20, black frame (mockup)"
+    loading="lazy"
+    decoding="async"
+    width="1200"
+    height="800">
+
+  <button class="art-gallery-arrow prev" type="button" aria-label="Previous artwork image">‹</button>
+  <button class="art-gallery-arrow next" type="button" aria-label="Next artwork image">›</button>
+</div>
 
 <!-- Lifestyle / zoom thumbnails -->
 <div class="art-thumb-row" id="decl-thumbs">
@@ -652,7 +707,7 @@
   });
 
 /* ===========================
-   DECLARATION Lightbox
+   DECLARATION Gallery + Lightbox
 =========================== */
 
 const thumbsWrap = document.getElementById('decl-thumbs');
@@ -666,13 +721,19 @@ const lbNext = document.getElementById('decl-lightbox-next');
 let lbItems = [];
 let lbIndex = 0;
 
+if (thumbsWrap) {
+  const imgs = Array.from(thumbsWrap.querySelectorAll('img'));
+
+  lbItems = imgs.map(img => ({
+    src: img.getAttribute('data-full') || img.getAttribute('src'),
+    alt: img.getAttribute('alt') || ''
+  })).filter(item => item.src);
+}
+
 function setLightboxIndex(i){
   if (!lbItems.length) return;
 
-  if (i < 0) i = lbItems.length - 1;
-  if (i >= lbItems.length) i = 0;
-
-  lbIndex = i;
+  lbIndex = ((i % lbItems.length) + lbItems.length) % lbItems.length;
 
   const item = lbItems[lbIndex];
   if (!item) return;
@@ -687,7 +748,6 @@ function openLightboxAt(i){
   if (!lb || !lbImg) return;
 
   setLightboxIndex(i);
-
   lb.classList.add('is-open');
   lb.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
@@ -702,72 +762,116 @@ function closeLightbox(){
   document.body.style.overflow = '';
 }
 
-function nextImage(){ setLightboxIndex(lbIndex + 1); }
-function prevImage(){ setLightboxIndex(lbIndex - 1); }
+function showGalleryImage(i, openLightbox = false){
+  if (!lbItems.length) return;
+
+  lbIndex = ((i % lbItems.length) + lbItems.length) % lbItems.length;
+
+  const item = lbItems[lbIndex];
+  if (!item) return;
+
+  imgEl.classList.add('is-fading');
+
+  setTimeout(() => {
+    imgEl.onload = () => {
+      requestAnimationFrame(() => {
+        imgEl.classList.remove('is-fading');
+      });
+    };
+
+    imgEl.src = item.src;
+    imgEl.alt = item.alt || 'Declaration preview';
+
+    if (openLightbox) openLightboxAt(lbIndex);
+  }, 180);
+}
+
+function nextImage(){
+  if (lb && lb.classList.contains('is-open')) {
+    setLightboxIndex(lbIndex + 1);
+  } else {
+    showGalleryImage(lbIndex + 1);
+  }
+}
+
+function prevImage(){
+  if (lb && lb.classList.contains('is-open')) {
+    setLightboxIndex(lbIndex - 1);
+  } else {
+    showGalleryImage(lbIndex - 1);
+  }
+}
 
 if (thumbsWrap) {
   const imgs = Array.from(thumbsWrap.querySelectorAll('img'));
-  lbItems = imgs.map(img => ({
-    src: img.getAttribute('data-full') || img.getAttribute('src'),
-    alt: img.getAttribute('alt') || ''
-  }));
 
-  thumbsWrap.addEventListener('click', function(e){
-    const t = e.target;
-    if (!t || t.tagName !== 'IMG') return;
-
-    const clickedSrc = t.getAttribute('data-full') || t.getAttribute('src');
-    const idx = lbItems.findIndex(x => x.src === clickedSrc);
-    openLightboxAt(idx >= 0 ? idx : 0);
+  imgs.forEach((thumb, index) => {
+    thumb.addEventListener('click', function(){
+      showGalleryImage(index, true);
+    });
   });
 }
 
-// Clicking main product image opens lightbox
-if (imgEl && lbItems.length) {
-  imgEl.style.cursor = 'zoom-in';
-  imgEl.addEventListener('click', function () {
-    const zoomIdx = lbItems.findIndex(x => (x.src || '').includes('zoom'));
-    openLightboxAt(zoomIdx >= 0 ? zoomIdx : 0);
-  });
-}
-
-// Buttons
-if (lbClose) lbClose.addEventListener('click', closeLightbox);
-
-if (lbPrev) lbPrev.addEventListener('click', function(e){
+document.querySelector('.art-gallery-arrow.prev')?.addEventListener('click', function(e){
   e.stopPropagation();
   prevImage();
 });
 
-if (lbNext) lbNext.addEventListener('click', function(e){
+document.querySelector('.art-gallery-arrow.next')?.addEventListener('click', function(e){
   e.stopPropagation();
   nextImage();
 });
 
-// Click outside closes
+if (imgEl && lbItems.length) {
+  imgEl.style.cursor = 'zoom-in';
+
+  imgEl.addEventListener('click', function () {
+    openLightboxAt(lbIndex);
+  });
+}
+
+if (lbClose) lbClose.addEventListener('click', closeLightbox);
+
+if (lbPrev) lbPrev.addEventListener('click', function(e){
+  e.stopPropagation();
+  setLightboxIndex(lbIndex - 1);
+});
+
+if (lbNext) lbNext.addEventListener('click', function(e){
+  e.stopPropagation();
+  setLightboxIndex(lbIndex + 1);
+});
+
 if (lb) {
   lb.addEventListener('click', function(e){
     if (e.target === lb) closeLightbox();
   });
 }
 
-// Click big image to go next
 if (lbImg) {
   lbImg.addEventListener('click', function(e){
     e.stopPropagation();
-    nextImage();
+    setLightboxIndex(lbIndex + 1);
   });
 }
 
-// Keyboard controls
 document.addEventListener('keydown', function(e){
-  if (!lb || !lb.classList.contains('is-open')) return;
 
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowRight') nextImage();
-  if (e.key === 'ArrowLeft') prevImage();
+  if (e.key === 'Escape' && lb && lb.classList.contains('is-open')) {
+    closeLightbox();
+    return;
+  }
+
+  if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    nextImage();
+  }
+
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    prevImage();
+  }
 });
-
 
   // Initial render
   updateImage();
