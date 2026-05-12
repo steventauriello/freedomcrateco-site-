@@ -1,96 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
     <loc>https://freedomcrateco.com/</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-05-12</lastmod>
   </url>
 
   <url>
     <loc>https://freedomcrateco.com/branch-collection.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-05-12</lastmod>
   </url>
 
   <url>
     <loc>https://freedomcrateco.com/caliber-collection.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-05-12</lastmod>
   </url>
 
   <url>
-    <loc>https://freedomcrateco.com/product.html?sku=FC-RM-400</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://freedomcrateco.com/product.html?sku=FC-CAL-9MM</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://freedomcrateco.com/product.html?sku=FC-CAL-556</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://freedomcrateco.com/product.html?sku=FC-CAL-762</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://freedomcrateco.com/artwork.html</loc>
+    <lastmod>2026-05-12</lastmod>
   </url>
 
   <url>
     <loc>https://freedomcrateco.com/gallery.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-12</lastmod>
   </url>
 
   <url>
     <loc>https://freedomcrateco.com/about.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2026-05-12</lastmod>
   </url>
 
   <url>
     <loc>https://freedomcrateco.com/reviews.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2026-05-12</lastmod>
   </url>
 
   <url>
     <loc>https://freedomcrateco.com/giveaway.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2026-05-12</lastmod>
   </url>
 
   <url>
     <loc>https://freedomcrateco.com/transparency.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2026-05-12</lastmod>
   </url>
 
   <url>
     <loc>https://freedomcrateco.com/contact.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2026-05-12</lastmod>
+  </url>
+
+  <url>
+    <loc>https://freedomcrateco.com/faq.html</loc>
+    <lastmod>2026-05-12</lastmod>
+  </url>
+
+  <url>
+    <loc>https://freedomcrateco.com/engineering-notebook.html</loc>
+    <lastmod>2026-05-12</lastmod>
+  </url>
+
+  <url>
+    <loc>https://freedomcrateco.com/ammo-box.html</loc>
+    <lastmod>2026-05-12</lastmod>
+  </url>
+
+  <url>
+    <loc>https://freedomcrateco.com/ammo-box-for-ar15.html</loc>
+    <lastmod>2026-05-12</lastmod>
+  </url>
+
+  <url>
+    <loc>https://freedomcrateco.com/declaration-founders.html</loc>
+    <lastmod>2026-05-12</lastmod>
+  </url>
+
+  <url>
+    <loc>https://freedomcrateco.com/no01-john-adams.html</loc>
+    <lastmod>2026-05-12</lastmod>
+  </url>
+
+  <url>
+    <loc>https://freedomcrateco.com/no02-george-washington.html</loc>
+    <lastmod>2026-05-12</lastmod>
+  </url>
+
+  <url>
+    <loc>https://freedomcrateco.com/no03-thomas-jefferson.html</loc>
+    <lastmod>2026-05-12</lastmod>
   </url>
 
 </urlset>
