@@ -33,6 +33,24 @@
   force = true
 
 [[redirects]]
+  from = "/branch-collection"
+  to   = "/branch-collection.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/caliber-collection"
+  to   = "/caliber-collection.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/transparency"
+  to   = "/transparency.html"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/product"
   to   = "/product.html"
   status = 301
