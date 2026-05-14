@@ -1820,9 +1820,13 @@ const CC_ARMOR_UPCHARGE = 10;
     tmp.src = imgSrc;
 
     // Details link (per caliber) – base variant by default
-    const href = CC_DETAIL_LINKS[caliber] || CC_DETAIL_LINKS['9mm'];
-    if (detailsLinkEl) detailsLinkEl.href = href;
-    if (linkEl)        linkEl.href        = href;
+    const caliberHref = CC_DETAIL_LINKS[caliber] || CC_DETAIL_LINKS['9mm'];
+
+// Image click goes to the selected caliber page
+if (linkEl) linkEl.href = caliberHref;
+
+// More details always goes to the main Caliber Collection page
+if (detailsLinkEl) detailsLinkEl.href = 'caliber-collection.html';
   }
 
   function buildMeta(){
