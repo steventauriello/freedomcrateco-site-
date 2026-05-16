@@ -219,14 +219,11 @@ if (!sku && ['localhost','127.0.0.1'].includes(location.hostname)) {
   history.replaceState(null, '', location.pathname + '#' + sku);
 }
 
-// Default to Branch Collection (FC-CLASSIC) — no redirect
+// If no SKU is provided, do not create a fake/default product page
 if (!sku) {
-  sku = 'FC-CLASSIC';
-  const u = new URL(location.href);
-  u.searchParams.set('sku', sku);
-  history.replaceState(null, '', u.toString());
+  window.location.replace('index.html');
+  return;
 }
-
     // Wait until product loader is ready
     while (!window.FC || typeof window.FC.loadProducts !== 'function') {
       await new Promise(r => setTimeout(r, 10));
@@ -234,14 +231,9 @@ if (!sku) {
     const all = await window.FC.loadProducts();
     let P = all.find(p => String(p.sku) === String(sku));
 if (!P) {
-  // Fall back silently to default product (no redirect)
-  sku = 'FC-CLASSIC';
-  const u = new URL(location.href);
-  u.searchParams.set('sku', sku);
-  history.replaceState(null, '', u.toString());
-  P = all.find(p => String(p.sku) === 'FC-CLASSIC');
+  window.location.replace('index.html');
+  return;
 }
-
     // DOM refs
     const hero    = document.getElementById('pd-hero');
     const thumbs  = document.getElementById('pd-thumbs');
