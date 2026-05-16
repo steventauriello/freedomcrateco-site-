@@ -127,5 +127,38 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+<url>
+  <loc>https://freedomcrateco.com/caliber-collection-9mm.html</loc>
+  <lastmod>2026-05-16</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://freedomcrateco.com/caliber-collection-556.html</loc>
+  <lastmod>2026-05-16</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://freedomcrateco.com/caliber-collection-762.html</loc>
+  <lastmod>2026-05-16</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://freedomcrateco.com/privacy.html</loc>
+  <lastmod>2026-05-16</lastmod>
+  <changefreq>yearly</changefreq>
+  <priority>0.3</priority>
+</url>
+
+<url>
+  <loc>https://freedomcrateco.com/returns.html</loc>
+  <lastmod>2026-05-16</lastmod>
+  <changefreq>yearly</changefreq>
+  <priority>0.4</priority>
+</url>
 
 </urlset>
