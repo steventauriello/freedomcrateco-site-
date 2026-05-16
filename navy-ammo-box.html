@@ -18,8 +18,55 @@
 html{scroll-behavior:smooth}
 .product-page{max-width:900px;margin:2rem auto;padding:1rem}
 .gallery{display:grid;grid-template-columns:1fr;gap:1rem}
-.gallery-main{position:relative}
-.gallery-main img{width:100%;border-radius:12px;cursor:pointer}
+.gallery-main{
+  position:relative;
+  aspect-ratio:4 / 3;
+  overflow:hidden;
+  border-radius:12px;
+  background:#0b0b0b;
+}
+.gallery-main img{
+  width:100%;
+  border-radius:12px;
+  cursor:pointer;
+  transition:opacity .28s ease, transform .28s ease;
+}
+
+.gallery-main img.is-changing{
+  opacity:0;
+  transform:translateX(18px) scale(.985);
+}
+.gallery-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:46px;
+  height:46px;
+  border:none;
+  border-radius:50%;
+  background:rgba(0,0,0,.55);
+  color:#fff;
+  font-size:1.5rem;
+  cursor:pointer;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s ease,transform .2s ease;
+}
+
+.gallery-nav:hover{
+  background:rgba(0,0,0,.8);
+  transform:translateY(-50%) scale(1.05);
+}
+
+.gallery-prev{
+  left:14px;
+}
+
+.gallery-next{
+  right:14px;
+}
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:9999}
 .lightbox.open{display:flex}
 .lightbox img{max-width:90%;max-height:90%;border-radius:12px}
@@ -70,7 +117,7 @@ html{scroll-behavior:smooth}
   <h1>U.S. Navy Wooden Ammo Box</h1>
 
   <p class="muted">
-    Freedom Crate Co.’s U.S. Navy Wooden Ammo Box is handcrafted in Florida with rugged Navy-inspired styling, durable hardware, Navy-themed markings, and optional Armor Core™ interior protection. Built for Sailors, veterans, collectors, garage storage, range gear, and military display.
+    Freedom Crate Co.’s U.S. Navy Wooden Ammo Box is handcrafted in Florida with rugged Navy-inspired styling, durable hardware, and authentic Navy-themed markings. Built for Sailors, veterans, collectors, garage storage, range gear, and military display. Built for Sailors, veterans, collectors, garage storage, range gear, and military display.
   </p>
 
   <div class="gallery">
@@ -80,6 +127,8 @@ html{scroll-behavior:smooth}
         src="assets/img/branch-navy-main.jpg"
         alt="U.S. Navy wooden ammo box by Freedom Crate Co."
         tabindex="0">
+<button class="gallery-nav gallery-prev" id="galleryPrev">❮</button>
+<button class="gallery-nav gallery-next" id="galleryNext">❯</button>
     </div>
   </div>
 
@@ -99,10 +148,6 @@ html{scroll-behavior:smooth}
     <img loading="lazy" src="assets/img/branch-collection-navy-black.JPEG" alt="U.S. Navy ammo box with black hardware">
   </button>
 
-  <button class="desc-thumb" data-full="assets/img/branch-collection-open-blank.JPG">
-    <img loading="lazy" src="assets/img/branch-collection-open-blank.JPG" alt="Open empty interior of Branch Collection wooden ammo box">
-  </button>
-
   <button class="desc-thumb" data-full="assets/img/branch-collection-navy-side-handle.JPG">
     <img loading="lazy" src="assets/img/branch-collection-navy-side-handle.JPG" alt="U.S. Navy ammo box side handle detail">
   </button>
@@ -115,9 +160,16 @@ html{scroll-behavior:smooth}
     <img loading="lazy" src="assets/img/branch-collection-back-hinges.jpg" alt="Rear hinge detail of Branch Collection ammo box">
   </button>
 
-  <button class="desc-thumb" data-full="assets/img/caliber-collection-final-salute-business-card-back.JPG">
-    <img loading="lazy" src="assets/img/caliber-collection-final-salute-business-card-back.JPG" alt="Final Salute Project support card included with Freedom Crate Co orders">
-  </button>
+  <button class="desc-thumb" data-full="assets/img/caliber-collection-final-salute-business-card-front.jpg">
+  <img loading="lazy" src="assets/img/caliber-collection-final-salute-business-card-front.jpg" alt="Final Salute Project support card included with Freedom Crate Co orders">
+</button>
+
+<button class="desc-thumb" data-full="assets/img/caliber-collection-final-salute-business-card-back.JPG">
+  <img
+    loading="lazy"
+    src="assets/img/caliber-collection-final-salute-business-card-back.JPG"
+    alt="Final Salute Project support card included with Freedom Crate Co orders">
+</button>
 
 </div>
 
@@ -188,7 +240,7 @@ html{scroll-behavior:smooth}
       <li><strong>Stencils:</strong> Hand-applied Navy-themed markings</li>
       <li><strong>Handles:</strong> Steel D-ring folding handles</li>
       <li><strong>Hardware:</strong> Black or stainless lockable toggle latches</li>
-      <li><strong>Interior:</strong> Standard wood or optional Armor Core™ interior</li>
+      <li><strong>Interior:</strong> Standard unfinished wood interior</li>
     </ul>
 
     <h2>Supporting America’s Heroes</h2>
@@ -205,36 +257,37 @@ html{scroll-behavior:smooth}
 
         <h3>U.S. Navy Wooden Ammo Box</h3>
 
-        <div class="cc-buy-images">
+       <div class="cc-buy-images">
 
-          <div class="cc-buy-img">
-            <img src="assets/img/branch-navy-black.jpg" alt="Navy ammo box black hardware">
-            <span>Black Hardware</span>
+  <div class="cc-buy-img">
+    <img src="assets/img/branch-collection-navy-black-white-background.jpg" alt="U.S. Navy ammo box with black hardware">
+    <span>Black Hardware</span>
 
-            <button
-              class="btn"
-              type="button"
-              data-cc-action="add"
-              data-branch="NAVY"
-              data-hardware="BLK">
-              Add to Cart
-            </button>
-          </div>
+    <button
+      class="btn"
+      type="button"
+      data-cc-action="add"
+      data-branch="NAVY"
+      data-hardware="BLK">
+      Add to Cart
+    </button>
+  </div>
 
-          <div class="cc-buy-img">
-            <img src="assets/img/branch-navy-stainless.jpg" alt="Navy ammo box stainless hardware">
-            <span>Stainless Hardware</span>
+  <div class="cc-buy-img">
+    <img src="assets/img/branch-collection-navy-white-background.jpg" alt="U.S. Navy ammo box with stainless hardware">
+    <span>Stainless Hardware</span>
 
-            <button
-              class="btn"
-              type="button"
-              data-cc-action="add"
-              data-branch="NAVY"
-              data-hardware="SS">
-              Add to Cart
-            </button>
-          </div>
+    <button
+      class="btn"
+      type="button"
+      data-cc-action="add"
+      data-branch="NAVY"
+      data-hardware="SS">
+      Add to Cart
+    </button>
+  </div>
 
+</div>
         </div>
 
       </div>
@@ -276,12 +329,12 @@ html{scroll-behavior:smooth}
 <script>
 (function(){
 
-  const BASE_PRICE = 89.99;
+  const BASE_PRICE = 74.99;
 
   const IMAGE_MAP = {
-    'BLK':'assets/img/branch-navy-black.jpg',
-    'SS':'assets/img/branch-navy-stainless.jpg'
-  };
+  'BLK':'assets/img/branch-collection-navy-black-white-background.jpg',
+  'SS':'assets/img/branch-collection-navy-white-background.jpg'
+};
 
   let toastTimer;
 
@@ -301,8 +354,8 @@ html{scroll-behavior:smooth}
   function buildItem(hardware){
 
     const sku = hardware === 'BLK'
-      ? 'BR-NAVY-BLK-BASE'
-      : 'BR-NAVY-SS-BASE';
+  ? 'classic-navy-black'
+  : 'classic-navy-stainless';
 
     const name = hardware === 'BLK'
       ? 'Branch Collection — U.S. Navy • Black Hardware'
@@ -344,10 +397,16 @@ html{scroll-behavior:smooth}
 <script>
 (function(){
 
-  const hero    = document.getElementById('cc-hero');
-  const lb      = document.getElementById('lightbox');
-  const lbImg   = document.getElementById('lbImg');
-  const lbClose = document.getElementById('lbClose');
+  const hero      = document.getElementById('cc-hero');
+  const lb        = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lbImg');
+  const lbClose   = document.getElementById('lbClose');
+  const prevBtn   = document.getElementById('galleryPrev');
+  const nextBtn   = document.getElementById('galleryNext');
+
+  const thumbs = [...document.querySelectorAll('.desc-thumb')];
+
+  let currentIndex = 0;
 
   function openLB(src,alt){
     lbImg.src = src;
@@ -360,25 +419,94 @@ html{scroll-behavior:smooth}
     lbImg.src = '';
   }
 
-  function setHero(src,alt){
-    hero.src = src;
-    hero.alt = alt || '';
+  function setHeroByIndex(index){
+
+    currentIndex = index;
+
+    const btn = thumbs[index];
+    if(!btn) return;
+
+    const img = btn.querySelector('img');
+
+    const src = btn.getAttribute('data-full');
+    const alt = img?.alt || '';
+
+    hero.classList.add('is-changing');
+
+setTimeout(() => {
+
+  hero.src = src;
+  hero.alt = alt;
+
+  requestAnimationFrame(() => {
+    hero.classList.remove('is-changing');
+  });
+
+}, 180);
+  }
+
+  function nextImage(){
+    currentIndex++;
+
+    if(currentIndex >= thumbs.length){
+      currentIndex = 0;
+    }
+
+    setHeroByIndex(currentIndex);
+  }
+
+  function prevImage(){
+    currentIndex--;
+
+    if(currentIndex < 0){
+      currentIndex = thumbs.length - 1;
+    }
+
+    setHeroByIndex(currentIndex);
   }
 
   hero?.addEventListener('click',()=>{
     openLB(hero.src,hero.alt);
   });
 
-  document.querySelector('.desc-grid')?.addEventListener('click',(e)=>{
+  thumbs.forEach((btn,index)=>{
 
-    const btn = e.target.closest('.desc-thumb');
-    if(!btn) return;
+    btn.addEventListener('click',()=>{
 
-    const full = btn.getAttribute('data-full');
-    const alt  = btn.querySelector('img')?.alt || '';
+      currentIndex = index;
 
-    setHero(full,alt);
-    openLB(full,alt);
+      const full = btn.getAttribute('data-full');
+      const alt  = btn.querySelector('img')?.alt || '';
+
+      hero.classList.add('is-changing');
+
+setTimeout(() => {
+
+  hero.src = full;
+  hero.alt = alt;
+
+  requestAnimationFrame(() => {
+    hero.classList.remove('is-changing');
+  });
+
+}, 180);
+
+    });
+
+  });
+
+  nextBtn?.addEventListener('click',nextImage);
+  prevBtn?.addEventListener('click',prevImage);
+
+  document.addEventListener('keydown',(e)=>{
+
+    if(e.key === 'ArrowRight'){
+      nextImage();
+    }
+
+    if(e.key === 'ArrowLeft'){
+      prevImage();
+    }
 
   });
 
@@ -390,6 +518,5 @@ html{scroll-behavior:smooth}
 
 })();
 </script>
-
 </body>
 </html>

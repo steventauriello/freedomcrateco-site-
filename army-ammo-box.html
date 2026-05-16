@@ -6,7 +6,7 @@
 
   <title>U.S. Army Wooden Ammo Box | Military Storage Crate | Freedom Crate Co.</title>
 
-  <meta name="description" content="Shop the handcrafted U.S. Army Wooden Ammo Box by Freedom Crate Co. Built in Florida with rugged military-inspired styling, durable hardware, Army-themed markings, and optional Armor Core™ interior protection." />
+  <meta name="description" content="Shop the handcrafted U.S. Army Wooden Ammo Box by Freedom Crate Co. Built in Florida with rugged military-inspired styling, durable hardware, Army-themed markings, and handcrafted Branch Collection construction." />
 
   <link rel="canonical" href="https://freedomcrateco.com/army-ammo-box.html" />
 
@@ -18,8 +18,50 @@
 html{scroll-behavior:smooth}
 .product-page{max-width:900px;margin:2rem auto;padding:1rem}
 .gallery{display:grid;grid-template-columns:1fr;gap:1rem}
-.gallery-main{position:relative}
-.gallery-main img{width:100%;border-radius:12px;cursor:pointer}
+.gallery-main{
+  position:relative;
+  aspect-ratio:4 / 3;
+  overflow:hidden;
+  border-radius:12px;
+  background:#0b0b0b;
+}
+.gallery-main img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:12px;
+  cursor:pointer;
+  display:block;
+  transition:opacity .28s ease, transform .28s ease;
+}
+.gallery-main img.is-changing{
+  opacity:0;
+  transform:translateX(18px) scale(.985);
+}
+.gallery-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:46px;
+  height:46px;
+  border:none;
+  border-radius:50%;
+  background:rgba(0,0,0,.55);
+  color:#fff;
+  font-size:1.5rem;
+  cursor:pointer;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s ease,transform .2s ease;
+}
+.gallery-nav:hover{
+  background:rgba(0,0,0,.8);
+  transform:translateY(-50%) scale(1.05);
+}
+.gallery-prev{left:14px}
+.gallery-next{right:14px}
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:9999}
 .lightbox.open{display:flex}
 .lightbox img{max-width:90%;max-height:90%;border-radius:12px}
@@ -70,7 +112,7 @@ html{scroll-behavior:smooth}
   <h1>U.S. Army Wooden Ammo Box</h1>
 
   <p class="muted">
-    Freedom Crate Co.’s U.S. Army Wooden Ammo Box is handcrafted in Florida with rugged military-inspired styling, durable hardware, authentic Army markings, and optional Armor Core™ interior protection. Built for veterans, collectors, garage storage, range gear, and military display.
+    Freedom Crate Co.’s U.S. Army Wooden Ammo Box is handcrafted in Florida with rugged military-inspired styling, durable hardware, and authentic Army-themed markings. Built for veterans, collectors, garage storage, range gear, and military display.
   </p>
 
   <div class="gallery">
@@ -80,59 +122,35 @@ html{scroll-behavior:smooth}
         src="assets/img/branch-army-main.jpg"
         alt="U.S. Army wooden ammo box by Freedom Crate Co."
         tabindex="0">
+      <button class="gallery-nav gallery-prev" id="galleryPrev">❮</button>
+      <button class="gallery-nav gallery-next" id="galleryNext">❯</button>
     </div>
   </div>
 
   <section class="desc-photos">
+    <div class="desc-grid">
 
-<section class="desc-photos">
+      <button class="desc-thumb" data-full="assets/img/branch-army-main.jpg">
+        <img loading="lazy" src="assets/img/branch-army-main.jpg" alt="U.S. Army wooden ammo box front view">
+      </button>
 
-  <div class="desc-grid">
+      <button class="desc-thumb" data-full="assets/img/fc-blank-back.JPG">
+        <img loading="lazy" src="assets/img/fc-blank-back.JPG" alt="Rear hinge view of U.S. Army wooden ammo box">
+      </button>
 
-  <!-- MAIN HERO -->
-  <button class="desc-thumb" data-full="assets/img/branch-army-main.jpg">
-    <img
-      loading="lazy"
-      src="assets/img/branch-army-main.jpg"
-      alt="U.S. Army wooden ammo box front view">
-  </button>
+      <button class="desc-thumb" data-full="assets/img/branch-collection-blank-main.jpg">
+        <img loading="lazy" src="assets/img/branch-collection-blank-main.jpg" alt="Top view of U.S. Army wooden ammo box">
+      </button>
 
-  <!-- BACK VIEW -->
-  <button class="desc-thumb" data-full="assets/img/fc-blank-back.JPG">
-    <img
-      loading="lazy"
-      src="assets/img/fc-blank-back.JPG"
-      alt="Rear hinge view of U.S. Army wooden ammo box">
-  </button>
+      <button class="desc-thumb" data-full="assets/img/branch-collection-open-top.png">
+        <img loading="lazy" src="assets/img/branch-collection-open-top.png" alt="Interior of U.S. Army wooden ammo box">
+      </button>
 
-  <!-- TOP VIEW -->
-  <button class="desc-thumb" data-full="assets/img/branch-collection-blank-main.jpg">
-    <img
-      loading="lazy"
-      src="assets/img/branch-collection-blank-main.jpg"
-      alt="Top view of U.S. Army wooden ammo box">
-  </button>
+      <button class="desc-thumb" data-full="assets/img/branch-collection-side-handle.png">
+        <img loading="lazy" src="assets/img/branch-collection-side-handle.png" alt="Handle detail on U.S. Army wooden ammo box">
+      </button>
 
-  <!-- OPEN INTERIOR -->
-  <button class="desc-thumb" data-full="assets/img/branch-collection-open-top.png">
-    <img
-      loading="lazy"
-      src="assets/img/branch-collection-open-top.png"
-      alt="Interior of U.S. Army wooden ammo box">
-  </button>
-
-  <!-- HANDLE DETAIL -->
-  <button class="desc-thumb" data-full="assets/img/branch-collection-side-handle.png">
-    <img
-      loading="lazy"
-      src="assets/img/branch-collection-side-handle.png"
-      alt="Handle detail on U.S. Army wooden ammo box">
-  </button>
-
-</div>
-
-</section>
-
+    </div>
   </section>
 
   <section class="cc-details">
@@ -144,37 +162,35 @@ html{scroll-behavior:smooth}
     </p>
 
     <p>
-      Built for veterans, collectors, patriotic Americans, and military enthusiasts, this crate blends rugged functionality with authentic Army-inspired styling and handcrafted craftsmanship.
+      Built for veterans, collectors, patriotic Americans, and military enthusiasts, this crate blends rugged function with authentic Army-inspired styling and handcrafted small-batch craftsmanship.
     </p>
 
     <h2>History of the United States Army</h2>
 
     <p>
-      The United States Army was officially founded on June 14, 1775, making it the oldest branch of the United States military. Originally formed as the Continental Army during the American Revolutionary War, it was established to defend the colonies against British rule under the command of General George Washington.
+      The United States Army was officially founded on June 14, 1775, making it the oldest branch of the United States military. Originally formed as the Continental Army during the American Revolutionary War, it was established to defend the colonies under the command of General George Washington.
     </p>
 
     <p>
       Since then, the Army has played a major role in nearly every major conflict in American history — from the Revolutionary War and Civil War to World War II, Vietnam, Iraq, and Afghanistan.
     </p>
-<h2>The Birth of the U.S. Army</h2>
 
-<p>
-The roots of today’s United States Army trace back to the Continental Army formed during the American Revolutionary War. Under the command of General George Washington, American forces famously crossed the Delaware River on Christmas night in 1776 before launching the surprise Battle of Trenton — one of the most iconic moments in American military history.
-</p>
+    <h2>The Birth of the U.S. Army</h2>
 
-<h2>The First Army Uniforms</h2>
+    <p>
+      The roots of today’s United States Army trace back to the Continental Army formed during the American Revolutionary War. Under the command of General George Washington, American forces famously crossed the Delaware River on Christmas night in 1776 before launching the surprise Battle of Trenton — one of the most iconic moments in American military history.
+    </p>
 
-<p>
-  During the early years of the American Revolutionary War, many Continental Army soldiers fought wearing a mix of civilian clothing, hunting shirts, militia gear, and locally supplied uniforms. Supplies were limited, and there was little standardization between units.
-</p>
+    <h2>The First Army Uniforms</h2>
 
-<p>
-  As the Continental Army became more organized under General George Washington, dark blue coats gradually became the primary color associated with the American Army. White waistcoats, tricorn hats, leather equipment, and regional uniform distinctions helped shape the identity of America’s first national fighting force.
-</p>
+    <p>
+      During the early years of the American Revolutionary War, many Continental Army soldiers fought wearing a mix of civilian clothing, hunting shirts, militia gear, and locally supplied uniforms. Supplies were limited, and there was little standardization between units.
+    </p>
 
-<p>
-  These early uniforms became part of the foundation of the traditions and military identity that continue within the United States Army today.
-</p>
+    <p>
+      As the Continental Army became more organized under General George Washington, dark blue coats gradually became the primary color associated with the American Army. White waistcoats, tricorn hats, leather equipment, and regional uniform distinctions helped shape the identity of America’s first national fighting force.
+    </p>
+
     <h2>Famous Army Movies</h2>
 
     <ul>
@@ -217,7 +233,7 @@ The roots of today’s United States Army trace back to the Continental Army for
       <li><strong>Stencils:</strong> Hand-applied Army-themed markings</li>
       <li><strong>Handles:</strong> Steel D-ring folding handles</li>
       <li><strong>Hardware:</strong> Black or stainless lockable toggle latches</li>
-      <li><strong>Interior:</strong> Standard wood or optional Armor Core™ interior</li>
+      <li><strong>Interior:</strong> Standard unfinished wood interior</li>
     </ul>
 
     <h2>Supporting America’s Heroes</h2>
@@ -229,58 +245,44 @@ The roots of today’s United States Army trace back to the Continental Army for
     <h2>Choose Your Army Box</h2>
 
     <div class="cc-buy-grid">
+      <div class="cc-buy-card">
 
-  <div class="cc-buy-card">
+        <h3>U.S. Army Wooden Ammo Box</h3>
 
-    <h3>U.S. Army Wooden Ammo Box</h3>
+        <div class="cc-buy-images">
 
-    <div class="cc-buy-images">
+          <div class="cc-buy-img">
+            <img src="assets/img/army black white background.jpg" alt="U.S. Army wooden ammo box with black hardware">
+            <span>Black Hardware</span>
 
-      <!-- BLACK HARDWARE -->
-      <div class="cc-buy-img">
+            <button
+              class="btn"
+              type="button"
+              data-cc-action="add"
+              data-branch="ARMY"
+              data-hardware="BLK">
+              Add to Cart
+            </button>
+          </div>
 
-        <img
-          src="assets/img/branch-collection-army-black.JPEG"
-          alt="U.S. Army wooden ammo box with black hardware">
+          <div class="cc-buy-img">
+            <img src="assets/img/army stainless white background.jpg" alt="U.S. Army wooden ammo box with stainless hardware">
+            <span>Stainless Hardware</span>
 
-        <span>Black Hardware</span>
+            <button
+              class="btn"
+              type="button"
+              data-cc-action="add"
+              data-branch="ARMY"
+              data-hardware="SS">
+              Add to Cart
+            </button>
+          </div>
 
-        <button
-          class="btn"
-          type="button"
-          data-cc-action="add"
-          data-branch="ARMY"
-          data-hardware="BLK">
-          Add to Cart
-        </button>
-
-      </div>
-
-      <!-- STAINLESS HARDWARE -->
-      <div class="cc-buy-img">
-
-        <img
-          src="assets/img/Army stainless.JPEG"
-          alt="U.S. Army wooden ammo box with stainless hardware">
-
-        <span>Stainless Hardware</span>
-
-        <button
-          class="btn"
-          type="button"
-          data-cc-action="add"
-          data-branch="ARMY"
-          data-hardware="SS">
-          Add to Cart
-        </button>
+        </div>
 
       </div>
-
     </div>
-
-  </div>
-
-</div>
 
     <h2>Explore Other Branch Collection Boxes</h2>
 
@@ -288,7 +290,6 @@ The roots of today’s United States Army trace back to the Continental Army for
       <li><a href="navy-ammo-box.html">U.S. Navy Ammo Box</a></li>
       <li><a href="marine-corps-ammo-box.html">Marine Corps Ammo Box</a></li>
       <li><a href="air-force-ammo-box.html">U.S. Air Force Ammo Box</a></li>
-      <li><a href="space-force-ammo-box.html">U.S. Space Force Ammo Box</a></li>
       <li><a href="coast-guard-ammo-box.html">U.S. Coast Guard Ammo Box</a></li>
       <li><a href="branch-collection.html">View Full Branch Collection</a></li>
     </ul>
@@ -318,12 +319,12 @@ The roots of today’s United States Army trace back to the Continental Army for
 <script>
 (function(){
 
-  const BASE_PRICE = 89.99;
+  const BASE_PRICE = 74.99;
 
   const IMAGE_MAP = {
-    'BLK':'assets/img/branch-army-black.jpg',
-    'SS':'assets/img/branch-army-stainless.jpg'
-  };
+  'BLK':'assets/img/army black white background.jpg',
+  'SS':'assets/img/army stainless white background.jpg'
+};
 
   let toastTimer;
 
@@ -343,12 +344,12 @@ The roots of today’s United States Army trace back to the Continental Army for
   function buildItem(hardware){
 
     const sku = hardware === 'BLK'
-      ? 'BR-ARMY-BLK-BASE'
-      : 'BR-ARMY-SS-BASE';
+      ? 'classic-army-black'
+      : 'classic-army-stainless';
 
     const name = hardware === 'BLK'
-      ? 'Branch Collection — U.S. Army • Black Hardware'
-      : 'Branch Collection — U.S. Army • Stainless Hardware';
+      ? 'Freedom Crate Classic — U.S. Army • Black'
+      : 'Freedom Crate Classic — U.S. Army • Stainless';
 
     return {
       sku,
@@ -386,10 +387,16 @@ The roots of today’s United States Army trace back to the Continental Army for
 <script>
 (function(){
 
-  const hero    = document.getElementById('cc-hero');
-  const lb      = document.getElementById('lightbox');
-  const lbImg   = document.getElementById('lbImg');
-  const lbClose = document.getElementById('lbClose');
+  const hero      = document.getElementById('cc-hero');
+  const lb        = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lbImg');
+  const lbClose   = document.getElementById('lbClose');
+  const prevBtn   = document.getElementById('galleryPrev');
+  const nextBtn   = document.getElementById('galleryNext');
+
+  const thumbs = [...document.querySelectorAll('.desc-thumb')];
+
+  let currentIndex = 0;
 
   function openLB(src,alt){
     lbImg.src = src;
@@ -402,25 +409,84 @@ The roots of today’s United States Army trace back to the Continental Army for
     lbImg.src = '';
   }
 
-  function setHero(src,alt){
-    hero.src = src;
-    hero.alt = alt || '';
+  function animateHero(src,alt){
+    hero.classList.add('is-changing');
+
+    setTimeout(() => {
+      hero.src = src;
+      hero.alt = alt || '';
+
+      requestAnimationFrame(() => {
+        hero.classList.remove('is-changing');
+      });
+    }, 180);
+  }
+
+  function setHeroByIndex(index){
+
+    currentIndex = index;
+
+    const btn = thumbs[index];
+    if(!btn) return;
+
+    const img = btn.querySelector('img');
+    const src = btn.getAttribute('data-full');
+    const alt = img?.alt || '';
+
+    animateHero(src,alt);
+  }
+
+  function nextImage(){
+    currentIndex++;
+
+    if(currentIndex >= thumbs.length){
+      currentIndex = 0;
+    }
+
+    setHeroByIndex(currentIndex);
+  }
+
+  function prevImage(){
+    currentIndex--;
+
+    if(currentIndex < 0){
+      currentIndex = thumbs.length - 1;
+    }
+
+    setHeroByIndex(currentIndex);
   }
 
   hero?.addEventListener('click',()=>{
     openLB(hero.src,hero.alt);
   });
 
-  document.querySelector('.desc-grid')?.addEventListener('click',(e)=>{
+  thumbs.forEach((btn,index)=>{
 
-    const btn = e.target.closest('.desc-thumb');
-    if(!btn) return;
+    btn.addEventListener('click',()=>{
 
-    const full = btn.getAttribute('data-full');
-    const alt  = btn.querySelector('img')?.alt || '';
+      currentIndex = index;
 
-    setHero(full,alt);
-    openLB(full,alt);
+      const full = btn.getAttribute('data-full');
+      const alt  = btn.querySelector('img')?.alt || '';
+
+      animateHero(full,alt);
+
+    });
+
+  });
+
+  nextBtn?.addEventListener('click',nextImage);
+  prevBtn?.addEventListener('click',prevImage);
+
+  document.addEventListener('keydown',(e)=>{
+
+    if(e.key === 'ArrowRight'){
+      nextImage();
+    }
+
+    if(e.key === 'ArrowLeft'){
+      prevImage();
+    }
 
   });
 
