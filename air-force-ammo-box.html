@@ -6,7 +6,7 @@
 
   <title>U.S. Air Force Wooden Ammo Box | Military Storage Crate | Freedom Crate Co.</title>
 
-  <meta name="description" content="Shop the handcrafted U.S. Air Force Wooden Ammo Box by Freedom Crate Co. Built in Florida with rugged military-inspired styling, durable hardware, Air Force markings, and optional Armor Core™ interior protection." />
+  <meta name="description" content="Shop the handcrafted U.S. Air Force Wooden Ammo Box by Freedom Crate Co. Built in Florida with rugged Air Force-inspired styling, durable hardware, Air Force markings, and optional Armor Core™ interior protection." />
 
   <link rel="canonical" href="https://freedomcrateco.com/air-force-ammo-box.html" />
 
@@ -18,8 +18,47 @@
 html{scroll-behavior:smooth}
 .product-page{max-width:900px;margin:2rem auto;padding:1rem}
 .gallery{display:grid;grid-template-columns:1fr;gap:1rem}
-.gallery-main{position:relative}
-.gallery-main img{width:100%;border-radius:12px;cursor:pointer}
+.gallery-main{
+  position:relative;
+  aspect-ratio:4 / 3;
+  overflow:hidden;
+  border-radius:12px;
+  background:#0b0b0b;
+}
+.gallery-main img{
+  width:100%;
+  border-radius:12px;
+  cursor:pointer;
+  transition:opacity .28s ease, transform .28s ease;
+}
+.gallery-main img.is-changing{
+  opacity:0;
+  transform:translateX(18px) scale(.985);
+}
+.gallery-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:46px;
+  height:46px;
+  border:none;
+  border-radius:50%;
+  background:rgba(0,0,0,.55);
+  color:#fff;
+  font-size:1.5rem;
+  cursor:pointer;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s ease,transform .2s ease;
+}
+.gallery-nav:hover{
+  background:rgba(0,0,0,.8);
+  transform:translateY(-50%) scale(1.05);
+}
+.gallery-prev{left:14px}
+.gallery-next{right:14px}
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:9999}
 .lightbox.open{display:flex}
 .lightbox img{max-width:90%;max-height:90%;border-radius:12px}
@@ -70,16 +109,18 @@ html{scroll-behavior:smooth}
   <h1>U.S. Air Force Wooden Ammo Box</h1>
 
   <p class="muted">
-    Freedom Crate Co.’s U.S. Air Force Wooden Ammo Box is handcrafted in Florida with rugged military-inspired styling, durable hardware, Air Force-themed markings, and optional Armor Core™ interior protection. Built for Airmen, veterans, collectors, garage storage, range gear, and military display.
+    Freedom Crate Co.’s U.S. Air Force Wooden Ammo Box is handcrafted in Florida with rugged Air Force-inspired styling, durable hardware, and authentic Air Force-themed markings. Built for Airmen, veterans, collectors, garage storage, range gear, and military display.
   </p>
 
   <div class="gallery">
     <div class="gallery-main">
       <img
         id="cc-hero"
-        src="assets/img/branch-air-force-main.jpg"
+        src="assets/img/branch-airforce-main.jpg"
         alt="U.S. Air Force wooden ammo box by Freedom Crate Co."
         tabindex="0">
+      <button class="gallery-nav gallery-prev" id="galleryPrev">❮</button>
+      <button class="gallery-nav gallery-next" id="galleryNext">❯</button>
     </div>
   </div>
 
@@ -87,27 +128,43 @@ html{scroll-behavior:smooth}
 
     <div class="desc-grid">
 
-      <button class="desc-thumb" data-full="assets/img/branch-air-force-main.jpg">
-        <img loading="lazy" src="assets/img/branch-air-force-main.jpg" alt="U.S. Air Force ammo box main view">
-      </button>
+  <button class="desc-thumb" data-full="assets/img/branch-airforce-main.jpg">
+    <img loading="lazy" src="assets/img/branch-airforce-main.jpg" alt="U.S. Air Force wooden ammo box main view">
+  </button>
 
-      <button class="desc-thumb" data-full="assets/img/branch-air-force-front.jpg">
-        <img loading="lazy" src="assets/img/branch-air-force-front.jpg" alt="U.S. Air Force ammo box front view">
-      </button>
+  <button class="desc-thumb" data-full="assets/img/branch-collection-airforce-black.JPEG">
+    <img loading="lazy" src="assets/img/branch-collection-airforce-black.JPEG" alt="U.S. Air Force ammo box with black hardware">
+  </button>
 
-      <button class="desc-thumb" data-full="assets/img/branch-air-force-angle.jpg">
-        <img loading="lazy" src="assets/img/branch-air-force-angle.jpg" alt="U.S. Air Force ammo box angle view">
-      </button>
+  <button class="desc-thumb" data-full="assets/img/branch-collection-army-top-view.JPG">
+    <img loading="lazy" src="assets/img/branch-collection-army-top-view.JPG" alt="Top view of Branch Collection ammo box lid rails">
+  </button>
 
-      <button class="desc-thumb" data-full="assets/img/branch-air-force-side.jpg">
-        <img loading="lazy" src="assets/img/branch-air-force-side.jpg" alt="U.S. Air Force ammo box side view">
-      </button>
+  <button class="desc-thumb" data-full="assets/img/branch-collection-back-hinges.jpg">
+    <img loading="lazy" src="assets/img/branch-collection-back-hinges.jpg" alt="Rear hinge detail of Branch Collection ammo box">
+  </button>
 
-      <button class="desc-thumb" data-full="assets/img/branch-air-force-handle.jpg">
-        <img loading="lazy" src="assets/img/branch-air-force-handle.jpg" alt="U.S. Air Force ammo box handle detail">
-      </button>
+  <button class="desc-thumb" data-full="assets/img/BRANCH COLLECTION (1600 x 1200 px).jpg">
+    <img loading="lazy" src="assets/img/BRANCH COLLECTION (1600 x 1200 px).jpg" alt="Freedom Crate Co Branch Collection military wooden ammo boxes">
+  </button>
 
-    </div>
+  <button class="desc-thumb" data-full="assets/img/locking-latches.JPG">
+    <img loading="lazy" src="assets/img/locking-latches.JPG" alt="Lockable toggle latch detail on Freedom Crate Co wooden ammo box">
+  </button>
+
+  <button class="desc-thumb" data-full="assets/img/freedom-crate-co-logo-seal.jpg">
+    <img loading="lazy" src="assets/img/freedom-crate-co-logo-seal.jpg" alt="Freedom Crate Co logo seal">
+  </button>
+
+  <button class="desc-thumb" data-full="assets/img/caliber-collection-final-salute-business-card-back.JPG">
+    <img loading="lazy" src="assets/img/caliber-collection-final-salute-business-card-back.JPG" alt="Final Salute Project thank you support card">
+  </button>
+
+  <button class="desc-thumb" data-full="assets/img/caliber-collection-final-salute-business-card-front.JPG">
+    <img loading="lazy" src="assets/img/caliber-collection-final-salute-business-card-front.JPG" alt="Final Salute Project mission card with QR code">
+  </button>
+
+</div>
 
   </section>
 
@@ -153,18 +210,18 @@ html{scroll-behavior:smooth}
       <li><strong>Motto:</strong> “Aim High ... Fly-Fight-Win”</li>
       <li><strong>Core Values:</strong> Integrity First, Service Before Self, Excellence In All We Do</li>
       <li><strong>Colors:</strong> Ultramarine Blue and Air Force Yellow</li>
-      <li><strong>Famous Symbol:</strong> The Air Force symbol with wings, star, and thunderbolt elements</li>
+      <li><strong>Major Roles:</strong> Air superiority, global mobility, ISR, cyber operations, space support, and strategic deterrence</li>
     </ul>
 
     <h2>Built for the Range, Garage, and Display</h2>
 
     <ul>
       <li>Perfect for ammo, magazines, and range gear</li>
-      <li>Great for Airmen, veterans, and military collectors</li>
+      <li>Great for Airmen, Air Force veterans, and military collectors</li>
       <li>Stackable leg design protects the lid during stacking</li>
       <li>Raised lid rails create a useful staging surface</li>
       <li>Heavy-duty folding handles for confident carry</li>
-      <li>Makes a unique gift for Air Force veterans and military families</li>
+      <li>Makes a unique gift for Air Force veterans, Airmen, and military families</li>
     </ul>
 
     <h2>Construction & Hardware</h2>
@@ -175,7 +232,7 @@ html{scroll-behavior:smooth}
       <li><strong>Stencils:</strong> Hand-applied Air Force-themed markings</li>
       <li><strong>Handles:</strong> Steel D-ring folding handles</li>
       <li><strong>Hardware:</strong> Black or stainless lockable toggle latches</li>
-      <li><strong>Interior:</strong> Standard wood or optional Armor Core™ interior</li>
+      <li><strong>Interior:</strong> Standard unfinished wood interior</li>
     </ul>
 
     <h2>Supporting America’s Heroes</h2>
@@ -195,7 +252,7 @@ html{scroll-behavior:smooth}
         <div class="cc-buy-images">
 
           <div class="cc-buy-img">
-            <img src="assets/img/branch-air-force-black.jpg" alt="Air Force ammo box black hardware">
+            <img src="assets/img/airforce black white background.jpg" alt="U.S. Air Force ammo box with black hardware">
             <span>Black Hardware</span>
 
             <button
@@ -209,7 +266,7 @@ html{scroll-behavior:smooth}
           </div>
 
           <div class="cc-buy-img">
-            <img src="assets/img/branch-air-force-stainless.jpg" alt="Air Force ammo box stainless hardware">
+            <img src="assets/img/airforce stainless white background .jpg" alt="U.S. Air Force ammo box with stainless hardware">
             <span>Stainless Hardware</span>
 
             <button
@@ -232,9 +289,8 @@ html{scroll-behavior:smooth}
 
     <ul>
       <li><a href="army-ammo-box.html">U.S. Army Ammo Box</a></li>
-      <li><a href="navy-ammo-box.html">U.S. Navy Ammo Box</a></li>
       <li><a href="marine-corps-ammo-box.html">Marine Corps Ammo Box</a></li>
-      <li><a href="space-force-ammo-box.html">U.S. Space Force Ammo Box</a></li>
+      <li><a href="navy-ammo-box.html">U.S. Navy Ammo Box</a></li>
       <li><a href="coast-guard-ammo-box.html">U.S. Coast Guard Ammo Box</a></li>
       <li><a href="branch-collection.html">View Full Branch Collection</a></li>
     </ul>
@@ -332,10 +388,16 @@ html{scroll-behavior:smooth}
 <script>
 (function(){
 
-  const hero    = document.getElementById('cc-hero');
-  const lb      = document.getElementById('lightbox');
-  const lbImg   = document.getElementById('lbImg');
-  const lbClose = document.getElementById('lbClose');
+  const hero      = document.getElementById('cc-hero');
+  const lb        = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lbImg');
+  const lbClose   = document.getElementById('lbClose');
+  const prevBtn   = document.getElementById('galleryPrev');
+  const nextBtn   = document.getElementById('galleryNext');
+
+  const thumbs = [...document.querySelectorAll('.desc-thumb')];
+
+  let currentIndex = 0;
 
   function openLB(src,alt){
     lbImg.src = src;
@@ -348,25 +410,94 @@ html{scroll-behavior:smooth}
     lbImg.src = '';
   }
 
-  function setHero(src,alt){
-    hero.src = src;
-    hero.alt = alt || '';
+  function setHeroByIndex(index){
+
+    currentIndex = index;
+
+    const btn = thumbs[index];
+    if(!btn) return;
+
+    const img = btn.querySelector('img');
+
+    const src = btn.getAttribute('data-full');
+    const alt = img?.alt || '';
+
+    hero.classList.add('is-changing');
+
+    setTimeout(() => {
+
+      hero.src = src;
+      hero.alt = alt;
+
+      requestAnimationFrame(() => {
+        hero.classList.remove('is-changing');
+      });
+
+    }, 180);
+  }
+
+  function nextImage(){
+    currentIndex++;
+
+    if(currentIndex >= thumbs.length){
+      currentIndex = 0;
+    }
+
+    setHeroByIndex(currentIndex);
+  }
+
+  function prevImage(){
+    currentIndex--;
+
+    if(currentIndex < 0){
+      currentIndex = thumbs.length - 1;
+    }
+
+    setHeroByIndex(currentIndex);
   }
 
   hero?.addEventListener('click',()=>{
     openLB(hero.src,hero.alt);
   });
 
-  document.querySelector('.desc-grid')?.addEventListener('click',(e)=>{
+  thumbs.forEach((btn,index)=>{
 
-    const btn = e.target.closest('.desc-thumb');
-    if(!btn) return;
+    btn.addEventListener('click',()=>{
 
-    const full = btn.getAttribute('data-full');
-    const alt  = btn.querySelector('img')?.alt || '';
+      currentIndex = index;
 
-    setHero(full,alt);
-    openLB(full,alt);
+      const full = btn.getAttribute('data-full');
+      const alt  = btn.querySelector('img')?.alt || '';
+
+      hero.classList.add('is-changing');
+
+      setTimeout(() => {
+
+        hero.src = full;
+        hero.alt = alt;
+
+        requestAnimationFrame(() => {
+          hero.classList.remove('is-changing');
+        });
+
+      }, 180);
+
+    });
+
+  });
+
+  nextBtn?.addEventListener('click',nextImage);
+  prevBtn?.addEventListener('click',prevImage);
+
+  document.addEventListener('keydown',(e)=>{
+
+    if(e.key === 'ArrowRight'){
+      nextImage();
+    }
+
+    if(e.key === 'ArrowLeft'){
+      prevImage();
+    }
 
   });
 
