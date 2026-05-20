@@ -356,7 +356,65 @@
     height:17px;
   }
 }
-</style>
+/* Product dropdown selectors */
+.fc-select-wrap{
+  position:relative;
+  width:100%;
+  border-radius:14px;
+  background:linear-gradient(180deg, #f3f3f3, #dcdcdc);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,255,255,.9);
+    inset 0 -2px 4px rgba(0,0,0,.08)
+  overflow:hidden;
+}
+
+.fc-select-wrap::after{
+  content:"▼";
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-10%);
+  color:#000;
+  font-size:1.65rem;
+  font-weight:800;
+  line-height:1;
+  pointer-events:none;
+  opacity:8;
+  text-shadow:0 1px 0 rgba(255,255,255,.35);
+}
+.fc-select{
+  width:100%;
+  min-height:34px;
+  background:transparent !important;
+  color:#111 !important;
+  border:0 !important;
+  border-radius:10px;
+  padding:0 50px 0 18px;
+  font-weight:800;
+  font-size:1rem;
+  line-height:34px;
+  box-shadow:none;
+  appearance:none;
+  -webkit-appearance:none;
+  cursor:pointer;
+}
+
+.fc-select:hover{
+  background:rgba(255,255,255,.22) !important;
+}
+
+.fc-select:focus{
+  outline:3px solid rgba(46,204,113,.55);
+  outline-offset:3px;
+}
+
+.fc-select option{
+  background:#fff;
+  color:#111;
+  font-weight:700;
+}</style>
 
 <!-- Structured Data: Store + key products -->
 <script type="application/ld+json">
