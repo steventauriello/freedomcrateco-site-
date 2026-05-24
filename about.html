@@ -13,78 +13,301 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <meta name="description" content="Meet Steven Tauriello, founder of Freedom Crate Co., and learn the story behind our handcrafted wooden ammo boxes built in Florida." />
-  <meta name="keywords" content="wooden ammo box, wooden ammo crate, ammo storage crate, Freedom Crate Co, Final Salute Project, handcrafted wood crate, veteran gift, Steven Tauriello, Florida woodworker, handcrafted ammo box" />
+  <meta name="description" content="Learn the story behind Freedom Crate Co., the handcrafted wooden ammo box company founded by Steven Tauriello in Florida, built around durability, American craftsmanship, family legacy, and purpose." />
+  <meta name="keywords" content="wooden ammo box, wooden ammo crate, ammo storage crate, Freedom Crate Co, Final Salute Project, handcrafted wood crate, veteran gift, Steven Tauriello, Florida woodworker, handcrafted ammo box, Tauriello family, Kalli Creates" />
 
   <link rel="canonical" href="https://freedomcrateco.com/about.html" />
   <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="About Freedom Crate Co." />
-  <meta property="og:description" content="Meet Steven Tauriello, founder of Freedom Crate Co. — handcrafted wooden ammo boxes and military-style storage crates built in Florida with pride, purpose, and durability." />
+
+  <meta property="og:title" content="About Freedom Crate Co. & Founder Steven Tauriello" />
+  <meta property="og:description" content="Learn the story behind Freedom Crate Co., founder Steven Tauriello, The Final Salute Project, and the Tauriello family legacy of artists, musicians, makers, and craftsmen." />
   <meta property="og:image" content="https://freedomcrateco.com/assets/img/hero-founding-fathers.jpg" />
   <meta property="og:site_name" content="Freedom Crate Co." />
 
-  <title>About Steven Tauriello • Freedom Crate Co.</title>
+  <title>About Freedom Crate Co. & Founder Steven Tauriello</title>
+
   <link rel="icon" href="/assets/img/favicon.ico">
   <link rel="stylesheet" href="assets/css/styles.css" />
 
   <style>
-    .hero-about { padding:3rem 1rem; text-align:center; }
-    .hero-about h1 { font-size:clamp(2rem,2.8vw,3rem); margin-bottom:.5rem; }
-    .hero-about p.lede { max-width:60ch; margin:.5rem auto 0; opacity:.9; }
-    .badge-row { display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; margin-top:.5rem; }
-    .about-card { border:1px solid rgba(255,255,255,.08); border-radius:.75rem; padding:1rem; background:rgba(255,255,255,.03); margin-bottom:1rem; }
-    .about-card h2 { margin-top:0; }
-    .section-sep { border:0; border-top:1px solid rgba(255,255,255,.1); margin:1.5rem 0; }
-    #about-steven-identity p { margin:.35rem 0; }
-    #final-salute-project ul { margin:.25rem 0 0 1.1rem; }
-    #final-salute-project .cta-row { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.75rem; }
-    .contact-info ul { list-style:none; padding:0; line-height:1.8; }
-    .socials a { margin-right:.5rem; }
-    .btn {
-      display:inline-block; padding:.6rem .9rem; border-radius:.5rem; text-decoration:none;
-      border:1px solid rgba(255,255,255,.16);
+    .hero-about {
+      padding: 3rem 1rem;
+      text-align: center;
     }
-/* Final Salute section with logo */
-.fsp-grid {
+
+    .hero-about h1 {
+      font-size: clamp(2rem, 2.8vw, 3rem);
+      margin-bottom: .5rem;
+    }
+
+    .hero-about p.lede {
+      max-width: 60ch;
+      margin: .5rem auto 0;
+      opacity: .9;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .5rem;
+      margin-top: .5rem;
+    }
+
+    .about-card {
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: .75rem;
+      padding: 1rem;
+      background: rgba(255,255,255,.03);
+      margin-bottom: 1rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .about-card h2 {
+      margin-top: 0;
+    }
+
+    .about-card p,
+    .about-card li {
+      max-width: 900px;
+      line-height: 1.65;
+    }
+
+    .section-sep {
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,.1);
+      margin: 1.5rem 0;
+    }
+
+    .about-card hr {
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,.1);
+      margin: 1.5rem 0;
+    }
+
+    #founder-tauriello-name p {
+      margin: .65rem 0;
+    }
+
+    #final-salute-project ul {
+      margin: .25rem 0 0 1.1rem;
+    }
+
+    #final-salute-project .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: .75rem;
+    }
+
+    .contact-info ul {
+      list-style: none;
+      padding: 0;
+      line-height: 1.8;
+    }
+
+    .socials a {
+      margin-right: .5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: .6rem .9rem;
+      border-radius: .5rem;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.16);
+    }
+
+    /* About page hero layout */
+    .about-hero-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr 320px;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .about-hero-img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .about-hero-content {
+      text-align: center;
+    }
+
+    .about-hero-img img {
+      max-width: 280px;
+      max-height: 220px;
+      width: auto;
+      height: auto;
+    }
+
+    /* Final Salute section with logo */
+    .fsp-grid {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .fsp-content {
+      min-width: 0;
+    }
+
+    .fsp-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .fsp-logo img {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+    }
+/* Tauriello Creative Line */
+.family-tree {
   display: grid;
-  grid-template-columns: 1fr 260px;
-  gap: 24px;
-  align-items: center;
+  gap: 18px;
+  margin-top: 1rem;
 }
 
-.fsp-content {
-  min-width: 0;
+.family-tree-intro {
+  max-width: 900px;
+  line-height: 1.65;
 }
 
-.fsp-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.family-line {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  margin: 1.5rem 0;
+  padding-left: 28px;
 }
 
-.fsp-logo img {
-  max-width: 300px;
+.family-line::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(184,138,53,.15),
+    rgba(184,138,53,.75),
+    rgba(184,138,53,.15)
+  );
+}
+
+.family-node {
+  position: relative;
+  border: 1px solid rgba(184,138,53,.22);
+  border-radius: 14px;
+  padding: 1rem;
+  background:
+    radial-gradient(circle at top left, rgba(184,138,53,.12), transparent 38%),
+    rgba(255,255,255,.035);
+}
+
+.family-node::before {
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: 24px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #b88a35;
+  box-shadow: 0 0 0 5px rgba(184,138,53,.12);
+}
+
+.family-node .generation {
+  display: inline-block;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #b88a35;
+  margin-bottom: .25rem;
+}
+
+.family-node h3 {
+  margin: .1rem 0 .35rem;
+  font-size: 1.1rem;
+}
+
+.family-node p {
+  margin: .35rem 0;
+}
+
+.family-node a {
+  font-weight: 700;
+}
+
+.family-note {
+  margin-top: .75rem;
+  padding: .85rem 1rem;
+  border-left: 3px solid rgba(184,138,53,.75);
+  background: rgba(184,138,53,.08);
+  border-radius: 10px;
+}
+
+/* Tauriello lineage image */
+.family-lineage-image {
+  margin: 1.5rem auto;
+  max-width: 1000px;
+}
+
+.family-lineage-image img {
+  display: block;
   width: 100%;
   height: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(184,138,53,.28);
+  box-shadow: 0 18px 45px rgba(0,0,0,.35);
 }
 
-@media (max-width: 800px) {
-  .fsp-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .fsp-logo {
-    margin-top: 12px;
-  }
-
-  .fsp-logo img {
-    max-width: 180px;
-  }
+.family-lineage-image figcaption {
+  margin-top: .65rem;
+  font-size: .9rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,.72);
 }
 
+    @media (max-width: 900px) {
+      .about-hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-hero-content {
+        text-align: left;
+      }
+
+      .about-hero-img img {
+        max-width: 240px;
+        max-height: 190px;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .fsp-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .fsp-logo {
+        margin-top: 12px;
+      }
+
+      .fsp-logo img {
+        max-width: 180px;
+      }
+    }
   </style>
 
-    <!-- Optional: basic JSON-LD for org -->
+  <!-- Organization JSON-LD -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -96,16 +319,21 @@
       "https://www.instagram.com/freedomcrate",
       "https://tiktok.com/@freedomcrateco",
       "https://www.facebook.com/share/1B1755LENh/?mibextid=wwXIfr"
-    ]
+    ],
+    "founder":{
+      "@type":"Person",
+      "name":"Steven Tauriello"
+    }
   }
   </script>
 
+  <!-- Founder JSON-LD -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"Person",
     "name":"Steven Tauriello",
-    "jobTitle":"Founder, Owner, and Craftsman",
+    "jobTitle":"Founder, Owner, Craftsman, and Creator",
     "worksFor":{
       "@type":"Organization",
       "name":"Freedom Crate Co.",
@@ -119,7 +347,11 @@
       "@type":"Place",
       "name":"Florida, USA"
     },
-    "url":"https://freedomcrateco.com/about.html"
+    "url":"https://freedomcrateco.com/about.html",
+    "sameAs":[
+      "https://freedomcrateco.com/",
+      "https://kallicreates.com"
+    ]
   }
   </script>
 </head>
@@ -139,7 +371,7 @@
     <a href="/artwork.html">Artwork</a>
     <a href="/engineering-notebook.html">Engineering Notebook</a>
     <a href="/checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
-</nav>
+  </nav>
 
   <div class="shipping-banner" role="note" aria-label="Shipping notice">
     <span class="flag" aria-hidden="true">🇺🇸</span>
@@ -162,304 +394,300 @@
     });
   })();
 </script>
-<style>
-  
-/* FORCE About page hero into left / center / right layout */
-  .about-hero-grid {
-    display: grid;
-    grid-template-columns: 320px 1fr 320px;
-    gap: 32px;
-    align-items: center;
-  }
-
-  .about-hero-img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .about-hero-content {
-    text-align: center;
-  }
-
-  /* Mobile stack */
-  @media (max-width: 900px) {
-    .about-hero-grid {
-      grid-template-columns: 1fr;
-    }
-    .about-hero-content {
-      text-align: left;
-    }
-  }
-/* About page content readability */
-.about-card {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.about-card p,
-.about-card li {
-  max-width: 900px;
-  line-height: 1.65;
-}
-</style>
-
 
 <main class="container">
 
   <!-- HERO -->
   <section class="about-hero">
-  <div class="about-hero-grid">
-
-    <!-- Left image -->
-    <div class="about-hero-img left">
-      <img
-  src="/assets/img/gadsden-american-flag-side.JPG"
-  alt="Handcrafted wooden ammo box with distressed American flag stencil"
-  loading="lazy"
-  style="max-width:280px; max-height:220px; width:auto; height:auto;">
-    </div>
-
-    <!-- Center content (your existing text) -->
-    <div class="about-hero-content">
-      <h1>Freedom Crate Co.</h1>
-
-      <p class="lede">
-  Freedom Crate Co. was founded by Steven Tauriello and built by a family in Florida — rooted in American history, veteran-inspired craftsmanship, and a mission to make rugged wooden ammo and range boxes that last.
-</p>
-
-      <div class="hero-badges">
-        <span>Florida-built</span>
-        <span>Veteran-inspired</span>
-        <span>Small-batch</span>
-        <span>Free Shipping</span>
-      </div>
-    </div>
-
-    <!-- Right image -->
-    <div class="about-hero-img right">
-      <img
-  src="/assets/img/claymore-m18a1-front-open.JPG"
-  alt="M18A1 Claymore-style wooden ammo crate open with military stenciling"
-  loading="lazy"
-  style="max-width:280px; max-height:220px; width:auto; height:auto;">
-    </div>
-
-  </div>
-</section>
-
-
-  <!-- OUR STORY -->
-<section class="about-card" id="our-story">
-  <h2>Our Story</h2>
-
-  <p><strong>The idea started with a Cold War–era 7.62×51 ammo box a friend’s dad gave me.</strong><br>
-  I used it to store baseball cards, but one day I thought — <em>why not use it for ammo?</em></p>
-
-  <p>That sent me down the rabbit hole — searching Etsy and eBay for a proper military-style wooden ammo box. What I found was either beat-up surplus or presentation-style boxes that didn’t feel right.</p>
-
-  <p>So I built my own.</p>
-
-  <p>My name is <strong>Steven Tauriello</strong> — and that was the beginning of <strong>Freedom Crate Co.</strong></p>
-
-  <hr>
-
-  <p>I was born in <strong>Portsmouth, Virginia</strong>. My father served in the <strong>United States Navy</strong>, so my family moved often throughout my childhood. Eventually, we settled in <strong>Martinsville, Indiana</strong>, where I spent most of my teenage years. In <strong>2015</strong>, my family and I moved to <strong>Florida</strong> — where Freedom Crate Co. is built today.</p>
-
-  <p>That background — growing up around service, movement, adaptation, and hard work — shaped how I see craftsmanship, durability, and American-made products.</p>
-
-  <hr>
-
-  <p>I’ve always built things with my hands — blanket chests, desks, bookshelves.<br>
-  Truth is, I’ve always had a thing for boxes.</p>
-
-  <p>So designing <strong>ammo storage crates</strong> came naturally.</p>
-
-  <p>My first build followed the proportions of that Cold War box, but I modified it to hold <strong>20 boxes of 9mm</strong>. That design became what is now known as the <strong>Freedom Crate Classic</strong>.</p>
-
-  <hr>
-
-  <p><strong>The hardest part to solve was the handles.</strong></p>
-
-  <p>My first version used half-inch hemp rope tied through <strong>¾″ holes</strong> in the sides. It worked — but the knots inside reduced storage space and broke the interior seal.</p>
-
-  <p><strong>That wasn’t acceptable.</strong></p>
-
-  <p>I wanted full edge-to-edge capacity and a sealed interior — no compromises.</p>
-
-  <p>After countless hours of trial and error, I developed a <strong>fail-proof, externally mounted handle system</strong> — now my proprietary design. It’s rugged, comfortable, and doesn’t compromise the structure or capacity of the box.</p>
-
-  <hr>
-
-  <p>When I showed one of my first crates to a Marine buddy, he asked me to build one to store his service memorabilia.</p>
-
-  <p><strong>That’s when it clicked.</strong></p>
-
-  <p>These weren’t just ammo boxes — they were <em>functional pieces of purpose-built storage</em>. Something meaningful. Something that lasts.</p>
-
-  <hr>
-
-  <p><strong>From the beginning, I made a decision:</strong></p>
-
-  <p><strong>These boxes would be built right — and priced fairly.</strong></p>
-
-  <p>Even as material costs increased, I kept pricing aligned with lower-quality alternatives I saw online — while using better wood, real hinges, and stronger hardware.</p>
-
-  <p>I’m not chasing high margins.</p>
-
-  <p><strong>I’m building real value.</strong></p>
-
-  <hr>
-
-  <p>There’s an old idea in the firearms world:<br>
-  <em>Keep a thousand rounds for every caliber you own.</em></p>
-
-  <p>That concept helped shape the lineup — from the Classic, to dedicated caliber crates, to the <strong>1000-round .308 storage crate</strong>, and the <strong>Freedom Crate Footlocker</strong> built for bug-out gear and hurricane preparedness.</p>
-
-  <p>I also wanted a system where I could organize my ammo by caliber — something I could stack in my closet, leave there for decades, and still access instantly.</p>
-
-  <p>It had to be simple.<br>
-  It had to be durable.<br>
-  And it had to be clear.</p>
-
-  <p>No matter how the boxes were stored — stacked, turned, or packed tight — I wanted to be able to glance at them and immediately know what caliber was inside. That meant <strong>bold, easy-to-read labeling on the top, sides, and front</strong>.</p>
-
-  <p>That idea became the <strong>Caliber Collection</strong>.</p>
-
-  <p>Today, I’ve got stacks of them in my own closet — from <strong>9mm to .308 and everything in between</strong> — organized, labeled, and ready at a moment’s notice.</p>
-
-  <hr>
-
-  <p><strong>Since the first box, I haven’t stopped improving.</strong></p>
-
-  <p>I’m constantly in research and development — testing corrosion resistance, waterproofing, and air sealing. I’m currently working with advanced <strong>elastomers</strong> and <strong>silicone-based coatings</strong> — the same types of materials used to protect heavy equipment and infrastructure in extreme environments.</p>
-
-  <p>Every iteration is about one goal:</p>
-
-  <p><strong>Build a box that lasts a lifetime — or longer.</strong></p>
-
-  <p>That’s why every crate is designed to be repairable.<br>
-  That’s why I sign the bottom of every one.</p>
-
-  <p>These aren’t disposable products.<br>
-  They’re meant to be used, maintained, and passed down.</p>
-
-  <hr>
-
-  <p><strong>As a vendor working within the world of U.S. military and Department of Defense specifications, I’ve seen firsthand how government-issued boxes are built.</strong></p>
-
-  <p>The military builds to spec — and those specs are driven heavily by cost, logistics, and large-scale production. Their boxes are designed to meet requirements efficiently, not necessarily to last forever.</p>
-
-  <p>I build differently.</p>
-
-  <p>I take that same foundational knowledge — understanding what the military requires — and push it further. I build for <strong>durability, longevity, and real-world use over decades</strong>, not just to meet a minimum standard.</p>
-
-  <p>For example, I use <strong>SPAX structural screws</strong> in my builds — something the military would never justify from a cost perspective at scale. But I’m not building hundreds of thousands of units under government budget constraints. I’m building <em>individual crates meant to last a lifetime</em>.</p>
-
-  <p>That gives me the best of both worlds: I understand how military crates are designed and produced — and I intentionally build beyond those limitations to create something stronger, more refined, and built to endure.</p>
-
-  <hr>
-
-  <p>What started as a search for a better ammo box turned into building my own…<br>
-  Then improving it…<br>
-  Then building one for someone else…<br>
-  And eventually, building a full line of purpose-driven crates.</p>
-
-  <p>I never set out to start a company.</p>
-
-  <p>I just wanted boxes that made sense.</p>
-
-  <p>Now I build them for people who want the same thing:</p>
-
-  <p><strong>Storage that’s strong. Reliable. And built to last.</strong></p>
-
-  <hr>
-
-  <p><strong>Freedom Crate Co. isn’t just a shop to me — it’s a calling.</strong><br>
-  And I’m proud to put my name,<br>
-  <strong>Steven Tauriello</strong>,<br>
-  on every box that leaves my bench.</p>
-</section>
-
-<!-- FINAL SALUTE PROJECT -->
-<section class="about-card" id="final-salute-project">
-  <div class="fsp-grid">
-
-    <div class="fsp-content">
-      <h2>The Final Salute Project</h2>
-
-      <p>
-        <strong>The Final Salute Project</strong> is our give-back mission dedicated to honoring U.S. military service
-        across generations. We provide <strong>handcrafted keepsake crates</strong> for veterans, retirees, and families
-        preserving the memory of loved ones who served — whether recently retired or long since passed.
-        Every crate is built to the same standard as our retail boxes — rugged, repairable, and made to last.
-      </p>
-
-      <p>
-        Each crate may be <strong>personalized</strong> with name, rank, branch insignia, service dates, and an optional
-        inscription under the lid. Some crates celebrate a lifetime of service; others serve as memorial pieces for
-        families honoring parents, grandparents, and fallen heroes.
-      </p>
-
-      <p>
-        <strong>How it’s funded:</strong> The project is supported through a mix of <em>community donations</em> and a
-        defined portion of <em>Freedom Crate Co.</em> proceeds. As support grows, we aim to expand both recognition gifts
-        and memorial tributes nationwide.
-      </p>
-
-      <ul>
-        <li><strong>Purpose:</strong> Honor U.S. military service through recognition and memorial keepsake crates.</li>
-        <li><strong>Personalization:</strong> Name, rank, branch, service details, and optional inscription.</li>
-        <li><strong>Funding:</strong> Donor support + a share of Freedom Crate Co. proceeds.</li>
-        <li><strong>Vision:</strong> Preserve service stories for families and future generations.</li>
-      </ul>
-
-      <div class="cta-row">
-        <a class="btn" href="/giveaway.html">Apply / Nominate a Veteran or Memorial</a>
-        <a class="btn" href="/transparency.html">See How Funds Are Allocated</a>
+    <div class="about-hero-grid">
+
+      <div class="about-hero-img left">
+        <img
+          src="/assets/img/gadsden-american-flag-side.JPG"
+          alt="Handcrafted wooden ammo box with distressed American flag stencil"
+          loading="lazy">
       </div>
 
-      <p class="muted" style="margin-top:.5rem;">
-        Note: We are actively formalizing a dedicated nonprofit structure for The Final Salute Project and will update
-        this page with status and documentation as it progresses.
-      </p>
+      <div class="about-hero-content">
+        <h1>Freedom Crate Co.</h1>
+
+        <p class="lede">
+          Freedom Crate Co. was founded by Steven Tauriello in Florida — built on American craftsmanship, rugged utility, family legacy, and a belief that useful things should be made to last.
+        </p>
+
+        <div class="hero-badges">
+          <span>Florida-built</span>
+          <span>Veteran-inspired</span>
+          <span>Small-batch</span>
+          <span>Free Shipping</span>
+        </div>
+      </div>
+
+      <div class="about-hero-img right">
+        <img
+          src="/assets/img/claymore-m18a1-front-open.JPG"
+          alt="M18A1 Claymore-style wooden ammo crate open with military stenciling"
+          loading="lazy">
+      </div>
+
     </div>
-
-    <div class="fsp-logo">
-      <img src="/assets/img/final-salute-project-logo.png" alt="The Final Salute Project Logo">
-    </div>
-
-  </div>
-</section>
-
-  <!-- MISSION & VALUES -->
-  <section class="about-card" id="our-mission">
-    <h2>Mission &amp; Values</h2>
-    <ul>
-      <li>Build <strong>reliable, hard-use</strong> boxes that look sharp and work harder.</li>
-      <li>Honor American craftsmanship with <strong>hand-built, small-batch</strong> production.</li>
-      <li>Keep things <strong>simple, serviceable,</strong> and <strong>affordable</strong> with free shipping.</li>
-      <li>Stay in R&amp;D — engineering tougher, smarter designs for real-world use.</li>
-      <li>Stand behind every crate as if it were my own.</li>
-    </ul>
   </section>
 
-  <!-- FOUNDER -->
-  <section class="about-card" id="about-steven-identity">
-  <h2>About Steven Tauriello</h2>
+  <!-- ABOUT FREEDOM CRATE CO. -->
+  <section class="about-card" id="about-freedom-crate">
+    <h2>About Freedom Crate Co.</h2>
 
-  <p><strong>Steven Tauriello</strong> is the founder, owner, and craftsman behind <strong>Freedom Crate Co.</strong></p>
+    <p>
+      <strong>Freedom Crate Co. was built from a simple idea:</strong> make wooden ammo boxes and military-style storage crates that are stronger, more useful, and more meaningful than what is commonly available online.
+    </p>
 
-  <p>Raised in a military family and shaped by movement, service-minded values, and hands-on work, Steven built Freedom Crate Co. around a simple belief: useful things should be built right, built to last, and built with pride.</p>
+    <p>
+      The idea started with an old Cold War–era 7.62×51 ammo box that was given to me years ago. I used it to store baseball cards, but one day I looked at it and thought — <em>why not build something like this for ammo?</em>
+    </p>
 
-  <p>Today, from Florida, he designs and builds <strong>handcrafted wooden ammo boxes</strong>, range boxes, and military-style storage crates with an emphasis on durability, repairability, and practical function.</p>
+    <p>
+      After searching Etsy, eBay, and surplus listings, I kept finding the same problem: most options were either beat-up surplus, decorative display boxes, or products that looked good but were not built the way I thought they should be built.
+    </p>
 
-  <p>Every crate reflects a commitment to American craftsmanship, rugged design, and honest value — the kind of product meant to be used, trusted, repaired if needed, and passed down.</p>
+    <p>
+      So I built my own.
+    </p>
 
-  <p class="muted">Founder • Craftsman • Woodworker</p>
-  <p class="muted">Yes — this is the same <strong>Steven Tauriello</strong> from <em>The Steven Tauriello Show</em>.</p>
-</section>
+    <p>
+      That first box eventually became the foundation for what is now <strong>Freedom Crate Co.</strong> — a small-batch, Florida-built company focused on handcrafted wooden ammo boxes, caliber crates, range boxes, military-inspired storage, and heirloom-style utility crates.
+    </p>
+
+    <hr>
+
+    <p>
+      Our philosophy is simple:
+    </p>
+
+    <p>
+      <strong>Build useful things the right way. Make them durable. Make them repairable. Make them worth owning.</strong>
+    </p>
+<p>
+  We build American-made products the way American-made products are supposed to be made — with better materials, stronger components, and no shortcuts hidden under the surface.
+</p>
+
+<p>
+  People buy American-made products because they expect them to be better. Period. They expect stronger construction, better hardware, smarter design, and a product built with pride instead of built down to the lowest possible cost.
+</p>
+
+<p>
+  That is the standard behind every Freedom Crate.
+</p>
+
+<p>
+  We use heavy-duty steel handles mounted with deep coarse-thread screws so the handles can stand up to hard use, heavy loads, and extreme conditions. We assemble our wooden box frames with <strong>SPAX structural screws</strong> because the frame itself should be just as dependable as the hardware on it.
+</p>
+
+<p>
+  Government-issued boxes are often designed around cost, logistics, and large-scale production. That makes sense for government contracts — but that is not how we build. Freedom Crate Co. is not trying to make the cheapest box possible. We are building boxes meant to last a lifetime.
+</p>
+
+<p>
+  If the box is supposed to last, the components have to last too.
+</p>
+
+    <p>
+      Freedom Crate Co. is not built around disposable products or mass-produced shortcuts. Every crate is designed to be practical, rugged, serviceable, and meaningful — the kind of box that can sit in a closet, garage, truck, shop, or range room for decades and still do its job.
+    </p>
+
+    <p>
+      From the beginning, I wanted these crates to have real-world function: strong construction, bold labeling, practical storage, reliable hardware, and a design that feels connected to American history, military utility, and hands-on craftsmanship.
+    </p>
+
+    <p>
+      I also believe value matters. These boxes are built to be better than the low-quality alternatives, but still priced as fairly as possible. I am not chasing high margins. I am building something I believe in.
+    </p>
+
+    <hr>
+
+    <p>
+      Freedom Crate Co. continues to grow through constant improvement — from better hardware and stronger joinery to protective coatings, interior upgrades, caliber-specific layouts, and new crate designs.
+    </p>
+
+    <p>
+      I am always working to improve the build, the finish, the durability, and the function. Every version teaches me something. Every crate that leaves the shop carries that progress forward.
+    </p>
+
+    <p>
+      The goal has never changed:
+    </p>
+
+    <p>
+      <strong>Storage that is strong, useful, honest, and built to last.</strong>
+    </p>
+  </section>
+
+  <!-- FOUNDER & FAMILY LEGACY -->
+  <section class="about-card" id="founder-tauriello-name">
+    <h2>The Founder &amp; The Tauriello Name</h2>
+
+    <p>
+      <strong>Freedom Crate Co. was founded by Steven Tauriello</strong> — a craftsman, woodworker, creator, and the builder behind every Freedom Crate product.
+    </p>
+
+    <p>
+      I was born in <strong>Portsmouth, Virginia</strong>. My father served in the <strong>United States Navy</strong>, so my family moved often throughout my childhood. Eventually, we settled in <strong>Martinsville, Indiana</strong>, where I spent most of my teenage years. In <strong>2015</strong>, my family and I moved to <strong>Florida</strong>, where Freedom Crate Co. is built today.
+    </p>
+
+    <p>
+      That background shaped the way I see work, service, durability, and responsibility. Growing up around a military family gave me a respect for practical things — things that are useful, organized, reliable, and built with purpose.
+    </p>
+
+    <p>
+      I have always built things with my hands — blanket chests, desks, bookshelves, storage pieces, and eventually the wooden ammo boxes that became Freedom Crate Co. Truthfully, I have always had a thing for boxes.
+    </p>
+
+    <p>
+      That is why designing ammo storage crates came naturally. They combine the things I care about most: function, history, craftsmanship, durability, and purpose.
+    </p>
+
+    <hr>
+
+    <p>
+      But the creative side of Freedom Crate Co. reaches deeper than one shop, one product, or one generation.
+    </p>
+
+    <p>
+      The <strong>Tauriello family name</strong> carries a long artistic and musical heritage. A family genealogy report traced what appears to be a remarkable multi-generational creative line connected to artists, musicians, makers, and craftsmen — a history that helps explain why building, designing, and creating have always felt natural.
+    </p>
+
+    <p>
+      Steven is the son of <strong>Richard Michael Tauriello</strong> and the grandson of <strong>Michael “Mike” Tauriello</strong>, a highly respected visual artist. The family’s artistic legacy also includes Steven’s great-uncle, <strong>Frank Michael Tauriello</strong>, a fine arts professor at Syracuse University, Board Member Emeritus of the American Society of Portrait Artists, and a celebrated Western and portrait painter.
+    </p>
+
+    <p>
+      That creative inheritance was not limited to visual art. Music has also been part of the Tauriello family story. Before building Freedom Crate Co., Steven was a drummer for the band <strong>The Undesirables</strong>, and he continues to enjoy music through instruments like the ukulele and guitar.
+    </p>
+
+    <p>
+      That musical thread also runs through his uncle, <strong>Gregg Tauriello</strong>, an Arizona-based recording artist, songwriter, guitarist, and audio engineer behind Sweet 16 Recording Studio in Cornville, Arizona.
+    </p>
+
+    <hr>
+
+    <p>
+      Today, that creative line continues with Steven’s daughter, <strong>Kalli Tauriello</strong>, the young artist and founder of
+      <a href="https://kallicreates.com" target="_blank" rel="noopener">Kalli Creates</a>, where she shares and sells her own artwork.
+    </p>
+
+    <p>
+      From fine art and music to woodworking, product design, digital creation, and handmade craftsmanship, the Tauriello name has remained connected to the act of making something meaningful.
+    </p>
+
+    <p>
+      For Steven, Freedom Crate Co. is part of that same family tradition — carrying the creative torch forward through rugged, useful, American-made products built by hand.
+    </p>
+
+    <hr>
+
+    <p>
+      Every crate Steven builds is signed because his name is on it. Not just as a business owner, but as a craftsman.
+    </p>
+
+    <p>
+      These are not anonymous factory products. They are designed, cut, assembled, finished, improved, and shipped by a real person with a real family name behind the work.
+    </p>
+
+    <p>
+      To Steven, the <strong>Tauriello name</strong> represents more than ancestry. It represents creativity, responsibility, craftsmanship, and the desire to build things that can outlast the moment they were made in.
+    </p>
+
+    <p>
+      That is what Freedom Crate Co. is about:
+    </p>
+
+    <p>
+      <strong>Family. Craftsmanship. Purpose. Legacy.</strong>
+    </p>
+
+    <p class="muted">Steven Tauriello • Founder • Craftsman • Woodworker • Creator</p>
+    <p class="muted">Yes — this is the same <strong>Steven Tauriello</strong> from <em>The Steven Tauriello Show</em>.</p>
+  </section>
+
+  <!-- HISTORY OF THE TAURIELLO NAME -->
+  <section class="about-card" id="tauriello-creative-line">
+    <h2>The History of the Tauriello Name</h2>
+
+    <p class="family-tree-intro">
+  Freedom Crate Co. is part of a larger family story — one connected to art, music, craftsmanship, design, and the act of making things with care. A genealogy report on the <strong>Tauriello family name</strong> traced what appears to be a multi-generational history connected to artists, musicians, makers, and craftsmen.
+</p>
+
+    <p class="family-tree-intro">
+  From fine art and portrait painting to recording studios, woodworking, digital creation, and now a new generation of young artists, the Tauriello name continues to carry that history forward.
+</p>
+
+            <figure class="family-lineage-image">
+      <img
+        src="/assets/img/tauriello-family-lineage.png"
+        alt="The Tauriello family lineage showing Frank Michael Tauriello, Michael Mike Tauriello, Gregg Tauriello, Richard Michael Tauriello, Steven Tauriello, and Kalli Tauriello"
+        loading="lazy">
+      <figcaption>
+  A simplified look at the history of the Tauriello name — connecting art, music, craftsmanship, Freedom Crate Co., and Kalli Creates.
+</figcaption>
+    </figure>
+
+    <div class="family-note">
+      <p>
+        <strong>Family. Art. Music. Craftsmanship. Legacy.</strong><br>
+        Freedom Crate Co. carries that same creative spirit forward — not through mass production, but through products designed, built, improved, and signed by hand.
+      </p>
+    </div>
+  </section>  
+
+  <!-- FINAL SALUTE PROJECT -->
+  <section class="about-card" id="final-salute-project">
+    <div class="fsp-grid">
+
+      <div class="fsp-content">
+        <h2>The Final Salute Project</h2>
+
+        <p>
+          <strong>The Final Salute Project</strong> is our give-back mission dedicated to honoring U.S. military service
+          across generations. We provide <strong>handcrafted keepsake crates</strong> for veterans, retirees, and families
+          preserving the memory of loved ones who served — whether recently retired or long since passed.
+          Every crate is built to the same standard as our retail boxes — rugged, repairable, and made to last.
+        </p>
+
+        <p>
+          Each crate may be <strong>personalized</strong> with name, rank, branch insignia, service dates, and an optional
+          inscription under the lid. Some crates celebrate a lifetime of service; others serve as memorial pieces for
+          families honoring parents, grandparents, and fallen heroes.
+        </p>
+
+        <p>
+          <strong>How it’s funded:</strong> The project is supported through a mix of <em>community donations</em> and a
+          defined portion of <em>Freedom Crate Co.</em> proceeds. As support grows, we aim to expand both recognition gifts
+          and memorial tributes nationwide.
+        </p>
+
+        <ul>
+          <li><strong>Purpose:</strong> Honor U.S. military service through recognition and memorial keepsake crates.</li>
+          <li><strong>Personalization:</strong> Name, rank, branch, service details, and optional inscription.</li>
+          <li><strong>Funding:</strong> Donor support + a share of Freedom Crate Co. proceeds.</li>
+          <li><strong>Vision:</strong> Preserve service stories for families and future generations.</li>
+        </ul>
+
+        <div class="cta-row">
+          <a class="btn" href="/giveaway.html">Apply / Nominate a Veteran or Memorial</a>
+          <a class="btn" href="/transparency.html">See How Funds Are Allocated</a>
+        </div>
+
+        <p class="muted" style="margin-top:.5rem;">
+          Note: We are actively formalizing a dedicated nonprofit structure for The Final Salute Project and will update
+          this page with status and documentation as it progresses.
+        </p>
+      </div>
+
+      <div class="fsp-logo">
+        <img src="/assets/img/final-salute-project-logo.png" alt="The Final Salute Project Logo">
+      </div>
+
+    </div>
+  </section>
 
   <!-- CONTACT -->
   <section class="about-card contact-info" id="contact">
@@ -477,7 +705,7 @@
 
   <!-- PARTNERS & RESOURCES -->
   <section class="about-card" id="partners">
-    <h2>Partners & Resources</h2>
+    <h2>Partners &amp; Resources</h2>
     <p>
       <strong>For collectors and reenactors seeking true MIL-spec replica ammo boxes,</strong>
       visit <a href="https://waffenkiste.com" target="_blank" rel="noopener">Waffenkiste.com</a> —
@@ -506,25 +734,25 @@
 
     <div class="footer-links">
 
-  <div class="footer-row">
-    <a href="/faq.html" class="footer-link-small">FAQ</a>
-    <span class="footer-sep">•</span>
-    <a href="/about.html#contact" class="footer-link-small">Contact</a>
-    <span class="footer-sep">•</span>
-    <a href="/transparency.html" class="footer-link-small">Transparency</a>
-    <span class="footer-sep">•</span>
-    <a href="/privacy.html" class="footer-link-small">Privacy Policy</a>
-  </div>
+      <div class="footer-row">
+        <a href="/faq.html" class="footer-link-small">FAQ</a>
+        <span class="footer-sep">•</span>
+        <a href="/about.html#contact" class="footer-link-small">Contact</a>
+        <span class="footer-sep">•</span>
+        <a href="/transparency.html" class="footer-link-small">Transparency</a>
+        <span class="footer-sep">•</span>
+        <a href="/privacy.html" class="footer-link-small">Privacy Policy</a>
+      </div>
 
-  <div class="footer-row">
-    <a href="/returns.html" class="footer-link-small">Returns</a>
-    <span class="footer-sep">•</span>
-    <a href="/terms.html" class="footer-link-small">Terms</a>
-    <span class="footer-sep">•</span>
-    <a href="/ammo-box.html" class="footer-link-small">Wood Ammo Boxes</a>
-  </div>
+      <div class="footer-row">
+        <a href="/returns.html" class="footer-link-small">Returns</a>
+        <span class="footer-sep">•</span>
+        <a href="/terms.html" class="footer-link-small">Terms</a>
+        <span class="footer-sep">•</span>
+        <a href="/ammo-box.html" class="footer-link-small">Wood Ammo Boxes</a>
+      </div>
 
-</div>
+    </div>
 
     <p class="footer-copy">
       © <span id="fc-year"></span> Freedom Crate Co. All rights reserved.
@@ -557,12 +785,10 @@
   const btn = document.getElementById('cookie-accept-btn');
   const accepted = localStorage.getItem('fcc_cookie_accept');
 
-  // Show banner if not accepted yet
   if (!accepted && notice) {
     notice.hidden = false;
   }
 
-  // Handle accept click
   if (btn) {
     btn.addEventListener('click', function () {
       localStorage.setItem('fcc_cookie_accept', 'yes');
