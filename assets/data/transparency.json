@@ -10,5 +10,6 @@
   { "month": "2026-02", "revenue": 315.22, "materials": 140, "operations": 65, "finalSalute": 30 },
   { "month": "2026-03", "revenue": 782.87, "materials": 350, "operations": 160, "finalSalute": 75 },
 
-  { "month": "2026-04", "revenue": 261.98, "materials": 80, "operations": 40, "finalSalute": 30 }
+  { "month": "2026-04", "revenue": 261.98, "materials": 80, "operations": 40, "finalSalute": 30 },
+  { "month": "2026-05", "revenue": 584.07, "materials": 269, "operations": 105, "finalSalute": 58 }
 ]
