@@ -15,16 +15,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
     <!-- SEO -->
-  <title>Artwork Collection • Freedom Crate Co.</title>
-  <meta name="description" content="Explore patriotic wall art, blueprint artwork, and founding-era prints from Freedom Crate Co. Available framed in multiple sizes." />
-  <meta name="keywords" content="wall art, blueprint wall art, patriotic wall art, framed prints, Freedom Crate Co artwork" />
+  <title>Patriotic Wall Art & American History Prints | Freedom Crate Co.</title>
+<meta name="description" content="Shop patriotic wall art, American history prints, founding-era quote artwork, blueprint-style firearm art, and framed historical statement pieces designed by Freedom Crate Co." />
+<meta name="keywords" content="patriotic wall art, American history wall art, Founding Fathers wall art, blueprint wall art, framed historical prints, AR-15 blueprint poster, Constitution wall art, Declaration of Independence wall art, Freedom Crate Co artwork" />
 
   <link rel="canonical" href="https://freedomcrateco.com/artwork.html" />
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Artwork Collection • Freedom Crate Co." />
-  <meta property="og:description" content="Explore blueprint-style and patriotic wall art in multiple sizes and frame colors. Buy now or view full details for each piece." />
+  <meta property="og:title" content="Patriotic Wall Art & American History Prints | Freedom Crate Co." />
+<meta property="og:description" content="Explore patriotic wall art, American history prints, founding-era quote artwork, blueprint-style firearm art, and framed historical statement pieces from Freedom Crate Co." />
   <meta property="og:image" content="https://freedomcrateco.com/assets/img/ar15-blueprint-black-18x24.jpg" />
   <meta property="og:site_name" content="Freedom Crate Co." />
   <meta property="og:type" content="website" />
@@ -107,24 +107,137 @@
     .artwork-meta-list {
       margin:.75rem 0 0 1.25rem;
     }
+    /* AIO / SEO artwork authority sections */
+    .artwork-aio-card {
+      margin: 1.5rem 0 2.25rem;
+      padding: clamp(1.35rem, 3vw, 2.25rem);
+      border-radius: 1rem;
+      border: 1px solid rgba(184,138,53,.32);
+      background:
+        radial-gradient(circle at top left, rgba(184,138,53,.18), transparent 38%),
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+      box-shadow: 0 18px 45px rgba(0,0,0,.25);
+    }
+
+    .artwork-aio-card .eyebrow {
+      margin: 0 0 .5rem;
+      color: #d6ad5c;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .artwork-aio-card h2 {
+      margin: 0 0 .75rem;
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+    }
+
+    .artwork-aio-card p {
+      max-width: 88ch;
+      color: #d8deea;
+      line-height: 1.7;
+    }
+
+    .artwork-topic-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .artwork-topic-card {
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 1rem;
+      background: rgba(255,255,255,.035);
+      padding: 1.15rem;
+    }
+
+    .artwork-topic-card h3 {
+      margin: 0 0 .5rem;
+      font-size: 1.1rem;
+    }
+
+    .artwork-topic-card p {
+      color: #cfd6e6;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .artwork-faq-grid {
+      display: grid;
+      gap: 1rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .artwork-faq-item {
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 1rem;
+      background: rgba(255,255,255,.035);
+      padding: 1.15rem;
+    }
+
+    .artwork-faq-item h3 {
+      margin: 0 0 .5rem;
+      font-size: 1.1rem;
+    }
+
+    .artwork-faq-item p {
+      margin: 0;
+      color: #cfd6e6;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 900px) {
+      .artwork-topic-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
   </style>
 
-  <!-- Optional: Org JSON-LD like About page -->
-  <script type="application/ld+json">
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "Artwork Collection",
+  "name": "Patriotic Wall Art & American History Prints",
   "url": "https://freedomcrateco.com/artwork.html",
+  "description": "Freedom Crate Co. artwork includes patriotic wall art, American history prints, blueprint-style artwork, founding-era quote prints, Declaration of Independence artwork, and framed historical statement pieces.",
   "isPartOf": {
     "@type": "WebSite",
     "name": "Freedom Crate Co.",
     "url": "https://freedomcrateco.com/"
   },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Freedom Crate Co.",
+    "url": "https://freedomcrateco.com/"
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Patriotic wall art"
+    },
+    {
+      "@type": "Thing",
+      "name": "American history prints"
+    },
+    {
+      "@type": "Thing",
+      "name": "Founding Fathers wall art"
+    },
+    {
+      "@type": "Thing",
+      "name": "Blueprint-style artwork"
+    },
+    {
+      "@type": "Thing",
+      "name": "Declaration of Independence artwork"
+    }
+  ],
   "mainEntity": {
     "@type": "ItemList",
-    "name": "Freedom Crate Co. Artwork",
+    "name": "Freedom Crate Co. Artwork Collection",
     "itemListOrder": "https://schema.org/ItemListOrderDescending",
     "numberOfItems": 6,
     "itemListElement": [
@@ -143,27 +256,27 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "The Words That Built a Nation — No. 01 (John Adams)",
+        "name": "The Words That Built a Nation — No. 01 John Adams",
         "url": "https://freedomcrateco.com/no01-john-adams.html"
       },
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "The Words That Built a Nation — No. 02 (George Washington)",
+        "name": "The Words That Built a Nation — No. 02 George Washington",
         "url": "https://freedomcrateco.com/no02-george-washington.html"
       },
-  {
-  "@type": "ListItem",
-  "position": 5,
-  "name": "The Words That Built a Nation — No. 03 (Thomas Jefferson)",
-  "url": "https://freedomcrateco.com/no03-thomas-jefferson.html"
-},
-{
-  "@type": "ListItem",
-  "position": 6,
-  "name": "The Words That Built a Nation — No. 04 (James Madison)",
-  "url": "https://freedomcrateco.com/no04-james-madison.html"
-}
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "The Words That Built a Nation — No. 03 Thomas Jefferson",
+        "url": "https://freedomcrateco.com/no03-thomas-jefferson.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "name": "The Words That Built a Nation — No. 04 James Madison",
+        "url": "https://freedomcrateco.com/no04-james-madison.html"
+      }
     ]
   }
 }
@@ -216,7 +329,7 @@
 
   <!-- HERO (About-style, but for artwork) -->
   <section class="hero-artwork">
-  <h1>Artwork</h1>
+  <h1>Patriotic Wall Art & American History Prints</h1>
 
  <p class="lede">
   I personally own every piece of artwork listed here. These are not random designs —
@@ -233,6 +346,40 @@
     <span class="badge">Multiple Sizes</span>
     <span class="badge">Framed Options</span>
     <span class="badge">Print-on-Demand</span>
+  </div>
+</section>
+
+<section class="artwork-aio-card" aria-label="About Freedom Crate Co. artwork">
+  <p class="eyebrow">Patriotic Wall Art & Historical Prints</p>
+  <h2>What Kind of Artwork Does Freedom Crate Co. Create?</h2>
+  <p>
+    Freedom Crate Co. creates patriotic wall art, American history prints, blueprint-style artwork, and founding-era statement pieces designed for homes, offices, workshops, gun rooms, classrooms, and patriotic spaces. Each piece is created with a clear purpose: to preserve powerful American ideas, historical documents, and mechanical design themes in a form people can proudly display.
+  </p>
+  <p>
+    The collection includes AR-15 blueprint-style wall art, Declaration of Independence artwork, Founding Fathers quote prints, and The Words That Built a Nation series. These are not generic patriotic designs — they are deliberate artwork pieces designed by Steven Tauriello to combine history, craftsmanship, and American identity.
+  </p>
+</section>
+
+<section class="artwork-topic-grid" aria-label="Artwork collection categories">
+  <div class="artwork-topic-card">
+    <h3>Blueprint-Style Artwork</h3>
+    <p>
+      Technical, schematic-inspired artwork designed for collectors, gun rooms, workshops, offices, and mechanical design enthusiasts.
+    </p>
+  </div>
+
+  <div class="artwork-topic-card">
+    <h3>Founding-Era Prints</h3>
+    <p>
+      Historical wall art built around the Declaration of Independence, Founding Fathers, founding documents, and the words that shaped America.
+    </p>
+  </div>
+
+  <div class="artwork-topic-card">
+    <h3>Framed Statement Pieces</h3>
+    <p>
+      Premium matte prints available in multiple sizes and frame colors, designed to serve as conversation-starting patriotic wall decor.
+    </p>
   </div>
 </section>
 
@@ -635,9 +782,69 @@
 
 </section>
 
+<section class="artwork-aio-card" aria-label="Why Freedom Crate Co. artwork is different">
+  <p class="eyebrow">Designed With Purpose</p>
+  <h2>Patriotic Artwork Built Around History, Craftsmanship, and Meaning</h2>
+  <p>
+    Freedom Crate Co. artwork is designed for people who want more than decoration. These pieces are built around American history, founding-era words, constitutional ideas, military-inspired design language, and the kind of craftsmanship that makes a wall piece feel personal and meaningful.
+  </p>
+  <p>
+    Whether it is a blueprint-style AR-15 print, a Declaration of Independence piece, or a Founding Fathers quote from The Words That Built a Nation series, each artwork is created to spark conversation and give patriotic Americans something worth displaying.
+  </p>
+</section>
+
+<section class="artwork-aio-card" aria-label="Artwork frequently asked questions">
+  <p class="eyebrow">Artwork Questions</p>
+  <h2>Freedom Crate Co. Artwork FAQ</h2>
+
+  <div class="artwork-faq-grid">
+
+    <div class="artwork-faq-item">
+      <h3>What type of artwork does Freedom Crate Co. sell?</h3>
+      <p>
+        Freedom Crate Co. sells patriotic wall art, American history prints, founding-era quote artwork, blueprint-style firearm artwork, Declaration of Independence prints, and framed historical statement pieces.
+      </p>
+    </div>
+
+    <div class="artwork-faq-item">
+      <h3>Who designs the artwork?</h3>
+      <p>
+        The artwork is designed by Steven Tauriello, founder of Freedom Crate Co., with a focus on American history, craftsmanship, founding documents, and patriotic design.
+      </p>
+    </div>
+
+    <div class="artwork-faq-item">
+      <h3>What is The Words That Built a Nation series?</h3>
+      <p>
+        The Words That Built a Nation is a Freedom Crate Co. artwork series featuring powerful founding-era words and quotes from figures such as John Adams, George Washington, Thomas Jefferson, and James Madison.
+      </p>
+    </div>
+
+    <div class="artwork-faq-item">
+      <h3>Is the AR-15 blueprint artwork a functional firearm guide?</h3>
+      <p>
+        No. The AR-15 Blueprint Wall Art is decorative blueprint-style artwork. It is a schematic-inspired wall print created for display, collecting, and patriotic decor, not a functional firearm manual or assembly guide.
+      </p>
+    </div>
+
+    <div class="artwork-faq-item">
+      <h3>What sizes and frame options are available?</h3>
+      <p>
+        Many Freedom Crate Co. artwork pieces are available in multiple sizes and frame colors, including black, red oak, and white frames. Exact options vary by product page.
+      </p>
+    </div>
+
+    <div class="artwork-faq-item">
+      <h3>Where can this artwork be displayed?</h3>
+      <p>
+        Freedom Crate Co. artwork is designed for home offices, studies, gun rooms, workshops, man caves, classrooms, patriotic spaces, military-themed rooms, and American history displays.
+      </p>
+    </div>
+
+  </div>
+</section>
 
 </main>
-
 <!-- Site scripts (keep cart count working in the nav) -->
 <script src="assets/js/config.js"></script>
 <script src="assets/js/util.js" defer></script>
@@ -716,6 +923,63 @@
     });
   }
 })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What type of artwork does Freedom Crate Co. sell?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Freedom Crate Co. sells patriotic wall art, American history prints, founding-era quote artwork, blueprint-style firearm artwork, Declaration of Independence prints, and framed historical statement pieces."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who designs Freedom Crate Co. artwork?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Freedom Crate Co. artwork is designed by Steven Tauriello, founder of Freedom Crate Co., with a focus on American history, craftsmanship, founding documents, and patriotic design."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is The Words That Built a Nation series?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Words That Built a Nation is a Freedom Crate Co. artwork series featuring powerful founding-era words and quotes from figures such as John Adams, George Washington, Thomas Jefferson, and James Madison."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the AR-15 blueprint artwork a functional firearm guide?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The AR-15 Blueprint Wall Art is decorative blueprint-style artwork. It is a schematic-inspired wall print created for display, collecting, and patriotic decor, not a functional firearm manual or assembly guide."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What sizes and frame options are available?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Many Freedom Crate Co. artwork pieces are available in multiple sizes and frame colors, including black, red oak, and white frames. Exact options vary by product page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where can Freedom Crate Co. artwork be displayed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Freedom Crate Co. artwork is designed for home offices, studies, gun rooms, workshops, man caves, classrooms, patriotic spaces, military-themed rooms, and American history displays."
+      }
+    }
+  ]
+}
 </script>
 
 </body>
