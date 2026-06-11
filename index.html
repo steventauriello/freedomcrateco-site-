@@ -1015,7 +1015,7 @@
    aria-label="View photos & details for Caliber Collection">
       <img
   id="cc-image"
-  src="assets/img/caliber-collection-stacked.JPG"
+  src="assets/img/caliber-collection-main.JPG"
   alt="Caliber Collection ammo boxes stacked together"
   loading="lazy"
   decoding="async"
@@ -1951,8 +1951,34 @@ if (detailsLinkEl) detailsLinkEl.href = 'caliber-collection.html';
     });
   });
 
-  // Initial render
-  updateView();
+    // Initial render: keep stacked collection photo on first load
+  const CC_DEFAULT_IMAGE = 'assets/img/caliber-collection-main.JPG';
+
+  if (imgEl) {
+    imgEl.src = CC_DEFAULT_IMAGE;
+    imgEl.alt = 'Caliber Collection ammo boxes stacked together';
+  }
+
+  // Set the correct starting price without swapping the image
+  (function initialPriceOnly(){
+    const { caliber, liner } = getState();
+    const raw = getBasePrice(caliber, liner);
+    const final = applySitewidePromo(raw);
+
+    priceEl.textContent = fmt(final);
+
+    const promoOn = !!(window.FC_PROMO && window.FC_PROMO.active);
+    const promoActive = promoOn && final < raw;
+
+    if (saleEl) {
+      saleEl.hidden = !promoActive;
+      if (promoActive && window.FC_PROMO?.label) {
+        saleEl.title = window.FC_PROMO.label;
+      } else {
+        saleEl.removeAttribute('title');
+      }
+    }
+  })();
 })();
 </script>
 
