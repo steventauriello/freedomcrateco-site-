@@ -1885,15 +1885,23 @@ if (linkEl) linkEl.href = caliberHref;
 if (detailsLinkEl) detailsLinkEl.href = 'caliber-collection.html';
   }
 
-  function buildMeta(){
-    const { caliber, hardware, liner } = getState();
-    return {
-      caliber:  niceCaliber(caliber),
-      hardware: niceHardware(hardware),
-      interior: niceLiner(liner),
-      image:    imgEl ? imgEl.src : undefined
-    };
-  }
+  function getSelectedCaliberImage(caliber, hardware, liner){
+  const imgMap = (liner === 'ARMOR') ? CC_IMAGE_MAP_ARMOR : CC_IMAGE_MAP_BASE;
+
+  return (imgMap[caliber] && imgMap[caliber][hardware])
+    ? imgMap[caliber][hardware]
+    : 'assets/img/blank.jpg';
+}
+
+function buildMeta(){
+  const { caliber, hardware, liner } = getState();
+  return {
+    caliber:  niceCaliber(caliber),
+    hardware: niceHardware(hardware),
+    interior: niceLiner(liner),
+    image:    getSelectedCaliberImage(caliber, hardware, liner)
+  };
+}
 
   function buildSkuNamePrice(){
     const { caliber, hardware, liner } = getState();
