@@ -29,13 +29,63 @@ html {
       gap: 1rem;
     }
     .gallery-main {
-      position: relative;
-    }
-    .gallery-main img {
-      width: 100%;
-      border-radius: 12px;
-      cursor: pointer;
-    }
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #050505;
+}
+
+.gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: opacity .22s ease;
+}
+
+.gallery-main img.is-fading {
+  opacity: 0;
+}
+
+/* Arrows on the main hero image */
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  border: 0;
+  width: 40px;
+  height: 48px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-arrow.prev {
+  left: 8px;
+}
+
+.gallery-arrow.next {
+  right: 8px;
+}
+
+.gallery-arrow:hover {
+  background: rgba(0,0,0,.6);
+}
+
+.gallery-arrow:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
 
     /* Lightbox */
     .lightbox {
@@ -256,17 +306,30 @@ Freedom Crate Co.’s Caliber Collection features handcrafted wood ammo boxes bu
     <!-- Gallery: main hero image -->
     <div class="gallery" aria-label="Caliber Collection photos">
       <div class="gallery-main">
-        <img
-  id="cc-hero"
-  src="assets/img/caliber-collection-main-hero-3.JPG"
-          alt="9mm wooden ammo box Caliber Collection Freedom Crate Co"
-          tabindex="0">
-      </div>
+  <img
+    id="cc-hero"
+    src="assets/img/caliber-collection-main-hero-3.JPG"
+    alt="9mm wooden ammo box Caliber Collection Freedom Crate Co"
+    tabindex="0">
+
+  <button class="gallery-arrow prev" type="button" aria-label="Previous photo">‹</button>
+  <button class="gallery-arrow next" type="button" aria-label="Next photo">›</button>
+</div>
     </div>
 
        <!-- Bottom photos -->
 <section class="desc-photos" aria-label="More Caliber Collection photos">
   <div class="desc-grid">
+
+<!-- Caliber Collection spec sheet -->
+<button class="desc-thumb"
+  data-full="assets/img/caliber-collection-spec-sheet.png"
+  aria-label="Caliber Collection dimensions and specifications, large view">
+  <img loading="lazy"
+    src="assets/img/caliber-collection-spec-sheet.png"
+    alt="Caliber Collection ammo crate dimensions and specifications">
+</button>
+
     <!-- Core 9mm variants -->
     <button class="desc-thumb"
       data-full="assets/img/caliber-collection-9mm-black.JPG"
@@ -778,6 +841,23 @@ Looking for a specific caliber? Our wood ammo boxes are built for:
   const lb      = document.getElementById('lightbox');
   const lbImg   = document.getElementById('lbImg');
   const lbClose = document.getElementById('lbClose');
+  const thumbs  = Array.from(document.querySelectorAll('.desc-photos .desc-thumb'));
+
+  const galleryImages = [
+    {
+      src: hero?.getAttribute('src') || '',
+      alt: hero?.getAttribute('alt') || 'Caliber Collection Freedom Crate Co'
+    },
+    ...thumbs.map(btn => {
+      const img = btn.querySelector('img');
+      return {
+        src: btn.getAttribute('data-full') || img?.getAttribute('src') || '',
+        alt: img?.getAttribute('alt') || btn.getAttribute('aria-label') || ''
+      };
+    })
+  ].filter(item => item.src);
+
+  let currentIndex = 0;
 
   function openLB(src, alt){
     lbImg.src = src;
@@ -798,6 +878,26 @@ Looking for a specific caliber? Our wood ammo boxes are built for:
     hero.alt = alt || '';
   }
 
+  function showImage(index, openLightbox = false){
+    if (!galleryImages.length || !hero) return;
+
+    currentIndex = ((index % galleryImages.length) + galleryImages.length) % galleryImages.length;
+    const item = galleryImages[currentIndex];
+
+    hero.classList.add('is-fading');
+
+    setTimeout(() => {
+      hero.src = item.src;
+      hero.alt = item.alt;
+
+      hero.onload = () => {
+        hero.classList.remove('is-fading');
+      };
+
+      if (openLightbox) openLB(item.src, item.alt);
+    }, 120);
+  }
+
   function loadVariantFromUrl(){
     const params = new URLSearchParams(window.location.search);
     const variant = params.get('variant');
@@ -809,6 +909,7 @@ Looking for a specific caliber? Our wood ammo boxes are built for:
         'assets/img/caliber-collection-762-stainless.JPG',
         'Caliber Collection 7.62 / .308 ammo crate with stainless hardware'
       );
+      currentIndex = galleryImages.findIndex(item => item.src.includes('caliber-collection-762-stainless'));
     }
 
     if (variant === '556') {
@@ -816,6 +917,7 @@ Looking for a specific caliber? Our wood ammo boxes are built for:
         'assets/img/caliber-collection-556-stainless.JPG',
         'Caliber Collection 5.56 / .223 ammo crate with stainless hardware'
       );
+      currentIndex = galleryImages.findIndex(item => item.src.includes('caliber-collection-556-stainless'));
     }
 
     if (variant === '9mm') {
@@ -823,7 +925,10 @@ Looking for a specific caliber? Our wood ammo boxes are built for:
         'assets/img/caliber-collection-9mm-stainless.JPG',
         'Caliber Collection 9mm ammo crate with stainless hardware'
       );
+      currentIndex = galleryImages.findIndex(item => item.src.includes('caliber-collection-9mm-stainless'));
     }
+
+    if (currentIndex < 0) currentIndex = 0;
   }
 
   loadVariantFromUrl();
@@ -838,18 +943,20 @@ Looking for a specific caliber? Our wood ammo boxes are built for:
     });
   }
 
-  const grid = document.querySelector('.desc-grid');
-  grid?.addEventListener('click', (e) => {
-    const btn = e.target.closest('.desc-thumb');
-    if (!btn) return;
+  thumbs.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      showImage(index + 1, true);
+    });
+  });
 
-    const full = btn.getAttribute('data-full');
-    const alt  = btn.querySelector('img')?.getAttribute('alt') || '';
+  document.querySelector('.gallery-arrow.prev')?.addEventListener('click', e => {
+    e.stopPropagation();
+    showImage(currentIndex - 1);
+  });
 
-    if (full) {
-      setHero(full, alt);
-      openLB(full, alt);
-    }
+  document.querySelector('.gallery-arrow.next')?.addEventListener('click', e => {
+    e.stopPropagation();
+    showImage(currentIndex + 1);
   });
 
   lb.addEventListener('click', (e) => {
@@ -860,6 +967,16 @@ Looking for a specific caliber? Our wood ammo boxes are built for:
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeLB();
+
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      showImage(currentIndex - 1);
+    }
+
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      showImage(currentIndex + 1);
+    }
   });
 })();
 </script>
