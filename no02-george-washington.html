@@ -92,6 +92,63 @@
     .note-small{ font-size:.9rem; opacity:.9; }
     .divider{ height:1px; background:rgba(255,255,255,.08); margin:1rem 0; border:0; }
 
+/* =========================================================
+   Founder Why Section
+========================================================= */
+.founder-why-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 1.5rem 0 2rem;
+}
+
+.founder-why-copy {
+  min-width: 0;
+}
+
+.founder-headshot-wrap {
+  width: 175px;
+  height: 175px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 2px solid rgba(214,173,92,.65);
+  box-shadow: 0 14px 32px rgba(0,0,0,.45);
+  background: rgba(255,255,255,.04);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.founder-headshot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  transform: scale(1.38);
+}
+
+@media (max-width: 640px) {
+  .founder-why-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .founder-headshot-wrap {
+    width: 130px;
+    height: 130px;
+    justify-self: center;
+  }
+
+  .founder-headshot {
+    transform: scale(1.38);
+  }
+}
+
     /* =========================================================
        Artwork lifestyle thumbnail row
     ========================================================= */
@@ -373,19 +430,28 @@
   </div>
 </section>
 
-<!-- SEO duplicate hammer: unique Washington-only copy -->
-<section class="product-copy-card" aria-label="About George Washington and the quote" style="margin-top:1.25rem;">
-  <h2>Why Washington</h2>
-  <p class="note-small">
-    Washington’s strength wasn’t loud — it was controlled. He represents something rare: power paired with restraint,
-    leadership paired with responsibility.
-  </p>
-  <p class="note-small">
-    This edition is meant to feel like a reminder on your wall: character is built in private, and duty doesn’t wait
-    for the perfect moment.
-  </p>
-</section>
+<section class="product-copy-card founder-why-card" aria-label="Why George Washington">
+  <div class="founder-why-copy">
+    <h2>Why Washington</h2>
 
+    <p class="note-small">
+      Washington’s strength wasn’t loud — it was controlled. He represents something rare:
+      power paired with restraint, leadership paired with responsibility.
+    </p>
+
+    <p class="note-small">
+      This edition is meant to feel like a reminder on your wall: character is built in private,
+      and duty doesn’t wait for the perfect moment.
+    </p>
+  </div>
+
+  <div class="founder-headshot-wrap">
+    <img
+      src="assets/img/founder-washington-headshot.png"
+      alt="Portrait of George Washington"
+      class="founder-headshot">
+  </div>
+</section>
 <section class="product-layout" aria-label="WWBN No. 02 product options and details">
 
 
