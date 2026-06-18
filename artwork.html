@@ -138,6 +138,77 @@
       color: #d8deea;
       line-height: 1.7;
     }
+.artwork-aio-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(260px, .9fr);
+  gap: 1.75rem;
+  align-items: center;
+}
+
+.artwork-aio-copy {
+  min-width: 0;
+}
+
+.founder-preview-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(90px, 1fr));
+  gap: .75rem;
+  align-items: center;
+}
+
+.founder-preview-strip a {
+  display: block;
+  text-decoration: none;
+}
+
+.founder-preview-strip img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  border-radius: .65rem;
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 12px 28px rgba(0,0,0,.38);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.founder-preview-strip a:nth-child(odd) img {
+  transform: rotate(-1.5deg);
+}
+
+.founder-preview-strip a:nth-child(even) img {
+  transform: rotate(1.5deg);
+  margin-top: .75rem;
+}
+
+.founder-preview-strip a:hover img,
+.founder-preview-strip a:focus img {
+  transform: rotate(0deg) translateY(-4px);
+  border-color: rgba(214,173,92,.7);
+  box-shadow: 0 18px 38px rgba(0,0,0,.52);
+}
+
+@media (max-width: 900px) {
+  .artwork-aio-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .founder-preview-strip {
+    grid-template-columns: repeat(4, minmax(95px, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .founder-preview-strip {
+    grid-template-columns: repeat(4, 115px);
+    overflow-x: auto;
+    padding-bottom: .45rem;
+  }
+
+  .founder-preview-strip a:nth-child(even) img {
+    margin-top: 0;
+  }
+}
 
     .artwork-topic-grid {
       display: grid;
@@ -349,15 +420,38 @@
   </div>
 </section>
 
-<section class="artwork-aio-card" aria-label="About Freedom Crate Co. artwork">
-  <p class="eyebrow">Patriotic Wall Art & Historical Prints</p>
-  <h2>What Kind of Artwork Does Freedom Crate Co. Create?</h2>
-  <p>
-    Freedom Crate Co. creates patriotic wall art, American history prints, blueprint-style artwork, and founding-era statement pieces designed for homes, offices, workshops, gun rooms, classrooms, and patriotic spaces. Each piece is created with a clear purpose: to preserve powerful American ideas, historical documents, and mechanical design themes in a form people can proudly display.
-  </p>
-  <p>
-    The collection includes AR-15 blueprint-style wall art, Declaration of Independence artwork, Founding Fathers quote prints, and The Words That Built a Nation series. These are not generic patriotic designs — they are deliberate artwork pieces designed by Steven Tauriello to combine history, craftsmanship, and American identity.
-  </p>
+<section class="artwork-aio-card artwork-aio-feature" aria-label="About Freedom Crate Co. artwork">
+  <div class="artwork-aio-copy">
+    <p class="eyebrow">Patriotic Wall Art & Historical Prints</p>
+
+    <h2>What Kind of Artwork Does Freedom Crate Co. Create?</h2>
+
+    <p>
+      Freedom Crate Co. creates patriotic wall art, American history prints, blueprint-style artwork, and founding-era statement pieces designed for homes, offices, workshops, gun rooms, classrooms, and patriotic spaces. Each piece is created with a clear purpose: to preserve powerful American ideas, historical documents, and mechanical design themes in a form people can proudly display.
+    </p>
+
+    <p>
+      The collection includes AR-15 blueprint-style wall art, Declaration of Independence artwork, Founding Fathers quote prints, and The Words That Built a Nation series. These are not generic patriotic designs — they are deliberate artwork pieces designed by Steven Tauriello to combine history, craftsmanship, and American identity.
+    </p>
+  </div>
+
+  <div class="founder-preview-strip" aria-label="The Words That Built a Nation founder artwork preview">
+    <a href="/no03-thomas-jefferson.html" aria-label="View Thomas Jefferson artwork">
+      <img src="assets/img/founder-jefferson-print.jpg" alt="Thomas Jefferson founding father quote print">
+    </a>
+
+    <a href="/no04-james-madison.html" aria-label="View James Madison artwork">
+      <img src="assets/img/founder-madison-print.jpg" alt="James Madison founding father quote print">
+    </a>
+
+    <a href="/no02-george-washington.html" aria-label="View George Washington artwork">
+      <img src="assets/img/founder-washington-print.jpg" alt="George Washington founding father quote print">
+    </a>
+
+    <a href="/no01-john-adams.html" aria-label="View John Adams artwork">
+      <img src="assets/img/founder-adams-print.jpg" alt="John Adams founding father quote print">
+    </a>
+  </div>
 </section>
 
 <section class="artwork-topic-grid" aria-label="Artwork collection categories">
