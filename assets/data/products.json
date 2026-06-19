@@ -105,7 +105,7 @@
   "FC-9MM-ARMOR": {
   "status": "active",
   "title": "Handcrafted 9mm Wooden Ammo Box – Military Style Storage – Armor Core",
-  "price": 99.99,
+  "price": 84.99,
   "qty": 5,
   "image_url": "assets/img/caliber-collection-9mm-stainless.jpg",
   "images": [
@@ -133,7 +133,7 @@
 "FC-GADSDEN-1217": {
   "status": "active",
   "title": "Limited Edition Gadsden Ammo Box – Bazooka Green Pine – Lot FC-1217-1775-01",
-  "price": 99.99,
+  "price": 84.99,
   "qty": 5,
   "image_url": "assets/img/fc_gadsden_bazooka_03.jpg",
   "images": [
@@ -225,7 +225,7 @@
 "FC-CLAYMORE-M18A1": {
   "status": "active",
   "title": "Claymore Storage Crate – M18A1 Style Military Box",
-  "price": 89.99,
+  "price": 84.99,
   "qty": 1,
 
  "image_url": "assets/img/claymore-m18a1-top-open-hero.JPG",
@@ -256,7 +256,7 @@
 "FC-CLAYMORE-M18A1-ARMOR": {
   "status": "active",
   "title": "Claymore Field Crate™ – Armor Core Edition",
-  "price": 99.99,
+  "price": 84.99,
   "qty": 3,
 
   "image_url": "assets/img/claymore-m18a1-armor-interior.JPG",
