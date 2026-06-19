@@ -2009,29 +2009,6 @@ function buildMeta(){
     onScroll();
   })();
 </script>
-<script>
-(function () {
-  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
-  if (!isLocal) return;
-  document
-    .querySelectorAll('a[href^="/product.html?sku="], a[href^="product.html?sku="]')
-    .forEach(a => {
-      const u = new URL(a.href, location.origin);
-      const sku = u.searchParams.get('sku');
-      if (sku) a.href = '/product.html#' + sku; // dev-friendly
-    });
-})();
-</script>
-<script>
-(function() {
-  const link = document.getElementById('rm400-link');
-  if (!link) return;
-  const sku = 'FC-RM-400';
-  const base = 'product.html';
-  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
-  link.href = isLocal ? `${base}#${sku}` : `${base}?sku=${sku}`;
-})();
-</script>
 
 <script>
 (function(){
@@ -2135,6 +2112,42 @@ setTimeout(() => {
       if (notice) notice.hidden = true;
     });
   }
+})();
+</script>
+<script>
+(function(){
+  const goodUrl = '/rangemaster-400.html';
+
+  // Only force the actual RangeMaster product/detail links,
+  // not the review link, cart buttons, or package selector.
+  const rmProductLinks = [
+    document.getElementById('rm400-link'),
+    document.querySelector('#rm400-card .more-details a'),
+    document.querySelector('#rm400-card .feature-link')
+  ];
+
+  rmProductLinks.forEach(function(a){
+    if (a) a.setAttribute('href', goodUrl);
+  });
+
+  // Safety cleanup: if any old SKU/product-page links still exist anywhere,
+  // redirect those to the new dedicated RangeMaster page.
+  document
+    .querySelectorAll(
+      'a[href*="FC-RM-400"], a[href*="RM400-BASE"], a[href*="RM400-ARMOR"], a[href*="RM400-BG"], a[href*="product.html?sku="], a[href*="product.html#FC-RM-400"]'
+    )
+    .forEach(function(a){
+      const href = a.getAttribute('href') || '';
+
+      if (
+        href.includes('FC-RM-400') ||
+        href.includes('RM400-BASE') ||
+        href.includes('RM400-ARMOR') ||
+        href.includes('RM400-BG')
+      ) {
+        a.setAttribute('href', goodUrl);
+      }
+    });
 })();
 </script>
 
