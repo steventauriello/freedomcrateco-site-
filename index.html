@@ -414,6 +414,34 @@
   background:#fff;
   color:#111;
   font-weight:700;
+}
+
+/* Small product video embeds inside featured cards */
+.feature-video-mini {
+  width: 100%;
+  max-width: 360px;
+  margin: 10px auto 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #050505;
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+.feature-video-mini iframe {
+  width: 100%;
+  height: 175px;
+  display: block;
+  border: 0;
+}
+
+@media (max-width: 780px) {
+  .feature-video-mini {
+    max-width: 100%;
+  }
+
+  .feature-video-mini iframe {
+    height: 190px;
+  }
 }</style>
 
 <!-- Structured Data: Store + key products -->
@@ -830,7 +858,7 @@
   <div class="featured-card" id="branch-collection">
     <!-- LEFT COLUMN: image + More details -->
     <div class="fc-media-col">
-      <div class="fc-media">
+            <div class="fc-media">
         <a href="branch-collection.html" aria-label="View photos & details for the Branch Collection">
          <img id="sb-image"
      src="assets/img/branch-collection-marines-stainless.JPEG"
@@ -840,7 +868,14 @@
         </a>
       </div>
 
-      <p class="more-details"><a href="branch-collection.html">More details →</a></p>
+      <div class="feature-video-mini">
+  <iframe
+    src="https://www.youtube.com/embed/DcFLXqY0ui8"
+    title="Freedom Crate Branch Collection product video"
+    loading="lazy"
+    allowfullscreen>
+  </iframe>
+</div>
     </div>
 
     <!-- RIGHT COLUMN: controls (unchanged) -->
@@ -917,7 +952,7 @@
   <div class="featured-card" id="rm400-card">
 
     <!-- LEFT COLUMN: image + More details (matches Classic layout) -->
-    <div class="fc-media-col">
+        <div class="fc-media-col">
       <div class="fc-media">
         <a href="/rangemaster-400.html" id="rm400-link" aria-label="View photos & details for RangeMaster 400">
           <img
@@ -930,7 +965,15 @@
             height="800">
         </a>
       </div>
-      <p class="more-details"><a href="/rangemaster-400.html">More details →</a></p>
+
+      <div class="feature-video-mini">
+        <iframe
+          src="https://www.youtube.com/embed/hbnNYlUStOU"
+          title="RangeMaster 400 product video"
+          loading="lazy"
+          allowfullscreen>
+        </iframe>
+      </div>
     </div>
 
     <!-- RIGHT COLUMN: controls -->
@@ -1021,14 +1064,7 @@
   height="800">
     </a>
   </div>
-
-  <p class="more-details">
-    <a id="cc-details-link"
-   href="caliber-collection.html">
-  More details →
-</a>
-  </p>
-</div>
+  </div>
 
 
     <!-- RIGHT COLUMN: controls -->
