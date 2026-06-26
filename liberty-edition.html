@@ -328,15 +328,22 @@
   }
 
   document.getElementById('addLiberty')?.addEventListener('click', function(){
-    const item = buildItem();
+  const item = buildItem();
 
-    if (typeof window.addToCart === 'function') {
-      window.addToCart(item.sku, item.name, item.price, 1, item.meta);
-      showCartToast('Liberty Edition added to cart');
-    } else {
-      console.warn('[Liberty Edition] addToCart not ready');
+  if (typeof window.addToCart === 'function') {
+    window.addToCart(item.sku, item.name, item.price, 1, item.meta);
+
+    showCartToast('Liberty Edition added to cart ✓');
+
+    const cartCount = document.getElementById('cartCount');
+    if (cartCount && !cartCount.textContent.trim()) {
+      cartCount.textContent = '1';
     }
-  });
+  } else {
+    console.warn('[Liberty Edition] addToCart not ready');
+    showCartToast('Cart is still loading. Please try again.');
+  }
+});
 
   document.getElementById('buyLiberty')?.addEventListener('click', function(){
     const item = buildItem();
