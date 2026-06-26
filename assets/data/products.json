@@ -328,10 +328,11 @@
 },
 "FC-1776-250": {
   "status": "active",
-  "title": "Freedom Crate™ — 1776 Edition",
+  "title": "Freedom Crate™ 250th Anniversary Edition",
   "price": 84.99,
   "qty": 2,
-
+  "link": "freedom-crate-250th-anniversary-edition.html",
+  
   "image_url": "assets/img/freedom-crate-1776-front.JPG",
 
   "images": [
