@@ -1,4 +1,4 @@
-```html
+html
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,13 +6,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <title>RangeMaster 400 | Handcrafted Wooden Ammo Storage Crate | Freedom Crate Co.</title>
-  <meta name="description" content="Shop the RangeMaster 400 by Freedom Crate Co., a compact handcrafted wooden ammo storage crate built for range day, boxed ammunition, caliber organization, and rugged military-inspired storage. Holds up to 400–500 rounds with free U.S. shipping." />
-  <meta name="keywords" content="RangeMaster 400, wooden ammo box, wooden ammo storage crate, range ammo organizer, handcrafted ammo crate, wooden range box, Freedom Crate Co, ammo storage box" />
+  <meta name="description" content="Shop the RangeMaster 400 by Freedom Crate Co., a compact handcrafted wooden ammo storage crate built for range day, boxed ammunition, caliber organization, and rugged military-inspired storage. Available in Base and Armor Core models with free U.S. shipping." />
 
   <link rel="canonical" href="https://freedomcrateco.com/rangemaster-400.html" />
   <meta name="robots" content="index,follow,max-image-preview:large">
 
-  <!-- Open Graph -->
   <meta property="og:type" content="product" />
   <meta property="og:title" content="RangeMaster 400 | Handcrafted Wooden Ammo Storage Crate" />
   <meta property="og:description" content="A compact handcrafted wooden ammo storage crate built for range day, boxed ammunition, and caliber organization." />
@@ -23,333 +21,57 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 
 <style>
-html {
-  scroll-behavior: smooth;
-}
-
-.product-page {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 1rem;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.gallery-main {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border-radius: 12px;
-  background: #050505;
-}
-
-.gallery-main img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  cursor: pointer;
-  border-radius: 12px;
-  transition: opacity .22s ease;
-}
-
-.gallery-main img.is-fading {
-  opacity: 0;
-}
-
-.gallery-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,.45);
-  color: #fff;
-  border: 0;
-  width: 40px;
-  height: 48px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 28px;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.gallery-arrow.prev {
-  left: 8px;
-}
-
-.gallery-arrow.next {
-  right: 8px;
-}
-
-.gallery-arrow:hover {
-  background: rgba(0,0,0,.6);
-}
-
-.gallery-arrow:focus {
-  outline: 2px solid #fff;
-  outline-offset: 2px;
-}
-
-.lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.9);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.lightbox.open {
-  display: flex;
-}
-
-.lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 12px;
-}
-
-.lightbox .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 2rem;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-}
-
-.rm-details {
-  margin-top: 1.25rem;
-}
-
-.rm-details h2 {
-  margin: 1.5rem 0 .5rem;
-}
-
-.rm-details ul {
-  margin: .5rem 0 1rem 1.2rem;
-}
-
-.rm-details li {
-  margin: .25rem 0;
-}
-
-.rm-callout {
-  margin: 1.25rem 0;
-  padding: 1rem;
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 16px;
-  background: #12151c;
-  color: #fff;
-}
-
-.rm-callout p {
-  margin: .35rem 0;
-}
-
-.rm-video {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 16px;
-  background: #12151c;
-  color: #fff;
-}
-
-.rm-video-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: 12px;
-  background: #050505;
-  margin-top: .85rem;
-}
-
-.rm-video-wrap iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
-
-.desc-photos {
-  margin-top: 1.5rem;
-}
-
-.desc-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
-}
-
-.desc-thumb {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: zoom-in;
-  display: block;
-}
-
-.desc-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 1 / 1;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.15);
-  transition: transform .15s ease;
-}
-
-.desc-thumb img:hover {
-  transform: scale(1.02);
-}
-
-.rm-buy-grid {
-  display: grid;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.rm-buy-card {
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 16px;
-  padding: .9rem;
-  background: #12151c;
-  color: #fff;
-  display: block;
-  overflow: hidden;
-  clear: both;
-}
-
-.rm-buy-card::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.rm-buy-card h3 {
-  margin: 0 0 .35rem;
-  color: #fff;
-}
-
-.rm-buy-card .muted {
-  color: #b8c0d0;
-  margin-bottom: .85rem;
-  max-width: none;
-}
-
-.rm-buy-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .75rem;
-  align-items: center;
-}
-
-.rm-buy-img {
-  width: 100%;
-  max-width: 260px;
-  height: auto;
-  max-height: 170px;
-  object-fit: contain;
-  border-radius: 10px;
-  display: block;
-  margin: 0 0 .85rem;
-  border: 1px solid rgba(255,255,255,.08);
-  background: #050505;
-}
-.rm-price {
-  display: inline-block;
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #fff;
-  margin-right: .75rem;
-}
-
-.rm-spec-card {
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 16px;
-  padding: 1rem;
-  background: #12151c;
-  color: #fff;
-  margin-top: 1rem;
-}
-
-.rm-spec-list {
-  margin: .5rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.rm-spec-list li {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: .65rem 0;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-
-.rm-spec-list li:last-child {
-  border-bottom: 0;
-}
-
-.rm-spec-list strong {
-  color: #fff;
-}
-
-.cart-toast {
-  position: fixed;
-  left: 50%;
-  bottom: 24px;
-  transform: translateX(-50%) translateY(20px);
-  background: #1f7a3d;
-  color: #fff;
-  padding: .85rem 1.1rem;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.25);
-  font-weight: 700;
-  z-index: 10000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .25s ease, transform .25s ease;
-}
-
-.cart-toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-@media (max-width: 780px) {
-  .desc-grid {
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  }
-
-  .rm-buy-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .rm-spec-list li {
-    display: block;
-  }
-
-  .rm-spec-list strong {
-    display: block;
-    margin-bottom: .15rem;
-  }
+html{scroll-behavior:smooth}
+.product-page{max-width:900px;margin:2rem auto;padding:1rem}
+.gallery{display:grid;grid-template-columns:1fr;gap:1rem}
+.gallery-main{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;border-radius:12px;background:#050505}
+.gallery-main img{width:100%;height:100%;object-fit:contain;display:block;cursor:pointer;border-radius:12px;transition:opacity .22s ease}
+.gallery-main img.is-fading{opacity:0}
+.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);color:#fff;border:0;width:40px;height:48px;border-radius:6px;cursor:pointer;font-size:28px;line-height:1;display:flex;align-items:center;justify-content:center}
+.gallery-arrow.prev{left:8px}
+.gallery-arrow.next{right:8px}
+.gallery-arrow:hover{background:rgba(0,0,0,.6)}
+.gallery-arrow:focus{outline:2px solid #fff;outline-offset:2px}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:9999}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90%;max-height:90%;border-radius:12px}
+.lightbox .close{position:absolute;top:20px;right:30px;font-size:2rem;background:none;border:none;color:#fff;cursor:pointer}
+.rm-details{margin-top:1.25rem}
+.rm-details h2{margin:1.5rem 0 .5rem}
+.rm-details ul{margin:.5rem 0 1rem 1.2rem}
+.rm-details li{margin:.25rem 0}
+.rm-callout{margin:1.25rem 0;padding:1rem;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:#12151c;color:#fff}
+.rm-callout p{margin:.35rem 0}
+.rm-video{margin-top:1.5rem;padding:1rem;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:#12151c;color:#fff}
+.rm-video-wrap{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:#050505;margin-top:.85rem}
+.rm-video-wrap iframe{width:100%;height:100%;border:0;display:block}
+.desc-photos{margin-top:1.5rem}
+.desc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.desc-thumb{padding:0;border:0;background:transparent;cursor:zoom-in;display:block}
+.desc-thumb img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.15);transition:transform .15s ease}
+.desc-thumb img:hover{transform:scale(1.02)}
+.rm-buy-grid{display:grid;gap:1rem;margin-top:1rem}
+.rm-buy-card{border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:.9rem;background:#12151c;color:#fff;display:block;overflow:hidden;clear:both}
+.rm-buy-card h3{margin:0 0 .35rem;color:#fff}
+.rm-buy-card .muted{color:#b8c0d0;margin-bottom:.85rem;max-width:none}
+.rm-buy-row{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.rm-buy-img{width:100%;max-width:260px;height:auto;max-height:170px;object-fit:contain;border-radius:10px;display:block;margin:0 0 .85rem;border:1px solid rgba(255,255,255,.08);background:#050505}
+.rm-price{display:inline-block;font-size:1.15rem;font-weight:800;color:#fff;margin-right:.75rem}
+.rm-spec-card{border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:1rem;background:#12151c;color:#fff;margin-top:1rem}
+.rm-spec-list{margin:.5rem 0 0;padding:0;list-style:none}
+.rm-spec-list li{display:flex;justify-content:space-between;gap:1rem;padding:.65rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.rm-spec-list li:last-child{border-bottom:0}
+.rm-spec-list strong{color:#fff}
+.cart-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#1f7a3d;color:#fff;padding:.85rem 1.1rem;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.25);font-weight:700;z-index:10000;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease}
+.cart-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:780px){
+  .desc-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
+  .rm-buy-row{flex-direction:column;align-items:flex-start}
+  .rm-spec-list li{display:block}
+  .rm-spec-list strong{display:block;margin-bottom:.15rem}
 }
 </style>
 
-<!-- Product + Video Schema -->
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -366,24 +88,22 @@ html {
       "sku":"FC-RM-400",
       "url":"https://freedomcrateco.com/rangemaster-400.html",
       "image":[
-  "https://freedomcrateco.com/assets/img/rangemaster-400-schematic.PNG",
-  "https://freedomcrateco.com/assets/img/rm400.jpg",
-  "https://freedomcrateco.com/assets/img/rm400-back.jpg",
-  "https://freedomcrateco.com/assets/img/rm400-carry.jpg",
-  "https://freedomcrateco.com/assets/img/rangemaster-armorcore-open-branded.PNG",
-  "https://freedomcrateco.com/assets/img/rangemaster-armorecore-full.jpg",
-  "https://freedomcrateco.com/assets/img/LOCKABLE.PNG",
-  "https://freedomcrateco.com/assets/img/battleguard-main.PNG",
-  "https://freedomcrateco.com/assets/img/freedom-crate-coatings.PNG",
-  "https://freedomcrateco.com/assets/img/battleguard-angle.jpg"
-],
+        "https://freedomcrateco.com/assets/img/rangemaster-400-schematic.PNG",
+        "https://freedomcrateco.com/assets/img/rm400.jpg",
+        "https://freedomcrateco.com/assets/img/rm400-back.jpg",
+        "https://freedomcrateco.com/assets/img/rm400-carry.jpg",
+        "https://freedomcrateco.com/assets/img/rangemaster-armorcore-open-branded.PNG",
+        "https://freedomcrateco.com/assets/img/rangemaster-armorecore-full.jpg",
+        "https://freedomcrateco.com/assets/img/LOCKABLE.PNG",
+        "https://freedomcrateco.com/assets/img/freedom-crate-coatings.PNG"
+      ],
       "description":"The RangeMaster 400 is a compact handcrafted wooden ammo storage crate built for range day, boxed ammunition, caliber organization, and military-inspired storage.",
       "material":"1/2-inch exterior-grade plywood, black lockable hardware, nylon webbing handles",
       "offers":[
         {
           "@type":"Offer",
           "sku":"RM400-BASE",
-          "name":"RangeMaster 400 — Base",
+          "name":"RangeMaster 400 Base",
           "price":"49.99",
           "priceCurrency":"USD",
           "availability":"https://schema.org/InStock",
@@ -393,18 +113,8 @@ html {
         {
           "@type":"Offer",
           "sku":"RM400-ARMOR",
-          "name":"RangeMaster 400 — Armor Core",
+          "name":"RangeMaster 400 Armor Core",
           "price":"59.99",
-          "priceCurrency":"USD",
-          "availability":"https://schema.org/InStock",
-          "url":"https://freedomcrateco.com/rangemaster-400.html",
-          "priceValidUntil":"2026-12-31"
-        },
-        {
-          "@type":"Offer",
-          "sku":"RM400-BG",
-          "name":"RangeMaster 400 — Battle Guard",
-          "price":"64.99",
           "priceCurrency":"USD",
           "availability":"https://schema.org/InStock",
           "url":"https://freedomcrateco.com/rangemaster-400.html",
@@ -422,8 +132,8 @@ html {
       ],
       "uploadDate":"2026-06-18T08:00:00-04:00",
       "duration":"PT30S",
-"embedUrl":"https://www.youtube.com/embed/Bt2QNXyrKlQ",
-"contentUrl":"https://www.youtube.com/watch?v=Bt2QNXyrKlQ"
+      "embedUrl":"https://www.youtube.com/embed/Bt2QNXyrKlQ",
+      "contentUrl":"https://www.youtube.com/watch?v=Bt2QNXyrKlQ"
     }
   ]
 }
@@ -431,346 +141,251 @@ html {
 </head>
 
 <body>
-  <!-- Simple header matching product collection pages -->
-  <header class="site-header">
-    <a class="brand" href="/">
-      <img src="assets/img/logo.png" alt="Freedom Crate Co. Logo">
-    </a>
 
-    <nav class="nav" aria-label="Primary">
-      <a href="/">Shop</a>
-      <a href="about.html">About</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="artwork.html">Artwork</a>
-      <a href="contact.html">Custom Orders</a>
-      <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
-    </nav>
-  </header>
+<header class="site-header">
+  <a class="brand" href="/">
+    <img src="assets/img/logo.png" alt="Freedom Crate Co. Logo">
+  </a>
 
-  <main class="product-page">
+  <nav class="nav" aria-label="Primary">
+    <a href="/">Shop</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Custom Orders</a>
+    <a href="checkout.html" class="cart-link">Cart (<span id="cartCount">0</span>)</a>
+  </nav>
+</header>
 
-    <h1>RangeMaster 400 Wooden Ammo Storage Crate</h1>
+<main class="product-page">
 
+  <h1>RangeMaster 400™ Wooden Ammo Storage Crate</h1>
+
+  <p class="muted">
+    The <strong>RangeMaster 400</strong> by Freedom Crate Co. is a compact handcrafted wooden ammo storage crate built for range day, boxed ammunition, caliber organization, and rugged military-inspired storage. Instead of hauling multiple cardboard factory boxes, keep your calibers organized, secure, and ready in one handmade crate built for serious shooters.
+  </p>
+
+  <div class="rm-callout">
+    <p>⚒️ <strong>Handcrafted by Freedom Crate Co. — Supporting America’s Heroes.</strong></p>
+    <p>
+      A portion of every sale helps fund <strong>The Final Salute Project</strong>, gifting handcrafted keepsake boxes to recently retired U.S. veterans. 🇺🇸
+    </p>
+  </div>
+
+  <div class="gallery" aria-label="RangeMaster 400 photos">
+    <div class="gallery-main">
+      <img
+        id="rm-hero"
+        src="assets/img/rangemaster-400-schematic.PNG"
+        alt="RangeMaster 400 handcrafted wooden ammo storage crate schematic showing handles, hinges, latch, dimensions, and capacity"
+        tabindex="0">
+
+      <button class="gallery-arrow prev" type="button" aria-label="Previous photo">‹</button>
+      <button class="gallery-arrow next" type="button" aria-label="Next photo">›</button>
+    </div>
+  </div>
+
+  <section class="desc-photos" aria-label="More RangeMaster 400 photos">
+    <div class="desc-grid">
+
+      <button class="desc-thumb" data-full="assets/img/rangemaster-400-schematic.PNG" aria-label="RangeMaster 400 schematic image">
+        <img loading="lazy" src="assets/img/rangemaster-400-schematic.PNG" alt="RangeMaster 400 schematic showing capacity and key features">
+      </button>
+
+      <button class="desc-thumb" data-full="assets/img/rm400.jpg" aria-label="RangeMaster 400 base model">
+        <img loading="lazy" src="assets/img/rm400.jpg" alt="RangeMaster 400 base model filled with ammunition">
+      </button>
+
+      <button class="desc-thumb" data-full="assets/img/rm400-back.jpg" aria-label="RangeMaster 400 rear view">
+        <img loading="lazy" src="assets/img/rm400-back.jpg" alt="RangeMaster 400 rear view showing hinge and handle detail">
+      </button>
+
+      <button class="desc-thumb" data-full="assets/img/rm400-carry.jpg" aria-label="RangeMaster 400 carry handle">
+        <img loading="lazy" src="assets/img/rm400-carry.jpg" alt="RangeMaster 400 being carried by nylon webbing handle">
+      </button>
+
+      <button class="desc-thumb" data-full="assets/img/rangemaster-armorcore-open-branded.PNG" aria-label="RangeMaster 400 Armor Core interior">
+        <img loading="lazy" src="assets/img/rangemaster-armorcore-open-branded.PNG" alt="RangeMaster 400 Armor Core interior with divided compartments">
+      </button>
+
+      <button class="desc-thumb" data-full="assets/img/rangemaster-armorecore-full.jpg" aria-label="RangeMaster 400 filled with ammunition">
+        <img loading="lazy" src="assets/img/rangemaster-armorecore-full.jpg" alt="RangeMaster 400 filled with mixed ammunition">
+      </button>
+
+      <button class="desc-thumb" data-full="assets/img/LOCKABLE.PNG" aria-label="RangeMaster 400 lockable latch">
+        <img loading="lazy" src="assets/img/LOCKABLE.PNG" alt="Close-up of RangeMaster 400 black lockable toggle latch">
+      </button>
+
+      <button class="desc-thumb" data-full="assets/img/freedom-crate-coatings.PNG" aria-label="Freedom Crate Co Armor Core comparison graphic">
+        <img loading="lazy" src="assets/img/freedom-crate-coatings.PNG" alt="Freedom Crate Co coating comparison showing standard and Armor Core interior protection">
+      </button>
+
+    </div>
+  </section>
+
+  <section class="rm-video" id="rangemaster-video" aria-label="RangeMaster 400 product video">
+    <h2>RangeMaster 400 Product Video</h2>
     <p class="muted">
-      The <strong>RangeMaster 400</strong> by Freedom Crate Co. is a compact handcrafted wooden ammo storage crate
-      built for range day, boxed ammunition, caliber organization, and rugged military-inspired storage.
-      Instead of hauling multiple cardboard factory boxes, keep your calibers organized, secure, and ready
-      in one handmade crate built for serious shooters.
+      Watch a quick look at the RangeMaster 400, showing the compact size, handcrafted wood construction, divided layout, carry hardware, and range-ready design.
     </p>
 
-    <div class="rm-callout">
-      <p>⚒️ <strong>Handcrafted by Freedom Crate Co. — Supporting America’s Heroes.</strong></p>
-      <p>
-        A portion of every sale helps fund <strong>The Final Salute Project</strong>, gifting handcrafted
-        keepsake boxes to recently retired U.S. veterans once a month. 🇺🇸
-      </p>
+    <div class="rm-video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/Bt2QNXyrKlQ"
+        title="RangeMaster 400 Wooden Ammo Storage Crate Product Video"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
     </div>
+  </section>
 
-    <!-- Gallery: main hero image -->
-    <div class="gallery" aria-label="RangeMaster 400 photos">
-      <div class="gallery-main">
-        <img
-  id="rm-hero"
-  src="assets/img/rangemaster-400-schematic.PNG"
-  alt="RangeMaster 400 handcrafted wooden ammo storage crate schematic showing handles, hinges, latch, dimensions, and capacity"
-  tabindex="0">
+  <h3>Video Summary</h3>
+  <p class="muted">
+    This RangeMaster 400 product video shows the compact handcrafted wooden ammo storage crate, including the divided interior layout, black lockable hardware, carry handles, Armor Core interior option, and range-ready size.
+  </p>
 
-        <button class="gallery-arrow prev" type="button" aria-label="Previous photo">‹</button>
-        <button class="gallery-arrow next" type="button" aria-label="Next photo">›</button>
-      </div>
-    </div>
+  <h2>Choose Your RangeMaster 400</h2>
 
-    <!-- Bottom photos -->
-<section class="desc-photos" aria-label="More RangeMaster 400 photos">
-  <div class="desc-grid">
+  <div class="rm-buy-grid">
 
-    <button class="desc-thumb"
-      data-full="assets/img/rangemaster-400-schematic.PNG"
-      aria-label="RangeMaster 400 schematic and feature callout image, large view">
-      <img loading="lazy"
-        src="assets/img/rangemaster-400-schematic.PNG"
-        alt="RangeMaster 400 schematic showing lockable toggle latch, springloaded handle, nylon webbing handles, tri-fold hinges, stackable leg brace, and 400 plus round capacity">
-    </button>
-<button class="desc-thumb"
-  data-full="assets/img/rm400.jpg"
-  aria-label="RangeMaster 400 base model filled with ammunition, large view">
-  <img loading="lazy"
-    src="assets/img/rm400.jpg"
-    alt="RangeMaster 400 base model filled with ammunition and three divided storage compartments">
-</button>
-
-<button class="desc-thumb"
-  data-full="assets/img/rm400-back.jpg"
-  aria-label="RangeMaster 400 rear hinge and handle detail, large view">
-  <img loading="lazy"
-    src="assets/img/rm400-back.jpg"
-    alt="RangeMaster 400 rear view showing stainless tri-fold hinge, spring-loaded handle, and nylon side handle">
-</button>
-
-<button class="desc-thumb"
-  data-full="assets/img/rm400-carry.jpg"
-  aria-label="RangeMaster 400 being carried by nylon webbing handle, large view">
-  <img loading="lazy"
-    src="assets/img/rm400-carry.jpg"
-    alt="RangeMaster 400 being carried by the one-inch nylon webbing side handle">
-</button>
-
-    <button class="desc-thumb"
-      data-full="assets/img/rangemaster-armorcore-open-branded.PNG"
-      aria-label="RangeMaster 400 open Armor Core interior with dividers, large view">
-      <img loading="lazy"
-        src="assets/img/rangemaster-armorcore-open-branded.PNG"
-        alt="RangeMaster 400 open view showing Armor Core coated interior and three divided compartments">
-    </button>
-
-    <button class="desc-thumb"
-      data-full="assets/img/rangemaster-armorecore-full.jpg"
-      aria-label="RangeMaster 400 filled with mixed ammunition, large view">
-      <img loading="lazy"
-        src="assets/img/rangemaster-armorecore-full.jpg"
-        alt="RangeMaster 400 filled with loose ammunition showing three compartment ammo storage layout">
-    </button>
-
-    <button class="desc-thumb"
-      data-full="assets/img/LOCKABLE.PNG"
-      aria-label="RangeMaster 400 lockable latch close-up, large view">
-      <img loading="lazy"
-        src="assets/img/LOCKABLE.PNG"
-        alt="Close-up of RangeMaster 400 black lockable toggle latch">
-    </button>
-
-<button class="desc-thumb"
-  data-full="assets/img/battleguard-main.PNG"
-  aria-label="RangeMaster 400 Battle Guard exterior PolyShield feature graphic, large view">
-  <img loading="lazy"
-    src="assets/img/battleguard-main.PNG"
-    alt="RangeMaster 400 Battle Guard exterior PolyShield coating feature graphic">
-</button>
-
-<button class="desc-thumb"
-  data-full="assets/img/freedom-crate-coatings.PNG"
-  aria-label="Freedom Crate Co. coating options comparison, large view">
-  <img loading="lazy"
-    src="assets/img/freedom-crate-coatings.PNG"
-    alt="Freedom Crate Co. coatings comparison showing standard no coating, Armor Core interior PolyShield, and Battle Guard exterior PolyShield">
-</button>
-
-<button class="desc-thumb"
-  data-full="assets/img/battleguard-angle.jpg"
-  aria-label="RangeMaster 400 Battle Guard exterior coating close-up, large view">
-  <img loading="lazy"
-    src="assets/img/battleguard-angle.jpg"
-    alt="Close-up angle of RangeMaster 400 Battle Guard exterior PolyShield coating">
-</button>
-
-  </div>
-</section>
-
-    <!-- Video -->
-    <section class="rm-video" id="rangemaster-video" aria-label="RangeMaster 400 product video">
-      <h2>RangeMaster 400 Product Video</h2>
+    <div class="rm-buy-card">
+      <h3>RangeMaster 400 Base</h3>
+      <img class="rm-buy-img" src="assets/img/rm400.jpg" alt="RangeMaster 400 Base wooden ammo storage crate filled with ammunition">
       <p class="muted">
-        Watch a quick look at the RangeMaster 400, showing the compact size, handcrafted wood construction,
-        divided layout, carry hardware, and range-ready design.
+        Compact handcrafted wooden ammo storage crate with black lockable hardware, divided interior layout, and natural wood interior.
       </p>
-
-      <div class="rm-video-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/Bt2QNXyrKlQ"
-          title="RangeMaster 400 Wooden Ammo Storage Crate Product Video"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
+      <div class="rm-buy-row">
+        <span class="rm-price">$49.99</span>
+        <button class="btn" type="button" data-rm-action="add" data-package="base">Add to Cart</button>
+        <button class="btn" type="button" data-rm-action="buy" data-package="base">Buy Now</button>
       </div>
-    </section>
+    </div>
 
-<h3>Video Summary</h3>
-<p class="muted">
-  This RangeMaster 400 product video shows the compact handcrafted wooden ammo storage crate,
-  including the divided interior layout, black lockable hardware, carry handles, Armor Core
-  PolyShield interior option, and range-ready size. The RangeMaster 400 is built by Freedom
-  Crate Co. for boxed ammunition, caliber organization, range day use, garage storage, and
-  military-inspired display.
-</p>
- <h2>Choose Your RangeMaster 400</h2>
-
-      <div class="rm-buy-grid">
-
-        <div class="rm-buy-card">
-          <h3>RangeMaster 400 — Base</h3>
-          <img class="rm-buy-img" src="assets/img/rm400.jpg" alt="RangeMaster 400 Base wooden ammo storage crate filled with ammunition">
-          <p class="muted">
-            Compact handcrafted wooden ammo storage crate with black lockable hardware and divided interior layout.
-          </p>
-          <div class="rm-buy-row">
-            <span class="rm-price">$49.99</span>
-            <button class="btn" type="button" data-rm-action="add" data-package="base">Add to Cart</button>
-            <button class="btn" type="button" data-rm-action="buy" data-package="base">Buy Now</button>
-          </div>
-        </div>
-
-        <div class="rm-buy-card">
-          <h3>RangeMaster 400 — Armor Core</h3>
-          <img class="rm-buy-img" src="assets/img/rangemaster-armorcore-open-branded.PNG" alt="RangeMaster 400 Armor Core interior PolyShield upgrade">
-          <p class="muted">
-            Includes Armor Core PolyShield interior protection for added resistance against moisture, grit, and wear.
-          </p>
-          <div class="rm-buy-row">
-            <span class="rm-price">$59.99</span>
-            <button class="btn" type="button" data-rm-action="add" data-package="armor">Add to Cart</button>
-            <button class="btn" type="button" data-rm-action="buy" data-package="armor">Buy Now</button>
-          </div>
-        </div>
-
-        <div class="rm-buy-card">
-          <h3>RangeMaster 400 — Battle Guard</h3>
-          <img class="rm-buy-img" src="assets/img/battleguard-main.PNG" alt="RangeMaster 400 Battle Guard exterior PolyShield upgrade">
-          <p class="muted">
-            Exterior PolyShield protection option for extra durability, scratch resistance, and rugged field-ready styling.
-          </p>
-          <div class="rm-buy-row">
-            <span class="rm-price">$64.99</span>
-            <button class="btn" type="button" data-rm-action="add" data-package="battleguard">Add to Cart</button>
-            <button class="btn" type="button" data-rm-action="buy" data-package="battleguard">Buy Now</button>
-          </div>
-        </div>
-
+    <div class="rm-buy-card">
+      <h3>RangeMaster 400 Armor Core</h3>
+      <img class="rm-buy-img" src="assets/img/rangemaster-armorcore-open-branded.PNG" alt="RangeMaster 400 Armor Core interior upgrade">
+      <p class="muted">
+        Includes Armor Core™ interior protection for added durability, moisture resistance, and long-term protection against range grit and wear.
+      </p>
+      <div class="rm-buy-row">
+        <span class="rm-price">$59.99</span>
+        <button class="btn" type="button" data-rm-action="add" data-package="armor">Add to Cart</button>
+        <button class="btn" type="button" data-rm-action="buy" data-package="armor">Buy Now</button>
       </div>
+    </div>
 
-    <!-- Details / specs -->
-    <section class="rm-details" aria-label="RangeMaster 400 details">
-
-      <h2>RangeMaster 400 by Freedom Crate Co.</h2>
-      <p>
-        The RangeMaster 400 is built to replace messy cardboard factory boxes with one rugged wooden crate
-        designed for range organization, boxed ammunition, garage storage, and military-inspired display.
-        Compact, stackable, and easy to carry, it sits neatly on a shooting bench, shelf, or workbench.
-      </p>
-
-      <h2>Armor Core PolyShield Protection</h2>
-      <p>
-        Our <strong>Armor Core PolyShield</strong> upgrade seals the interior with a deep-penetrating resin barrier
-        and durable polymer coating, creating a moisture-resistant shell designed to help protect your ammo
-        and wood from humidity, grit, and wear. It is the invisible armor that keeps your crate battle-ready
-        for years to come.
-      </p>
-
-      <h2>Key Features</h2>
-      <ul>
-        <li><strong>3 compartments with dividers:</strong> Organize up to three different calibers in one box.</li>
-        <li><strong>Capacity:</strong> Holds up to 400–500 rounds depending on caliber and box size.</li>
-        <li><strong>Example loadout:</strong> 200 rounds of 9mm, 100 rounds of .223, and 100 rounds of .308.</li>
-        <li><strong>Durable build:</strong> Handcrafted from ½-inch exterior-grade plywood.</li>
-        <li><strong>Joinery:</strong> Routed half-lap joints instead of simple butt joints for superior strength.</li>
-        <li><strong>Bottom panel:</strong> Reinforced ¼-inch bottom.</li>
-        <li><strong>Lockable hardware:</strong> Black stainless-steel toggle latch and tri-fold hinges.</li>
-        <li><strong>Carry comfort:</strong> Spring-loaded stainless-steel handle plus 1-inch nylon webbing side handles.</li>
-        <li><strong>Compact and stackable:</strong> Designed for a shooting bench, garage shelf, workbench, or display area.</li>
-      </ul>
-
-      <div class="rm-spec-card">
-        <h2>Dimensions</h2>
-        <ul class="rm-spec-list">
-          <li><strong>External</strong> <span>11 ½″ W × 5″ L × 4 ¼″ D</span></li>
-          <li><strong>Internal</strong> <span>9 ¼″ W × 4″ L × 4″ D</span></li>
-          <li><strong>Material</strong> <span>½-inch exterior-grade plywood</span></li>
-          <li><strong>Bottom</strong> <span>Reinforced ¼-inch bottom panel</span></li>
-          <li><strong>Interior</strong> <span>Armor Core PolyShield protection</span></li>
-          <li><strong>Shipping</strong> <span>Free U.S. shipping included</span></li>
-        </ul>
-      </div>
-
-      <h2>Built in the USA</h2>
-      <p>
-        Every RangeMaster 400 is a piece of functional craftsmanship — routed, reinforced, and assembled with
-        precision half-lap joints for a seamless fit that outlasts ordinary construction. Rugged, practical,
-        and made to last.
-      </p>
-
-      <h2>Giving Back 🇺🇸</h2>
-      <p>
-        A portion of every sale goes toward supporting <strong>The Final Salute Project</strong>, an initiative
-        dedicated to honoring recently retired U.S. veterans by gifting handcrafted wooden keepsake boxes as
-        a lasting token of appreciation for their service.
-      </p>
-
-      <h2>Why Choose the RangeMaster 400?</h2>
-      <ul>
-        <li>Replace messy factory boxes.</li>
-        <li>Keep ammo organized and ready for a full day of shooting.</li>
-        <li>Protect your investment with durable, lockable construction.</li>
-        <li>Upgrade your storage with Armor Core PolyShield protection.</li>
-        <li>Free U.S. shipping — ships fast, well-packed, and ready for range day.</li>
-      </ul>
-
-      <h2>FAQ</h2>
-
-      <h3>What is the RangeMaster 400?</h3>
-      <p>
-        The RangeMaster 400 is a compact handcrafted wooden ammo storage crate from Freedom Crate Co.,
-        designed for range organization, boxed ammunition, garage storage, and military-inspired display.
-      </p>
-
-      <h3>How much ammo does the RangeMaster 400 hold?</h3>
-      <p>
-        It can hold up to 400–500 rounds depending on caliber, box size, and how the ammunition is packed.
-        One example layout is 200 rounds of 9mm, 100 rounds of .223, and 100 rounds of .308.
-      </p>
-
-      <h3>Is the RangeMaster 400 made from real wood?</h3>
-      <p>
-        Yes. It is handcrafted from ½-inch exterior-grade plywood with routed half-lap joints and a reinforced
-        ¼-inch bottom panel.
-      </p>
-
-      <h3>Is the RangeMaster 400 good for range day?</h3>
-      <p>
-        Yes. The divided layout, compact size, lockable latch, carry handles, and rugged wood construction make
-        it a practical range-day organizer for boxed ammo and small shooting accessories.
-      </p>
-
-    </section>
-  </main>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="close" aria-label="Close" id="lbClose">×</button>
-    <img id="lbImg" alt="">
   </div>
 
-  <div class="cart-toast" id="cartToast" aria-live="polite">Item has been added to cart</div>
+  <section class="rm-details" aria-label="RangeMaster 400 details">
 
-  <!-- Core helpers -->
-  <script src="assets/js/util.js" defer></script>
-  <script src="assets/js/config.js" defer></script>
-  <script src="assets/js/cart.js" defer></script>
+    <h2>RangeMaster 400 by Freedom Crate Co.</h2>
+    <p>
+      The RangeMaster 400 is built to replace messy cardboard factory boxes with one rugged wooden crate designed for range organization, boxed ammunition, garage storage, and military-inspired display. Compact, stackable, and easy to carry, it sits neatly on a shooting bench, shelf, or workbench.
+    </p>
+
+    <h2>Armor Core™ Interior</h2>
+    <p>
+      The Armor Core™ model includes an epoxy-reinforced interior coating designed to improve durability, add moisture resistance, and help protect the inside of the crate from grit, oil, wear, and long-term range use.
+    </p>
+
+    <h2>Key Features</h2>
+    <ul>
+      <li><strong>3 compartments with dividers:</strong> Organize up to three different calibers in one box.</li>
+      <li><strong>Capacity:</strong> Holds up to 400–500 rounds depending on caliber and box size.</li>
+      <li><strong>Example loadout:</strong> 200 rounds of 9mm, 100 rounds of .223, and 100 rounds of .308.</li>
+      <li><strong>Durable build:</strong> Handcrafted from ½-inch exterior-grade plywood.</li>
+      <li><strong>Joinery:</strong> Routed half-lap joints instead of simple butt joints for superior strength.</li>
+      <li><strong>Bottom panel:</strong> Reinforced ¼-inch bottom.</li>
+      <li><strong>Lockable hardware:</strong> Black toggle latch and tri-fold hinges.</li>
+      <li><strong>Carry comfort:</strong> Spring-loaded top handle plus 1-inch nylon webbing side handles.</li>
+      <li><strong>Compact and stackable:</strong> Designed for a shooting bench, garage shelf, workbench, or display area.</li>
+    </ul>
+
+    <div class="rm-spec-card">
+      <h2>Dimensions</h2>
+      <ul class="rm-spec-list">
+        <li><strong>External</strong> <span>11 ½″ W × 5″ L × 4 ¼″ D</span></li>
+        <li><strong>Internal</strong> <span>9 ¼″ W × 4″ L × 4″ D</span></li>
+        <li><strong>Material</strong> <span>½-inch exterior-grade plywood</span></li>
+        <li><strong>Bottom</strong> <span>Reinforced ¼-inch bottom panel</span></li>
+        <li><strong>Interior</strong> <span>Base: Natural wood / Armor Core: Epoxy-reinforced coating</span></li>
+        <li><strong>Shipping</strong> <span>Free U.S. shipping included</span></li>
+      </ul>
+    </div>
+
+    <h2>Built in the USA</h2>
+    <p>
+      Every RangeMaster 400 is a piece of functional craftsmanship — routed, reinforced, and assembled with precision half-lap joints for a strong, clean fit. Rugged, practical, and made to last.
+    </p>
+
+    <h2>Giving Back 🇺🇸</h2>
+    <p>
+      A portion of every sale goes toward supporting <strong>The Final Salute Project</strong>, an initiative dedicated to honoring recently retired U.S. veterans by gifting handcrafted wooden keepsake boxes as a lasting token of appreciation for their service.
+    </p>
+
+    <h2>Why Choose the RangeMaster 400?</h2>
+    <ul>
+      <li>Replace messy factory ammo boxes.</li>
+      <li>Keep ammo organized and ready for a full day of shooting.</li>
+      <li>Carry multiple calibers in one compact crate.</li>
+      <li>Choose Base or upgrade to Armor Core™ interior protection.</li>
+      <li>Free U.S. shipping — ships well-packed and ready for range day.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+
+    <h3>What is the RangeMaster 400?</h3>
+    <p>
+      The RangeMaster 400 is a compact handcrafted wooden ammo storage crate from Freedom Crate Co., designed for range organization, boxed ammunition, garage storage, and military-inspired display.
+    </p>
+
+    <h3>How much ammo does the RangeMaster 400 hold?</h3>
+    <p>
+      It can hold up to 400–500 rounds depending on caliber, box size, and how the ammunition is packed. One example layout is 200 rounds of 9mm, 100 rounds of .223, and 100 rounds of .308.
+    </p>
+
+    <h3>Is the RangeMaster 400 made from real wood?</h3>
+    <p>
+      Yes. It is handcrafted from ½-inch exterior-grade plywood with routed half-lap joints and a reinforced ¼-inch bottom panel.
+    </p>
+
+    <h3>Is the RangeMaster 400 available with Armor Core?</h3>
+    <p>
+      Yes. The RangeMaster 400 is available as a Base model with a natural wood interior or as an Armor Core model with an epoxy-reinforced protective interior coating.
+    </p>
+
+  </section>
+</main>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="close" aria-label="Close" id="lbClose">×</button>
+  <img id="lbImg" alt="">
+</div>
+
+<div class="cart-toast" id="cartToast" aria-live="polite">Item has been added to cart</div>
+
+<script src="assets/js/util.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
 
 <script>
 (function(){
   const PACKAGES = {
-  base: {
-    sku: 'RM400-BASE',
-    name: 'RangeMaster 400 — Base',
-    price: 49.99,
-    image: 'assets/img/rm400.jpg',
-    option: 'Base'
-  },
-  armor: {
-    sku: 'RM400-ARMOR',
-    name: 'RangeMaster 400 — Armor Core',
-    price: 59.99,
-    image: 'assets/img/rangemaster-armorcore-open-branded.PNG',
-    option: 'Armor Core Interior PolyShield'
-  },
-  battleguard: {
-    sku: 'RM400-BG',
-    name: 'RangeMaster 400 — Battle Guard',
-    price: 64.99,
-    image: 'assets/img/battleguard-main.PNG',
-    option: 'Battle Guard Exterior PolyShield'
-  }
-};
+    base: {
+      sku: 'RM400-BASE',
+      name: 'RangeMaster 400 Base',
+      price: 49.99,
+      image: 'assets/img/rm400.jpg',
+      option: 'Base'
+    },
+    armor: {
+      sku: 'RM400-ARMOR',
+      name: 'RangeMaster 400 Armor Core',
+      price: 59.99,
+      image: 'assets/img/rangemaster-armorcore-open-branded.PNG',
+      option: 'Armor Core Interior'
+    }
+  };
 
   let toastTimer;
 
@@ -809,7 +424,7 @@ html {
       price,
       meta: {
         package: pkg.option,
-        hardware: 'Black Toggle Latches',
+        hardware: 'Black Toggle Latch',
         image: pkg.image,
         url: 'https://freedomcrateco.com/rangemaster-400.html'
       }
@@ -930,13 +545,13 @@ html {
     showImage(currentIndex + 1);
   });
 
-  lb.addEventListener('click', (e) => {
+  lb.addEventListener('click', e => {
     if (e.target === lb) closeLB();
   });
 
   lbClose.addEventListener('click', closeLB);
 
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeLB();
 
     if (e.key === 'ArrowLeft') {
@@ -954,4 +569,3 @@ html {
 
 </body>
 </html>
-```
