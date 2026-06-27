@@ -225,8 +225,9 @@
 "FC-CLAYMORE-M18A1": {
   "status": "active",
   "title": "Claymore Storage Crate – M18A1 Style Military Box",
-  "price": 84.99,
+  "price": 79.99,
   "qty": 1,
+  "link": "claymore-m18a1-storage-crate.html",
 
  "image_url": "assets/img/claymore-m18a1-top-open-hero.JPG",
 
@@ -258,6 +259,7 @@
   "title": "Claymore Field Crate™ – Armor Core Edition",
   "price": 84.99,
   "qty": 3,
+  "link": "claymore-field-crate-armor-core.html",
 
   "image_url": "assets/img/claymore-m18a1-armor-interior.JPG",
 

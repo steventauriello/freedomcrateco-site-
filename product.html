@@ -234,6 +234,10 @@ if (!P) {
   window.location.replace('index.html');
   return;
 }
+if (P.link) {
+  window.location.replace(P.link);
+  return;
+}
     // DOM refs
     const hero    = document.getElementById('pd-hero');
     const thumbs  = document.getElementById('pd-thumbs');
