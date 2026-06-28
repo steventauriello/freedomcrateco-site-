@@ -3019,51 +3019,27 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   display: block;
   border-radius: 8px;
 }
-/* === Social media icon strip === */
 .social-strip{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:14px;
-  padding:8px 12px;
-  background:#080b0c;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  font-size:.9rem;
-  font-weight:700;
+  gap:12px;
+  padding:8px 16px;
+  background:#111;
+  border-bottom:1px solid #2a2a2a;
 }
 
 .social-strip span{
   color:#fff;
-}
-
-.social-strip a{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  margin:0 !important;
-  padding:0 !important;
+  font-weight:600;
 }
 
 .social-strip img{
-  width:24px;
-  height:24px;
-  display:block;
-  transition:transform .18s ease, opacity .18s ease;
+  width:22px;
+  height:22px;
+  transition:transform .2s ease;
 }
 
-.social-strip a:hover img{
-  transform:translateY(-2px) scale(1.08);
-  opacity:.9;
-}
-
-@media (max-width:640px){
-  .social-strip{
-    gap:10px;
-    flex-wrap:wrap;
-  }
-
-  .social-strip img{
-    width:22px;
-    height:22px;
-  }
+.social-strip img:hover{
+  transform:scale(1.15);
 }
