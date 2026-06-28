@@ -315,22 +315,38 @@ input::placeholder, textarea::placeholder { color: #999; font-size: 14px; }
 textarea { min-height: 140px; resize: vertical; }
 
 /* === Title Strip === */
-.site-title-strip { text-align: center; margin: 20px auto; }
-.site-title-strip h1 {
-  font-size: clamp(3.25rem, 6.5vw, 5.5rem);
-  font-weight: 900;
-  margin: 0 0 0.5rem 0;
-  font-family: "Black Ops One", system-ui, sans-serif;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  line-height: 1.05;
-}
-.site-title-strip p { font-size: 1.25rem; margin: 5px 0 0 0; font-weight: 400; }
-.site-title-strip .slogan {
-  font-family: 'Satisfy', cursive; font-size: 1.3rem; font-style: italic;
-  margin-top: 5px; color: #ffffff;
+.site-title-strip{
+  text-align:center;
+  margin:18px auto 22px;
+  padding:0 12px;
 }
 
+.site-title-strip h1{
+  font-size:clamp(1.75rem, 6.2vw, 3.6rem);
+  font-weight:900;
+  margin:0 0 .45rem 0;
+  font-family:"Black Ops One", system-ui, sans-serif;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  line-height:1.08;
+  max-width:900px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.site-title-strip p{
+  font-size:clamp(1rem, 3.5vw, 1.25rem);
+  margin:5px auto 0;
+  font-weight:400;
+}
+
+.site-title-strip .slogan{
+  font-family:'Satisfy', cursive;
+  font-size:1.3rem;
+  font-style:italic;
+  margin-top:5px;
+  color:#ffffff;
+}
 /* === Product Detail Page === */
 .product-detail { max-width: 900px; margin: 0 auto; padding: 20px; }
 .product-detail .product-hero { width: 100%; height: auto; border-radius: 8px; margin: 0 0 16px; }
