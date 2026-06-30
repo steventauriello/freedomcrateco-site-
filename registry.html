@@ -68,13 +68,16 @@
 }
 
     .registry-kicker {
-      margin: 0 0 8px;
-      color: #9be58d;
-      font-family: "Black Ops One", system-ui, sans-serif;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-      font-size: .9rem;
-    }
+  display: block;
+  width: 100%;
+  margin: 0 auto 8px;
+  color: #9be58d;
+  font-family: "Black Ops One", system-ui, sans-serif;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  font-size: .9rem;
+  text-align: center;
+}
 
     .registry-hero h1 {
       margin: 0;
@@ -143,18 +146,74 @@
       box-shadow: 0 0 0 3px rgba(46,204,113,.16);
     }
 
-    .verify-btn {
-      padding: 15px 22px;
-      font-size: 1rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      background: #2ecc71;
-      color: #061006;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
+.registry-prefix-box {
+  display: flex;
+  align-items: center;
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 275px;
+}
+
+.registry-prefix-box span {
+  padding: 15px 4px 15px 18px;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.digit-wrap {
+  position: relative;
+  width: 120px;
+}
+
+.digit-wrap input {
+  width: 120px !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.05rem;
+  letter-spacing: 13px;
+  padding: 15px 0 12px 8px !important;
+  outline: none;
+}
+
+.digit-lines {
+  position: absolute;
+  left: 8px;
+  bottom: 9px;
+  display: flex;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.digit-lines span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  padding: 0;
+  background: rgba(255,255,255,.75);
+}  
+
+     .verify-btn {
+  padding: 9px 14px;
+  font-size: .78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  background: #2ecc71;
+  color: #061006;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 42px;
+  align-self: center;
+  min-width: auto;
+}
 
     .verify-btn:hover {
       filter: brightness(1.08);
@@ -293,8 +352,8 @@
       }
 
       .verify-btn {
-        width: min(360px, 100%);
-      }
+  width: auto;
+}
     }
   </style>
 </head>
@@ -321,9 +380,19 @@
           </div>
 
           <div class="search-area">
-            <input id="registryInput" type="text" placeholder="ex:FC-1776-0002" autocomplete="off">
-            <button class="verify-btn" onclick="verifyCrate()">Verify Crate</button>
-          </div>
+  <div class="registry-prefix-box">
+    <span>FC-1776-</span>
+
+    <div class="digit-wrap">
+      <input id="registryInput" type="text" maxlength="4" inputmode="numeric" autocomplete="off">
+      <div class="digit-lines">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <button class="verify-btn" onclick="verifyCrate()">Verify Crate</button>
+</div>
 
           
 
@@ -449,11 +518,20 @@ This crate serves as the official archive piece that launched the Freedom Crateâ
     ];
 
     function verifyCrate() {
-      const input = document.getElementById("registryInput").value.trim().toUpperCase();
-      const crate = crates.find(c => c.registryNumber === input);
-
       const result = document.getElementById("result");
-      const notFound = document.getElementById("notFound");
+const notFound = document.getElementById("notFound");
+
+const lastFour = document.getElementById("registryInput").value.trim().replace(/\D/g, "");
+
+if (lastFour.length !== 4) {
+  result.style.display = "none";
+  notFound.style.display = "block";
+  notFound.textContent = "Please enter the full 4-digit registry number.";
+  return;
+}
+
+const input = "FC-1776-" + lastFour;
+const crate = crates.find(c => c.registryNumber === input);
 
       if (!crate) {
         result.style.display = "none";
