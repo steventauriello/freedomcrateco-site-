@@ -1055,6 +1055,74 @@
   </div>
 </section>
 
+<!-- Featured: Traditional Slide Top Ammo Crate -->
+<section class="featured-wrap" aria-label="Traditional Slide Top Ammo Crate">
+  <div class="featured-card" id="slide-top-card">
+
+    <div class="fc-media-col">
+      <div class="fc-media">
+        <a href="/traditional-slide-top-ammo-crate.html" id="stc-link">
+          <img id="stc-image"
+  src="assets/img/traditional-slide-top-feature-main.PNG"
+            alt="Traditional Slide Top Ammo Crate"
+            loading="lazy" decoding="async"
+            width="1200" height="800">
+        </a>
+      </div>
+    </div>
+
+    <div class="fc-controls">
+      <h2 class="stencil-text">
+        <a class="feature-link" href="/traditional-slide-top-ammo-crate.html">Traditional Slide Top Ammo Crate</a>
+      </h2>
+
+      <p class="fc-note">Classic slide-top wooden ammo crate with your choice of handles and interior protection.</p>
+
+      <label class="fc-field" for="stc-handles">
+        <span class="fc-label">Handles</span>
+        <div class="fc-select-wrap">
+          <select id="stc-handles" name="handles" class="fc-select">
+            <option value="NYLON" selected>Nylon webbing handles</option>
+            <option value="STEEL">Steel side folding handles</option>
+          </select>
+        </div>
+      </label>
+
+      <label class="fc-field" for="stc-interior">
+        <span class="fc-label">Interior</span>
+        <div class="fc-select-wrap">
+          <select id="stc-interior" name="interior" class="fc-select">
+            <option value="BASE" selected>Base interior</option>
+            <option value="ARMOR">Armor Core interior (+$5)</option>
+          </select>
+        </div>
+      </label>
+
+      <div class="fc-row">
+        <div class="price-row">
+          <strong>
+            Total:
+            <span id="stc-price" class="price" aria-live="polite">$74.99</span>
+            <span id="stc-sale" class="sale-badge" hidden>
+              <img src="assets/img/saletag.svg" alt="" class="sale-icon">
+              Sale
+            </span>
+          </strong>
+        </div>
+      </div>
+
+      <div class="fc-row">
+        <button id="stc-add" class="fc-btn btn add-to-cart" type="button">Add to Cart</button>
+        <button id="stc-buy" class="fc-btn btn" type="button">Buy Now</button>
+      </div>
+
+      <p class="fc-note">Free shipping. Traditional slide-top design with no latch hardware.</p>
+      <p class="fc-note">Armor Core = upgraded interior protection for added resistance against moisture, grit, oil, and wear.</p>
+    </div>
+
+  </div>
+</section>
+
     <!-- Featured: Caliber Collection -->
 <section class="featured-wrap" aria-label="Caliber Collection">
   <div class="featured-card" id="caliber-card">
@@ -1755,6 +1823,169 @@ window.addEventListener('fc:promo-updated', calcTotal);
   // Recalculate on sitewide promo changes only
   window.addEventListener('fc:promo-updated', updateView);
   // no coupon listener here
+})();
+</script>
+
+<script>
+/* --- Traditional Slide Top Ammo Crate: price/image swap + Add/Buy --- */
+(function(){
+  const card = document.getElementById('slide-top-card');
+  if (!card) return;
+
+  const STC_BASE_PRICE = 74.99;
+  const STC_ARMOR_UPCHARGE = 5;
+  const STC_HANDLE_UPCHARGE = {
+    NYLON: 0,
+    STEEL: 0
+  };
+
+  const STC_IMAGE_MAP = {
+  BASE: {
+    NYLON: 'assets/img/traditional-slide-top-interior-top.JPG',
+    STEEL: 'assets/img/traditional-slide-top-steel-side-angle.JPG'
+  },
+  ARMOR: {
+    NYLON: 'assets/img/traditional-slide-top-steel-angle.JPG',
+    STEEL: 'assets/img/traditional-slide-top-steel-main.JPG'
+  }
+};
+
+  const handlesEl  = card.querySelector('#stc-handles');
+  const interiorEl = card.querySelector('#stc-interior');
+  const priceEl    = card.querySelector('#stc-price');
+  const saleEl     = card.querySelector('#stc-sale');
+  const imgEl      = card.querySelector('#stc-image');
+  const addBtn     = card.querySelector('#stc-add');
+  const buyBtn     = card.querySelector('#stc-buy');
+
+  if (!handlesEl || !interiorEl || !priceEl || !imgEl) return;
+
+  const fmt = n => '$' + Number(n || 0).toFixed(2);
+
+  function getState(){
+    return {
+      handles: handlesEl.value,
+      interior: interiorEl.value
+    };
+  }
+
+  function getRawPrice(handles, interior){
+    const handleExtra = Number(STC_HANDLE_UPCHARGE[handles] || 0);
+    const armorExtra = interior === 'ARMOR' ? STC_ARMOR_UPCHARGE : 0;
+    return STC_BASE_PRICE + handleExtra + armorExtra;
+  }
+
+  function applySitewidePromo(raw){
+    const cfg = window.FC_PROMO || {};
+    const pct = Number(cfg.percentOff) || 0;
+    const hasHelper = typeof window.FC_isPromoActiveNow === 'function';
+    const active = hasHelper ? window.FC_isPromoActiveNow() : !!cfg.active;
+
+    if (!active || pct <= 0) return raw;
+
+    const discounted = raw * (1 - pct / 100);
+    return Math.round(discounted * 100) / 100;
+  }
+
+  function updateImage(){
+    const { handles, interior } = getState();
+    const next = STC_IMAGE_MAP[interior]?.[handles] || STC_IMAGE_MAP.BASE.NYLON;
+
+    const handleText = handlesEl.options[handlesEl.selectedIndex]?.text || 'Nylon webbing handles';
+    const interiorText = interiorEl.options[interiorEl.selectedIndex]?.text || 'Base interior';
+
+    const tmp = new Image();
+    tmp.onload = () => {
+      imgEl.src = next;
+      imgEl.alt = `Traditional Slide Top Ammo Crate — ${handleText} • ${interiorText}`;
+    };
+    tmp.src = next;
+  }
+
+  function updatePrice(){
+    const { handles, interior } = getState();
+    const raw = getRawPrice(handles, interior);
+    const final = applySitewidePromo(raw);
+
+    priceEl.textContent = fmt(final);
+
+    const hasHelper = typeof window.FC_isPromoActiveNow === 'function';
+    const promoOn = hasHelper ? window.FC_isPromoActiveNow() : !!(window.FC_PROMO && window.FC_PROMO.active);
+    const promoActive = promoOn && final < raw;
+
+    if (saleEl) {
+      saleEl.hidden = !promoActive;
+      if (promoActive && window.FC_PROMO?.label) {
+        saleEl.title = window.FC_PROMO.label;
+      } else {
+        saleEl.removeAttribute('title');
+      }
+    }
+  }
+
+  function updateView(){
+    updateImage();
+    updatePrice();
+  }
+
+  function buildSkuNamePrice(){
+    const { handles, interior } = getState();
+
+    const handleText = handlesEl.options[handlesEl.selectedIndex]?.text || 'Nylon webbing handles';
+    const interiorText = interiorEl.options[interiorEl.selectedIndex]?.text || 'Base interior';
+
+    const raw = getRawPrice(handles, interior);
+    const price = applySitewidePromo(raw);
+
+    return {
+      sku: `TST-${handles}-${interior}`,
+      name: `Traditional Slide Top Ammo Crate — ${handleText} • ${interiorText}`,
+      price
+    };
+  }
+
+  const addToCartSafe = (sku, name, price, qty, meta) =>
+    typeof window.addToCart === 'function'
+      ? window.addToCart(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
+
+  const buyNowSafe = (sku, name, price, qty, meta) =>
+    typeof window.buyNow === 'function'
+      ? window.buyNow(sku, name, price, qty, meta)
+      : console.warn('Cart not ready');
+
+  let stcUserInteracted = false;
+
+function activateConfiguredImage(){
+  stcUserInteracted = true;
+  updateView();
+}
+
+[handlesEl, interiorEl].forEach(el => {
+  el.addEventListener('change', activateConfiguredImage);
+  el.addEventListener('focus', activateConfiguredImage);
+  el.addEventListener('click', activateConfiguredImage);
+});
+
+  addBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuNamePrice();
+    addToCartSafe(sku, name, price, 1, { image: imgEl.src });
+  });
+
+  buyBtn.addEventListener('click', () => {
+    const { sku, name, price } = buildSkuNamePrice();
+    buyNowSafe(sku, name, price, 1, { image: imgEl.src });
+  });
+
+  Object.values(STC_IMAGE_MAP).forEach(byHandles => {
+    Object.values(byHandles).forEach(src => {
+      const im = new Image();
+      im.src = src;
+    });
+  });
+
+  updatePrice();
+  window.addEventListener('fc:promo-updated', updateView);
 })();
 </script>
 
