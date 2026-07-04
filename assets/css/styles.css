@@ -3043,3 +3043,35 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
 .social-strip img:hover{
   transform:scale(1.15);
 }
+/* Fix social strip text wrapping on mobile */
+.social-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.social-strip span {
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: clamp(1.1rem, 3.6vw, 1.4rem);
+}
+
+.social-strip a,
+.social-strip img {
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .social-strip {
+    gap: 9px;
+  }
+
+  .social-strip span {
+    font-size: 1.1rem;
+  }
+
+  .social-strip img {
+    width: 28px;
+    height: 28px;
+  }
+}
