@@ -3043,3 +3043,204 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
 .social-strip img:hover{
   transform:scale(1.15);
 }
+/* === Freedom News Footer — scoped only to new footer === */
+.fcc-footer .footer-social img {
+  width: 26px !important;
+  height: 26px !important;
+  max-width: 26px !important;
+  max-height: 26px !important;
+  object-fit: contain;
+}
+
+.fcc-footer .footer-social a {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* === Freedom Crate Co. Footer v2 === */
+.fcc-footer {
+  background:#111;
+  color:#fff;
+  padding:48px 20px 36px;
+}
+
+.fcc-footer-inner {
+  max-width:900px;
+  margin:0 auto;
+}
+
+.fcc-footer details {
+  border-bottom:1px solid rgba(255,255,255,.12);
+  padding:22px 0;
+}
+
+.fcc-footer summary {
+  list-style:none;
+  cursor:pointer;
+  font-size:1.55rem;
+  font-weight:800;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.fcc-footer summary::-webkit-details-marker {
+  display:none;
+}
+
+.fcc-footer summary::after {
+  content:"⌄";
+  font-size:1.5rem;
+}
+
+.fcc-footer details[open] summary::after {
+  content:"⌃";
+}
+
+.fcc-footer details a {
+  display:block;
+  color:#fff;
+  font-size:1.25rem;
+  margin:18px 0;
+  text-decoration:none;
+  opacity:.88;
+}
+
+.fcc-footer details a:hover {
+  color:var(--brand,#2ecc71);
+}
+
+.footer-newsletter {
+  margin-top:44px;
+}
+
+.footer-newsletter h2 {
+  font-size:1.65rem;
+  margin-bottom:12px;
+}
+
+.footer-newsletter p {
+  font-size:1.15rem;
+  color:rgba(255,255,255,.86);
+}
+
+.footer-news-form {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:28px 0 16px;
+}
+
+.footer-news-form input {
+  background:#fff;
+  color:#111;
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:16px 18px;
+  font-size:1.1rem;
+}
+
+.footer-news-form button {
+  background:#ffd400;
+  color:#000;
+  border:0;
+  border-radius:12px;
+  padding:16px 18px;
+  font-size:1.1rem;
+  font-weight:900;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+
+.footer-consent {
+  font-size:.95rem !important;
+  color:rgba(255,255,255,.65) !important;
+}
+
+.footer-social {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  margin:42px 0 34px;
+}
+
+.footer-social a {
+  width:44px;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.footer-social img {
+  width:34px !important;
+  height:34px !important;
+  max-width:34px !important;
+  max-height:34px !important;
+  object-fit:contain;
+  filter:brightness(0) invert(1);
+}
+
+.footer-payments {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:18px 26px;
+  margin:30px 0;
+  font-size:1.15rem;
+  font-weight:800;
+  color:#fff;
+}
+
+.footer-copy {
+  text-align:center;
+  color:rgba(255,255,255,.8);
+  margin-top:34px;
+}
+
+@media (max-width:640px) {
+  .fcc-footer {
+    padding:42px 26px 34px;
+  }
+
+  .footer-news-form {
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .footer-news-form input,
+  .footer-news-form button {
+    font-size:1rem;
+    padding:14px 12px;
+  }
+
+  .footer-social img {
+    width:32px !important;
+    height:32px !important;
+  }
+}
+/* Footer icon cleanup */
+.fcc-footer .footer-social {
+  justify-content: center;
+  gap: 58px;
+}
+
+.fcc-footer .footer-social a {
+  flex: 0 0 auto;
+}
+
+.fcc-footer .footer-social img {
+  background: transparent !important;
+}
+
+/* Fix X icon showing as a white box */
+.fcc-footer .footer-social a[aria-label="X"] img,
+.fcc-footer .footer-social img[src*="x-logo"] {
+  filter: none !important;
+  background: transparent !important;
+  width: 34px !important;
+  height: 34px !important;
+}

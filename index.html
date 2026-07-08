@@ -1352,45 +1352,67 @@
 <section id="products" class="grid" aria-live="polite"></section>
   </main>
 
- <footer class="site-footer">
-  <div class="container">
-   <span class="badge">Handcrafted in Florida • Built by hand, built to last</span>
-    <p class="muted">Rugged, practical, and made to be used.</p>
-    <p class="muted">
-      <a href="/giveaway.html" class="footer-link">🎖 Enter our Monthly Veteran Box Giveaway</a>
-    </p>
+ <footer class="site-footer fcc-footer">
+  <div class="fcc-footer-inner">
 
-    <hr class="footer-divider" />
+    <div class="footer-accordion">
 
-    <div class="footer-links">
+      <details>
+        <summary>Shop</summary>
+        <a href="/caliber-collection.html">Caliber Collection</a>
+        <a href="/rangemaster-400.html">RangeMaster 400</a>
+        <a href="/branch-collection.html">Branch Collection</a>
+        <a href="/gallery.html">Gallery</a>
+      </details>
 
-  <div class="footer-row">
-  <a href="/returns.html" class="footer-link-small">Returns</a>
-  <span class="footer-sep">•</span>
+      <details>
+        <summary>Support</summary>
+        <a href="/contact.html">Contact Us</a>
+        <a href="/returns.html">Returns</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/giveaway.html">Monthly Veteran Box Giveaway</a>
+      </details>
 
-  <a href="/terms.html" class="footer-link-small">Terms</a>
-  <span class="footer-sep">•</span>
+      <details>
+        <summary>Company</summary>
+        <a href="/about.html">About Us</a>
+        <a href="/reviews.html">Reviews</a>
+        <a href="/about.html#final-salute-project">Final Salute Project</a>
+        <a href="/engineering-notebook.html">Engineering Notebook</a>
+      </details>
 
-  <a href="/ammo-box.html" class="footer-link-small">Wood Ammo Boxes</a>
-  <span class="footer-sep">•</span>
+    </div>
 
-  <a href="/registry.html" class="footer-link-small">Registry</a>
-</div>
+    <section class="footer-newsletter">
+      <h2>Stay connected with Freedom Crate Co.</h2>
+      <p>Join Freedom News for weekly history, firearm heritage, ammunition history, shop updates, and exclusive releases.</p>
 
-  <div class="footer-row">
-    <a href="/returns.html" class="footer-link-small">Returns</a>
-    <span class="footer-sep">•</span>
-    <a href="/terms.html" class="footer-link-small">Terms</a>
-    <span class="footer-sep">•</span>
-    <a href="/ammo-box.html" class="footer-link-small">Wood Ammo Boxes</a>
-  </div>
+      <form id="freedom-news-form" class="footer-news-form">
+        <input type="email" name="email" id="freedom-news-email" placeholder="Email" autocomplete="email" required>
+        <button type="submit">Subscribe</button>
+      </form>
 
-</div>
+      <p id="freedom-news-message" class="footer-news-message" aria-live="polite"></p>
+      <p class="footer-consent">By subscribing, you’ll receive Freedom News and occasional product updates. You can unsubscribe at any time.</p>
+    </section>
 
+    <div class="footer-social">
+      <a href="https://www.instagram.com/freedomcrateco/" target="_blank" rel="noopener"><img src="/assets/img/icons/instagram.svg" alt="Instagram"></a>
+      <a href="https://www.facebook.com/profile.php?id=61581336384844" target="_blank" rel="noopener"><img src="/assets/img/icons/facebook.svg" alt="Facebook"></a>
+      <a href="https://www.youtube.com/@FreedomCrateCo" target="_blank" rel="noopener"><img src="/assets/img/icons/youtube.svg" alt="YouTube"></a>
+      <a href="https://x.com/freedomcrateco?s=11&t=xRPSCrj_u2kLVHB93y6s3w" target="_blank" rel="noopener"><img src="/assets/img/icons/x-logo.svg" alt="X"></a>
+      <a href="https://www.tiktok.com/@freedomcrateco" target="_blank" rel="noopener"><img src="/assets/img/icons/tiktok.svg" alt="TikTok"></a>
+    </div>
 
-    <p class="footer-copy">
-      © <span id="fc-year"></span> Freedom Crate Co. All rights reserved.
-    </p>
+    <div class="footer-payments">
+      <span>Apple Pay</span>
+      <span>PayPal</span>
+      <span>Visa</span>
+      <span>Mastercard</span>
+    </div>
+
+    <p class="footer-copy">© <span id="fc-year"></span> Freedom Crate Co.</p>
+
   </div>
 </footer>
 
@@ -1398,6 +1420,56 @@
   (function () {
     var y = document.getElementById('fc-year');
     if (y) y.textContent = new Date().getFullYear();
+  })();
+</script>
+
+<script>
+  (function () {
+    const form = document.getElementById('freedom-news-form');
+    const emailInput = document.getElementById('freedom-news-email');
+    const message = document.getElementById('freedom-news-message');
+
+    if (!form || !emailInput || !message) return;
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+
+      if (!email) {
+        message.textContent = 'Please enter your email address.';
+        message.className = 'footer-news-message error';
+        return;
+      }
+
+      message.textContent = 'Subscribing...';
+      message.className = 'footer-news-message';
+
+      try {
+        const res = await fetch('/.netlify/functions/fcc-newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            source: 'homepage-footer'
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || 'Subscription failed.');
+        }
+
+        message.textContent = 'Welcome to Freedom News. You’re subscribed.';
+        message.className = 'footer-news-message ok';
+        form.reset();
+      } catch (err) {
+        message.textContent = 'Something went wrong. Please try again.';
+        message.className = 'footer-news-message error';
+        console.error('[Freedom News signup]', err);
+      }
+    });
   })();
 </script>
 
