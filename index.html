@@ -1443,7 +1443,7 @@
       }
 
       message.textContent = 'Subscribing...';
-      message.className = 'footer-news-message';
+message.className = 'footer-news-message loading';
 
       try {
         const res = await fetch('/.netlify/functions/fcc-newsletter', {
@@ -1461,8 +1461,11 @@
           throw new Error(data.error || 'Subscription failed.');
         }
 
-        message.textContent = 'Welcome to Freedom News. You’re subscribed.';
-        message.className = 'footer-news-message ok';
+        message.innerHTML = `
+  <strong>You’re in. Welcome to Freedom News.</strong><br>
+  Thanks for joining us. Each issue is built around American history, firearm heritage, shop updates, and the kind of stories worth preserving.
+`;
+message.className = 'footer-news-message ok';
         form.reset();
       } catch (err) {
         message.textContent = 'Something went wrong. Please try again.';

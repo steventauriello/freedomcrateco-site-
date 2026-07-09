@@ -3244,3 +3244,44 @@ html, body { overflow-x: hidden !important; }  /* kill horizontal scroll */
   width: 34px !important;
   height: 34px !important;
 }
+/* === Freedom News signup confirmation === */
+.footer-news-message{
+  margin:.85rem auto 0;
+  max-width:520px;
+  min-height:1.4em;
+  font-size:.95rem;
+  line-height:1.45;
+  text-align:left;
+}
+
+.footer-news-message.ok{
+  padding:.9rem 1rem;
+  border:1px solid rgba(46,204,113,.45);
+  border-radius:12px;
+  background:
+    linear-gradient(180deg, rgba(46,204,113,.14), rgba(46,204,113,.06));
+  color:#d9ffd3;
+  box-shadow:0 10px 24px rgba(0,0,0,.22);
+}
+
+.footer-news-message.ok strong{
+  display:block;
+  margin-bottom:.2rem;
+  color:#9be58d;
+  font-size:1.05rem;
+  font-weight:900;
+  letter-spacing:.02em;
+}
+
+.footer-news-message.error{
+  padding:.8rem 1rem;
+  border:1px solid rgba(255,107,107,.45);
+  border-radius:12px;
+  background:rgba(255,107,107,.10);
+  color:#ffb3b3;
+}
+
+.footer-news-message.loading{
+  color:rgba(255,255,255,.78);
+  text-align:center;
+}
