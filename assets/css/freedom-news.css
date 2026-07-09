@@ -56,6 +56,33 @@ body {
   margin: 0;
 }
 
+/* ------------------------------
+   Simple Freedom News Header
+------------------------------ */
+
+.fn-simple-header {
+  padding: 1rem 1.25rem;
+  background: #050505;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fn-home-link {
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--fn-mono);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fn-home-link:hover,
+.fn-home-link:focus {
+  color: var(--fn-gold-soft);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .freedom-news-page {
   min-height: 100vh;
   color: var(--fn-ink);
