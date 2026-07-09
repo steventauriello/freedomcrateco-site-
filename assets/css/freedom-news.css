@@ -1,0 +1,1100 @@
+/* =========================================================
+   Freedom News — Publication Styling
+   File: /assets/css/freedom-news.css
+
+   Used for:
+   - /freedom-news.html
+   - /newsletters/freedom-news-issue-001.html
+   - future Freedom News editions
+
+   Goal:
+   Make Freedom News feel like its own rugged digital
+   newspaper / field journal, separate from the main store.
+========================================================= */
+
+
+/* ------------------------------
+   Freedom News Design System
+------------------------------ */
+
+:root {
+  --fn-black: #101010;
+  --fn-charcoal: #181818;
+  --fn-navy: #111827;
+  --fn-deep-navy: #0b1220;
+
+  --fn-paper: #f6ead2;
+  --fn-paper-light: #fff8e8;
+  --fn-paper-dark: #e3cfaa;
+
+  --fn-red: #8b1e1e;
+  --fn-red-bright: #b12a2a;
+
+  --fn-gold: #b8892f;
+  --fn-gold-soft: #d6b36a;
+
+  --fn-ink: #1d1b17;
+  --fn-muted: #6e6252;
+
+  --fn-border: rgba(89, 63, 28, 0.28);
+  --fn-border-dark: rgba(246, 234, 210, 0.2);
+
+  --fn-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
+  --fn-soft-shadow: 0 12px 34px rgba(0, 0, 0, 0.14);
+
+  --fn-serif: Georgia, "Times New Roman", Times, serif;
+  --fn-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --fn-mono: "Courier New", Courier, monospace;
+}
+
+
+/* ------------------------------
+   Page Reset / Wrapper
+------------------------------ */
+
+body {
+  margin: 0;
+}
+
+.freedom-news-page {
+  min-height: 100vh;
+  color: var(--fn-ink);
+  font-family: var(--fn-sans);
+  background:
+    radial-gradient(circle at top left, rgba(184, 137, 47, 0.16), transparent 30rem),
+    radial-gradient(circle at top right, rgba(139, 30, 30, 0.16), transparent 28rem),
+    linear-gradient(180deg, var(--fn-deep-navy) 0%, var(--fn-charcoal) 42%, var(--fn-paper) 42%, var(--fn-paper) 100%);
+  overflow-x: hidden;
+}
+
+.freedom-news-page * {
+  box-sizing: border-box;
+}
+
+.freedom-news-page a {
+  color: inherit;
+}
+
+
+/* ------------------------------
+   Shared Typography
+------------------------------ */
+
+.fn-kicker,
+.fn-label,
+.fn-card-kicker,
+.fn-issue-number {
+  font-family: var(--fn-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.fn-kicker,
+.fn-label,
+.fn-card-kicker {
+  color: var(--fn-gold-soft);
+}
+
+.fn-section-heading {
+  max-width: 850px;
+  margin: 0 auto 2.2rem;
+  text-align: center;
+}
+
+.fn-section-heading h2 {
+  font-family: var(--fn-serif);
+  font-size: clamp(2.1rem, 4vw, 3.5rem);
+  line-height: 1.02;
+  color: var(--fn-ink);
+  margin: 0 0 1rem;
+}
+
+.fn-section-heading p {
+  color: var(--fn-muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin: 0 auto;
+}
+
+
+/* ------------------------------
+   Hero
+------------------------------ */
+
+.fn-hero {
+  position: relative;
+  isolation: isolate;
+  padding: 5.5rem 1.25rem 4.5rem;
+  color: var(--fn-paper-light);
+  text-align: center;
+  overflow: hidden;
+}
+
+.fn-hero::before {
+  content: "FREEDOM NEWS";
+  position: absolute;
+  left: 50%;
+  top: 1.25rem;
+  transform: translateX(-50%);
+  z-index: -1;
+  white-space: nowrap;
+  font-family: var(--fn-serif);
+  font-size: clamp(4.5rem, 13vw, 13rem);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  color: rgba(255, 255, 255, 0.035);
+  pointer-events: none;
+}
+
+.fn-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(214, 179, 106, 0.8),
+    transparent
+  );
+}
+
+.fn-hero-inner {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.fn-hero .fn-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fn-gold-soft);
+  border: 1px solid rgba(214, 179, 106, 0.36);
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.fn-hero h1 {
+  font-family: var(--fn-serif);
+  font-size: clamp(4rem, 10vw, 8.5rem);
+  line-height: 0.85;
+  letter-spacing: -0.075em;
+  text-transform: uppercase;
+  margin: 1.3rem 0 0;
+  color: var(--fn-paper-light);
+}
+
+.fn-subtitle {
+  font-family: var(--fn-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--fn-gold-soft);
+  font-weight: 900;
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  margin: 1.25rem 0 1rem;
+}
+
+.fn-hero-copy {
+  max-width: 780px;
+  margin: 0 auto;
+  color: rgba(255, 248, 232, 0.86);
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.fn-hero-actions,
+.fn-latest-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.8rem;
+}
+
+
+/* ------------------------------
+   Buttons
+------------------------------ */
+
+.fn-btn,
+.fn-issue-card a,
+.fn-signup-form button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.82rem 1.3rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: var(--fn-mono);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.fn-btn:hover,
+.fn-issue-card a:hover,
+.fn-signup-form button:hover {
+  transform: translateY(-2px);
+}
+
+.fn-btn-primary,
+.fn-signup-form button {
+  background: var(--fn-red);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(139, 30, 30, 0.35);
+}
+
+.fn-btn-primary:hover,
+.fn-signup-form button:hover {
+  background: var(--fn-red-bright);
+}
+
+.fn-btn-secondary {
+  background: rgba(255, 248, 232, 0.06);
+  color: var(--fn-paper-light);
+  border-color: rgba(255, 248, 232, 0.38);
+}
+
+.fn-btn-secondary:hover {
+  border-color: var(--fn-gold-soft);
+  background: rgba(255, 248, 232, 0.12);
+}
+.fn-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+/* ------------------------------
+   Latest Edition Feature
+------------------------------ */
+
+.fn-latest-wrap {
+  padding: 0 1.25rem 4.5rem;
+}
+
+.fn-latest {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(290px, 0.75fr);
+  gap: 1.35rem;
+  align-items: stretch;
+}
+
+.fn-latest-main,
+.fn-latest-card {
+  border-radius: 30px;
+  box-shadow: var(--fn-shadow);
+}
+
+.fn-latest-main {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 232, 0.94), rgba(246, 234, 210, 0.98)),
+    var(--fn-paper-light);
+  border: 1px solid var(--fn-border);
+  padding: clamp(1.6rem, 4vw, 3.2rem);
+}
+
+.fn-latest-main::before {
+  content: "LATEST EDITION";
+  position: absolute;
+  right: -1.3rem;
+  top: 1.35rem;
+  transform: rotate(10deg);
+  font-family: var(--fn-mono);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: rgba(139, 30, 30, 0.62);
+  border: 2px solid rgba(139, 30, 30, 0.28);
+  border-radius: 6px;
+  padding: 0.45rem 1.4rem;
+}
+
+.fn-latest-main h2 {
+  font-family: var(--fn-serif);
+  font-size: clamp(2.3rem, 5vw, 4.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  margin: 0.25rem 0 0.65rem;
+  color: var(--fn-ink);
+}
+
+.fn-latest-main h3 {
+  font-family: var(--fn-serif);
+  color: var(--fn-red);
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+  margin: 1.25rem 0 0.8rem;
+}
+
+.fn-latest-main p {
+  color: var(--fn-ink);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.fn-latest-main .fn-issue-date {
+  color: var(--fn-muted);
+  font-family: var(--fn-mono);
+  font-weight: 800;
+}
+
+.fn-latest-main .fn-btn-secondary {
+  color: var(--fn-ink);
+  border-color: rgba(29, 27, 23, 0.25);
+  background: rgba(29, 27, 23, 0.03);
+}
+
+.fn-latest-main .fn-btn-secondary:hover {
+  border-color: var(--fn-gold);
+  background: rgba(29, 27, 23, 0.07);
+}
+
+.fn-latest-card {
+  background:
+    linear-gradient(180deg, rgba(11, 18, 32, 0.97), rgba(24, 24, 24, 0.97)),
+    var(--fn-deep-navy);
+  border: 1px solid var(--fn-border-dark);
+  padding: 2rem;
+  color: var(--fn-paper-light);
+}
+
+.fn-latest-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.fn-latest-card li {
+  border-top: 1px solid rgba(255, 248, 232, 0.13);
+  padding: 0.85rem 0;
+  line-height: 1.5;
+  color: rgba(255, 248, 232, 0.88);
+}
+
+.fn-latest-card li::before {
+  content: "★";
+  color: var(--fn-gold-soft);
+  margin-right: 0.5rem;
+}
+
+
+/* ------------------------------
+   Content Blocks
+------------------------------ */
+
+.fn-content-block,
+.fn-archive,
+.fn-signup {
+  padding: 4.5rem 1.25rem;
+}
+
+.fn-content-block {
+  background:
+    linear-gradient(180deg, var(--fn-paper) 0%, var(--fn-paper-light) 100%);
+}
+
+.fn-feature-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.fn-feature-card,
+.fn-issue-card {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 232, 0.95), rgba(246, 234, 210, 0.95)),
+    var(--fn-paper-light);
+  border: 1px solid var(--fn-border);
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: var(--fn-soft-shadow);
+}
+
+.fn-feature-card::after,
+.fn-issue-card::after {
+  content: "";
+  position: absolute;
+  inset: 0.7rem;
+  border: 1px solid rgba(89, 63, 28, 0.12);
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.fn-feature-card span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background: var(--fn-deep-navy);
+  color: var(--fn-gold-soft);
+  font-family: var(--fn-mono);
+  font-weight: 900;
+  font-size: 0.82rem;
+}
+
+.fn-feature-card h3,
+.fn-issue-card h3 {
+  font-family: var(--fn-serif);
+  color: var(--fn-red);
+  font-size: 1.45rem;
+  line-height: 1.1;
+  margin: 0 0 0.7rem;
+}
+
+.fn-feature-card p,
+.fn-issue-card p {
+  color: var(--fn-muted);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+
+/* ------------------------------
+   Archive
+------------------------------ */
+
+.fn-archive {
+  background:
+    radial-gradient(circle at top, rgba(184, 137, 47, 0.14), transparent 28rem),
+    var(--fn-paper);
+}
+
+.fn-archive-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.fn-issue-number {
+  color: var(--fn-gold);
+  margin: 0 0 0.7rem;
+}
+
+.fn-issue-card .fn-issue-date {
+  color: var(--fn-muted);
+  font-family: var(--fn-mono);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.fn-issue-card a {
+  position: relative;
+  z-index: 1;
+  margin-top: 1rem;
+  background: var(--fn-deep-navy);
+  color: #fff;
+}
+
+.fn-issue-card a:hover {
+  background: var(--fn-red);
+}
+
+
+/* ------------------------------
+   Subscribe
+------------------------------ */
+
+.fn-signup {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at center, rgba(184, 137, 47, 0.13), transparent 30rem),
+    linear-gradient(180deg, var(--fn-deep-navy), var(--fn-black));
+  color: var(--fn-paper-light);
+  text-align: center;
+  overflow: hidden;
+}
+
+.fn-signup::before {
+  content: "JOIN THE LIST";
+  position: absolute;
+  left: 50%;
+  top: 0.7rem;
+  transform: translateX(-50%);
+  z-index: -1;
+  white-space: nowrap;
+  font-family: var(--fn-serif);
+  font-size: clamp(4rem, 12vw, 11rem);
+  font-weight: 900;
+  letter-spacing: -0.07em;
+  color: rgba(255, 255, 255, 0.035);
+}
+
+.fn-signup-inner {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.fn-signup h2 {
+  font-family: var(--fn-serif);
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  margin: 0.4rem 0 1rem;
+}
+
+.fn-signup p {
+  color: rgba(255, 248, 232, 0.84);
+  line-height: 1.75;
+  font-size: 1.05rem;
+}
+
+.fn-signup-form {
+  display: flex;
+  max-width: 620px;
+  margin: 1.6rem auto 0;
+  gap: 0.75rem;
+}
+
+.fn-signup-form input {
+  flex: 1;
+  min-height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 248, 232, 0.34);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  padding: 0 1.1rem;
+  font-size: 1rem;
+}
+
+.fn-signup-form input::placeholder {
+  color: rgba(255, 248, 232, 0.62);
+}
+
+.fn-signup-form input:focus {
+  outline: none;
+  border-color: var(--fn-gold-soft);
+  box-shadow: 0 0 0 4px rgba(214, 179, 106, 0.18);
+}
+
+.footer-news-message {
+  margin-top: 1rem;
+  font-weight: 800;
+}
+
+.footer-news-message.ok {
+  color: #86efac;
+}
+
+.footer-news-message.error {
+  color: #fca5a5;
+}
+
+
+/* =========================================================
+   Individual Newsletter Edition Pages
+   Use these classes on:
+   /newsletters/freedom-news-issue-001.html
+========================================================= */
+
+.fn-issue-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(184, 137, 47, 0.16), transparent 30rem),
+    linear-gradient(180deg, var(--fn-deep-navy) 0%, var(--fn-charcoal) 34%, var(--fn-paper) 34%, var(--fn-paper) 100%);
+  color: var(--fn-ink);
+  font-family: var(--fn-sans);
+}
+
+.fn-issue-hero {
+  position: relative;
+  padding: 5rem 1.25rem 3.5rem;
+  text-align: center;
+  color: var(--fn-paper-light);
+  overflow: hidden;
+}
+
+.fn-issue-hero::before {
+  content: "FREEDOM NEWS";
+  position: absolute;
+  left: 50%;
+  top: 1rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--fn-serif);
+  font-size: clamp(4rem, 12vw, 12rem);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  color: rgba(255, 255, 255, 0.035);
+  pointer-events: none;
+}
+
+.fn-issue-hero-inner {
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.fn-issue-hero h1 {
+  font-family: var(--fn-serif);
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  margin: 0.8rem 0 1rem;
+}
+
+.fn-issue-hero p {
+  color: rgba(255, 248, 232, 0.84);
+  line-height: 1.75;
+  font-size: 1.07rem;
+}
+
+.fn-issue-hero-inner > p:not(.fn-issue-meta) {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.fn-issue-meta {
+  font-family: var(--fn-mono);
+  color: var(--fn-gold-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.fn-issue-body {
+  padding: 4rem 1.25rem;
+  background: var(--fn-paper);
+}
+
+.fn-article-block,
+.fn-callout,
+.fn-product-spotlight,
+.fn-quote-block,
+.fn-two-column,
+.fn-comparison-grid {
+  max-width: 980px;
+  margin: 0 auto 1.4rem;
+}
+
+.fn-article-block,
+.fn-callout,
+.fn-product-spotlight,
+.fn-quote-block,
+.fn-column-card,
+.fn-comparison-card {
+  background:
+    linear-gradient(180deg, rgba(255, 248, 232, 0.96), rgba(246, 234, 210, 0.96)),
+    var(--fn-paper-light);
+  border: 1px solid var(--fn-border);
+  border-radius: 26px;
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+  box-shadow: var(--fn-soft-shadow);
+}
+
+.fn-article-block h2,
+.fn-callout h2,
+.fn-product-spotlight h2 {
+  font-family: var(--fn-serif);
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  line-height: 1.03;
+  letter-spacing: -0.035em;
+  color: var(--fn-ink);
+  margin: 0 0 1rem;
+}
+
+.fn-article-block h3,
+.fn-product-spotlight h3,
+.fn-column-card h3,
+.fn-comparison-card h3 {
+  font-family: var(--fn-serif);
+  color: var(--fn-red);
+  font-size: 1.55rem;
+  margin: 1.4rem 0 0.65rem;
+}
+
+.fn-article-block p,
+.fn-callout p,
+.fn-product-spotlight p,
+.fn-column-card p,
+.fn-comparison-card p {
+  color: var(--fn-ink);
+  line-height: 1.85;
+  font-size: 1.06rem;
+}
+
+.fn-callout {
+  border-left: 8px solid var(--fn-red);
+}
+
+.fn-callout h2 {
+  color: var(--fn-red);
+}
+
+.fn-quote-block blockquote {
+  margin: 0;
+  font-family: var(--fn-serif);
+  font-size: clamp(1.45rem, 3vw, 2.25rem);
+  line-height: 1.35;
+  font-weight: 800;
+  color: var(--fn-ink);
+}
+
+.fn-quote-block cite {
+  display: block;
+  margin-top: 1rem;
+  color: var(--fn-muted);
+  font-family: var(--fn-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.82rem;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.fn-two-column,
+.fn-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.fn-product-spotlight {
+  border-top: 8px solid var(--fn-gold);
+}
+
+.fn-issue-nav {
+  max-width: 980px;
+  margin: 2.25rem auto 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.fn-issue-nav a {
+  flex: 1;
+  text-align: center;
+}
+
+.fn-issue-nav .fn-btn-secondary {
+  background: var(--fn-deep-navy);
+  color: var(--fn-paper-light);
+  border-color: var(--fn-deep-navy);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.fn-issue-nav .fn-btn-secondary:hover {
+  background: var(--fn-charcoal);
+  color: #fff;
+  border-color: var(--fn-gold);
+}
+
+.fn-fact-list {
+  margin: 1.2rem 0 0;
+  padding-left: 1.35rem;
+}
+
+.fn-fact-list li {
+  color: var(--fn-ink);
+  line-height: 1.8;
+  font-size: 1.04rem;
+  margin-bottom: 1rem;
+}
+
+.fn-fact-list strong {
+  color: var(--fn-red);
+}
+
+.fn-fact-list a {
+  color: var(--fn-red);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fn-fact-list a:hover {
+  color: var(--fn-red-bright);
+}
+.fn-article-block > a {
+  display: inline-flex;
+  margin-top: 0.75rem;
+  color: var(--fn-red);
+  font-family: var(--fn-mono);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.fn-article-block > a:hover {
+  color: var(--fn-red-bright);
+}
+
+/* ------------------------------
+   Mobile
+------------------------------ */
+
+@media (max-width: 980px) {
+  .fn-latest,
+  .fn-feature-grid,
+  .fn-archive-grid,
+  .fn-two-column,
+  .fn-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fn-feature-grid,
+  .fn-archive-grid {
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 640px) {
+  .fn-hero {
+    padding: 4.5rem 1rem 3.5rem;
+  }
+
+  .fn-hero h1 {
+    font-size: clamp(3.3rem, 18vw, 5rem);
+  }
+
+  .fn-hero-actions,
+  .fn-latest-actions,
+  .fn-signup-form,
+  .fn-issue-nav {
+    flex-direction: column;
+  }
+
+  .fn-btn,
+  .fn-issue-card a,
+  .fn-signup-form button {
+    width: 100%;
+  }
+
+  .fn-latest-main,
+  .fn-latest-card,
+  .fn-feature-card,
+  .fn-issue-card,
+  .fn-article-block,
+  .fn-callout,
+  .fn-product-spotlight,
+  .fn-quote-block,
+  .fn-column-card,
+  .fn-comparison-card {
+    border-radius: 20px;
+  }
+
+  .fn-latest-main::before {
+    display: none;
+  }
+
+  .fn-content-block,
+  .fn-archive,
+  .fn-signup,
+  .fn-issue-body {
+    padding: 3.25rem 1rem;
+  }
+}
+
+.fn-archive-grid {
+  justify-content: center;
+}
+
+.fn-archive-grid .fn-issue-card {
+  max-width: 420px;
+}
+/* ------------------------------
+   Newsletter Images
+------------------------------ */
+
+.fn-image-block {
+  max-width: 860px;
+  margin: 0 auto 1.4rem;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 232, 0.96), rgba(246, 234, 210, 0.96)),
+    var(--fn-paper-light);
+  border: 1px solid var(--fn-border);
+  border-radius: 26px;
+  padding: 0.85rem;
+  box-shadow: var(--fn-soft-shadow);
+}
+
+.fn-image-block img {
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 18px;
+  border: 1px solid rgba(89, 63, 28, 0.18);
+}
+
+.fn-image-block figcaption {
+  padding: 0.85rem 0.5rem 0.25rem;
+  color: var(--fn-muted);
+  font-family: var(--fn-mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.fn-image-grid {
+  max-width: 980px;
+  margin: 0 auto 1.4rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.fn-image-grid figure {
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 232, 0.96), rgba(246, 234, 210, 0.96)),
+    var(--fn-paper-light);
+  border: 1px solid var(--fn-border);
+  border-radius: 24px;
+  padding: 0.75rem;
+  box-shadow: var(--fn-soft-shadow);
+}
+
+.fn-image-grid img {
+  display: block;
+  width: 100%;
+  height: 320px;
+  object-fit: contain;
+  object-position: center;
+  background: var(--fn-paper);
+  border-radius: 16px;
+  border: 1px solid rgba(89, 63, 28, 0.18);
+}
+
+.fn-image-grid figcaption {
+  padding: 0.75rem 0.35rem 0.2rem;
+  color: var(--fn-muted);
+  font-family: var(--fn-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.fn-product-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.95fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.fn-product-layout figure {
+  margin: 0;
+}
+
+.fn-product-layout img {
+  display: block;
+  width: 100%;
+  max-height: 430px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 18px;
+  border: 1px solid rgba(89, 63, 28, 0.18);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+}
+.fn-spotlight-image-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+.fn-spotlight-image-pair figure {
+  margin: 0;
+}
+
+.fn-spotlight-image-pair img {
+  display: block;
+  width: 100%;
+  height: 240px;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid rgba(89, 63, 28, 0.18);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+}
+ 
+@media (max-width: 760px) {
+  .fn-image-grid,
+  .fn-product-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .fn-image-block {
+    max-width: 94%;
+    padding: 0.55rem;
+    margin-bottom: 1rem;
+  }
+
+  .fn-image-block img {
+    height: 240px;
+    max-height: 240px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 14px;
+  }
+
+  .fn-image-grid {
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .fn-image-grid figure {
+    padding: 0.55rem;
+  }
+
+  .fn-image-grid img {
+  height: 220px;
+  max-height: 220px;
+  object-fit: contain;
+  object-position: center;
+  background: var(--fn-paper);
+  border-radius: 14px;
+}
+
+  .fn-product-layout img {
+    height: 240px;
+    max-height: 240px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 14px;
+  }
+
+.fn-spotlight-image-pair img {
+  height: 220px;
+  border-radius: 14px;
+}
+  .fn-image-block figcaption,
+  .fn-image-grid figcaption {
+    font-size: 0.68rem;
+    padding-top: 0.55rem;
+  }
+}
