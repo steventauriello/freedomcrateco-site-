@@ -1,0 +1,257 @@
+/* =========================================
+   FREEDOM NEWS — ARTICLE PAGE
+========================================= */
+
+:root {
+  --fn-black: #0b0b0b;
+  --fn-charcoal: #171717;
+  --fn-text: #222222;
+  --fn-muted: #6b6b6b;
+  --fn-border: #dedede;
+  --fn-light: #f4f4f4;
+  --fn-white: #ffffff;
+  --fn-red: #c62828;
+  --fn-red-dark: #991f1f;
+  --fn-blue: #173d63;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #ececec;
+  color: var(--fn-text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.7;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Top navigation */
+
+.fn-simple-header {
+  background: var(--fn-black);
+  border-bottom: 3px solid var(--fn-red);
+  padding: 16px 24px;
+}
+
+.fn-home-link {
+  color: var(--fn-white);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.fn-home-link:hover {
+  color: #dddddd;
+  text-decoration: underline;
+}
+
+/* Main article container */
+
+.fn-article {
+  width: min(100% - 32px, 980px);
+  margin: 42px auto 70px;
+}
+
+.fn-article > article {
+  overflow: hidden;
+  background: var(--fn-white);
+  border: 1px solid var(--fn-border);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.09);
+}
+
+/* Article heading */
+
+.fn-article-header {
+  padding: 48px 56px 36px;
+}
+
+.fn-breadcrumb {
+  margin: 0 0 22px;
+  color: var(--fn-muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.fn-breadcrumb a {
+  color: var(--fn-blue);
+  text-decoration: none;
+}
+
+.fn-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.fn-category {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 7px 11px;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.fn-category.editorial {
+  background: var(--fn-red);
+  color: var(--fn-white);
+}
+
+.fn-article-header h1 {
+  max-width: 800px;
+  margin: 0;
+  color: var(--fn-black);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.3rem, 6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.fn-subheadline {
+  max-width: 800px;
+  margin: 24px 0 18px;
+  color: #494949;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+  line-height: 1.45;
+}
+
+.fn-meta {
+  color: var(--fn-muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+/* Hero image */
+
+.fn-hero-image {
+  margin: 0;
+  background: var(--fn-black);
+}
+
+.fn-hero-image {
+    max-width: 780px;
+    margin: 0 auto 50px;
+}
+
+.fn-hero-image img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+/* Article body */
+
+.fn-article-body {
+  max-width: 790px;
+  margin: 0 auto;
+  padding: 48px 56px 60px;
+}
+
+.fn-article-body p {
+  margin: 0 0 24px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.18rem;
+  line-height: 1.82;
+}
+
+.fn-article-body p:first-of-type:not(.fn-editorial-note)::first-letter {
+  float: left;
+  margin: 9px 9px 0 0;
+  color: var(--fn-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 0.72;
+}
+
+/* Editorial disclosure */
+
+.fn-editorial-note {
+  margin-bottom: 36px !important;
+  padding: 22px 24px;
+  background: var(--fn-light);
+  border-left: 5px solid var(--fn-red);
+  color: #383838;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 0.98rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Article footer */
+
+.fn-article-footer {
+  margin-top: 48px;
+  padding-top: 30px;
+  border-top: 1px solid var(--fn-border);
+}
+
+.fn-article-footer p {
+  margin-bottom: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+
+.fn-back-link {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 12px 18px;
+  background: var(--fn-black);
+  color: var(--fn-white);
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.fn-back-link:hover {
+  background: var(--fn-red-dark);
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+  body {
+    background: var(--fn-white);
+  }
+
+  .fn-simple-header {
+    padding: 14px 18px;
+  }
+
+  .fn-article {
+    width: 100%;
+    margin: 0;
+  }
+
+  .fn-article > article {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .fn-article-header {
+    padding: 34px 22px 28px;
+  }
+
+  .fn-article-header h1 {
+    font-size: clamp(2.15rem, 11vw, 3.2rem);
+  }
+
+  .fn-subheadline {
+    font-size: 1.12rem;
+  }
+
+  .fn-article-body {
+    padding: 34px 22px 50px;
+  }
+
+  .fn-article-body p {
+    font-size: 1.08rem;
+    line-height: 1.75;
+  }
+}
