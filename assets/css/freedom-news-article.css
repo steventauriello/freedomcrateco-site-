@@ -131,15 +131,10 @@ img {
 /* Hero image */
 
 .fn-hero-image {
-  margin: 0;
+  max-width: 780px;
+  margin: 0 auto 50px;
   background: var(--fn-black);
 }
-
-.fn-hero-image {
-    max-width: 780px;
-    margin: 0 auto 50px;
-}
-
 .fn-hero-image img {
     width: 100%;
     border-radius: 4px;
@@ -255,3 +250,4 @@ img {
     line-height: 1.75;
   }
 }
+.fn-category.editorial
