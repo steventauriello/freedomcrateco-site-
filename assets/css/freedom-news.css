@@ -2588,60 +2588,191 @@ body {
 
 /* ------------------------------
    Monthly Edition
+   Homepage / News Stack Only
 ------------------------------ */
 
 .fn-monthly-edition {
   padding: 4rem 1.25rem;
-  background: var(--fn-deep-navy);
-  color: var(--fn-paper-light);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(139, 30, 30, 0.2),
+      transparent 30rem
+    ),
+    linear-gradient(
+      135deg,
+      #17130e 0%,
+      #211b16 100%
+    );
+  color: #fff8e8;
+  border-top: 5px solid #8b1e1e;
+  border-bottom: 1px solid rgba(255, 248, 232, 0.18);
 }
 
 .fn-monthly-edition-inner {
-  max-width: 1000px;
+  width: min(1120px, 100%);
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
   gap: 2rem;
+  align-items: center;
 }
 
-.fn-monthly-copy h2,
-.fn-monthly-copy h3 {
-  font-family: var(--fn-serif);
+/* Left side */
+
+.fn-monthly-copy {
+  color: #fff8e8;
+}
+
+.fn-monthly-copy .fn-section-label {
+  margin: 0 0 0.65rem;
+  color: #d6b36a;
+  font-family: var(--fn-mono);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 
 .fn-monthly-copy h2 {
   margin: 0;
-  color: var(--fn-paper-light);
-  font-size: clamp(2.5rem, 5vw, 4.4rem);
+  color: #ffffff;
+  font-family: var(--fn-serif);
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-weight: 900;
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+}
+
+.fn-monthly-copy .fn-issue-date {
+  margin: 0.8rem 0 1rem;
+  color: #ead8b6;
+  font-family: var(--fn-mono);
+  font-size: 0.86rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .fn-monthly-copy h3 {
-  color: var(--fn-gold-soft);
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin: 0 0 0.8rem;
+  color: #d6b36a;
+  font-family: var(--fn-serif);
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  line-height: 1.1;
 }
 
-.fn-monthly-copy p {
-  color: rgba(255, 248, 232, 0.82);
+.fn-monthly-copy > p:not(.fn-section-label):not(.fn-issue-date) {
+  max-width: 680px;
+  margin: 0;
+  color: rgba(255, 248, 232, 0.92);
+  font-size: 1rem;
   line-height: 1.7;
 }
 
+/* Read Issue button */
+
+.fn-monthly-copy .fn-btn.fn-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 1.4rem;
+  padding: 0.8rem 1.35rem;
+
+  background: #a12727;
+  color: #ffffff;
+
+  border: 2px solid #cf5555;
+  border-radius: 4px;
+
+  box-shadow: 0 10px 28px rgba(139, 30, 30, 0.45);
+
+  font-family: var(--fn-mono);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  opacity: 1;
+  visibility: visible;
+}
+
+.fn-monthly-copy .fn-btn.fn-btn-primary:visited {
+  color: #ffffff;
+}
+
+.fn-monthly-copy .fn-btn.fn-btn-primary:hover,
+.fn-monthly-copy .fn-btn.fn-btn-primary:focus {
+  background: #c12e2e;
+  color: #ffffff;
+  border-color: #ef8585;
+  transform: translateY(-2px);
+}
+
+/* Right-side issue list */
+
 .fn-monthly-list {
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 248, 232, 0.18);
-  border-radius: 18px;
+  padding: 1.65rem;
+  background: rgba(255, 248, 232, 0.09);
+  color: #fff8e8;
+  border: 1px solid rgba(255, 248, 232, 0.32);
+  border-radius: 8px;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.22);
+}
+
+.fn-monthly-list .fn-card-kicker {
+  margin: 0 0 1rem;
+  color: #d6b36a;
+  font-family: var(--fn-mono);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .fn-monthly-list ul {
-  margin: 1rem 0 0;
-  padding-left: 1.2rem;
+  margin: 0;
+  padding-left: 1.25rem;
 }
 
 .fn-monthly-list li {
-  margin-bottom: 0.8rem;
-  color: rgba(255, 248, 232, 0.86);
+  margin: 0;
+  padding: 0.55rem 0;
+  color: rgba(255, 248, 232, 0.95);
+  font-size: 0.95rem;
+  line-height: 1.45;
 }
 
+.fn-monthly-list li::marker {
+  color: #d6b36a;
+}
+
+/* Monthly Edition mobile layout */
+
+@media (max-width: 760px) {
+  .fn-monthly-edition {
+    padding: 2.5rem 0.85rem;
+  }
+
+  .fn-monthly-edition-inner {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .fn-monthly-copy h2 {
+    font-size: clamp(2.3rem, 13vw, 3.3rem);
+  }
+
+  .fn-monthly-copy .fn-btn.fn-btn-primary {
+    width: 100%;
+  }
+
+  .fn-monthly-list {
+    padding: 1.3rem;
+  }
+}
 /* ------------------------------
    Homepage Mobile
 ------------------------------ */
