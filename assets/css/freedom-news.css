@@ -5334,3 +5334,111 @@ body {
     0 0 0 1px rgba(198, 40, 40, 0.3),
     0 12px 34px rgba(198, 40, 40, 0.7) !important;
 }
+/* =========================================================
+   ORIGINAL HEADLINE WITH SMALL THUMBNAIL
+========================================================= */
+
+.fn-headline-original.fn-headline-with-thumb {
+  display: grid;
+  grid-template-columns: 118px 105px minmax(0, 1fr);
+  column-gap: 0.9rem;
+  align-items: center;
+  margin: 0;
+  padding: 0.9rem 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #17130e;
+  box-shadow: none;
+}
+
+/* Keep the ORIGINAL badge in the first column */
+.fn-headline-original.fn-headline-with-thumb::before {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  margin: 0;
+}
+
+/* Small article image */
+.fn-headline-with-thumb .fn-headline-thumb {
+  grid-column: 2;
+  grid-row: 1;
+  display: block;
+  width: 105px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(23, 19, 14, 0.25);
+  text-decoration: none;
+}
+
+.fn-headline-with-thumb .fn-headline-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Headline text area */
+.fn-headline-with-thumb .fn-headline-copy {
+  grid-column: 3;
+  grid-row: 1;
+  min-width: 0;
+}
+
+/* Reset the normal original-story grid positions */
+.fn-headline-with-thumb .fn-headline-source,
+.fn-headline-with-thumb h3,
+.fn-headline-with-thumb .fn-headline-summary {
+  grid-column: auto;
+}
+
+.fn-headline-with-thumb .fn-headline-source {
+  margin: 0 0 0.15rem;
+}
+
+.fn-headline-with-thumb h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.06;
+}
+
+.fn-headline-with-thumb .fn-headline-summary {
+  margin: 0.22rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.38;
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+  .fn-headline-original.fn-headline-with-thumb {
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 0.65rem 0.8rem;
+    align-items: start;
+  }
+
+  .fn-headline-original.fn-headline-with-thumb::before {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: start;
+  }
+
+  .fn-headline-with-thumb .fn-headline-thumb {
+    grid-column: 1;
+    grid-row: 2;
+    width: 82px;
+  }
+
+  .fn-headline-with-thumb .fn-headline-copy {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .fn-headline-with-thumb h3 {
+    font-size: 1.08rem;
+  }
+
+  .fn-headline-with-thumb .fn-headline-summary {
+    display: none;
+  }
+}
