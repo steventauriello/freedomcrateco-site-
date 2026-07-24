@@ -41,6 +41,7 @@
     }
   });
 })();
+
 // ---- Maintenance mode (banner + disabled checkout) ----
 (function maintenanceMode(){
   const ON = false;               // <-- flip to false to turn OFF
@@ -75,33 +76,54 @@
   }
 })();
 
-// Add the official registry link to the homepage footer only.
-(function addHomepageRegistryLink() {
-  function addLink() {
+// Homepage-only navigation cleanup and footer links.
+(function updateHomepageNavigation() {
+  function updateNavigation() {
     const path = location.pathname.replace(/\/+$/, '') || '/';
     const isHomepage = path === '/' || path === '/index.html';
     if (!isHomepage) return;
 
+    const nav = document.getElementById('primaryNav');
+    if (nav) {
+      const removeHrefs = [
+        '/about.html',
+        '/rd-materials-coatings-engineering.html',
+        '/about.html#final-salute-project'
+      ];
+
+      nav.querySelectorAll('a').forEach(link => {
+        if (removeHrefs.includes(link.getAttribute('href') || '')) {
+          link.remove();
+        }
+      });
+    }
+
     const companySection = Array.from(document.querySelectorAll('.fcc-footer .footer-accordion details'))
       .find(section => section.querySelector('summary')?.textContent.trim() === 'Company');
 
-    if (!companySection || companySection.querySelector('a[href="/registry.html"]')) return;
+    if (!companySection) return;
 
-    const link = document.createElement('a');
-    link.href = '/registry.html';
-    link.textContent = 'Official Crate Registry';
+    const footerLinks = [
+      { href: '/about.html', label: 'About Us' },
+      { href: '/reviews.html', label: 'Reviews' },
+      { href: '/registry.html', label: 'Official Crate Registry' },
+      { href: '/about.html#final-salute-project', label: 'Final Salute Project' },
+      { href: '/rd-materials-coatings-engineering.html', label: 'R&D' },
+      { href: '/engineering-notebook.html', label: 'Engineering Notebook' }
+    ];
 
-    const reviewsLink = companySection.querySelector('a[href="/reviews.html"]');
-    if (reviewsLink) {
-      reviewsLink.insertAdjacentElement('afterend', link);
-    } else {
+    footerLinks.forEach(item => {
+      if (companySection.querySelector(`a[href="${item.href}"]`)) return;
+      const link = document.createElement('a');
+      link.href = item.href;
+      link.textContent = item.label;
       companySection.appendChild(link);
-    }
+    });
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addLink);
+    document.addEventListener('DOMContentLoaded', updateNavigation);
   } else {
-    addLink();
+    updateNavigation();
   }
 })();
