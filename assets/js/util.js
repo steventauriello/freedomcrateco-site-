@@ -67,46 +67,71 @@
   }
 })();
 
-// Homepage-only navigation cleanup and footer organization.
+// Homepage-only navigation cleanup and footer links.
 (function updateHomepageNavigation() {
-  function normalizeLink(link) {
+  function isHomepage() {
+    const path = location.pathname.replace(/\/+$/, '') || '/';
+    return path === '/' || path === '/index.html';
+  }
+
+  function normalizePath(href) {
     try {
-      const url = new URL(link.href, location.origin);
+      const url = new URL(href, location.origin);
       return url.pathname.replace(/\/+$/, '') + url.hash;
-    } catch (error) {
-      return (link.getAttribute('href') || '').replace(/^\.?\//, '/');
+    } catch (_) {
+      return String(href || '').trim();
     }
   }
 
-  function updateNavigation() {
-    const path = location.pathname.replace(/\/+$/, '') || '/';
-    const isHomepage = path === '/' || path === '/index.html';
-    if (!isHomepage) return;
+  function removeSecondaryHeaderLinks() {
+    if (!isHomepage()) return;
+
+    // CSS fallback guarantees these links stay hidden even if another script
+    // rebuilds the header after this script runs.
+    if (!document.getElementById('fcc-home-nav-cleanup')) {
+      const style = document.createElement('style');
+      style.id = 'fcc-home-nav-cleanup';
+      style.textContent = `
+        body.homepage-clean-nav #primaryNav a[href$="about.html"],
+        body.homepage-clean-nav #primaryNav a[href*="rd-materials-coatings-engineering.html"],
+        body.homepage-clean-nav #primaryNav a[href*="about.html#final-salute-project"],
+        body.homepage-clean-nav #primaryNav .nav-cta a:not(.btn) {
+          display: none !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    document.body.classList.add('homepage-clean-nav');
 
     const nav = document.getElementById('primaryNav');
-    if (nav) {
-      const removeTargets = new Set([
-        '/about.html',
-        '/rd-materials-coatings-engineering.html',
-        '/about.html#final-salute-project'
-      ]);
+    if (!nav) return;
 
-      nav.querySelectorAll('a').forEach(link => {
-        if (removeTargets.has(normalizeLink(link))) {
-          link.remove();
-        }
-      });
+    nav.querySelectorAll('a').forEach(link => {
+      const path = normalizePath(link.getAttribute('href'));
+      const label = (link.textContent || '').trim().toLowerCase();
 
-      const navCta = nav.querySelector('.nav-cta');
-      if (navCta && navCta.children.length === 0) {
-        navCta.remove();
-      }
-    }
+      const shouldRemove =
+        path === '/about.html' ||
+        path === '/rd-materials-coatings-engineering.html' ||
+        path === '/about.html#final-salute-project' ||
+        label === 'about' ||
+        label === 'r&d' ||
+        label === 'final salute project';
+
+      if (shouldRemove) link.remove();
+    });
+  }
+
+  function rebuildCompanyFooter() {
+    if (!isHomepage()) return;
 
     const companySection = Array.from(document.querySelectorAll('.fcc-footer .footer-accordion details'))
       .find(section => section.querySelector('summary')?.textContent.trim() === 'Company');
 
     if (!companySection) return;
+
+    companySection.querySelectorAll('a').forEach(link => link.remove());
 
     const footerLinks = [
       { href: '/about.html', label: 'About Us' },
@@ -117,8 +142,6 @@
       { href: '/engineering-notebook.html', label: 'Engineering Notebook' }
     ];
 
-    companySection.querySelectorAll('a').forEach(link => link.remove());
-
     footerLinks.forEach(item => {
       const link = document.createElement('a');
       link.href = item.href;
@@ -127,9 +150,18 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateNavigation);
-  } else {
-    updateNavigation();
+  function applyChanges() {
+    removeSecondaryHeaderLinks();
+    rebuildCompanyFooter();
   }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyChanges);
+  } else {
+    applyChanges();
+  }
+
+  // Run once more after deferred page scripts finish in case they rebuild the nav.
+  window.addEventListener('load', removeSecondaryHeaderLinks, { once: true });
+  setTimeout(removeSecondaryHeaderLinks, 500);
 })();
