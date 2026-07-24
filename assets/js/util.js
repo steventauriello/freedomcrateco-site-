@@ -15,25 +15,20 @@
   }
 })();
 
-
 // Auto-set active nav link based on current page
 (function () {
-  // Normalize current page (handle "/" + query + hash)
   let here = location.pathname.split('/').pop() || 'index.html';
   here = here.toLowerCase();
 
-  // Map certain pages to an existing tab
   const alias = { 'product.html': 'index.html' };
   if (alias[here]) here = alias[here];
 
   document.querySelectorAll('.nav a').forEach(a => {
-    // Normalize target href (strip path, query, hash)
     const href = (a.getAttribute('href') || '').split('/').pop();
     const target = href.split('?')[0].split('#')[0].toLowerCase();
-
     const isActive = target === here;
-    a.classList.toggle('active', isActive);
 
+    a.classList.toggle('active', isActive);
     if (isActive) {
       a.setAttribute('aria-current', 'page');
     } else {
@@ -44,15 +39,12 @@
 
 // ---- Maintenance mode (banner + disabled checkout) ----
 (function maintenanceMode(){
-  const ON = false;               // <-- flip to false to turn OFF
-
+  const ON = false;
   if (!ON) return;
 
   function activate(){
-    // add class so CSS dims/disables buy buttons & checkout link
     document.body.classList.add('maintenance');
 
-    // inject the red banner at the top of the header
     const header = document.querySelector('.site-header');
     if (header && !header.querySelector('.maint-banner')) {
       const div = document.createElement('div');
@@ -62,7 +54,6 @@
       header.prepend(div);
     }
 
-    // extra guard: neuter any checkout links
     document.querySelectorAll('a[href*="checkout.html"]').forEach(a=>{
       a.setAttribute('aria-disabled','true');
       a.addEventListener('click', e => e.preventDefault());
@@ -76,8 +67,17 @@
   }
 })();
 
-// Homepage-only navigation cleanup and footer links.
+// Homepage-only navigation cleanup and footer organization.
 (function updateHomepageNavigation() {
+  function normalizeLink(link) {
+    try {
+      const url = new URL(link.href, location.origin);
+      return url.pathname.replace(/\/+$/, '') + url.hash;
+    } catch (error) {
+      return (link.getAttribute('href') || '').replace(/^\.?\//, '/');
+    }
+  }
+
   function updateNavigation() {
     const path = location.pathname.replace(/\/+$/, '') || '/';
     const isHomepage = path === '/' || path === '/index.html';
@@ -85,17 +85,22 @@
 
     const nav = document.getElementById('primaryNav');
     if (nav) {
-      const removeHrefs = [
+      const removeTargets = new Set([
         '/about.html',
         '/rd-materials-coatings-engineering.html',
         '/about.html#final-salute-project'
-      ];
+      ]);
 
       nav.querySelectorAll('a').forEach(link => {
-        if (removeHrefs.includes(link.getAttribute('href') || '')) {
+        if (removeTargets.has(normalizeLink(link))) {
           link.remove();
         }
       });
+
+      const navCta = nav.querySelector('.nav-cta');
+      if (navCta && navCta.children.length === 0) {
+        navCta.remove();
+      }
     }
 
     const companySection = Array.from(document.querySelectorAll('.fcc-footer .footer-accordion details'))
@@ -112,8 +117,9 @@
       { href: '/engineering-notebook.html', label: 'Engineering Notebook' }
     ];
 
+    companySection.querySelectorAll('a').forEach(link => link.remove());
+
     footerLinks.forEach(item => {
-      if (companySection.querySelector(`a[href="${item.href}"]`)) return;
       const link = document.createElement('a');
       link.href = item.href;
       link.textContent = item.label;
