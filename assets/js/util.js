@@ -74,3 +74,34 @@
     activate();
   }
 })();
+
+// Add the official registry link to the homepage footer only.
+(function addHomepageRegistryLink() {
+  function addLink() {
+    const path = location.pathname.replace(/\/+$/, '') || '/';
+    const isHomepage = path === '/' || path === '/index.html';
+    if (!isHomepage) return;
+
+    const companySection = Array.from(document.querySelectorAll('.fcc-footer .footer-accordion details'))
+      .find(section => section.querySelector('summary')?.textContent.trim() === 'Company');
+
+    if (!companySection || companySection.querySelector('a[href="/registry.html"]')) return;
+
+    const link = document.createElement('a');
+    link.href = '/registry.html';
+    link.textContent = 'Official Crate Registry';
+
+    const reviewsLink = companySection.querySelector('a[href="/reviews.html"]');
+    if (reviewsLink) {
+      reviewsLink.insertAdjacentElement('afterend', link);
+    } else {
+      companySection.appendChild(link);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addLink);
+  } else {
+    addLink();
+  }
+})();
